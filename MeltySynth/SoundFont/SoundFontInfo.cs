@@ -1,0 +1,99 @@
+﻿using System;
+using System.IO;
+
+namespace MeltySynth.SoundFont
+{
+    public sealed class SoundFontInfo
+    {
+        private SoundFontVersion version = SoundFontVersion.Empty;
+        private string targetSoundEngine = string.Empty;
+        private string bankName = string.Empty;
+        private string romName = string.Empty;
+        private SoundFontVersion romVersion = SoundFontVersion.Empty;
+        private string creationDate = string.Empty;
+        private string author = string.Empty;
+        private string targetProduct = string.Empty;
+        private string copyright = string.Empty;
+        private string comments = string.Empty;
+        private string tools = string.Empty;
+
+        internal SoundFontInfo(BinaryReader reader)
+        {
+            var chunkId = reader.ReadAsciiString(4);
+            if (chunkId != "LIST")
+            {
+                throw new InvalidDataException("The LIST chunk was not found.");
+            }
+
+            var end = reader.BaseStream.Position + reader.ReadInt32();
+
+            var listType = reader.ReadAsciiString(4);
+            if (listType != "INFO")
+            {
+                throw new InvalidDataException($"The type of the LIST chunk must be 'INFO', but was '{listType}'.");
+            }
+
+            while (reader.BaseStream.Position < end)
+            {
+                var id = reader.ReadAsciiString(4);
+                var size = reader.ReadInt32();
+
+                switch (id)
+                {
+                    case "ifil":
+                        version = new SoundFontVersion(reader.ReadInt16(), reader.ReadInt16());
+                        break;
+                    case "isng":
+                        targetSoundEngine = reader.ReadAsciiString(size);
+                        break;
+                    case "INAM":
+                        bankName = reader.ReadAsciiString(size);
+                        break;
+                    case "irom":
+                        romName = reader.ReadAsciiString(size);
+                        break;
+                    case "iver":
+                        romVersion = new SoundFontVersion(reader.ReadInt16(), reader.ReadInt16());
+                        break;
+                    case "ICRD":
+                        creationDate = reader.ReadAsciiString(size);
+                        break;
+                    case "IENG":
+                        author = reader.ReadAsciiString(size);
+                        break;
+                    case "IPRD":
+                        targetProduct = reader.ReadAsciiString(size);
+                        break;
+                    case "ICOP":
+                        copyright = reader.ReadAsciiString(size);
+                        break;
+                    case "ICMT":
+                        comments = reader.ReadAsciiString(size);
+                        break;
+                    case "ISFT":
+                        tools = reader.ReadAsciiString(size);
+                        break;
+                    default:
+                        throw new InvalidDataException($"The INFO list contains an unknown ID '{id}'.");
+                }
+            }
+        }
+
+        public override string ToString()
+        {
+            return bankName;
+        }
+
+        public SoundFontVersion Version => version;
+        public string TargetSoundEngine => targetSoundEngine;
+        public string BankName => bankName;
+        public string RomName => romName;
+        public SoundFontVersion RomVersion => romVersion;
+        public string CeationDate => creationDate;
+        public string Author => author;
+        public string TargetProduct => targetProduct;
+        public string Copyright => copyright;
+        public string Comments => comments;
+        public string Tools => tools;
+    }
+}
