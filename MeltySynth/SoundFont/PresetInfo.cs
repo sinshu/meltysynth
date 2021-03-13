@@ -33,7 +33,7 @@ namespace MeltySynth.SoundFont
             for (var i = 0; i < count; i++)
             {
                 var preset = new PresetInfo();
-                preset.name = reader.ReadAsciiString(20);
+                preset.name = reader.ReadFixedLengthString(20);
                 preset.patchNumber = reader.ReadUInt16();
                 preset.bankNumber = reader.ReadUInt16();
                 preset.zoneStartIndex = reader.ReadUInt16();

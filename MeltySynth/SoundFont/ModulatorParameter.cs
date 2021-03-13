@@ -6,18 +6,18 @@ namespace MeltySynth.SoundFont
 {
     public sealed class ModulatorParameter
     {
-        private ModulatorType sourceModulationData;
-        private GeneratorType destinationGenerator;
+        private ModulatorParameterType sourceModulationData;
+        private GeneratorParameterType destinationGenerator;
         private short amount;
-        private ModulatorType sourceModulationAmount;
+        private ModulatorParameterType sourceModulationAmount;
         private TransformType sourceTransform;
 
         private ModulatorParameter(BinaryReader reader)
         {
-            sourceModulationData = new ModulatorType(reader);
-            destinationGenerator = (GeneratorType)reader.ReadUInt16();
+            sourceModulationData = new ModulatorParameterType(reader);
+            destinationGenerator = (GeneratorParameterType)reader.ReadUInt16();
             amount = reader.ReadInt16();
-            sourceModulationAmount = new ModulatorType(reader);
+            sourceModulationAmount = new ModulatorParameterType(reader);
             sourceTransform = (TransformType)reader.ReadUInt16();
         }
 
@@ -43,13 +43,13 @@ namespace MeltySynth.SoundFont
 
         public override string ToString()
         {
-            return "(" + sourceModulationData.ControllerSource + ", " + destinationGenerator + ", " + amount + ")";
+            return $"Source: {sourceModulationData.ControllerSource}, Destination: {destinationGenerator}, Amount: {amount}";
         }
 
-        public ModulatorType SourceModulationData => sourceModulationData;
-        public GeneratorType DestinationGenerator => destinationGenerator;
+        public ModulatorParameterType SourceModulationData => sourceModulationData;
+        public GeneratorParameterType DestinationGenerator => destinationGenerator;
         public short Amount => amount;
-        public ModulatorType SourceModulationAmount => sourceModulationAmount;
+        public ModulatorParameterType SourceModulationAmount => sourceModulationAmount;
         public TransformType SourceTransform => sourceTransform;
     }
 }

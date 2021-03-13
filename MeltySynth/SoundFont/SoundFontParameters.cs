@@ -12,7 +12,7 @@ namespace MeltySynth.SoundFont
 
         internal SoundFontParameters(BinaryReader reader)
         {
-            var chunkId = reader.ReadAsciiString(4);
+            var chunkId = reader.ReadFixedLengthString(4);
             if (chunkId != "LIST")
             {
                 throw new InvalidDataException("The LIST chunk was not found.");
@@ -20,7 +20,7 @@ namespace MeltySynth.SoundFont
 
             var end = reader.BaseStream.Position + reader.ReadInt32();
 
-            var listType = reader.ReadAsciiString(4);
+            var listType = reader.ReadFixedLengthString(4);
             if (listType != "pdta")
             {
                 throw new InvalidDataException($"The type of the LIST chunk must be 'pdta', but was '{listType}'.");
@@ -30,7 +30,6 @@ namespace MeltySynth.SoundFont
             IReadOnlyList<ZoneInfo> presetBag = null;
             IReadOnlyList<ModulatorParameter> presetModulators = null;
             IReadOnlyList<GeneratorParameter> presetGenerators = null;
-
             IReadOnlyList<InstrumentInfo> instrumentInfos = null;
             IReadOnlyList<ZoneInfo> instrumentBag = null;
             IReadOnlyList<ModulatorParameter> instrumentModulators = null;
@@ -38,7 +37,7 @@ namespace MeltySynth.SoundFont
 
             while (reader.BaseStream.Position < end)
             {
-                var id = reader.ReadAsciiString(4);
+                var id = reader.ReadFixedLengthString(4);
                 var size = reader.ReadInt32();
 
                 switch (id)
@@ -87,9 +86,23 @@ namespace MeltySynth.SoundFont
 
             var presetZones = Zone.Create(presetBag, presetModulators, presetGenerators);
             presets = Preset.Create(presetInfos, presetZones);
+            foreach (var preset in presets)
+            {
+                if (preset.Zones.Count == 0)
+                {
+                    throw new InvalidDataException($"The preset '{preset.Name}' has no zone.");
+                }
+            }
 
             var instrumentZones = Zone.Create(instrumentBag, instrumentModulators, instrumentGenerators);
             instruments = Instrument.Create(instrumentInfos, instrumentZones);
+            foreach (var instrument in instruments)
+            {
+                if (instrument.Zones.Count == 0)
+                {
+                    throw new InvalidDataException($"The instrument '{instrument.Name}' has no zone.");
+                }
+            }
         }
 
         public IReadOnlyList<SampleHeader> SampleHeaders => sampleHeaders;

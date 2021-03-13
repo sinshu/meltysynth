@@ -28,7 +28,7 @@ namespace MeltySynth.SoundFont
             for (var i = 0; i < count; i++)
             {
                 var instrument = new InstrumentInfo();
-                instrument.name = reader.ReadAsciiString(20);
+                instrument.name = reader.ReadFixedLengthString(20);
                 instrument.zoneStartIndex = reader.ReadUInt16();
 
                 instruments.Add(instrument);

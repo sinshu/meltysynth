@@ -6,12 +6,12 @@ namespace MeltySynth.SoundFont
 {
     public sealed class GeneratorParameter
     {
-        private GeneratorType type;
+        private GeneratorParameterType type;
         private ushort value;
 
         private GeneratorParameter(BinaryReader reader)
         {
-            type = (GeneratorType)reader.ReadUInt16();
+            type = (GeneratorParameterType)reader.ReadUInt16();
             value = reader.ReadUInt16();
         }
 
@@ -37,10 +37,10 @@ namespace MeltySynth.SoundFont
 
         public override string ToString()
         {
-            return "(" + type + ", 0x" + value.ToString("X4") + ")";
+            return $"Type: {type}, Value: {value}";
         }
 
-        public GeneratorType Type => type;
+        public GeneratorParameterType Type => type;
         public ushort Value => value;
     }
 }

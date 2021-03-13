@@ -19,7 +19,7 @@ namespace MeltySynth.SoundFont
 
         internal SoundFontInfo(BinaryReader reader)
         {
-            var chunkId = reader.ReadAsciiString(4);
+            var chunkId = reader.ReadFixedLengthString(4);
             if (chunkId != "LIST")
             {
                 throw new InvalidDataException("The LIST chunk was not found.");
@@ -27,7 +27,7 @@ namespace MeltySynth.SoundFont
 
             var end = reader.BaseStream.Position + reader.ReadInt32();
 
-            var listType = reader.ReadAsciiString(4);
+            var listType = reader.ReadFixedLengthString(4);
             if (listType != "INFO")
             {
                 throw new InvalidDataException($"The type of the LIST chunk must be 'INFO', but was '{listType}'.");
@@ -35,7 +35,7 @@ namespace MeltySynth.SoundFont
 
             while (reader.BaseStream.Position < end)
             {
-                var id = reader.ReadAsciiString(4);
+                var id = reader.ReadFixedLengthString(4);
                 var size = reader.ReadInt32();
 
                 switch (id)
@@ -44,34 +44,34 @@ namespace MeltySynth.SoundFont
                         version = new SoundFontVersion(reader.ReadInt16(), reader.ReadInt16());
                         break;
                     case "isng":
-                        targetSoundEngine = reader.ReadAsciiString(size);
+                        targetSoundEngine = reader.ReadFixedLengthString(size);
                         break;
                     case "INAM":
-                        bankName = reader.ReadAsciiString(size);
+                        bankName = reader.ReadFixedLengthString(size);
                         break;
                     case "irom":
-                        romName = reader.ReadAsciiString(size);
+                        romName = reader.ReadFixedLengthString(size);
                         break;
                     case "iver":
                         romVersion = new SoundFontVersion(reader.ReadInt16(), reader.ReadInt16());
                         break;
                     case "ICRD":
-                        creationDate = reader.ReadAsciiString(size);
+                        creationDate = reader.ReadFixedLengthString(size);
                         break;
                     case "IENG":
-                        author = reader.ReadAsciiString(size);
+                        author = reader.ReadFixedLengthString(size);
                         break;
                     case "IPRD":
-                        targetProduct = reader.ReadAsciiString(size);
+                        targetProduct = reader.ReadFixedLengthString(size);
                         break;
                     case "ICOP":
-                        copyright = reader.ReadAsciiString(size);
+                        copyright = reader.ReadFixedLengthString(size);
                         break;
                     case "ICMT":
-                        comments = reader.ReadAsciiString(size);
+                        comments = reader.ReadFixedLengthString(size);
                         break;
                     case "ISFT":
-                        tools = reader.ReadAsciiString(size);
+                        tools = reader.ReadFixedLengthString(size);
                         break;
                     default:
                         throw new InvalidDataException($"The INFO list contains an unknown ID '{id}'.");

@@ -17,7 +17,7 @@ namespace MeltySynth.SoundFont
 
         public override string ToString()
         {
-            return major + "." + minor;
+            return $"{major}.{minor}";
         }
 
         public short Major => major;

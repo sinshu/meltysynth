@@ -3,7 +3,7 @@ using System.IO;
 
 namespace MeltySynth.SoundFont
 {
-    public sealed class ModulatorType
+    public sealed class ModulatorParameterType
     {
         private CurveType curveType;
         private CurvePolarity polarity;
@@ -11,7 +11,7 @@ namespace MeltySynth.SoundFont
         private bool isMidiContinuousController;
         private ushort controllerSource;
 
-        internal ModulatorType(BinaryReader reader)
+        internal ModulatorParameterType(BinaryReader reader)
         {
             var value = reader.ReadUInt16();
 
@@ -42,7 +42,7 @@ namespace MeltySynth.SoundFont
 
         public override string ToString()
         {
-            return "(" + curveType + ", " + polarity + ", " + direction + ", " + controllerSource + ")";
+            return $"Curve: ({curveType}, {polarity}, {direction}), Source: {controllerSource}";
         }
 
         public CurveType CurveType => curveType;

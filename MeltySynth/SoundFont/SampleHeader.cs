@@ -7,11 +7,11 @@ namespace MeltySynth.SoundFont
     public sealed class SampleHeader
     {
         private string name;
-        private uint start;
-        private uint end;
-        private uint loopStart;
-        private uint loopEnd;
-        private uint sampleRate;
+        private int start;
+        private int end;
+        private int loopStart;
+        private int loopEnd;
+        private int sampleRate;
         private byte originalPitch;
         private sbyte pitchCorrection;
         private ushort link;
@@ -19,12 +19,12 @@ namespace MeltySynth.SoundFont
 
         private SampleHeader(BinaryReader reader)
         {
-            name = reader.ReadAsciiString(20);
-            start = reader.ReadUInt32();
-            end = reader.ReadUInt32();
-            loopStart = reader.ReadUInt32();
-            loopEnd = reader.ReadUInt32();
-            sampleRate = reader.ReadUInt32();
+            name = reader.ReadFixedLengthString(20);
+            start = reader.ReadInt32();
+            end = reader.ReadInt32();
+            loopStart = reader.ReadInt32();
+            loopEnd = reader.ReadInt32();
+            sampleRate = reader.ReadInt32();
             originalPitch = reader.ReadByte();
             pitchCorrection = reader.ReadSByte();
             link = reader.ReadUInt16();
@@ -57,11 +57,11 @@ namespace MeltySynth.SoundFont
         }
 
         public string Name => name;
-        public uint Start => start;
-        public uint End => end;
-        public uint LoopStart => loopStart;
-        public uint LoopEnd => loopEnd;
-        public uint SampleRate => sampleRate;
+        public int Start => start;
+        public int End => end;
+        public int LoopStart => loopStart;
+        public int LoopEnd => loopEnd;
+        public int SampleRate => sampleRate;
         public byte OriginalPitch => originalPitch;
         public sbyte PitchCorrection => pitchCorrection;
         public ushort Link => link;

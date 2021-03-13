@@ -11,7 +11,7 @@ namespace MeltySynth.SoundFont
 
         internal SoundFontSampleData(BinaryReader reader)
         {
-            var chunkId = reader.ReadAsciiString(4);
+            var chunkId = reader.ReadFixedLengthString(4);
             if (chunkId != "LIST")
             {
                 throw new InvalidDataException("The LIST chunk was not found.");
@@ -19,7 +19,7 @@ namespace MeltySynth.SoundFont
 
             var end = reader.BaseStream.Position + reader.ReadInt32();
 
-            var listType = reader.ReadAsciiString(4);
+            var listType = reader.ReadFixedLengthString(4);
             if (listType != "sdta")
             {
                 throw new InvalidDataException($"The type of the LIST chunk must be 'sdta', but was '{listType}'.");
@@ -27,7 +27,7 @@ namespace MeltySynth.SoundFont
 
             while (reader.BaseStream.Position < end)
             {
-                var id = reader.ReadAsciiString(4);
+                var id = reader.ReadFixedLengthString(4);
                 var size = reader.ReadInt32();
 
                 switch (id)
@@ -54,7 +54,7 @@ namespace MeltySynth.SoundFont
 
         public override string ToString()
         {
-            return bitsPerSample + " bit, " + samples.Length + " samples";
+            return $"{bitsPerSample} bit, {samples.Length} samples";
         }
 
         public int BitsPerSample => bitsPerSample;

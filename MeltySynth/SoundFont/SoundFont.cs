@@ -28,7 +28,7 @@ namespace MeltySynth.SoundFont
         {
             using (var reader = new BinaryReader(stream, Encoding.ASCII, true))
             {
-                var chunkId = reader.ReadAsciiString(4);
+                var chunkId = reader.ReadFixedLengthString(4);
                 if (chunkId != "RIFF")
                 {
                     throw new InvalidDataException("The RIFF chunk was not found.");
@@ -36,7 +36,7 @@ namespace MeltySynth.SoundFont
 
                 var size = reader.ReadInt32();
 
-                var formType = reader.ReadAsciiString(4);
+                var formType = reader.ReadFixedLengthString(4);
                 if (formType != "sfbk")
                 {
                     throw new InvalidDataException($"The type of the RIFF chunk must be 'sfbk', but was '{formType}'.");

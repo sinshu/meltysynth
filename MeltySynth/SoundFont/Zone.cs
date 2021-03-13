@@ -6,14 +6,14 @@ namespace MeltySynth.SoundFont
 {
     public sealed class Zone
     {
-        private ModulatorParameter[] modulators;
-        private GeneratorParameter[] generators;
+        private ModulatorParameter[] modulatorParameters;
+        private GeneratorParameter[] generatorParameters;
 
         private Zone()
         {
         }
 
-        internal static IReadOnlyList<Zone> Create(IReadOnlyList<ZoneInfo> infos, IReadOnlyList<ModulatorParameter> modulators, IReadOnlyList<GeneratorParameter> generators)
+        internal static IReadOnlyList<Zone> Create(IReadOnlyList<ZoneInfo> infos, IReadOnlyList<ModulatorParameter> mps, IReadOnlyList<GeneratorParameter> gps)
         {
             var zones = new Zone[infos.Count];
 
@@ -22,15 +22,15 @@ namespace MeltySynth.SoundFont
                 var info = infos[i];
 
                 var zone = new Zone();
-                zone.generators = new GeneratorParameter[info.GeneratorCount];
-                for (var j = 0; j < zone.generators.Length; j++)
+                zone.generatorParameters = new GeneratorParameter[info.GeneratorCount];
+                for (var j = 0; j < zone.generatorParameters.Length; j++)
                 {
-                    zone.generators[j] = generators[info.GeneratorIndex + j];
+                    zone.generatorParameters[j] = gps[info.GeneratorIndex + j];
                 }
-                zone.modulators = new ModulatorParameter[info.ModulatorCount];
-                for (var j = 0; j < zone.modulators.Length; j++)
+                zone.modulatorParameters = new ModulatorParameter[info.ModulatorCount];
+                for (var j = 0; j < zone.modulatorParameters.Length; j++)
                 {
-                    zone.modulators[j] = modulators[info.ModulatorIndex + j];
+                    zone.modulatorParameters[j] = mps[info.ModulatorIndex + j];
                 }
 
                 zones[i] = zone;
@@ -41,10 +41,10 @@ namespace MeltySynth.SoundFont
 
         public override string ToString()
         {
-            return modulators.Length + " modulators, " + generators.Length + "generators";
+            return $"Modulator: {modulatorParameters.Length}, Generator: {generatorParameters.Length}";
         }
 
-        public IReadOnlyList<ModulatorParameter> Modulators => modulators;
-        public IReadOnlyList<GeneratorParameter> Generators => generators;
+        public IReadOnlyList<ModulatorParameter> ModulatorParameters => modulatorParameters;
+        public IReadOnlyList<GeneratorParameter> GeneratorParameters => generatorParameters;
     }
 }

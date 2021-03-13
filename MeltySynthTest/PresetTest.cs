@@ -37,16 +37,16 @@ namespace MeltySynthTest
 
         private void AreEqual(NAudio.SoundFont.Zone expected, MeltySynth.SoundFont.Zone actual)
         {
-            Assert.AreEqual(expected.Modulators.Length, actual.Modulators.Count);
+            Assert.AreEqual(expected.Modulators.Length, actual.ModulatorParameters.Count);
             for (var i = 0; i < expected.Modulators.Length; i++)
             {
-                AreEqual(expected.Modulators[i], actual.Modulators[i]);
+                AreEqual(expected.Modulators[i], actual.ModulatorParameters[i]);
             }
 
-            Assert.AreEqual(expected.Generators.Length, actual.Generators.Count);
+            Assert.AreEqual(expected.Generators.Length, actual.GeneratorParameters.Count);
             for (var i = 0; i < expected.Generators.Length; i++)
             {
-                AreEqual(expected.Generators[i], actual.Generators[i]);
+                AreEqual(expected.Generators[i], actual.GeneratorParameters[i]);
             }
         }
 
@@ -59,7 +59,7 @@ namespace MeltySynthTest
             Assert.AreEqual((int)expected.SourceTransform, (int)actual.SourceTransform);
         }
 
-        private void AreEqual(NAudio.SoundFont.ModulatorType expected, MeltySynth.SoundFont.ModulatorType actual)
+        private void AreEqual(NAudio.SoundFont.ModulatorType expected, MeltySynth.SoundFont.ModulatorParameterType actual)
         {
             // NAudio haven't yet implemented ModulatorType.
         }

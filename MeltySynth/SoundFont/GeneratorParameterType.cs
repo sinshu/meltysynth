@@ -2,7 +2,7 @@
 
 namespace MeltySynth.SoundFont
 {
-    public enum GeneratorType
+    public enum GeneratorParameterType
     {
         StartAddressOffset = 0,
         EndAddressOffset = 1,
