@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace MeltySynth.SoundFont
+namespace MeltySynth
 {
-    public enum CurveDirection
+    internal enum CurveDirection
     {
         MinToMax,
         MaxToMin

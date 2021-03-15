@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 
-namespace MeltySynth.SoundFont
+namespace MeltySynth
 {
     internal sealed class InstrumentInfo
     {
@@ -14,7 +13,7 @@ namespace MeltySynth.SoundFont
         {
         }
 
-        internal static IReadOnlyList<InstrumentInfo> ReadFromChunk(BinaryReader reader, int size)
+        internal static InstrumentInfo[] ReadFromChunk(BinaryReader reader, int size)
         {
             if (size % 22 != 0)
             {
@@ -23,7 +22,7 @@ namespace MeltySynth.SoundFont
 
             var count = size / 22;
 
-            var instruments = new List<InstrumentInfo>(count);
+            var instruments = new InstrumentInfo[count];
 
             for (var i = 0; i < count; i++)
             {
@@ -31,7 +30,7 @@ namespace MeltySynth.SoundFont
                 instrument.name = reader.ReadFixedLengthString(20);
                 instrument.zoneStartIndex = reader.ReadUInt16();
 
-                instruments.Add(instrument);
+                instruments[i] = instrument;
             }
 
             for (var i = 0; i < count - 1; i++)
@@ -39,14 +38,11 @@ namespace MeltySynth.SoundFont
                 instruments[i].zoneEndIndex = instruments[i + 1].zoneStartIndex - 1;
             }
 
-            // The last one is the terminator.
-            instruments.RemoveAt(count - 1);
-
             return instruments;
         }
 
-        public string Name => name;
-        public int ZoneStartIndex => zoneStartIndex;
-        public int ZoneEndIndex => zoneEndIndex;
+        internal string Name => name;
+        internal int ZoneStartIndex => zoneStartIndex;
+        internal int ZoneEndIndex => zoneEndIndex;
     }
 }

@@ -2,30 +2,24 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using MeltySynth.SoundFont;
-using MeltySynth.Synthesis;
+using MeltySynth;
 
 public static class DumpInfo
 {
-    public static void DumpInstruments(SoundFont sf, string directory)
+    public static void DumpInstruments(SoundFont soundFont, string directory)
     {
-        foreach (var instrument in sf.Instruments)
+        foreach (var instrument in soundFont.Instruments)
         {
             Console.WriteLine(instrument.Name);
 
-            var regions = Patch
-                .GetRegions(instrument)
-                .OrderBy(x => x.KeyRangeStart)
-                .ThenBy(x => sf.SampleHeaders[x.SampleID].Name)
-                .ToArray();
+            var regions = instrument.Regions;
 
             var path = Path.Combine(directory, instrument.Name.Replace('/', ' ') + ".csv");
             using (var writer = new StreamWriter(path))
             {
                 foreach (var region in regions)
                 {
-                    var sample = sf.SampleHeaders[region.SampleID];
-                    writer.Write("," + sample.Name);
+                    writer.Write("," + region.Sample.Name);
                 }
                 writer.WriteLine();
 
@@ -67,7 +61,7 @@ public static class DumpInfo
                 writer.Write("Sample root key");
                 foreach (var region in regions)
                 {
-                    writer.Write("," + sf.SampleHeaders[region.SampleID].OriginalPitch);
+                    writer.Write("," + region.Sample.OriginalPitch);
                 }
                 writer.WriteLine();
 

@@ -13,7 +13,7 @@ namespace MeltySynthTest
         public void ReadTest(string path)
         {
             var expected = new NAudio.SoundFont.SoundFont(path).SampleHeaders;
-            var actual = new MeltySynth.SoundFont.SoundFont(path).SampleHeaders;
+            var actual = new MeltySynth.SoundFont(path).SampleHeaders;
 
             Assert.AreEqual(expected.Length, actual.Count);
 
@@ -23,13 +23,13 @@ namespace MeltySynthTest
             }
         }
 
-        private void AreEqual(NAudio.SoundFont.SampleHeader expected, MeltySynth.SoundFont.SampleHeader actual)
+        private void AreEqual(NAudio.SoundFont.SampleHeader expected, MeltySynth.SampleHeader actual)
         {
             Assert.AreEqual(expected.SampleName, actual.Name);
             Assert.AreEqual(expected.Start, actual.Start);
             Assert.AreEqual(expected.End, actual.End);
-            Assert.AreEqual(expected.StartLoop, actual.LoopStart);
-            Assert.AreEqual(expected.EndLoop, actual.LoopEnd);
+            Assert.AreEqual(expected.StartLoop, actual.StartLoop);
+            Assert.AreEqual(expected.EndLoop, actual.EndLoop);
             Assert.AreEqual(expected.SampleRate, actual.SampleRate);
             Assert.AreEqual(expected.OriginalPitch, actual.OriginalPitch);
             Assert.AreEqual(expected.PitchCorrection, actual.PitchCorrection);

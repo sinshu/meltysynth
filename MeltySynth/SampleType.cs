@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MeltySynth.SoundFont
+namespace MeltySynth
 {
     public enum SampleType
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace MeltySynth.SoundFont
+namespace MeltySynth
 {
     public sealed class Preset
     {
@@ -12,9 +12,9 @@ namespace MeltySynth.SoundFont
         private int library;
         private int genre;
         private int morphology;
-        private Zone[] zones;
+        private PresetRegion[] regions;
 
-        private Preset(PresetInfo info, IReadOnlyList<Zone> zones)
+        private Preset(PresetInfo info, Zone[] allZones, Instrument[] instruments)
         {
             this.name = info.Name;
             this.patchNumber = info.PatchNumber;
@@ -23,20 +23,29 @@ namespace MeltySynth.SoundFont
             this.genre = info.Genre;
             this.morphology = info.Morphology;
 
-            this.zones = new Zone[info.ZoneEndIndex - info.ZoneStartIndex + 1];
-            for (var i = 0; i < this.zones.Length; i++)
+            var zoneCount = info.ZoneEndIndex - info.ZoneStartIndex + 1;
+            if (zoneCount <= 0)
             {
-                this.zones[i] = zones[info.ZoneStartIndex + i];
+                throw new InvalidDataException($"The preset '{info.Name}' has no zone.");
             }
+
+            var zones = new Zone[zoneCount];
+            for (var i = 0; i < zones.Length; i++)
+            {
+                zones[i] = allZones[info.ZoneStartIndex + i];
+            }
+
+            regions = PresetRegion.Create(this, zones, instruments);
         }
 
-        internal static IReadOnlyList<Preset> Create(IReadOnlyList<PresetInfo> infos, IReadOnlyList<Zone> zones)
+        internal static Preset[] Create(PresetInfo[] infos, Zone[] allZones, Instrument[] instruments)
         {
-            var presets = new Preset[infos.Count];
+            // The last one is the terminator.
+            var presets = new Preset[infos.Length - 1];
 
             for (var i = 0; i < presets.Length; i++)
             {
-                presets[i] = new Preset(infos[i], zones);
+                presets[i] = new Preset(infos[i], allZones, instruments);
             }
 
             return presets;
@@ -53,6 +62,6 @@ namespace MeltySynth.SoundFont
         public int Library => library;
         public int Genre => genre;
         public int Morphology => morphology;
-        public IReadOnlyList<Zone> Zones => zones;
+        public IReadOnlyList<PresetRegion> Regions => regions;
     }
 }

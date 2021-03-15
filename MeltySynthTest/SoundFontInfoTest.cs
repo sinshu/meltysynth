@@ -12,7 +12,7 @@ namespace MeltySynthTest
         public void ReadTest(string path)
         {
             var expected = new NAudio.SoundFont.SoundFont(path).FileInfo;
-            var actual = new MeltySynth.SoundFont.SoundFont(path).Info;
+            var actual = new MeltySynth.SoundFont(path).Info;
 
             AreEqual(expected.SoundFontVersion, actual.Version);
             AreEqual(expected.WaveTableSoundEngine, actual.TargetSoundEngine);
@@ -39,7 +39,7 @@ namespace MeltySynthTest
             }
         }
 
-        private void AreEqual(NAudio.SoundFont.SFVersion expected, MeltySynth.SoundFont.SoundFontVersion actual)
+        private void AreEqual(NAudio.SoundFont.SFVersion expected, MeltySynth.SoundFontVersion actual)
         {
             if (expected == null)
             {

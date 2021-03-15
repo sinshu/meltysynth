@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace MeltySynth.SoundFont
+namespace MeltySynth
 {
-    public enum GeneratorParameterType
+    internal enum GeneratorParameterType
     {
         StartAddressOffset = 0,
         EndAddressOffset = 1,

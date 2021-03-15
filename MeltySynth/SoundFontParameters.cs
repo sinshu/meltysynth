@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 
-namespace MeltySynth.SoundFont
+namespace MeltySynth
 {
     internal sealed class SoundFontParameters
     {
-        private IReadOnlyList<SampleHeader> sampleHeaders;
-        private IReadOnlyList<Preset> presets;
-        private IReadOnlyList<Instrument> instruments;
+        private SampleHeader[] sampleHeaders;
+        private Preset[] presets;
+        private Instrument[] instruments;
 
         internal SoundFontParameters(BinaryReader reader)
         {
@@ -26,14 +25,14 @@ namespace MeltySynth.SoundFont
                 throw new InvalidDataException($"The type of the LIST chunk must be 'pdta', but was '{listType}'.");
             }
 
-            IReadOnlyList<PresetInfo> presetInfos = null;
-            IReadOnlyList<ZoneInfo> presetBag = null;
-            IReadOnlyList<ModulatorParameter> presetModulators = null;
-            IReadOnlyList<GeneratorParameter> presetGenerators = null;
-            IReadOnlyList<InstrumentInfo> instrumentInfos = null;
-            IReadOnlyList<ZoneInfo> instrumentBag = null;
-            IReadOnlyList<ModulatorParameter> instrumentModulators = null;
-            IReadOnlyList<GeneratorParameter> instrumentGenerators = null;
+            PresetInfo[] presetInfos = null;
+            ZoneInfo[] presetBag = null;
+            ModulatorParameter[] presetModulators = null;
+            GeneratorParameter[] presetGenerators = null;
+            InstrumentInfo[] instrumentInfos = null;
+            ZoneInfo[] instrumentBag = null;
+            ModulatorParameter[] instrumentModulators = null;
+            GeneratorParameter[] instrumentGenerators = null;
 
             while (reader.BaseStream.Position < end)
             {
@@ -84,29 +83,15 @@ namespace MeltySynth.SoundFont
             if (instrumentGenerators == null) throw new InvalidDataException("The IGEN sub-chunk was not found.");
             if (sampleHeaders == null) throw new InvalidDataException("The SHDR sub-chunk was not found.");
 
-            var presetZones = Zone.Create(presetBag, presetModulators, presetGenerators);
-            presets = Preset.Create(presetInfos, presetZones);
-            foreach (var preset in presets)
-            {
-                if (preset.Zones.Count == 0)
-                {
-                    throw new InvalidDataException($"The preset '{preset.Name}' has no zone.");
-                }
-            }
+            var instrumentZones = Zone.Create(instrumentBag, instrumentGenerators, instrumentModulators);
+            instruments = Instrument.Create(instrumentInfos, instrumentZones, sampleHeaders);
 
-            var instrumentZones = Zone.Create(instrumentBag, instrumentModulators, instrumentGenerators);
-            instruments = Instrument.Create(instrumentInfos, instrumentZones);
-            foreach (var instrument in instruments)
-            {
-                if (instrument.Zones.Count == 0)
-                {
-                    throw new InvalidDataException($"The instrument '{instrument.Name}' has no zone.");
-                }
-            }
+            var presetZones = Zone.Create(presetBag, presetGenerators, presetModulators);
+            presets = Preset.Create(presetInfos, presetZones, instruments);
         }
 
-        public IReadOnlyList<SampleHeader> SampleHeaders => sampleHeaders;
-        public IReadOnlyList<Preset> Presets => presets;
-        public IReadOnlyList<Instrument> Instruments => instruments;
+        internal SampleHeader[] SampleHeaders => sampleHeaders;
+        internal Preset[] Presets => presets;
+        internal Instrument[] Instruments => instruments;
     }
 }

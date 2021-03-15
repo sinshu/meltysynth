@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace MeltySynth.SoundFont
+namespace MeltySynth
 {
-    public sealed class GeneratorParameter
+    internal sealed class GeneratorParameter
     {
         private GeneratorParameterType type;
         private ushort value;
@@ -15,7 +15,7 @@ namespace MeltySynth.SoundFont
             value = reader.ReadUInt16();
         }
 
-        internal static IReadOnlyList<GeneratorParameter> ReadFromChunk(BinaryReader reader, int size)
+        internal static GeneratorParameter[] ReadFromChunk(BinaryReader reader, int size)
         {
             if (size % 4 != 0)
             {
@@ -35,12 +35,7 @@ namespace MeltySynth.SoundFont
             return generators;
         }
 
-        public override string ToString()
-        {
-            return $"Type: {type}, Value: {value}";
-        }
-
-        public GeneratorParameterType Type => type;
-        public ushort Value => value;
+        internal GeneratorParameterType Type => type;
+        internal ushort Value => value;
     }
 }

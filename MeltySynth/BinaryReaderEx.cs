@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 
-namespace MeltySynth.SoundFont
+namespace MeltySynth
 {
     internal static class BinaryReaderEx
     {

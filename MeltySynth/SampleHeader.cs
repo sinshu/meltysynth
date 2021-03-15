@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 
-namespace MeltySynth.SoundFont
+namespace MeltySynth
 {
     public sealed class SampleHeader
     {
         private string name;
         private int start;
         private int end;
-        private int loopStart;
-        private int loopEnd;
+        private int startLoop;
+        private int endLoop;
         private int sampleRate;
         private byte originalPitch;
         private sbyte pitchCorrection;
@@ -22,8 +21,8 @@ namespace MeltySynth.SoundFont
             name = reader.ReadFixedLengthString(20);
             start = reader.ReadInt32();
             end = reader.ReadInt32();
-            loopStart = reader.ReadInt32();
-            loopEnd = reader.ReadInt32();
+            startLoop = reader.ReadInt32();
+            endLoop = reader.ReadInt32();
             sampleRate = reader.ReadInt32();
             originalPitch = reader.ReadByte();
             pitchCorrection = reader.ReadSByte();
@@ -31,7 +30,7 @@ namespace MeltySynth.SoundFont
             type = (SampleType)reader.ReadUInt16();
         }
 
-        internal static IReadOnlyList<SampleHeader> ReadFromChunk(BinaryReader reader, int size)
+        internal static SampleHeader[] ReadFromChunk(BinaryReader reader, int size)
         {
             if (size % 46 != 0)
             {
@@ -59,8 +58,8 @@ namespace MeltySynth.SoundFont
         public string Name => name;
         public int Start => start;
         public int End => end;
-        public int LoopStart => loopStart;
-        public int LoopEnd => loopEnd;
+        public int StartLoop => startLoop;
+        public int EndLoop => endLoop;
         public int SampleRate => sampleRate;
         public byte OriginalPitch => originalPitch;
         public sbyte PitchCorrection => pitchCorrection;

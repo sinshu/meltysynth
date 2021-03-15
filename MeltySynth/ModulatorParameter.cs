@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 
-namespace MeltySynth.SoundFont
+namespace MeltySynth
 {
-    public sealed class ModulatorParameter
+    internal sealed class ModulatorParameter
     {
         private ModulatorParameterType sourceModulationData;
         private GeneratorParameterType destinationGenerator;
@@ -21,7 +20,7 @@ namespace MeltySynth.SoundFont
             sourceTransform = (TransformType)reader.ReadUInt16();
         }
 
-        internal static IReadOnlyList<ModulatorParameter> ReadFromChunk(BinaryReader reader, int size)
+        internal static ModulatorParameter[] ReadFromChunk(BinaryReader reader, int size)
         {
             if (size % 10 != 0)
             {
@@ -41,15 +40,10 @@ namespace MeltySynth.SoundFont
             return modulators;
         }
 
-        public override string ToString()
-        {
-            return $"Source: {sourceModulationData.ControllerSource}, Destination: {destinationGenerator}, Amount: {amount}";
-        }
-
-        public ModulatorParameterType SourceModulationData => sourceModulationData;
-        public GeneratorParameterType DestinationGenerator => destinationGenerator;
-        public short Amount => amount;
-        public ModulatorParameterType SourceModulationAmount => sourceModulationAmount;
-        public TransformType SourceTransform => sourceTransform;
+        internal ModulatorParameterType SourceModulationData => sourceModulationData;
+        internal GeneratorParameterType DestinationGenerator => destinationGenerator;
+        internal short Amount => amount;
+        internal ModulatorParameterType SourceModulationAmount => sourceModulationAmount;
+        internal TransformType SourceTransform => sourceTransform;
     }
 }

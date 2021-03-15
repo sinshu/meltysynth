@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace MeltySynth.SoundFont
+namespace MeltySynth
 {
-    public enum TransformType
+    internal enum TransformType
     {
         Linear = 0,
         AbsoluteValue = 2

@@ -2,9 +2,9 @@
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace MeltySynth.SoundFont
+namespace MeltySynth
 {
-    public sealed class SoundFontSampleData
+    internal sealed class SoundFontSampleData
     {
         private int bitsPerSample;
         private short[] samples;
@@ -52,12 +52,7 @@ namespace MeltySynth.SoundFont
             }
         }
 
-        public override string ToString()
-        {
-            return $"{bitsPerSample} bit, {samples.Length} samples";
-        }
-
-        public int BitsPerSample => bitsPerSample;
-        public short[] Samples => samples;
+        internal int BitsPerSample => bitsPerSample;
+        internal short[] Samples => samples;
     }
 }

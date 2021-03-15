@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MeltySynth.Synthesis
+namespace MeltySynth
 {
     public enum LoopMode
     {

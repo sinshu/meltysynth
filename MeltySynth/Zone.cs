@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 
-namespace MeltySynth.SoundFont
+namespace MeltySynth
 {
-    public sealed class Zone
+    internal sealed class Zone
     {
         private ModulatorParameter[] modulatorParameters;
         private GeneratorParameter[] generatorParameters;
@@ -13,9 +12,10 @@ namespace MeltySynth.SoundFont
         {
         }
 
-        internal static IReadOnlyList<Zone> Create(IReadOnlyList<ZoneInfo> infos, IReadOnlyList<ModulatorParameter> mps, IReadOnlyList<GeneratorParameter> gps)
+        internal static Zone[] Create(ZoneInfo[] infos, GeneratorParameter[] gps, ModulatorParameter[] mps)
         {
-            var zones = new Zone[infos.Count];
+            // The last one is the terminator.
+            var zones = new Zone[infos.Length - 1];
 
             for (var i = 0; i < zones.Length; i++)
             {
@@ -39,12 +39,7 @@ namespace MeltySynth.SoundFont
             return zones;
         }
 
-        public override string ToString()
-        {
-            return $"Modulator: {modulatorParameters.Length}, Generator: {generatorParameters.Length}";
-        }
-
-        public IReadOnlyList<ModulatorParameter> ModulatorParameters => modulatorParameters;
-        public IReadOnlyList<GeneratorParameter> GeneratorParameters => generatorParameters;
+        internal ModulatorParameter[] ModulatorParameters => modulatorParameters;
+        internal GeneratorParameter[] GeneratorParameters => generatorParameters;
     }
 }

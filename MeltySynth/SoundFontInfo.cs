@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace MeltySynth.SoundFont
+namespace MeltySynth
 {
     public sealed class SoundFontInfo
     {

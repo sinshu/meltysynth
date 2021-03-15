@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace MeltySynth.SoundFont
+namespace MeltySynth
 {
-    public enum CurveType
+    internal enum CurveType
     {
         Linear,
         Concave,

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace MeltySynth.SoundFont
+namespace MeltySynth
 {
     public sealed class SoundFont
     {
@@ -46,6 +46,27 @@ namespace MeltySynth.SoundFont
                 sampleData = new SoundFontSampleData(reader);
                 parameters = new SoundFontParameters(reader);
             }
+
+            var sampleCount = sampleData.Samples.Length;
+            foreach (var sample in parameters.SampleHeaders)
+            {
+                if (!(0 <= sample.Start && sample.Start < sampleCount))
+                {
+                    throw new InvalidDataException($"The start position of the sample '{sample.Name}' is out of range.");
+                }
+                if (!(0 <= sample.StartLoop && sample.StartLoop < sampleCount))
+                {
+                    throw new InvalidDataException($"The loop start position of the sample '{sample.Name}' is out of range.");
+                }
+                if (!(0 <= sample.End && sample.End < sampleCount))
+                {
+                    throw new InvalidDataException($"The end position of the sample '{sample.Name}' is out of range.");
+                }
+                if (!(0 <= sample.EndLoop && sample.EndLoop < sampleCount))
+                {
+                    throw new InvalidDataException($"The loop end position of the sample '{sample.Name}' is out of range.");
+                }
+            }
         }
 
         public override string ToString()
@@ -54,7 +75,8 @@ namespace MeltySynth.SoundFont
         }
 
         public SoundFontInfo Info => info;
-        public SoundFontSampleData SampleData => sampleData;
+        public int BitsPerSample => sampleData.BitsPerSample;
+        public short[] SampleData => sampleData.Samples;
         public IReadOnlyList<SampleHeader> SampleHeaders => parameters.SampleHeaders;
         public IReadOnlyList<Preset> Presets => parameters.Presets;
         public IReadOnlyList<Instrument> Instruments => parameters.Instruments;

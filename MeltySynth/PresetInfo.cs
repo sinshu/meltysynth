@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 
-namespace MeltySynth.SoundFont
+namespace MeltySynth
 {
     internal sealed class PresetInfo
     {
@@ -19,7 +18,7 @@ namespace MeltySynth.SoundFont
         {
         }
 
-        internal static IReadOnlyList<PresetInfo> ReadFromChunk(BinaryReader reader, int size)
+        internal static PresetInfo[] ReadFromChunk(BinaryReader reader, int size)
         {
             if (size % 38 != 0)
             {
@@ -28,7 +27,7 @@ namespace MeltySynth.SoundFont
 
             var count = size / 38;
 
-            var presets = new List<PresetInfo>(count);
+            var presets = new PresetInfo[count];
 
             for (var i = 0; i < count; i++)
             {
@@ -41,7 +40,7 @@ namespace MeltySynth.SoundFont
                 preset.genre = reader.ReadInt32();
                 preset.morphology = reader.ReadInt32();
 
-                presets.Add(preset);
+                presets[i] = preset;
             }
 
             for (var i = 0; i < count - 1; i++)
@@ -49,19 +48,16 @@ namespace MeltySynth.SoundFont
                 presets[i].zoneEndIndex = presets[i + 1].zoneStartIndex - 1;
             }
 
-            // The last one is the terminator.
-            presets.RemoveAt(count - 1);
-
             return presets;
         }
 
-        public string Name => name;
-        public int PatchNumber => patchNumber;
-        public int BankNumber => bankNumber;
-        public int ZoneStartIndex => zoneStartIndex;
-        public int ZoneEndIndex => zoneEndIndex;
-        public int Library => library;
-        public int Genre => genre;
-        public int Morphology => morphology;
+        internal string Name => name;
+        internal int PatchNumber => patchNumber;
+        internal int BankNumber => bankNumber;
+        internal int ZoneStartIndex => zoneStartIndex;
+        internal int ZoneEndIndex => zoneEndIndex;
+        internal int Library => library;
+        internal int Genre => genre;
+        internal int Morphology => morphology;
     }
 }

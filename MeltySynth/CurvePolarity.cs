@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace MeltySynth.SoundFont
+namespace MeltySynth
 {
-    public enum CurvePolarity
+    internal enum CurvePolarity
     {
         Unipolar,
         Bipolar

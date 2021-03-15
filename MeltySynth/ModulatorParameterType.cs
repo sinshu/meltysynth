@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 
-namespace MeltySynth.SoundFont
+namespace MeltySynth
 {
-    public sealed class ModulatorParameterType
+    internal sealed class ModulatorParameterType
     {
         private CurveType curveType;
         private CurvePolarity polarity;
@@ -40,15 +40,10 @@ namespace MeltySynth.SoundFont
             controllerSource = (ushort)(value & 0x007F);
         }
 
-        public override string ToString()
-        {
-            return $"Curve: ({curveType}, {polarity}, {direction}), Source: {controllerSource}";
-        }
-
-        public CurveType CurveType => curveType;
-        public CurvePolarity CurvePolarity => polarity;
-        public CurveDirection CurveDirection => direction;
-        public bool IsMidiContinuousController => isMidiContinuousController;
-        public ushort ControllerSource => controllerSource;
+        internal CurveType CurveType => curveType;
+        internal CurvePolarity CurvePolarity => polarity;
+        internal CurveDirection CurveDirection => direction;
+        internal bool IsMidiContinuousController => isMidiContinuousController;
+        internal ushort ControllerSource => controllerSource;
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MeltySynth.SoundFont
+namespace MeltySynth
 {
     public sealed class SoundFontVersion
     {
