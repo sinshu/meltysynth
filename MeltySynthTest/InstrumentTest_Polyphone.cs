@@ -86,7 +86,7 @@ namespace MeltySynthTest
             error += Math.Abs(polyphoneRegion.TuningCents - meltyRegion.FineTune);
             error += Math.Abs(polyphoneRegion.ScaleTuning - meltyRegion.ScaleTuning);
             error += Math.Abs(polyphoneRegion.FilterCutoffHz - meltyRegion.InitialFilterCutoffFrequency);
-            error += Math.Abs(polyphoneRegion.FilterResonance - meltyRegion.InitialFilterQ);
+            error += Math.Abs(polyphoneRegion.FilterResonanceDb - meltyRegion.InitialFilterQ);
             error += Math.Abs(polyphoneRegion.VolEnvDelayS - meltyRegion.DelayVolumeEnvelope);
             error += Math.Abs(polyphoneRegion.VolEnvAttackS - meltyRegion.AttackVolumeEnvelope);
             error += Math.Abs(polyphoneRegion.VolEnvHoldS - meltyRegion.HoldVolumeEnvelope);
@@ -132,7 +132,7 @@ namespace MeltySynthTest
             Assert.AreEqual(polyphoneRegion.TuningCents, meltyRegion.FineTune, 0);
             Assert.AreEqual(polyphoneRegion.ScaleTuning, meltyRegion.ScaleTuning, 0);
             Assert.AreEqual(polyphoneRegion.FilterCutoffHz, meltyRegion.InitialFilterCutoffFrequency, 1);
-            Assert.AreEqual(polyphoneRegion.FilterResonance, meltyRegion.InitialFilterQ, 0.1);
+            Assert.AreEqual(polyphoneRegion.FilterResonanceDb, meltyRegion.InitialFilterQ, 0.1);
             Assert.AreEqual(polyphoneRegion.VolEnvDelayS, meltyRegion.DelayVolumeEnvelope, 0.001);
             Assert.AreEqual(polyphoneRegion.VolEnvAttackS, meltyRegion.AttackVolumeEnvelope, 0.001);
             Assert.AreEqual(polyphoneRegion.VolEnvHoldS, meltyRegion.HoldVolumeEnvelope, 0.001);
@@ -178,7 +178,7 @@ namespace MeltySynthTest
             public double TuningCents;
             public double ScaleTuning;
             public double FilterCutoffHz;
-            public double FilterResonance;
+            public double FilterResonanceDb;
             public double VolEnvDelayS;
             public double VolEnvAttackS;
             public double VolEnvHoldS;
@@ -242,7 +242,7 @@ namespace MeltySynthTest
                     region.TuningCents = GetValue(localValues[8], globalValues[8], InstrumentRegion.Default.FineTune);
                     region.ScaleTuning = GetValue(localValues[9], globalValues[9], InstrumentRegion.Default.ScaleTuning);
                     region.FilterCutoffHz = GetValue(localValues[10], globalValues[10], InstrumentRegion.Default.InitialFilterCutoffFrequency);
-                    region.FilterResonance = GetValue(localValues[11], globalValues[11], InstrumentRegion.Default.InitialFilterQ);
+                    region.FilterResonanceDb = GetValue(localValues[11], globalValues[11], InstrumentRegion.Default.InitialFilterQ);
                     region.VolEnvDelayS = GetValue(localValues[12], globalValues[12], InstrumentRegion.Default.DelayVolumeEnvelope);
                     region.VolEnvAttackS = GetValue(localValues[13], globalValues[13], InstrumentRegion.Default.AttackVolumeEnvelope);
                     region.VolEnvHoldS = GetValue(localValues[14], globalValues[14], InstrumentRegion.Default.HoldVolumeEnvelope);

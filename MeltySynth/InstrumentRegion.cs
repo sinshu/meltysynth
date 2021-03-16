@@ -8,14 +8,12 @@ namespace MeltySynth
     {
         public static readonly InstrumentRegion Default = new InstrumentRegion(null, null, null, null);
 
-        private Instrument instrument;
         private SampleHeader sample;
+
         private short[] gps;
 
         private InstrumentRegion(Instrument instrument, GeneratorParameter[] global, GeneratorParameter[] local, SampleHeader[] samples)
         {
-            this.instrument = instrument;
-
             gps = new short[61];
             gps[(int)GeneratorParameterType.InitialFilterCutoffFrequency] = 13500;
             gps[(int)GeneratorParameterType.DelayModulationLfo] = -12000;
@@ -116,7 +114,6 @@ namespace MeltySynth
 
         internal short this[GeneratorParameterType generatortType] => gps[(int)generatortType];
 
-        public Instrument Instrument => instrument;
         public SampleHeader Sample => sample;
 
         public int StartAddressOffset => 32768 * gps[(int)GeneratorParameterType.StartAddressCoarseOffset] + gps[(int)GeneratorParameterType.StartAddressOffset];

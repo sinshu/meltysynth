@@ -92,6 +92,39 @@
     <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Atmosphere.tsv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Presets\000 000 Stereo Grand.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Presets\000 001 Bright Grand.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Presets\000 002 Electric Grand.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Presets\000 003 Honky-Tonk.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Presets\000 004 Tine Electric Piano.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Presets\000 005 FM Electric Piano.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Presets\000 006 Harpsichord.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Presets\000 007 Clavinet.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Presets\000 008 Celeste.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Presets\000 009 Glockenspiel.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Presets\000 010 Music Box.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="ReferenceData\TimGM6mb\Instruments\5th Saw Wave0.tsv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
