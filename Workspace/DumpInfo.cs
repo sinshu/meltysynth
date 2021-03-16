@@ -12,9 +12,13 @@ public static class DumpInfo
         {
             Console.WriteLine(instrument.Name);
 
-            var regions = instrument.Regions;
+            var regions = instrument.Regions
+                .OrderBy(x => x.KeyRangeStart)
+                .ThenBy(x => x.VelocityRangeStart)
+                .ThenBy(x => x.Sample.Name);
 
-            var path = Path.Combine(directory, instrument.Name.Replace('/', ' ') + ".csv");
+            var filename = instrument.Name.Replace('/', ' ').Replace(':', ' ');
+            var path = Path.Combine(directory, filename + ".csv");
             using (var writer = new StreamWriter(path))
             {
                 foreach (var region in regions)
@@ -47,14 +51,14 @@ public static class DumpInfo
                 writer.Write("Pan [-50;50]");
                 foreach (var region in regions)
                 {
-                    writer.Write("," + region.Pan);
+                    writer.Write("," + Math.Round(region.Pan));
                 }
                 writer.WriteLine();
 
                 writer.Write("Loop playback");
                 foreach (var region in regions)
                 {
-                    writer.Write("," + region.SampleMode);
+                    writer.Write("," + region.SampleModes);
                 }
                 writer.WriteLine();
 
@@ -83,6 +87,13 @@ public static class DumpInfo
                 foreach (var region in regions)
                 {
                     writer.Write("," + region.FineTune);
+                }
+                writer.WriteLine();
+
+                writer.Write("Scale tuing");
+                foreach (var region in regions)
+                {
+                    writer.Write("," + region.ScaleTuning);
                 }
                 writer.WriteLine();
 
@@ -153,6 +164,209 @@ public static class DumpInfo
                 foreach (var region in regions)
                 {
                     writer.Write("," + region.KeyNumberToVolumeEnvelopeDecay);
+                }
+                writer.WriteLine();
+
+                writer.Write("Mod env delay (s)");
+                foreach (var region in regions)
+                {
+                    writer.Write("," + region.DelayModulationEnvelope.ToString("0.000"));
+                }
+                writer.WriteLine();
+
+                writer.Write("Mod env attack (s)");
+                foreach (var region in regions)
+                {
+                    writer.Write("," + region.AttackModulationEnvelope.ToString("0.000"));
+                }
+                writer.WriteLine();
+
+                writer.Write("Mod env hold (s)");
+                foreach (var region in regions)
+                {
+                    writer.Write("," + region.HoldModulationEnvelope.ToString("0.000"));
+                }
+                writer.WriteLine();
+
+                writer.Write("Mod env decay (s)");
+                foreach (var region in regions)
+                {
+                    writer.Write("," + region.DecayModulationEnvelope.ToString("0.000"));
+                }
+                writer.WriteLine();
+
+                writer.Write("Mod env sustain (%)");
+                foreach (var region in regions)
+                {
+                    writer.Write("," + region.SustainModulationEnvelope.ToString("0.0"));
+                }
+                writer.WriteLine();
+
+                writer.Write("Mod env release (s)");
+                foreach (var region in regions)
+                {
+                    writer.Write("," + region.ReleaseModulationEnvelope.ToString("0.000"));
+                }
+                writer.WriteLine();
+
+                writer.Write("Mod env -> pitch (c)");
+                foreach (var region in regions)
+                {
+                    writer.Write("," + region.ModulationEnvelopeToPitch);
+                }
+                writer.WriteLine();
+
+                writer.Write("Mod env -> filter (c)");
+                foreach (var region in regions)
+                {
+                    writer.Write("," + region.ModulationEnvelopeToFilterCutoffFrequency);
+                }
+                writer.WriteLine();
+
+                writer.Write("Key -> Mod env hold (c)");
+                foreach (var region in regions)
+                {
+                    writer.Write("," + region.KeyNumberToModulationEnvelopeHold);
+                }
+                writer.WriteLine();
+
+                writer.Write("Key -> Mod env decay (c)");
+                foreach (var region in regions)
+                {
+                    writer.Write("," + region.KeyNumberToModulationEnvelopeDecay);
+                }
+                writer.WriteLine();
+
+                writer.Write("Mod LFO delay (s)");
+                foreach (var region in regions)
+                {
+                    writer.Write("," + region.DelayModulationLfo.ToString("0.000"));
+                }
+                writer.WriteLine();
+
+                writer.Write("Mod LFO freq (Hz)");
+                foreach (var region in regions)
+                {
+                    writer.Write("," + region.FrequencyModulationLfo.ToString("0.000"));
+                }
+                writer.WriteLine();
+
+                writer.Write("Mod LFO -> pitch (c)");
+                foreach (var region in regions)
+                {
+                    writer.Write("," + region.ModulationLfoToPitch);
+                }
+                writer.WriteLine();
+
+                writer.Write("Mod LFO -> filter (c)");
+                foreach (var region in regions)
+                {
+                    writer.Write("," + region.ModulationLfoToFilterCutoffFrequency);
+                }
+                writer.WriteLine();
+
+                writer.Write("Mod LFO -> volume (dB)");
+                foreach (var region in regions)
+                {
+                    writer.Write("," + region.ModulationLfoToVolume.ToString("0.0"));
+                }
+                writer.WriteLine();
+
+                writer.Write("Vib LFO delay (s)");
+                foreach (var region in regions)
+                {
+                    writer.Write("," + region.DelayVibratoLfo.ToString("0.000"));
+                }
+                writer.WriteLine();
+
+                writer.Write("Vib LFO freq (Hz)");
+                foreach (var region in regions)
+                {
+                    writer.Write("," + region.FrequencyVibratoLfo.ToString("0.000"));
+                }
+                writer.WriteLine();
+
+                writer.Write("Vib LFO -> pitch (c)");
+                foreach (var region in regions)
+                {
+                    writer.Write("," + region.VibratoLfoToPitch);
+                }
+                writer.WriteLine();
+
+                writer.Write("Exclusive class");
+                foreach (var region in regions)
+                {
+                    writer.Write("," + region.ExclusiveClass);
+                }
+                writer.WriteLine();
+
+                writer.Write("Chorus (%)");
+                foreach (var region in regions)
+                {
+                    writer.Write("," + region.ChorusEffectsSend.ToString("0.0"));
+                }
+                writer.WriteLine();
+
+                writer.Write("Reverb (%)");
+                foreach (var region in regions)
+                {
+                    writer.Write("," + region.ReverbEffectsSend.ToString("0.0"));
+                }
+                writer.WriteLine();
+
+                writer.Write("Fixed key");
+                foreach (var region in regions)
+                {
+                    writer.Write(",???");
+                }
+                writer.WriteLine();
+
+                writer.Write("Fixed velocity");
+                foreach (var region in regions)
+                {
+                    writer.Write(",???");
+                }
+                writer.WriteLine();
+
+                writer.Write("Sample length");
+                foreach (var region in regions)
+                {
+                    writer.Write("," + (region.Sample.End - region.Sample.Start));
+                }
+                writer.WriteLine();
+
+                writer.Write("Sample start offset");
+                foreach (var region in regions)
+                {
+                    writer.Write("," + region.StartAddressOffset);
+                }
+                writer.WriteLine();
+
+                writer.Write("Sample end offset");
+                foreach (var region in regions)
+                {
+                    writer.Write("," + region.EndAddressOffset);
+                }
+                writer.WriteLine();
+
+                writer.Write("Loop start");
+                foreach (var region in regions)
+                {
+                    writer.Write("," + (region.Sample.StartLoop - region.Sample.Start) + "-" + (region.Sample.EndLoop - region.Sample.Start));
+                }
+                writer.WriteLine();
+
+                writer.Write("Loop start offset");
+                foreach (var region in regions)
+                {
+                    writer.Write("," + region.StartLoopAddressOffset);
+                }
+                writer.WriteLine();
+
+                writer.Write("Loop end offset");
+                foreach (var region in regions)
+                {
+                    writer.Write("," + region.EndLoopAddressOffset);
                 }
                 writer.WriteLine();
             }

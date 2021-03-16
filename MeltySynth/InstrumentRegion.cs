@@ -104,19 +104,45 @@ namespace MeltySynth
         public Instrument Instrument => instrument;
         public SampleHeader Sample => sample;
 
+        public int StartAddressOffset => 32768 * gps[(int)GeneratorParameterType.StartAddressCoarseOffset] + gps[(int)GeneratorParameterType.StartAddressOffset];
+        public int EndAddressOffset => 32768 * gps[(int)GeneratorParameterType.EndAddressCoarseOffset] + gps[(int)GeneratorParameterType.EndAddressOffset];
+        public int StartLoopAddressOffset => 32768 * gps[(int)GeneratorParameterType.StartLoopAddressCoarseOffset] + gps[(int)GeneratorParameterType.StartLoopAddressOffset];
+        public int EndLoopAddressOffset => 32768 * gps[(int)GeneratorParameterType.EndLoopAddressCoarseOffset] + gps[(int)GeneratorParameterType.EndLoopAddressOffset];
+
+        public int ModulationLfoToPitch => gps[(int)GeneratorParameterType.ModulationLfoToPitch];
+        public int VibratoLfoToPitch => gps[(int)GeneratorParameterType.VibratoLfoToPitch];
+        public int ModulationEnvelopeToPitch => gps[(int)GeneratorParameterType.ModulationEnvelopeToPitch];
         public float InitialFilterCutoffFrequency => SoundFontMath.CentsToHertz(gps[(int)GeneratorParameterType.InitialFilterCutoffFrequency]);
         public float InitialFilterQ => gps[(int)GeneratorParameterType.InitialFilterQ] / 10F;
+        public float ModulationLfoToFilterCutoffFrequency => gps[(int)GeneratorParameterType.ModulationLfoToFilterCutoffFrequency];
+        public float ModulationEnvelopeToFilterCutoffFrequency => gps[(int)GeneratorParameterType.ModulationEnvelopeToFilterCutoffFrequency];
 
+        public float ModulationLfoToVolume => gps[(int)GeneratorParameterType.ModulationLfoToVolume] / 10F;
+
+        public float ChorusEffectsSend => gps[(int)GeneratorParameterType.ChorusEffectsSend] / 10F;
+        public float ReverbEffectsSend => gps[(int)GeneratorParameterType.ReverbEffectsSend] / 10F;
         public float Pan => gps[(int)GeneratorParameterType.Pan] / 10F;
 
+        public float DelayModulationLfo => SoundFontMath.TimecentsToSeconds(gps[(int)GeneratorParameterType.DelayModulationLfo]);
+        public float FrequencyModulationLfo => SoundFontMath.CentsToHertz(gps[(int)GeneratorParameterType.FrequencyModulationLfo]);
+        public float DelayVibratoLfo => SoundFontMath.TimecentsToSeconds(gps[(int)GeneratorParameterType.DelayVibratoLfo]);
+        public float FrequencyVibratoLfo => SoundFontMath.CentsToHertz(gps[(int)GeneratorParameterType.FrequencyVibratoLfo]);
+        public float DelayModulationEnvelope => SoundFontMath.TimecentsToSeconds(gps[(int)GeneratorParameterType.DelayModulationEnvelope]);
+        public float AttackModulationEnvelope => SoundFontMath.TimecentsToSeconds(gps[(int)GeneratorParameterType.AttackModulationEnvelope]);
+        public float HoldModulationEnvelope => SoundFontMath.TimecentsToSeconds(gps[(int)GeneratorParameterType.HoldModulationEnvelope]);
+        public float DecayModulationEnvelope => SoundFontMath.TimecentsToSeconds(gps[(int)GeneratorParameterType.DecayModulationEnvelope]);
+        public float SustainModulationEnvelope => gps[(int)GeneratorParameterType.SustainModulationEnvelope] / 10F;
+        public float ReleaseModulationEnvelope => SoundFontMath.TimecentsToSeconds(gps[(int)GeneratorParameterType.ReleaseModulationEnvelope]);
+        public int KeyNumberToModulationEnvelopeHold => gps[(int)GeneratorParameterType.KeyNumberToModulationEnvelopeHold];
+        public int KeyNumberToModulationEnvelopeDecay => gps[(int)GeneratorParameterType.KeyNumberToModulationEnvelopeDecay];
         public float DelayVolumeEnvelope => SoundFontMath.TimecentsToSeconds(gps[(int)GeneratorParameterType.DelayVolumeEnvelope]);
         public float AttackVolumeEnvelope => SoundFontMath.TimecentsToSeconds(gps[(int)GeneratorParameterType.AttackVolumeEnvelope]);
         public float HoldVolumeEnvelope => SoundFontMath.TimecentsToSeconds(gps[(int)GeneratorParameterType.HoldVolumeEnvelope]);
         public float DecayVolumeEnvelope => SoundFontMath.TimecentsToSeconds(gps[(int)GeneratorParameterType.DecayVolumeEnvelope]);
         public float SustainVolumeEnvelope => gps[(int)GeneratorParameterType.SustainVolumeEnvelope] / 10F;
         public float ReleaseVolumeEnvelope => SoundFontMath.TimecentsToSeconds(gps[(int)GeneratorParameterType.ReleaseVolumeEnvelope]);
-        public float KeyNumberToVolumeEnvelopeHold => gps[(int)GeneratorParameterType.KeyNumberToVolumeEnvelopeHold];
-        public float KeyNumberToVolumeEnvelopeDecay => gps[(int)GeneratorParameterType.KeyNumberToVolumeEnvelopeDecay];
+        public int KeyNumberToVolumeEnvelopeHold => gps[(int)GeneratorParameterType.KeyNumberToVolumeEnvelopeHold];
+        public int KeyNumberToVolumeEnvelopeDecay => gps[(int)GeneratorParameterType.KeyNumberToVolumeEnvelopeDecay];
 
         public int KeyRangeStart => gps[(int)GeneratorParameterType.KeyRange] & 0xFF;
         public int KeyRangeEnd => (gps[(int)GeneratorParameterType.KeyRange] >> 8) & 0xFF;
@@ -127,8 +153,10 @@ namespace MeltySynth
 
         public int CoarseTune => gps[(int)GeneratorParameterType.CoarseTune];
         public int FineTune => gps[(int)GeneratorParameterType.FineTune];
-        public LoopMode SampleMode => gps[(int)GeneratorParameterType.SampleModes] != 2 ? (LoopMode)gps[(int)GeneratorParameterType.SampleModes] : LoopMode.NoLoop;
+        public LoopMode SampleModes => gps[(int)GeneratorParameterType.SampleModes] != 2 ? (LoopMode)gps[(int)GeneratorParameterType.SampleModes] : LoopMode.NoLoop;
 
+        public int ScaleTuning => gps[(int)GeneratorParameterType.ScaleTuning];
+        public int ExclusiveClass => gps[(int)GeneratorParameterType.ExclusiveClass];
         public int OverridingRootKey => gps[(int)GeneratorParameterType.OverridingRootKey];
     }
 }
