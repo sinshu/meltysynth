@@ -18,6 +18,10 @@ namespace MeltySynthTest
             {
                 Run(soundFontName, referenceDataDirectory);
             }
+            else
+            {
+                Assert.Ignore("The reference data is missing.");
+            }
         }
 
         private void Run(string soundFontName, string referenceDataDirectory)
