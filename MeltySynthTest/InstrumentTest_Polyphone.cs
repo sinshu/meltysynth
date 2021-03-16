@@ -295,12 +295,24 @@ namespace MeltySynthTest
                     }
                     else
                     {
-                        return global;
+                        return FormatRange(global);
                     }
                 }
                 else
                 {
-                    return local;
+                    return FormatRange(local);
+                }
+            }
+
+            private static string FormatRange(string range)
+            {
+                if (range.Contains('-'))
+                {
+                    return range;
+                }
+                else
+                {
+                    return range + "-" + range;
                 }
             }
 
