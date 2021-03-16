@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 
-
 namespace MeltySynthTest
 {
-    public class SoundFontInfoTest
+    public class SoundFontInfoTest_NAudio
     {
-        [TestCaseSource(typeof(TestData), nameof(TestData.SoundFontPaths))]
-        public void ReadTest(string path)
+        [TestCaseSource(typeof(TestSettings), nameof(TestSettings.SoundFontNames))]
+        public void ReadTest(string soundFontName)
         {
-            var expected = new NAudio.SoundFont.SoundFont(path).FileInfo;
-            var actual = new MeltySynth.SoundFont(path).Info;
+            var expected = new NAudio.SoundFont.SoundFont(soundFontName + ".sf2").FileInfo;
+            var actual = new MeltySynth.SoundFont(soundFontName + ".sf2").Info;
 
             AreEqual(expected.SoundFontVersion, actual.Version);
             AreEqual(expected.WaveTableSoundEngine, actual.TargetSoundEngine);

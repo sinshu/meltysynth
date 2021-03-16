@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using NUnit.Framework;
-
 
 namespace MeltySynthTest
 {
-    public class PresetTest
+    public class PresetTest_NAudio
     {
-        [TestCaseSource(typeof(TestData), nameof(TestData.SoundFontPaths))]
-        public void ReadTest(string path)
+        [TestCaseSource(typeof(TestSettings), nameof(TestSettings.SoundFontNames))]
+        public void ReadTest(string soundFontName)
         {
-            var expected = new NAudio.SoundFont.SoundFont(path).Presets;
-            var actual = new MeltySynth.SoundFont(path).Presets;
+            var expected = new NAudio.SoundFont.SoundFont(soundFontName + ".sf2").Presets;
+            var actual = new MeltySynth.SoundFont(soundFontName + ".sf2").Presets;
 
             Assert.AreEqual(expected.Length, actual.Count);
             for (var i = 0; i < expected.Length; i++)

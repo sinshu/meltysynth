@@ -11,10 +11,21 @@
     <PackageReference Include="NUnit" Version="3.13.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
+    <PackageReference Include="System.Interactive" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MeltySynth\MeltySynth.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Atmosphere.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

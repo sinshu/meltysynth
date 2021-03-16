@@ -6,6 +6,8 @@ namespace MeltySynth
 {
     public sealed class InstrumentRegion
     {
+        public static readonly InstrumentRegion Default = new InstrumentRegion(null, null, null, null);
+
         private Instrument instrument;
         private SampleHeader sample;
         private short[] gps;
@@ -43,17 +45,23 @@ namespace MeltySynth
                 }
             }
 
-            foreach (var parameter in local)
+            if (local != null)
             {
-                SetParameter(parameter);
+                foreach (var parameter in local)
+                {
+                    SetParameter(parameter);
+                }
             }
 
-            var id = gps[(int)GeneratorParameterType.SampleID];
-            if (!(0 <= id && id < samples.Length))
+            if (samples != null)
             {
-                throw new InvalidDataException($"The instrument {instrument.Name} contains an invalid sample ID.");
+                var id = gps[(int)GeneratorParameterType.SampleID];
+                if (!(0 <= id && id < samples.Length))
+                {
+                    throw new InvalidDataException($"The instrument {instrument.Name} contains an invalid sample ID.");
+                }
+                sample = samples[id];
             }
-            sample = samples[id];
         }
 
         internal static InstrumentRegion[] Create(Instrument instrument, Zone[] zones, SampleHeader[] samples)
@@ -96,7 +104,14 @@ namespace MeltySynth
 
         public override string ToString()
         {
-            return $"{instrument.Name} {sample.Name} (Key: {KeyRangeStart}-{KeyRangeEnd}, Velocity: {VelocityRangeStart}-{VelocityRangeEnd})";
+            if (sample != null)
+            {
+                return $"{sample.Name} (Key: {KeyRangeStart}-{KeyRangeEnd}, Velocity: {VelocityRangeStart}-{VelocityRangeEnd})";
+            }
+            else
+            {
+                return $"Default (Key: {KeyRangeStart}-{KeyRangeEnd}, Velocity: {VelocityRangeStart}-{VelocityRangeEnd})";
+            }
         }
 
         internal short this[GeneratorParameterType generatortType] => gps[(int)generatortType];
@@ -114,8 +129,8 @@ namespace MeltySynth
         public int ModulationEnvelopeToPitch => gps[(int)GeneratorParameterType.ModulationEnvelopeToPitch];
         public float InitialFilterCutoffFrequency => SoundFontMath.CentsToHertz(gps[(int)GeneratorParameterType.InitialFilterCutoffFrequency]);
         public float InitialFilterQ => gps[(int)GeneratorParameterType.InitialFilterQ] / 10F;
-        public float ModulationLfoToFilterCutoffFrequency => gps[(int)GeneratorParameterType.ModulationLfoToFilterCutoffFrequency];
-        public float ModulationEnvelopeToFilterCutoffFrequency => gps[(int)GeneratorParameterType.ModulationEnvelopeToFilterCutoffFrequency];
+        public int ModulationLfoToFilterCutoffFrequency => gps[(int)GeneratorParameterType.ModulationLfoToFilterCutoffFrequency];
+        public int ModulationEnvelopeToFilterCutoffFrequency => gps[(int)GeneratorParameterType.ModulationEnvelopeToFilterCutoffFrequency];
 
         public float ModulationLfoToVolume => gps[(int)GeneratorParameterType.ModulationLfoToVolume] / 10F;
 

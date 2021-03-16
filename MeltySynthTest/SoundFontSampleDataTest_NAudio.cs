@@ -4,16 +4,15 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using NUnit.Framework;
 
-
 namespace MeltySynthTest
 {
-    public class SoundFontSampleDataTest
+    public class SoundFontSampleDataTest_NAudio
     {
-        [TestCaseSource(typeof(TestData), nameof(TestData.SoundFontPaths))]
-        public void ReadTest(string path)
+        [TestCaseSource(typeof(TestSettings), nameof(TestSettings.SoundFontNames))]
+        public void ReadTest(string soundFontName)
         {
-            var expected = new NAudio.SoundFont.SoundFont(path).SampleData;
-            var actual = new MeltySynth.SoundFont(path).SampleData;
+            var expected = new NAudio.SoundFont.SoundFont(soundFontName + ".sf2").SampleData;
+            var actual = new MeltySynth.SoundFont(soundFontName + ".sf2").SampleData;
 
             // Since NAudio's sample data contains extra 12 bytes of the header,
             // the first 6 samples should be skipped.
