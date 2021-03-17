@@ -7,7 +7,7 @@ namespace MeltySynth
         private PresetRegion preset;
         private InstrumentRegion instrument;
 
-        internal RegionPair(PresetRegion preset, InstrumentRegion instrument)
+        public RegionPair(PresetRegion preset, InstrumentRegion instrument)
         {
             this.preset = preset;
             this.instrument = instrument;
