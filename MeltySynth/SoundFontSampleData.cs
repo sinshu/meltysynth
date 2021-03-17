@@ -50,6 +50,12 @@ namespace MeltySynth
             {
                 throw new InvalidDataException("No valid sample data was found.");
             }
+
+            if (!BitConverter.IsLittleEndian)
+            {
+                // TODO: Insert the byte swapping code here.
+                throw new NotSupportedException("Big endian architectures are not yet supported.");
+            }
         }
 
         internal int BitsPerSample => bitsPerSample;
