@@ -350,6 +350,123 @@
     <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Fretless Bass.tsv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Glockenspiel.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Goblin.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Gtr SFX.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Guitar Feedback.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Guitar Harmonics.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Gun Shot.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\GUTest.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Halo Pad.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Hammond Organ.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Hand Clap.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Harmonica.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Harpsichord_1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Harpsichord_2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Harpsichord_28va.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Hawaiian Guitar.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Heart Beat.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Helicopter.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Hi-Hats.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Honky-Tonk.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Horns Thin_1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Horns Thin_2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Horse Gallop.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Howling Winds.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Ice Rain_1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Ice Rain_2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Interference.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Italian Accord._1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Italian Accord._2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Jazz Bass Drum.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Jazz Brushed Snare.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Jazz Guitar.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Jazz Rim Shot.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Jazz Snare 1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Jet Plane.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Kalimba.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Koto.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Lasergun_1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Lasergun_2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\Laughing.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Presets\000 000 Stereo Grand.tsv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
