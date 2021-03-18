@@ -49,6 +49,11 @@ namespace MeltySynthTest
 
             Console.WriteLine("Executed: " + executed);
             Console.WriteLine("Ignored: " + ignored);
+
+            if (ignored > 0)
+            {
+                Assert.Ignore();
+            }
         }
 
         private void RunSinglePreset(string referenceTsvPath, Preset preset)
@@ -78,7 +83,7 @@ namespace MeltySynthTest
             }
 
             var error = 0.0;
-            error += Math.Abs(polyphoneRegion.Attenuation - meltyRegion.InitialAttenuation);
+            error += Math.Abs(polyphoneRegion.Attenuation - 0.4 * meltyRegion.InitialAttenuation);
             error += Math.Abs(polyphoneRegion.Pan - meltyRegion.Pan);
             error += Math.Abs(polyphoneRegion.TuningSemiTones - meltyRegion.CoarseTune);
             error += Math.Abs(polyphoneRegion.TuningCents - meltyRegion.FineTune);

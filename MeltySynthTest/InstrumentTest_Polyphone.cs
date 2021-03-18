@@ -49,6 +49,11 @@ namespace MeltySynthTest
 
             Console.WriteLine("Executed: " + executed);
             Console.WriteLine("Ignored: " + ignored);
+
+            if (ignored > 0)
+            {
+                Assert.Ignore();
+            }
         }
 
         private void RunSingleInstrument(string referenceTsvPath, Instrument instrument)
