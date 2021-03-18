@@ -23,6 +23,1596 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\5th Saw Wave0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\5th Saw Wave1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\5th Saw Wave2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\5th Saw Wave3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\5th Saw Wave4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\5th Saw Wave5.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\5th Saw Wave6.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\5th Saw Wave7.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Accordion0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Accordion1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Acoustic Bass0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Acoustic Bass1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Agogo0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Agogo1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Alto Sax.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Applause0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Applause1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Atmosphere0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Atmosphere1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Atmosphere2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Atmosphere3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Atmosphere4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Atmosphere5.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Atmosphere6.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Atmosphere7.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bag Pipe0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bag Pipe1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bag Pipe2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bag Pipe3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bandoneon0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bandoneon1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bandoneon2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bandoneon3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bandoneon4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Banjo.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Baritone Sax0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Baritone Sax1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bass &amp; Lead0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bass &amp; Lead1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bass &amp; Lead2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bass &amp; Lead3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bassoon00.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bassoon01.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bassoon02.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bassoon03.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bassoon04.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bassoon05.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bassoon06.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bassoon07.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bassoon08.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bassoon09.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bassoon10.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bassoon11.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bassoon12.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bassoon13.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bassoon14.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bassoon15.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bassoon16.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bassoon17.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bird Tweets0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bird Tweets1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Blown Bottle0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Blown Bottle1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bowed Glass0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bowed Glass1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bowed Glass2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bowed Glass3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Brass Section0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Brass Section1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Breath Noise0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Breath Noise1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Breath Noise2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bright Piano00.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bright Piano01.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bright Piano02.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bright Piano03.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bright Piano04.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bright Piano05.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bright Piano06.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bright Piano07.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bright Piano08.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bright Piano09.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bright Piano10.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Bright Piano11.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Brightness0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Brightness1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Brightness2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Brightness3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Brightness4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Brightness5.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Brightness6.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Brightness7.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Brush Drum Kit0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Brush Drum Kit1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Brush Drum Kit2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Celesta0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Celesta1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Cello0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Cello1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Cello2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Cello3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Charang0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Charang1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Charang2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Charang3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Charang4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Chiffer Lead0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Chiffer Lead1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Choir Aahs0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Choir Aahs1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Church Organ0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Church Organ1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Church Organ2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Church Organ3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Clarinet0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Clarinet1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Clavinet0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Clavinet1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Clavinet2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Clean Guitar.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\ContraBass0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\ContraBass1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\ContraBass2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\ContraBass3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\ContraBass4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\ContraBass5.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Crystal Piano0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Crystal Piano1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Crystal Piano2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Crystal Piano3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Crystal0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Crystal1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Crystal2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Crystal3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Crystal4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Crystal5.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Crystal6.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Distortion Guitar0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Distortion Guitar1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Distortion Guitar2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Distortion Guitar3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Distortion Guitar4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Distortion Guitar5.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Distortion Guitar6.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\DrawBar Organ0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\DrawBar Organ1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\DrawBar Organ2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Dulcimer %28Santur%29.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Echo Drops0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Echo Drops1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Echo Drops2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Echo Drops3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Echo Drops4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Echo Drops5.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Electric Piano0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Electric Piano1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Electric Piano2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Electric Piano3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Electronic Drum Kit0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Electronic Drum Kit1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Electronic Drum Kit2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Electronic Drum Kit3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Electronic Drum Kit4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Electronic Drum Kit5.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\English Horns0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\English Horns1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\English Horns2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\English Horns3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\English Horns4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Fantasia %28New Age%290.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Fantasia %28New Age%291.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Fantasia %28New Age%292.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Fantasia %28New Age%293.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Fantasia %28New Age%294.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Fantasia %28New Age%295.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Fiddle.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Fingered Bass0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Fingered Bass1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Fix Room Drum Kit0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Fix Room Drum Kit1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Fix Room Drum Kit2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Fix Room Drum Kit3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Fix Room Drum Kit4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Flute0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Flute1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\French Horns00.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\French Horns01.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\French Horns02.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\French Horns03.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\French Horns04.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\French Horns05.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\French Horns06.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\French Horns07.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\French Horns08.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\French Horns09.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\French Horns10.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\French Horns11.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\French Horns12.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\French Horns13.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\French Horns14.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\French Horns15.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\French Horns16.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\French Horns17.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Fretless Bass0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Fretless Bass1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Fretless Bass2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Fretless Bass3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Glockenspiel0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Glockenspiel1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Glockenspiel2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Goblin0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Goblin1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Goblin2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Goblin3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Goblin4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Goblin5.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Grand Piano0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Grand Piano1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Guitar Fret Noise.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Guitar Harmonics0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Guitar Harmonics1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Guitar Harmonics2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Gun Shot0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Gun Shot1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Halo Pad.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Harmonica0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Harmonica1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Harpsichord0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Harpsichord1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Helicopter0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Helicopter1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Honky-Tonk Piano0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Honky-Tonk Piano1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Honky-Tonk Piano2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Honky-Tonk Piano3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Ice Rain0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Ice Rain1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Ice Rain2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Ice Rain3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Jazz Drum Kit0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Jazz Drum Kit1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Jazz Guitar0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Jazz Guitar1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Kalimba0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Kalimba1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Koto.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Marimba0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Marimba1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Marimba2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Melodic Tom0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Melodic Tom1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Melodic Tom2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Melodic Tom3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Metal Pad0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Metal Pad1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Metal Pad2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Metal Pad3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Metal Pad4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Metal Pad5.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Metal Pad6.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Metal Pad7.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\MT-32 Drum Kit.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Music Box0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Music Box1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Music Box2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Muted Guitar0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Muted Guitar1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Muted Trumpet.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Nylon Guitar0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Nylon Guitar1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Oboe.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Ocarina0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Ocarina1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Orchestra Hit0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Orchestra Hit1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Orchestra Hit2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Orchestral Drum Kit0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Orchestral Drum Kit1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Orchestral Drum Kit2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Orchestral Harp0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Orchestral Harp1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Orchestral Harp2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Orchestral Harp3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Orchestral Harp4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Orchestral Harp5.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Orchestral Harp6.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Orchestral Harp7.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Orchestral Harp8.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Orchestral Harp9.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Overdrive Guitar0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Overdrive Guitar1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Overdrive Guitar2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Overdrive Guitar3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Overdrive Guitar4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Overdrive Guitar5.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Overdrive Guitar6.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Overdrive Guitar7.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Overdrive Guitar8.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Pan Flute0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Pan Flute1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Percussive Organ0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Percussive Organ1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Percussive Organ2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Percussive Organ3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Percussive Organ4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Percussive Organ5.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Piccolo.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Picked Bass0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Picked Bass1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Pizzicato Strings0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Pizzicato Strings1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Pizzicato Strings2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Pizzicato Strings3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Pizzicato Strings4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Pizzicato Strings5.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Pizzicato Strings6.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Pizzicato Strings7.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Pizzicato Strings8.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Pizzicato Strings9.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Poly Synth0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Poly Synth1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Poly Synth2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Poly Synth3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Poly Synth4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Poly Synth5.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Power Drum Kit0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Power Drum Kit1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Power Drum Kit2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Power Drum Kit3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Recorder0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Recorder1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Recorder2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Recorder3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Reed Organ0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Reed Organ1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Reverse Cymbal.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Rock Organ0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Rock Organ1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Rock Organ2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Rock Organ3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Rock Organ4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Rock Piano0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Rock Piano1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Rock Piano2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Rock Piano3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Room Drum Kit0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Room Drum Kit1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Room Drum Kit2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Room Drum Kit3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Room Drum Kit4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Saw Wave0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Saw Wave1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Saw Wave2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Saw Wave3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Saw Wave4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Saw Wave5.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Sea Shore.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Shakuhachi0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Shakuhachi1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Shakuhachi2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Shakuhachi3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Shakuhachi4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Shamisen.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Shannai0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Shannai1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Shannai2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Sitar0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Sitar1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Slap Bass 10.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Slap Bass 11.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Slap Bass 20.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Slap Bass 21.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Solo Voice0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Solo Voice1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Solo Voice2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Solo Voice3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Soprano Sax00.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Soprano Sax01.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Soprano Sax02.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Soprano Sax03.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Soprano Sax04.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Soprano Sax05.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Soprano Sax06.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Soprano Sax07.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Soprano Sax08.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Soprano Sax09.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Soprano Sax10.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Soprano Sax11.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Soprano Sax12.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Soprano Sax13.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Soprano Sax14.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Soprano Sax15.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Soprano Sax16.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Soprano Sax17.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Sound Track0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Sound Track1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Sound Track2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Sound Track3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Sound Track4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Space Voice0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Space Voice1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Space Voice2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Square Wave0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Square Wave1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Square Wave2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Standard Drum Kit0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Standard Drum Kit1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Standard Drum Kit2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Star Theme0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Star Theme1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Star Theme2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Steel Drums0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Steel Drums1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Steel String Guitar0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Steel String Guitar1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Steel String Guitar2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Steel String Guitar3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Steel String Guitar4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Steel String Guitar5.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Steel String Guitar6.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Steel String Guitar7.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Steel String Guitar8.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Strings Ensemble 10.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Strings Ensemble 11.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Strings Ensemble 12.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Strings Ensemble 13.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Strings Ensemble 20.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Strings Ensemble 21.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Strings Ensemble 22.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Strings Ensemble 23.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Sweep Pad0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Sweep Pad1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Sweep Pad2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Sweep Pad3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Sweep Pad4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Sweep Pad5.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Bass 10.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Bass 11.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Bass 20.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Bass 21.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Bass 22.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Bass 23.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Bass 24.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Brass 10.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Brass 11.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Brass 12.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Brass 13.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Brass 14.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Brass 15.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Brass 2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Calliope0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Calliope1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Calliope2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Calliope3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Calliope4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Drum0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Drum1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Drum2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Drum3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Drum4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Drum5.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Drum6.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Strings 1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Strings 20.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Strings 21.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Strings 22.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Voice00.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Voice01.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Voice02.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Voice03.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Voice04.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Voice05.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Voice06.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Voice07.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Voice08.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Voice09.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Voice10.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Voice11.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Voice12.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Voice13.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Voice14.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Voice15.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Voice16.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Voice17.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Voice18.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Synth Voice19.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Taiko Drum0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Taiko Drum1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Telephone0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Telephone1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Tenor Sax.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Timpani0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Timpani1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Tinkle Bell.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\TR-808 909 Drum Kit0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\TR-808 909 Drum Kit1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Tremolo Strings0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Tremolo Strings1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Tremolo Strings2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Tremolo Strings3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Tremolo Strings4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Trombone0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Trombone1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Trumpet0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Trumpet1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Tuba0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Tuba1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Tubular Bells0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Tubular Bells1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Vibraphone0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Vibraphone1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Viola0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Viola1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Viola2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Viola3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Viola4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Violin0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Violin1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Violin2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Violin3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Voice Oohs0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Voice Oohs1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Voice Oohs2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Voice Oohs3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Warm Pad.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Whistle.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Wood Block.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Xylophone0.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Xylophone1.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\Arachno SoundFont - Version 1.0\Instruments\Xylophone2.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="ReferenceData\GeneralUser GS MuseScore v1.442\Instruments\+1 Saw Decline.tsv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
