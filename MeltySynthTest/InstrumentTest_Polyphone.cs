@@ -83,7 +83,7 @@ namespace MeltySynthTest
             }
 
             var error = 0.0;
-            error += Math.Abs(polyphoneRegion.Attenuation - meltyRegion.InitialAttenuation);
+            error += Math.Abs(polyphoneRegion.Attenuation - 0.4 * meltyRegion.InitialAttenuation);
             error += Math.Abs(polyphoneRegion.Pan - meltyRegion.Pan);
             error += Math.Abs(polyphoneRegion.LoopPlayback - (int)meltyRegion.SampleModes);
             error += Math.Abs(polyphoneRegion.RootKey - meltyRegion.OverridingRootKey);
