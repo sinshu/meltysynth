@@ -87,6 +87,7 @@ namespace MeltySynthTest
 
             Assert.AreEqual(expected.CoarseTune, actual.CoarseTune);
             Assert.AreEqual(expected.FineTune, actual.FineTune);
+            Assert.AreEqual(expected.SampleModes, actual.SampleModes);
 
             Assert.AreEqual(expected.ScaleTuning, actual.ScaleTuning);
             Assert.AreEqual(expected.ExclusiveClass, actual.ExclusiveClass);
@@ -139,6 +140,7 @@ namespace MeltySynthTest
 
             Assert.AreEqual(instrument.CoarseTune + preset.CoarseTune, pair.CoarseTune);
             Assert.AreEqual(instrument.FineTune + preset.FineTune, pair.FineTune);
+            Assert.AreEqual((int)instrument.SampleModes + (int)preset.SampleModes, (int)pair.SampleModes);
 
             Assert.AreEqual(instrument.ScaleTuning + preset.ScaleTuning, pair.ScaleTuning);
             Assert.AreEqual(instrument.ExclusiveClass + preset.ExclusiveClass, pair.ExclusiveClass);

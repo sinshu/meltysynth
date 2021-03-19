@@ -58,10 +58,16 @@ namespace MeltySynth
         public int KeyNumberToVolumeEnvelopeHold => this[GeneratorParameterType.KeyNumberToVolumeEnvelopeHold];
         public int KeyNumberToVolumeEnvelopeDecay => this[GeneratorParameterType.KeyNumberToVolumeEnvelopeDecay];
 
+        // public int KeyRangeStart => this[GeneratorParameterType.KeyRange] & 0xFF;
+        // public int KeyRangeEnd => (this[GeneratorParameterType.KeyRange] >> 8) & 0xFF;
+        // public int VelocityRangeStart => this[GeneratorParameterType.VelocityRange] & 0xFF;
+        // public int VelocityRangeEnd => (this[GeneratorParameterType.VelocityRange] >> 8) & 0xFF;
+
         public float InitialAttenuation => this[GeneratorParameterType.InitialAttenuation] / 10F;
 
         public int CoarseTune => this[GeneratorParameterType.CoarseTune];
         public int FineTune => this[GeneratorParameterType.FineTune];
+        public LoopMode SampleModes => this[GeneratorParameterType.SampleModes] != 2 ? (LoopMode)this[GeneratorParameterType.SampleModes] : LoopMode.NoLoop;
 
         public int ScaleTuning => this[GeneratorParameterType.ScaleTuning];
         public int ExclusiveClass => this[GeneratorParameterType.ExclusiveClass];
