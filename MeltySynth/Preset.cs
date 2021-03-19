@@ -40,6 +40,11 @@ namespace MeltySynth
 
         internal static Preset[] Create(PresetInfo[] infos, Zone[] allZones, Instrument[] instruments)
         {
+            if (infos.Length <= 1)
+            {
+                throw new InvalidDataException("No valid preset was found.");
+            }
+
             // The last one is the terminator.
             var presets = new Preset[infos.Length - 1];
 

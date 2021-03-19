@@ -14,6 +14,11 @@ namespace MeltySynth
 
         internal static Zone[] Create(ZoneInfo[] infos, GeneratorParameter[] gps, ModulatorParameter[] mps)
         {
+            if (infos.Length <= 1)
+            {
+                throw new InvalidDataException("No valid zone was found.");
+            }
+
             // The last one is the terminator.
             var zones = new Zone[infos.Length - 1];
 

@@ -30,6 +30,11 @@ namespace MeltySynth
 
         internal static Instrument[] Create(InstrumentInfo[] infos, Zone[] allZones, SampleHeader[] samples)
         {
+            if (infos.Length <= 1)
+            {
+                throw new InvalidDataException("No valid instrument was found.");
+            }
+
             // The last one is the terminator.
             var instruments = new Instrument[infos.Length - 1];
 
