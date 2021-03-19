@@ -8,7 +8,8 @@ namespace MeltySynthTest
         {
             new object[] { "TimGM6mb" },
             new object[] { "Arachno SoundFont - Version 1.0" },
-            new object[] { "GeneralUser GS MuseScore v1.442" }
+            new object[] { "GeneralUser GS MuseScore v1.442" },
+            new object[] { "SGM-V2.01" }
         };
     }
 }
