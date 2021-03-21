@@ -62,7 +62,7 @@ namespace MeltySynth
             }
         }
 
-        internal static InstrumentRegion[] Create(Instrument instrument, Zone[] zones, SampleHeader[] samples)
+        internal static InstrumentRegion[] Create(Instrument instrument, Span<Zone> zones, SampleHeader[] samples)
         {
             Zone global = null;
 

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.IO;
 using System.Text;
 
@@ -8,8 +8,11 @@ namespace MeltySynth
     public sealed class SoundFont
     {
         private SoundFontInfo info;
-        private SoundFontSampleData sampleData;
-        private SoundFontParameters parameters;
+        private int bitsPerSample;
+        private short[] waveData;
+        private ImmutableArray<SampleHeader> sampleHeaders;
+        private ImmutableArray<Preset> presets;
+        private ImmutableArray<Instrument> instruments;
 
         public SoundFont(Stream stream)
         {
@@ -43,12 +46,19 @@ namespace MeltySynth
                 }
 
                 info = new SoundFontInfo(reader);
-                sampleData = new SoundFontSampleData(reader);
-                parameters = new SoundFontParameters(reader);
+
+                var sampleData = new SoundFontSampleData(reader);
+                bitsPerSample = sampleData.BitsPerSample;
+                waveData = sampleData.Samples;
+
+                var parameters = new SoundFontParameters(reader);
+                sampleHeaders = ImmutableArray.Create(parameters.SampleHeaders);
+                presets = ImmutableArray.Create(parameters.Presets);
+                instruments = ImmutableArray.Create(parameters.Instruments);
             }
 
-            var sampleCount = sampleData.Samples.Length;
-            foreach (var sample in parameters.SampleHeaders)
+            var sampleCount = waveData.Length;
+            foreach (var sample in sampleHeaders)
             {
                 if (!(0 <= sample.Start && sample.Start < sampleCount))
                 {
@@ -75,10 +85,10 @@ namespace MeltySynth
         }
 
         public SoundFontInfo Info => info;
-        public int BitsPerSample => sampleData.BitsPerSample;
-        public short[] SampleData => sampleData.Samples;
-        public IReadOnlyList<SampleHeader> SampleHeaders => parameters.SampleHeaders;
-        public IReadOnlyList<Preset> Presets => parameters.Presets;
-        public IReadOnlyList<Instrument> Instruments => parameters.Instruments;
+        public int BitsPerSample => bitsPerSample;
+        public short[] WaveData => waveData;
+        public ImmutableArray<SampleHeader> SampleHeaders => sampleHeaders;
+        public ImmutableArray<Preset> Presets => presets;
+        public ImmutableArray<Instrument> Instruments => instruments;
     }
 }

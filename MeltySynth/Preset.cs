@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.IO;
 
 namespace MeltySynth
@@ -12,9 +12,9 @@ namespace MeltySynth
         private int library;
         private int genre;
         private int morphology;
-        private PresetRegion[] regions;
+        private ImmutableArray<PresetRegion> regions;
 
-        private Preset(PresetInfo info, Zone[] allZones, Instrument[] instruments)
+        private Preset(PresetInfo info, Zone[] zones, Instrument[] instruments)
         {
             this.name = info.Name;
             this.patchNumber = info.PatchNumber;
@@ -29,16 +29,10 @@ namespace MeltySynth
                 throw new InvalidDataException($"The preset '{info.Name}' has no zone.");
             }
 
-            var zones = new Zone[zoneCount];
-            for (var i = 0; i < zones.Length; i++)
-            {
-                zones[i] = allZones[info.ZoneStartIndex + i];
-            }
-
-            regions = PresetRegion.Create(this, zones, instruments);
+            regions = ImmutableArray.Create(PresetRegion.Create(this, zones.AsSpan().Slice(info.ZoneStartIndex, zoneCount), instruments));
         }
 
-        internal static Preset[] Create(PresetInfo[] infos, Zone[] allZones, Instrument[] instruments)
+        internal static Preset[] Create(PresetInfo[] infos, Zone[] zones, Instrument[] instruments)
         {
             if (infos.Length <= 1)
             {
@@ -50,7 +44,7 @@ namespace MeltySynth
 
             for (var i = 0; i < presets.Length; i++)
             {
-                presets[i] = new Preset(infos[i], allZones, instruments);
+                presets[i] = new Preset(infos[i], zones, instruments);
             }
 
             return presets;
@@ -67,6 +61,6 @@ namespace MeltySynth
         public int Library => library;
         public int Genre => genre;
         public int Morphology => morphology;
-        public IReadOnlyList<PresetRegion> Regions => regions;
+        public ImmutableArray<PresetRegion> Regions => regions;
     }
 }

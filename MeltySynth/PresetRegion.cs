@@ -45,7 +45,7 @@ namespace MeltySynth
             }
         }
 
-        internal static PresetRegion[] Create(Preset preset, Zone[] zones, Instrument[] instruments)
+        internal static PresetRegion[] Create(Preset preset, Span<Zone> zones, Instrument[] instruments)
         {
             Zone global = null;
 

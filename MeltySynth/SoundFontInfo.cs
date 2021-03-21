@@ -5,11 +5,11 @@ namespace MeltySynth
 {
     public sealed class SoundFontInfo
     {
-        private SoundFontVersion version = SoundFontVersion.Empty;
+        private SoundFontVersion version = default;
         private string targetSoundEngine = string.Empty;
         private string bankName = string.Empty;
         private string romName = string.Empty;
-        private SoundFontVersion romVersion = SoundFontVersion.Empty;
+        private SoundFontVersion romVersion = default;
         private string creationDate = string.Empty;
         private string author = string.Empty;
         private string targetProduct = string.Empty;

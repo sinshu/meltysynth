@@ -2,10 +2,8 @@
 
 namespace MeltySynth
 {
-    public sealed class SoundFontVersion
+    public struct SoundFontVersion
     {
-        public static readonly SoundFontVersion Empty = new SoundFontVersion(0, 0);
-
         private short major;
         private short minor;
 

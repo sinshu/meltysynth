@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.IO;
 
 namespace MeltySynth
@@ -7,9 +7,9 @@ namespace MeltySynth
     public sealed class Instrument
     {
         private string name;
-        private InstrumentRegion[] regions;
+        private ImmutableArray<InstrumentRegion> regions;
 
-        private Instrument(InstrumentInfo info, Zone[] allZones, SampleHeader[] samples)
+        private Instrument(InstrumentInfo info, Zone[] zones, SampleHeader[] samples)
         {
             this.name = info.Name;
 
@@ -19,16 +19,10 @@ namespace MeltySynth
                 throw new InvalidDataException($"The instrument '{info.Name}' has no zone.");
             }
 
-            var zones = new Zone[zoneCount];
-            for (var i = 0; i < zones.Length; i++)
-            {
-                zones[i] = allZones[info.ZoneStartIndex + i];
-            }
-
-            regions = InstrumentRegion.Create(this, zones, samples);
+            regions = ImmutableArray.Create(InstrumentRegion.Create(this, zones.AsSpan().Slice(info.ZoneStartIndex, zoneCount), samples));
         }
 
-        internal static Instrument[] Create(InstrumentInfo[] infos, Zone[] allZones, SampleHeader[] samples)
+        internal static Instrument[] Create(InstrumentInfo[] infos, Zone[] zones, SampleHeader[] samples)
         {
             if (infos.Length <= 1)
             {
@@ -40,7 +34,7 @@ namespace MeltySynth
 
             for (var i = 0; i < instruments.Length; i++)
             {
-                instruments[i] = new Instrument(infos[i], allZones, samples);
+                instruments[i] = new Instrument(infos[i], zones, samples);
             }
 
             return instruments;
@@ -52,6 +46,6 @@ namespace MeltySynth
         }
 
         public string Name => name;
-        public IReadOnlyList<InstrumentRegion> Regions => regions;
+        public ImmutableArray<InstrumentRegion> Regions => regions;
     }
 }
