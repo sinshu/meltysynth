@@ -83,6 +83,13 @@ namespace MeltySynth
             gps[(int)parameter.Type] = (short)parameter.Value;
         }
 
+        public bool Contains(int key, int velocity)
+        {
+            var containsKey = KeyRangeStart <= key && key <= KeyRangeEnd;
+            var containsVelocity = VelocityRangeStart <= velocity && velocity <= VelocityRangeEnd;
+            return containsKey && containsVelocity;
+        }
+
         public override string ToString()
         {
             if (instrument != null)
