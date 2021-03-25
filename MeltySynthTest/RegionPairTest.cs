@@ -96,10 +96,10 @@ namespace MeltySynthTest
 
         private static void Check(PresetRegion preset, InstrumentRegion instrument, RegionPair pair)
         {
-            Assert.AreEqual(instrument.StartAddressOffset + preset.StartAddressOffset, pair.StartAddressOffset);
-            Assert.AreEqual(instrument.EndAddressOffset + preset.EndAddressOffset, pair.EndAddressOffset);
-            Assert.AreEqual(instrument.StartLoopAddressOffset + preset.StartLoopAddressOffset, pair.StartLoopAddressOffset);
-            Assert.AreEqual(instrument.EndLoopAddressOffset + preset.EndLoopAddressOffset, pair.EndLoopAddressOffset);
+            Assert.AreEqual(instrument.StartAddressOffset, pair.StartAddressOffset);
+            Assert.AreEqual(instrument.EndAddressOffset, pair.EndAddressOffset);
+            Assert.AreEqual(instrument.StartLoopAddressOffset, pair.StartLoopAddressOffset);
+            Assert.AreEqual(instrument.EndLoopAddressOffset, pair.EndLoopAddressOffset);
 
             Assert.AreEqual(instrument.ModulationLfoToPitch + preset.ModulationLfoToPitch, pair.ModulationLfoToPitch);
             Assert.AreEqual(instrument.VibratoLfoToPitch + preset.VibratoLfoToPitch, pair.VibratoLfoToPitch);
@@ -140,11 +140,11 @@ namespace MeltySynthTest
 
             Assert.AreEqual(instrument.CoarseTune + preset.CoarseTune, pair.CoarseTune);
             Assert.AreEqual(instrument.FineTune + preset.FineTune, pair.FineTune);
-            Assert.AreEqual((int)instrument.SampleModes + (int)preset.SampleModes, (int)pair.SampleModes);
+            Assert.AreEqual(instrument.SampleModes, pair.SampleModes);
 
             Assert.AreEqual(instrument.ScaleTuning + preset.ScaleTuning, pair.ScaleTuning);
-            Assert.AreEqual(instrument.ExclusiveClass + preset.ExclusiveClass, pair.ExclusiveClass);
-            Assert.AreEqual(instrument.OverridingRootKey + preset.OverridingRootKey, pair.OverridingRootKey);
+            Assert.AreEqual(instrument.ExclusiveClass, pair.ExclusiveClass);
+            Assert.AreEqual(instrument.OverridingRootKey, pair.OverridingRootKey);
         }
     }
 }

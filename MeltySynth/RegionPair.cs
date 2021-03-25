@@ -18,10 +18,10 @@ namespace MeltySynth
         internal PresetRegion Preset => preset;
         internal InstrumentRegion Instrument => instrument;
 
-        internal int StartAddressOffset => 32768 * this[GeneratorParameterType.StartAddressCoarseOffset] + this[GeneratorParameterType.StartAddressOffset];
-        internal int EndAddressOffset => 32768 * this[GeneratorParameterType.EndAddressCoarseOffset] + this[GeneratorParameterType.EndAddressOffset];
-        internal int StartLoopAddressOffset => 32768 * this[GeneratorParameterType.StartLoopAddressCoarseOffset] + this[GeneratorParameterType.StartLoopAddressOffset];
-        internal int EndLoopAddressOffset => 32768 * this[GeneratorParameterType.EndLoopAddressCoarseOffset] + this[GeneratorParameterType.EndLoopAddressOffset];
+        internal int StartAddressOffset => 32768 * instrument[GeneratorParameterType.StartAddressCoarseOffset] + instrument[GeneratorParameterType.StartAddressOffset];
+        internal int EndAddressOffset => 32768 * instrument[GeneratorParameterType.EndAddressCoarseOffset] + instrument[GeneratorParameterType.EndAddressOffset];
+        internal int StartLoopAddressOffset => 32768 * instrument[GeneratorParameterType.StartLoopAddressCoarseOffset] + instrument[GeneratorParameterType.StartLoopAddressOffset];
+        internal int EndLoopAddressOffset => 32768 * instrument[GeneratorParameterType.EndLoopAddressCoarseOffset] + instrument[GeneratorParameterType.EndLoopAddressOffset];
 
         internal int ModulationLfoToPitch => this[GeneratorParameterType.ModulationLfoToPitch];
         internal int VibratoLfoToPitch => this[GeneratorParameterType.VibratoLfoToPitch];
@@ -67,10 +67,10 @@ namespace MeltySynth
 
         internal int CoarseTune => this[GeneratorParameterType.CoarseTune];
         internal int FineTune => this[GeneratorParameterType.FineTune];
-        internal LoopMode SampleModes => this[GeneratorParameterType.SampleModes] != 2 ? (LoopMode)this[GeneratorParameterType.SampleModes] : LoopMode.NoLoop;
+        internal LoopMode SampleModes => instrument[GeneratorParameterType.SampleModes] != 2 ? (LoopMode)this[GeneratorParameterType.SampleModes] : LoopMode.NoLoop;
 
         internal int ScaleTuning => this[GeneratorParameterType.ScaleTuning];
-        internal int ExclusiveClass => this[GeneratorParameterType.ExclusiveClass];
-        internal int OverridingRootKey => this[GeneratorParameterType.OverridingRootKey];
+        internal int ExclusiveClass => instrument[GeneratorParameterType.ExclusiveClass];
+        internal int OverridingRootKey => instrument[GeneratorParameterType.OverridingRootKey];
     }
 }
