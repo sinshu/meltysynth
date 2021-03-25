@@ -6,7 +6,7 @@ using NUnit.Framework;
 
 namespace MeltySynthTest
 {
-    public class SoundFontSampleDataTest_NAudio
+    public class SoundFontWaveDataTest_NAudio
     {
         [TestCaseSource(typeof(TestSettings), nameof(TestSettings.SoundFontNames))]
         public void ReadTest(string soundFontName)
