@@ -57,7 +57,19 @@ namespace MeltySynth
                 instruments = ImmutableArray.Create(parameters.Instruments);
             }
 
+            CheckSamples();
+            CheckRegions();
+        }
+
+        public override string ToString()
+        {
+            return info.BankName;
+        }
+
+        private void CheckSamples()
+        {
             var sampleCount = waveData.Length;
+
             foreach (var sample in sampleHeaders)
             {
                 if (!(0 <= sample.Start && sample.Start < sampleCount))
@@ -68,7 +80,7 @@ namespace MeltySynth
                 {
                     throw new InvalidDataException($"The loop start position of the sample '{sample.Name}' is out of range.");
                 }
-                if (!(0 <= sample.End && sample.End < sampleCount))
+                if (!(0 <= sample.End && sample.End + 4 < sampleCount)) // The +4 is for safety.
                 {
                     throw new InvalidDataException($"The end position of the sample '{sample.Name}' is out of range.");
                 }
@@ -79,9 +91,42 @@ namespace MeltySynth
             }
         }
 
-        public override string ToString()
+        private void CheckRegions()
         {
-            return info.BankName;
+            var sampleCount = waveData.Length;
+
+            foreach (var instrument in instruments)
+            {
+                foreach (var region in instrument.Regions)
+                {
+                    if (!(0 <= region.SampleStart && region.SampleStart < sampleCount))
+                    {
+                        throw new InvalidDataException($"The start position of the sample '{region.Sample.Name}' in the instrument '{instrument.Name}' is out of range.");
+                    }
+                    if (!(0 <= region.SampleStartLoop && region.SampleStartLoop < sampleCount))
+                    {
+                        throw new InvalidDataException($"The loop start position of the sample '{region.Sample.Name}' in the instrument '{instrument.Name}' is out of range.");
+                    }
+                    if (!(0 <= region.SampleEnd && region.SampleEnd + 4 < sampleCount)) // The +4 is for safety.
+                    {
+                        throw new InvalidDataException($"The end position of the sample '{region.Sample.Name}' in the instrument '{instrument.Name}' is out of range.");
+                    }
+                    if (!(0 <= region.SampleEndLoop && region.SampleEndLoop < sampleCount))
+                    {
+                        throw new InvalidDataException($"The loop end position of the sample '{region.Sample.Name}' in the instrument '{instrument.Name}' is out of range.");
+                    }
+
+                    switch (region.SampleModes)
+                    {
+                        case LoopMode.NoLoop:
+                        case LoopMode.Continuous:
+                        case LoopMode.LoopUntilNoteOff:
+                            break;
+                        default:
+                            throw new InvalidDataException($"The sample '{region.Sample.Name}' in the instrument '{instrument.Name}' has an invalid loop mode.");
+                    }
+                }
+            }
         }
 
         public SoundFontInfo Info => info;
