@@ -27,7 +27,9 @@ namespace MeltySynth
                 throw new InvalidDataException($"The instrument '{info.Name}' has no zone.");
             }
 
-            regions = ImmutableArray.Create(InstrumentRegion.Create(this, zones.AsSpan().Slice(info.ZoneStartIndex, zoneCount), samples));
+            var zoneSpan = zones.AsSpan(info.ZoneStartIndex, zoneCount);
+
+            regions = ImmutableArray.Create(InstrumentRegion.Create(this, zoneSpan, samples));
         }
 
         internal static Instrument[] Create(InstrumentInfo[] infos, Zone[] zones, SampleHeader[] samples)

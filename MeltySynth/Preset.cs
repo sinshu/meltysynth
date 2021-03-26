@@ -37,7 +37,9 @@ namespace MeltySynth
                 throw new InvalidDataException($"The preset '{info.Name}' has no zone.");
             }
 
-            regions = ImmutableArray.Create(PresetRegion.Create(this, zones.AsSpan().Slice(info.ZoneStartIndex, zoneCount), instruments));
+            var zoneSpan = zones.AsSpan(info.ZoneStartIndex, zoneCount);
+
+            regions = ImmutableArray.Create(PresetRegion.Create(this, zoneSpan, instruments));
         }
 
         internal static Preset[] Create(PresetInfo[] infos, Zone[] zones, Instrument[] instruments)
