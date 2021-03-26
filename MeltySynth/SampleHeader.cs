@@ -5,6 +5,8 @@ namespace MeltySynth
 {
     public sealed class SampleHeader
     {
+        internal static readonly SampleHeader Default = new SampleHeader();
+
         private string name;
         private int start;
         private int end;
@@ -15,6 +17,11 @@ namespace MeltySynth
         private sbyte pitchCorrection;
         private ushort link;
         private SampleType type;
+
+        private SampleHeader()
+        {
+            name = "Default";
+        }
 
         private SampleHeader(BinaryReader reader)
         {

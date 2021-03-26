@@ -43,6 +43,10 @@ namespace MeltySynth
                 }
                 instrument = instruments[id];
             }
+            else
+            {
+                instrument = Instrument.Default;
+            }
         }
 
         internal static PresetRegion[] Create(Preset preset, Span<Zone> zones, Instrument[] instruments)

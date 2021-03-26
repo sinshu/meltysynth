@@ -60,6 +60,10 @@ namespace MeltySynth
                 }
                 sample = samples[id];
             }
+            else
+            {
+                sample = SampleHeader.Default;
+            }
         }
 
         internal static InstrumentRegion[] Create(Instrument instrument, Span<Zone> zones, SampleHeader[] samples)
