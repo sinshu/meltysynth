@@ -68,7 +68,7 @@ namespace MeltySynth
 
         private void CheckSamples()
         {
-            var sampleCount = waveData.Length;
+            var sampleCount = waveData.Length - 4; // This small offset is to ensure that out of range access is safe in the DSP.
 
             foreach (var sample in sampleHeaders)
             {
@@ -80,7 +80,7 @@ namespace MeltySynth
                 {
                     throw new InvalidDataException($"The loop start position of the sample '{sample.Name}' is out of range.");
                 }
-                if (!(0 <= sample.End && sample.End + 4 < sampleCount)) // The +4 is for safety.
+                if (!(0 <= sample.End && sample.End + 4 < sampleCount))
                 {
                     throw new InvalidDataException($"The end position of the sample '{sample.Name}' is out of range.");
                 }
@@ -93,7 +93,7 @@ namespace MeltySynth
 
         private void CheckRegions()
         {
-            var sampleCount = waveData.Length;
+            var sampleCount = waveData.Length - 4; // This small offset is to ensure that out of range access is safe in the DSP.
 
             foreach (var instrument in instruments)
             {
@@ -107,7 +107,7 @@ namespace MeltySynth
                     {
                         throw new InvalidDataException($"The loop start position of the sample '{region.Sample.Name}' in the instrument '{instrument.Name}' is out of range.");
                     }
-                    if (!(0 <= region.SampleEnd && region.SampleEnd + 4 < sampleCount)) // The +4 is for safety.
+                    if (!(0 <= region.SampleEnd && region.SampleEnd + 4 < sampleCount))
                     {
                         throw new InvalidDataException($"The end position of the sample '{region.Sample.Name}' in the instrument '{instrument.Name}' is out of range.");
                     }
