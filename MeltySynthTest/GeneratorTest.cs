@@ -50,8 +50,8 @@ namespace MeltySynthTest
                 }
             }
 
-            var start = region.Sample.Start + region.StartAddressOffset;
-            var end = region.Sample.End + region.EndAddressOffset;
+            var start = region.SampleStart;
+            var end = region.SampleEnd;
             var length = end - start;
 
             var raw = soundFont.WaveData.AsSpan(start, length);

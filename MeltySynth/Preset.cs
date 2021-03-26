@@ -6,6 +6,8 @@ namespace MeltySynth
 {
     public sealed class Preset
     {
+        internal static readonly Preset Default = new Preset();
+
         private string name;
         private int patchNumber;
         private int bankNumber;
@@ -13,6 +15,12 @@ namespace MeltySynth
         private int genre;
         private int morphology;
         private ImmutableArray<PresetRegion> regions;
+
+        private Preset()
+        {
+            name = "Default";
+            regions = ImmutableArray.Create<PresetRegion>();
+        }
 
         private Preset(PresetInfo info, Zone[] zones, Instrument[] instruments)
         {

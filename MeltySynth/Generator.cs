@@ -27,10 +27,10 @@ namespace MeltySynth
         internal void Start(RegionPair region)
         {
             loopMode = region.SampleModes;
-            start = region.Instrument.Sample.Start + region.StartAddressOffset;
-            end = region.Instrument.Sample.End + region.EndAddressOffset;
-            startLoop = region.Instrument.Sample.StartLoop + region.StartLoopAddressOffset;
-            endLoop = region.Instrument.Sample.EndLoop + region.EndLoopAddressOffset;
+            start = region.SampleStart;
+            end = region.SampleEnd;
+            startLoop = region.SampleStartLoop;
+            endLoop = region.SampleEndLoop;
 
             position = start;
         }

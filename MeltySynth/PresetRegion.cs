@@ -6,7 +6,7 @@ namespace MeltySynth
 {
     public sealed class PresetRegion
     {
-        public static readonly PresetRegion Default = new PresetRegion(null, null, null, null);
+        internal static readonly PresetRegion Default = new PresetRegion(Preset.Default, null, null, null);
 
         private Instrument instrument;
 
@@ -39,7 +39,7 @@ namespace MeltySynth
                 var id = gps[(int)GeneratorParameterType.Instrument];
                 if (!(0 <= id && id < instruments.Length))
                 {
-                    throw new InvalidDataException($"The preset {preset.Name} contains an invalid instrument ID.");
+                    throw new InvalidDataException($"The preset '{preset.Name}' contains an invalid instrument ID '{id}'.");
                 }
                 instrument = instruments[id];
             }
@@ -92,14 +92,7 @@ namespace MeltySynth
 
         public override string ToString()
         {
-            if (instrument != null)
-            {
-                return $"{instrument.Name} (Key: {KeyRangeStart}-{KeyRangeEnd}, Velocity: {VelocityRangeStart}-{VelocityRangeEnd})";
-            }
-            else
-            {
-                return $"Default (Key: {KeyRangeStart}-{KeyRangeEnd}, Velocity: {VelocityRangeStart}-{VelocityRangeEnd})";
-            }
+            return $"{instrument.Name} (Key: {KeyRangeStart}-{KeyRangeEnd}, Velocity: {VelocityRangeStart}-{VelocityRangeEnd})";
         }
 
         private static float CentsToMultiplyingFactor(int x)
@@ -111,10 +104,10 @@ namespace MeltySynth
 
         public Instrument Instrument => instrument;
 
-        public int StartAddressOffset => 32768 * this[GeneratorParameterType.StartAddressCoarseOffset] + this[GeneratorParameterType.StartAddressOffset];
-        public int EndAddressOffset => 32768 * this[GeneratorParameterType.EndAddressCoarseOffset] + this[GeneratorParameterType.EndAddressOffset];
-        public int StartLoopAddressOffset => 32768 * this[GeneratorParameterType.StartLoopAddressCoarseOffset] + this[GeneratorParameterType.StartLoopAddressOffset];
-        public int EndLoopAddressOffset => 32768 * this[GeneratorParameterType.EndLoopAddressCoarseOffset] + this[GeneratorParameterType.EndLoopAddressOffset];
+        // public int StartAddressOffset => 32768 * this[GeneratorParameterType.StartAddressCoarseOffset] + this[GeneratorParameterType.StartAddressOffset];
+        // public int EndAddressOffset => 32768 * this[GeneratorParameterType.EndAddressCoarseOffset] + this[GeneratorParameterType.EndAddressOffset];
+        // public int StartLoopAddressOffset => 32768 * this[GeneratorParameterType.StartLoopAddressCoarseOffset] + this[GeneratorParameterType.StartLoopAddressOffset];
+        // public int EndLoopAddressOffset => 32768 * this[GeneratorParameterType.EndLoopAddressCoarseOffset] + this[GeneratorParameterType.EndLoopAddressOffset];
 
         public int ModulationLfoToPitch => this[GeneratorParameterType.ModulationLfoToPitch];
         public int VibratoLfoToPitch => this[GeneratorParameterType.VibratoLfoToPitch];
@@ -160,10 +153,10 @@ namespace MeltySynth
 
         public int CoarseTune => this[GeneratorParameterType.CoarseTune];
         public int FineTune => this[GeneratorParameterType.FineTune];
-        public LoopMode SampleModes => this[GeneratorParameterType.SampleModes] != 2 ? (LoopMode)this[GeneratorParameterType.SampleModes] : LoopMode.NoLoop;
+        // public LoopMode SampleModes => this[GeneratorParameterType.SampleModes] != 2 ? (LoopMode)this[GeneratorParameterType.SampleModes] : LoopMode.NoLoop;
 
         public int ScaleTuning => this[GeneratorParameterType.ScaleTuning];
-        public int ExclusiveClass => this[GeneratorParameterType.ExclusiveClass];
-        public int OverridingRootKey => this[GeneratorParameterType.OverridingRootKey];
+        // public int ExclusiveClass => this[GeneratorParameterType.ExclusiveClass];
+        // public int OverridingRootKey => this[GeneratorParameterType.OverridingRootKey];
     }
 }

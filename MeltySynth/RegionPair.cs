@@ -18,6 +18,11 @@ namespace MeltySynth
         internal PresetRegion Preset => preset;
         internal InstrumentRegion Instrument => instrument;
 
+        internal int SampleStart => instrument.SampleStart;
+        internal int SampleEnd => instrument.SampleEnd;
+        internal int SampleStartLoop => instrument.SampleStartLoop;
+        internal int SampleEndLoop => instrument.SampleEndLoop;
+
         internal int StartAddressOffset => 32768 * instrument[GeneratorParameterType.StartAddressCoarseOffset] + instrument[GeneratorParameterType.StartAddressOffset];
         internal int EndAddressOffset => 32768 * instrument[GeneratorParameterType.EndAddressCoarseOffset] + instrument[GeneratorParameterType.EndAddressOffset];
         internal int StartLoopAddressOffset => 32768 * instrument[GeneratorParameterType.StartLoopAddressCoarseOffset] + instrument[GeneratorParameterType.StartLoopAddressOffset];

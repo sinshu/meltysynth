@@ -422,13 +422,6 @@ public static class DumpInfo
                 }
                 writer.WriteLine();
 
-                writer.Write("Loop playback");
-                foreach (var region in regions)
-                {
-                    writer.Write("," + region.SampleModes);
-                }
-                writer.WriteLine();
-
                 writer.Write("Tuing (semi-tones)");
                 foreach (var region in regions)
                 {

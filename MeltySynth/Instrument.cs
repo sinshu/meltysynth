@@ -6,8 +6,16 @@ namespace MeltySynth
 {
     public sealed class Instrument
     {
+        internal static readonly Instrument Default = new Instrument();
+
         private string name;
         private ImmutableArray<InstrumentRegion> regions;
+
+        private Instrument()
+        {
+            name = "Default";
+            regions = ImmutableArray.Create<InstrumentRegion>();
+        }
 
         private Instrument(InstrumentInfo info, Zone[] zones, SampleHeader[] samples)
         {

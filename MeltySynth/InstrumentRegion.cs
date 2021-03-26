@@ -6,7 +6,7 @@ namespace MeltySynth
 {
     public sealed class InstrumentRegion
     {
-        public static readonly InstrumentRegion Default = new InstrumentRegion(null, null, null, null);
+        internal static readonly InstrumentRegion Default = new InstrumentRegion(Instrument.Default, null, null, null);
 
         private SampleHeader sample;
 
@@ -56,7 +56,7 @@ namespace MeltySynth
                 var id = gps[(int)GeneratorParameterType.SampleID];
                 if (!(0 <= id && id < samples.Length))
                 {
-                    throw new InvalidDataException($"The instrument {instrument.Name} contains an invalid sample ID.");
+                    throw new InvalidDataException($"The instrument '{instrument.Name}' contains an invalid sample ID '{id}'.");
                 }
                 sample = samples[id];
             }
@@ -109,19 +109,17 @@ namespace MeltySynth
 
         public override string ToString()
         {
-            if (sample != null)
-            {
-                return $"{sample.Name} (Key: {KeyRangeStart}-{KeyRangeEnd}, Velocity: {VelocityRangeStart}-{VelocityRangeEnd})";
-            }
-            else
-            {
-                return $"Default (Key: {KeyRangeStart}-{KeyRangeEnd}, Velocity: {VelocityRangeStart}-{VelocityRangeEnd})";
-            }
+            return $"{sample.Name} (Key: {KeyRangeStart}-{KeyRangeEnd}, Velocity: {VelocityRangeStart}-{VelocityRangeEnd})";
         }
 
         internal short this[GeneratorParameterType generatortType] => gps[(int)generatortType];
 
         public SampleHeader Sample => sample;
+
+        public int SampleStart => sample.Start + StartAddressOffset;
+        public int SampleEnd => sample.End + EndAddressOffset;
+        public int SampleStartLoop => sample.StartLoop + StartLoopAddressOffset;
+        public int SampleEndLoop => sample.EndLoop + EndLoopAddressOffset;
 
         public int StartAddressOffset => 32768 * this[GeneratorParameterType.StartAddressCoarseOffset] + this[GeneratorParameterType.StartAddressOffset];
         public int EndAddressOffset => 32768 * this[GeneratorParameterType.EndAddressCoarseOffset] + this[GeneratorParameterType.EndAddressOffset];
