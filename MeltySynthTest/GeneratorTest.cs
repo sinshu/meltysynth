@@ -9,7 +9,7 @@ namespace MeltySynthTest
     public class GeneratorTest
     {
         [TestCaseSource(typeof(TestSettings), nameof(TestSettings.LightSoundFontNames))]
-        public void NoLoop_Speed1(string soundFontName)
+        public void NoLoop_PitchRatio100(string soundFontName)
         {
             var soundFont = new SoundFont(soundFontName + ".sf2");
 
@@ -19,13 +19,13 @@ namespace MeltySynthTest
                 {
                     if (region.SampleModes == LoopMode.NoLoop)
                     {
-                        NoLoop_Speed1_Run(soundFont, instrument, region);
+                        NoLoop_PitchRatio100_Run(soundFont, instrument, region);
                     }
                 }
             }
         }
 
-        private void NoLoop_Speed1_Run(SoundFont soundFont, Instrument instrument, InstrumentRegion region)
+        private void NoLoop_PitchRatio100_Run(SoundFont soundFont, Instrument instrument, InstrumentRegion region)
         {
             Console.WriteLine(instrument.Name + ", " + region.Sample.Name);
 
@@ -82,7 +82,7 @@ namespace MeltySynthTest
         }
 
         [TestCaseSource(typeof(TestSettings), nameof(TestSettings.LightSoundFontNames))]
-        public void NoLoop_Speed05(string soundFontName)
+        public void NoLoop_PitchRatio050(string soundFontName)
         {
             var soundFont = new SoundFont(soundFontName + ".sf2");
 
@@ -92,13 +92,13 @@ namespace MeltySynthTest
                 {
                     if (region.SampleModes == LoopMode.NoLoop)
                     {
-                        NoLoop_Speed05_Run(soundFont, instrument, region);
+                        NoLoop_PitchRatio050_Run(soundFont, instrument, region);
                     }
                 }
             }
         }
 
-        private void NoLoop_Speed05_Run(SoundFont soundFont, Instrument instrument, InstrumentRegion region)
+        private void NoLoop_PitchRatio050_Run(SoundFont soundFont, Instrument instrument, InstrumentRegion region)
         {
             Console.WriteLine(instrument.Name + ", " + region.Sample.Name);
 
@@ -123,8 +123,8 @@ namespace MeltySynthTest
                 }
             }
 
-            var start = region.Sample.Start + region.StartAddressOffset;
-            var end = region.Sample.End + region.EndAddressOffset;
+            var start = region.SampleStart;
+            var end = region.SampleEnd;
             var length = end - start;
 
             var raw = soundFont.WaveData.AsSpan(start, length + 1);
@@ -150,6 +150,143 @@ namespace MeltySynthTest
             for (var t = expected.Length; t < actual.Count; t++)
             {
                 if (actual[t] != 0)
+                {
+                    Assert.Fail();
+                }
+            }
+        }
+
+        [TestCaseSource(typeof(TestSettings), nameof(TestSettings.LightSoundFontNames))]
+        public void Continuous_PitchRatio100(string soundFontName)
+        {
+            var soundFont = new SoundFont(soundFontName + ".sf2");
+
+            foreach (var instrument in soundFont.Instruments.Take(30))
+            {
+                foreach (var region in instrument.Regions.Take(3))
+                {
+                    if (region.SampleModes == LoopMode.Continuous)
+                    {
+                        Continuous_PitchRatio100_Run(soundFont, instrument, region);
+                    }
+                }
+            }
+        }
+
+        private void Continuous_PitchRatio100_Run(SoundFont soundFont, Instrument instrument, InstrumentRegion region)
+        {
+            Console.WriteLine(instrument.Name + ", " + region.Sample.Name);
+
+            var synthesizer = new Synthesizer(soundFont, 44100);
+            var generator = new Generator(synthesizer);
+
+            var block = new float[synthesizer.BlockSize];
+
+            generator.Start(region);
+
+            var actual = new List<float>();
+
+            for (var i = 0; i < 500; i++)
+            {
+                var result = generator.Process(block, 1);
+
+                Assert.IsTrue(result);
+
+                actual.AddRange(block);
+            }
+
+            var start = region.SampleStart;
+            var startLoop = region.SampleStartLoop;
+            var endLoop = region.SampleEndLoop;
+
+            var expected = new float[actual.Count];
+
+            var pos = start;
+            for (var t = 0; t < expected.Length; t++)
+            {
+                expected[t] = (float)soundFont.WaveData[pos] / 32768;
+                pos++;
+                if (pos == endLoop)
+                {
+                    pos = startLoop;
+                }
+            }
+
+            for (var t = 0; t < expected.Length; t++)
+            {
+                if (Math.Abs(expected[t] - actual[t]) > 1.0E-6)
+                {
+                    Assert.Fail();
+                }
+            }
+        }
+
+        [TestCaseSource(typeof(TestSettings), nameof(TestSettings.LightSoundFontNames))]
+        public void Continuous_PitchRatio050(string soundFontName)
+        {
+            var soundFont = new SoundFont(soundFontName + ".sf2");
+
+            foreach (var instrument in soundFont.Instruments.Take(30))
+            {
+                foreach (var region in instrument.Regions.Take(3))
+                {
+                    if (region.SampleModes == LoopMode.Continuous)
+                    {
+                        Continuous_PitchRatio050_Run(soundFont, instrument, region);
+                    }
+                }
+            }
+        }
+
+        private void Continuous_PitchRatio050_Run(SoundFont soundFont, Instrument instrument, InstrumentRegion region)
+        {
+            Console.WriteLine(instrument.Name + ", " + region.Sample.Name);
+
+            var synthesizer = new Synthesizer(soundFont, 44100);
+            var generator = new Generator(synthesizer);
+
+            var block = new float[synthesizer.BlockSize];
+
+            generator.Start(region);
+
+            var actual = new List<float>();
+
+            for (var i = 0; i < 500; i++)
+            {
+                var result = generator.Process(block, 0.5);
+
+                Assert.IsTrue(result);
+
+                actual.AddRange(block);
+            }
+
+            var start = region.SampleStart;
+            var startLoop = region.SampleStartLoop;
+            var endLoop = region.SampleEndLoop;
+
+            var raw = new float[actual.Count / 2 + 1];
+
+            var pos = start;
+            for (var t = 0; t < raw.Length; t++)
+            {
+                raw[t] = (float)soundFont.WaveData[pos] / 32768;
+                pos++;
+                if (pos == endLoop)
+                {
+                    pos = startLoop;
+                }
+            }
+
+            var expected = new float[actual.Count];
+            for (var t = 0; t < expected.Length; t += 2)
+            {
+                expected[t] = raw[t / 2];
+                expected[t + 1] = (raw[t / 2] + raw[t / 2 + 1]) / 2;
+            }
+
+            for (var t = 0; t < expected.Length; t++)
+            {
+                if (Math.Abs(expected[t] - actual[t]) > 1.0E-6)
                 {
                     Assert.Fail();
                 }
