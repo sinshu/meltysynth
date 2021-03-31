@@ -48,12 +48,12 @@ namespace MeltySynth
             processedSampleCount = 0;
             stage = Stage.Delay;
             value = 0;
+
+            Process(0);
         }
 
         internal void Release()
         {
-            Process(0);
-
             stage = Stage.Release;
             releaseEndTime += (double)processedSampleCount / synthesizer.SampleRate;
             releaseLevel = value;
@@ -65,39 +65,31 @@ namespace MeltySynth
 
             var currentTime = (double)processedSampleCount / synthesizer.SampleRate;
 
-            if (stage <= Stage.Hold)
+            while (stage <= Stage.Hold)
             {
-                while (true)
+                double endTime;
+                switch (stage)
                 {
-                    double endTime;
-                    switch (stage)
-                    {
-                        case Stage.Delay:
-                            endTime = attackStartTime;
-                            break;
-                        case Stage.Attack:
-                            endTime = holdStartTime;
-                            break;
-                        case Stage.Hold:
-                            endTime = decayStartTime;
-                            break;
-                        default:
-                            throw new InvalidOperationException("Invalid envelope stage.");
-                    }
-
-                    if (currentTime < endTime)
-                    {
+                    case Stage.Delay:
+                        endTime = attackStartTime;
                         break;
-                    }
-                    else
-                    {
-                        stage++;
+                    case Stage.Attack:
+                        endTime = holdStartTime;
+                        break;
+                    case Stage.Hold:
+                        endTime = decayStartTime;
+                        break;
+                    default:
+                        throw new InvalidOperationException("Invalid envelope stage.");
+                }
 
-                        if (stage == Stage.Decay)
-                        {
-                            break;
-                        }
-                    }
+                if (currentTime < endTime)
+                {
+                    break;
+                }
+                else
+                {
+                    stage++;
                 }
             }
 
