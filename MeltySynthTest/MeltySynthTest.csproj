@@ -6268,6 +6268,132 @@
     <None Update="ReferenceData\Polyphone\TimGM6mb\Presets\128 048 Orchestra.tsv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\Continuous.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff0000.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff0050.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff0100.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff0150.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff0200.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff0250.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff0300.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff0350.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff0400.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff0450.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff0500.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff0550.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff0600.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff0650.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff0700.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff0750.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff0800.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff0850.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff0900.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff0950.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff1000.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff1050.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff1100.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff1150.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff1200.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff1250.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff1300.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff1350.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff1400.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff1450.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff1500.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff1550.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff1600.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff1650.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff1700.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff1750.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff1800.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff1850.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff1900.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff1950.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D03_A05_H07_D11_S02_R13\NoteOff2000.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="ReferenceData\TinySoundFont\VolumeEnvelope\D03_A05_H07_D11_S02_R13\Continuous.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

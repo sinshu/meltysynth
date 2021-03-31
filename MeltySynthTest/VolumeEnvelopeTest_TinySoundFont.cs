@@ -7,7 +7,7 @@ using MeltySynth;
 
 namespace MeltySynthTest
 {
-    public class EnvelopeTest_TinySoundFont
+    public class VolumeEnvelopeTest_TinySoundFont
     {
         [Test]
         public void VolumeEnvelope_D03_A05_H07_D11_S02_R13_Continuous()
@@ -17,7 +17,7 @@ namespace MeltySynthTest
             Assert.IsTrue(expected.Length == 3000);
 
             var synthesizer = new Synthesizer(44100);
-            var envelope = new Envelope(synthesizer);
+            var envelope = new VolumeEnvelope(synthesizer);
 
             envelope.Start(0.3F, 0.5F, 0.7F, 1.1F, 0.2F, 1.3F);
 
@@ -38,7 +38,7 @@ namespace MeltySynthTest
             var dir = Path.Combine("ReferenceData", "TinySoundFont", "VolumeEnvelope", "D03_A05_H07_D11_S02_R13");
 
             var synthesizer = new Synthesizer(44100);
-            var envelope = new Envelope(synthesizer);
+            var envelope = new VolumeEnvelope(synthesizer);
 
             for (var noteOffBlock = 0; noteOffBlock <= 2000; noteOffBlock += 50)
             {

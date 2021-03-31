@@ -2,7 +2,7 @@
 
 namespace MeltySynth
 {
-    internal sealed class Envelope
+    internal sealed class ModulationEnvelope
     {
         private Synthesizer synthesizer;
 
@@ -13,7 +13,9 @@ namespace MeltySynth
         private double attackStartTime;
         private double holdStartTime;
         private double decayStartTime;
-        private double releaseStartTime;
+
+        private double decayEndTime;
+        private double releaseEndTime;
 
         private float sustainLevel;
         private float releaseLevel;
@@ -22,7 +24,7 @@ namespace MeltySynth
         private Stage stage;
         private float value;
 
-        internal Envelope(Synthesizer synthesizer)
+        internal ModulationEnvelope(Synthesizer synthesizer)
         {
             this.synthesizer = synthesizer;
         }
@@ -30,13 +32,15 @@ namespace MeltySynth
         internal void Start(float delay, float attack, float hold, float decay, float sustain, float release)
         {
             attackSlope = 1 / attack;
-            decaySlope = -9.226 / decay;
-            releaseSlope = -9.226 / release;
+            decaySlope = 1 / decay;
+            releaseSlope = 1 / release;
 
             attackStartTime = delay;
             holdStartTime = attackStartTime + attack;
             decayStartTime = holdStartTime + hold;
-            releaseStartTime = 0;
+
+            decayEndTime = decayStartTime + decay;
+            releaseEndTime = release;
 
             sustainLevel = sustain;
             releaseLevel = 0;
@@ -46,28 +50,10 @@ namespace MeltySynth
             value = 0;
         }
 
-        /*
-        internal void Start(InstrumentRegion region)
-        {
-            Start(new RegionPair(PresetRegion.Default, region));
-        }
-
-        internal void Start(RegionPair region)
-        {
-            var delay = region.DelayVolumeEnvelope;
-            var attack = region.AttackVolumeEnvelope;
-            var hold = region.HoldVolumeEnvelope;
-            var decay = region.DecayVolumeEnvelope;
-            var sustain = region.SustainVolumeEnvelope;
-            var release = region.ReleaseVolumeEnvelope;
-            Start(delay, attack, hold, decay, sustain, release);
-        }
-        */
-
         internal void Release()
         {
             stage = Stage.Release;
-            releaseStartTime = (double)processedSampleCount / synthesizer.SampleRate;
+            releaseEndTime += (double)processedSampleCount / synthesizer.SampleRate;
             releaseLevel = value;
         }
 
@@ -125,14 +111,21 @@ namespace MeltySynth
                     value = 1;
                     break;
                 case Stage.Decay:
-                    value = Math.Max((float)Math.Exp(decaySlope * (currentTime - decayStartTime)), sustainLevel);
+                    value = Math.Max((float)(decaySlope * (decayEndTime - currentTime)), sustainLevel);
                     break;
                 case Stage.Release:
-                    value = releaseLevel * (float)Math.Exp(releaseSlope * (currentTime - releaseStartTime));
+                    value = Math.Max(releaseLevel * (float)(releaseSlope * (releaseEndTime - currentTime)), 0F);
                     break;
             }
 
-            return true;
+            if (stage <= Stage.Hold)
+            {
+                return true;
+            }
+            else
+            {
+                return value > SoundFontMath.NonAudible;
+            }
         }
 
         internal float Value => value;
