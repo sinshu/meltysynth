@@ -64,5 +64,61 @@ namespace MeltySynthTest
                 }
             }
         }
+
+        [Test]
+        public void VolumeEnvelope_D00_A00_H00_D23_S01_R57_Continuous()
+        {
+            var dir = Path.Combine("ReferenceData", "TinySoundFont", "VolumeEnvelope", "D00_A00_H00_D23_S01_R57");
+            var expected = File.ReadLines(Path.Combine(dir, "Continuous.csv")).Select(line => float.Parse(line.Split(',')[1])).ToArray();
+            Assert.IsTrue(expected.Length == 3000);
+
+            var synthesizer = new Synthesizer(44100);
+            var envelope = new VolumeEnvelope(synthesizer);
+
+            envelope.Start(0.0F, 0.0F, 0.0F, 2.3F, 0.1F, 5.7F);
+
+            for (var i = 0; i < expected.Length; i++)
+            {
+                envelope.Process(synthesizer.BlockSize);
+
+                if (Math.Abs(envelope.Value - expected[i]) >= 2.0E-2)
+                {
+                    Assert.Fail();
+                }
+            }
+        }
+
+        [Test]
+        public void VolumeEnvelope_D00_A00_H00_D23_S01_R57_NoteOff()
+        {
+            var dir = Path.Combine("ReferenceData", "TinySoundFont", "VolumeEnvelope", "D00_A00_H00_D23_S01_R57");
+
+            var synthesizer = new Synthesizer(44100);
+            var envelope = new VolumeEnvelope(synthesizer);
+
+            for (var noteOffBlock = 0; noteOffBlock <= 2000; noteOffBlock += 50)
+            {
+                var name = "NoteOff" + noteOffBlock.ToString("0000") + ".csv";
+                var expected = File.ReadLines(Path.Combine(dir, name)).Select(line => float.Parse(line.Split(',')[1])).ToArray();
+                Assert.IsTrue(expected.Length == 3000);
+
+                envelope.Start(0.0F, 0.0F, 0.0F, 2.3F, 0.1F, 5.7F);
+
+                for (var i = 0; i < expected.Length; i++)
+                {
+                    if (i == noteOffBlock)
+                    {
+                        envelope.Release();
+                    }
+
+                    envelope.Process(synthesizer.BlockSize);
+
+                    if (Math.Abs(envelope.Value - expected[i]) >= 2.0E-2)
+                    {
+                        Assert.Fail();
+                    }
+                }
+            }
+        }
     }
 }

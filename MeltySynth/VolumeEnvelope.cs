@@ -48,6 +48,8 @@ namespace MeltySynth
 
         internal void Release()
         {
+            Process(0);
+
             stage = Stage.Release;
             releaseStartTime = (double)processedSampleCount / synthesizer.SampleRate;
             releaseLevel = value;
