@@ -15,6 +15,11 @@ namespace MeltySynth
             this.sampleRate = sampleRate;
         }
 
+        internal Synthesizer(int sampleRate)
+        {
+            this.sampleRate = sampleRate;
+        }
+
         public int BlockSize => blockSize;
 
         public SoundFont SoundFont => soundFont;

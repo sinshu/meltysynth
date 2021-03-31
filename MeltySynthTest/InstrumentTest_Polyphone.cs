@@ -12,7 +12,7 @@ namespace MeltySynthTest
         [TestCaseSource(typeof(TestSettings), nameof(TestSettings.SoundFontNames))]
         public void ParameterCheck(string soundFontName)
         {
-            var referenceDataDirectory = Path.Combine("ReferenceData", soundFontName, "Instruments");
+            var referenceDataDirectory = Path.Combine("ReferenceData", "Polyphone", soundFontName, "Instruments");
 
             if (Directory.Exists(referenceDataDirectory))
             {
