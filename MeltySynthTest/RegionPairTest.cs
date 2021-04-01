@@ -91,7 +91,7 @@ namespace MeltySynthTest
 
             Assert.AreEqual(expected.ScaleTuning, actual.ScaleTuning);
             Assert.AreEqual(expected.ExclusiveClass, actual.ExclusiveClass);
-            Assert.AreEqual(expected.OverridingRootKey, actual.OverridingRootKey);
+            Assert.AreEqual(expected.RootKey, actual.RootKey);
         }
 
         private static void Check(PresetRegion preset, InstrumentRegion instrument, RegionPair pair)
@@ -144,7 +144,7 @@ namespace MeltySynthTest
 
             Assert.AreEqual(instrument.ScaleTuning + preset.ScaleTuning, pair.ScaleTuning);
             Assert.AreEqual(instrument.ExclusiveClass, pair.ExclusiveClass);
-            Assert.AreEqual(instrument.OverridingRootKey, pair.OverridingRootKey);
+            Assert.AreEqual(instrument.RootKey, pair.RootKey);
         }
     }
 }

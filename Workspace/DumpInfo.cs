@@ -72,7 +72,7 @@ public static class DumpInfo
                 writer.Write("Root key");
                 foreach (var region in regions)
                 {
-                    writer.Write("," + region.OverridingRootKey);
+                    writer.Write("," + region.RootKey);
                 }
                 writer.WriteLine();
 

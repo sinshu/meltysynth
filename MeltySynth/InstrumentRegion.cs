@@ -173,11 +173,11 @@ namespace MeltySynth
         public float InitialAttenuation => this[GeneratorParameterType.InitialAttenuation] / 10F;
 
         public int CoarseTune => this[GeneratorParameterType.CoarseTune];
-        public int FineTune => this[GeneratorParameterType.FineTune];
+        public int FineTune => this[GeneratorParameterType.FineTune] + sample.PitchCorrection;
         public LoopMode SampleModes => this[GeneratorParameterType.SampleModes] != 2 ? (LoopMode)this[GeneratorParameterType.SampleModes] : LoopMode.NoLoop;
 
         public int ScaleTuning => this[GeneratorParameterType.ScaleTuning];
         public int ExclusiveClass => this[GeneratorParameterType.ExclusiveClass];
-        public int OverridingRootKey => this[GeneratorParameterType.OverridingRootKey];
+        public int RootKey => this[GeneratorParameterType.OverridingRootKey] != -1 ? this[GeneratorParameterType.OverridingRootKey] : sample.OriginalPitch;
     }
 }

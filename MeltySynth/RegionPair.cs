@@ -23,10 +23,10 @@ namespace MeltySynth
         internal int SampleStartLoop => instrument.SampleStartLoop;
         internal int SampleEndLoop => instrument.SampleEndLoop;
 
-        internal int StartAddressOffset => 32768 * instrument[GeneratorParameterType.StartAddressCoarseOffset] + instrument[GeneratorParameterType.StartAddressOffset];
-        internal int EndAddressOffset => 32768 * instrument[GeneratorParameterType.EndAddressCoarseOffset] + instrument[GeneratorParameterType.EndAddressOffset];
-        internal int StartLoopAddressOffset => 32768 * instrument[GeneratorParameterType.StartLoopAddressCoarseOffset] + instrument[GeneratorParameterType.StartLoopAddressOffset];
-        internal int EndLoopAddressOffset => 32768 * instrument[GeneratorParameterType.EndLoopAddressCoarseOffset] + instrument[GeneratorParameterType.EndLoopAddressOffset];
+        internal int StartAddressOffset => instrument.StartAddressOffset;
+        internal int EndAddressOffset => instrument.EndAddressOffset;
+        internal int StartLoopAddressOffset => instrument.StartLoopAddressOffset;
+        internal int EndLoopAddressOffset => instrument.EndLoopAddressOffset;
 
         internal int ModulationLfoToPitch => this[GeneratorParameterType.ModulationLfoToPitch];
         internal int VibratoLfoToPitch => this[GeneratorParameterType.VibratoLfoToPitch];
@@ -71,11 +71,11 @@ namespace MeltySynth
         internal float InitialAttenuation => this[GeneratorParameterType.InitialAttenuation] / 10F;
 
         internal int CoarseTune => this[GeneratorParameterType.CoarseTune];
-        internal int FineTune => this[GeneratorParameterType.FineTune];
-        internal LoopMode SampleModes => instrument[GeneratorParameterType.SampleModes] != 2 ? (LoopMode)this[GeneratorParameterType.SampleModes] : LoopMode.NoLoop;
+        internal int FineTune => this[GeneratorParameterType.FineTune] + instrument.Sample.PitchCorrection;
+        internal LoopMode SampleModes => instrument.SampleModes;
 
         internal int ScaleTuning => this[GeneratorParameterType.ScaleTuning];
-        internal int ExclusiveClass => instrument[GeneratorParameterType.ExclusiveClass];
-        internal int OverridingRootKey => instrument[GeneratorParameterType.OverridingRootKey];
+        internal int ExclusiveClass => instrument.ExclusiveClass;
+        internal int RootKey => instrument.RootKey;
     }
 }

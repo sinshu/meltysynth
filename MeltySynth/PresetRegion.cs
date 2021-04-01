@@ -157,10 +157,10 @@ namespace MeltySynth
 
         public int CoarseTune => this[GeneratorParameterType.CoarseTune];
         public int FineTune => this[GeneratorParameterType.FineTune];
-        // public LoopMode SampleModes => this[GeneratorParameterType.SampleModes] != 2 ? (LoopMode)this[GeneratorParameterType.SampleModes] : LoopMode.NoLoop;
+        // public LoopMode SampleModes => this[GeneratorParameterType.SampleModes];
 
         public int ScaleTuning => this[GeneratorParameterType.ScaleTuning];
         // public int ExclusiveClass => this[GeneratorParameterType.ExclusiveClass];
-        // public int OverridingRootKey => this[GeneratorParameterType.OverridingRootKey];
+        // public int RootKey => this[GeneratorParameterType.OverridingRootKey];
     }
 }
