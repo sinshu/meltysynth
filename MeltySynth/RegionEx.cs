@@ -11,13 +11,17 @@ namespace MeltySynth
 
         internal static void Start(this Generator generator, short[] data, RegionPair region)
         {
+            var sampleRate = region.Instrument.Sample.SampleRate;
             var loopMode = region.SampleModes;
             var start = region.SampleStart;
             var end = region.SampleEnd;
             var startLoop = region.SampleStartLoop;
             var endLoop = region.SampleEndLoop;
+            var rootKey = region.RootKey;
+            var coarseTune = region.CoarseTune;
+            var fineTune = region.FineTune;
 
-            generator.Start(data, loopMode, start, end, startLoop, endLoop);
+            generator.Start(data, loopMode, sampleRate, start, end, startLoop, endLoop, rootKey, coarseTune, fineTune);
         }
 
         internal static void Start(this VolumeEnvelope envelope, InstrumentRegion region, int key, int velocity)

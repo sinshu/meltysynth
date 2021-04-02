@@ -8,10 +8,16 @@ namespace MeltySynth
 
         private short[] data;
         private LoopMode loopMode;
+        private int sampleRate;
         private int start;
         private int end;
         private int startLoop;
         private int endLoop;
+        private int rootKey;
+        private int coarseTune;
+        private int fineTune;
+
+        private double sampleRateRatio;
 
         private double position;
 
@@ -20,14 +26,20 @@ namespace MeltySynth
             this.synthesizer = synthesizer;
         }
 
-        internal void Start(short[] data, LoopMode loopMode, int start, int end, int startLoop, int endLoop)
+        internal void Start(short[] data, LoopMode loopMode, int sampleRate, int start, int end, int startLoop, int endLoop, int rootKey, int coarseTune, int fineTune)
         {
             this.data = data;
             this.loopMode = loopMode;
+            this.sampleRate = sampleRate;
             this.start = start;
             this.end = end;
             this.startLoop = startLoop;
             this.endLoop = endLoop;
+            this.rootKey = rootKey;
+            this.coarseTune = coarseTune;
+            this.fineTune = fineTune;
+
+            sampleRateRatio = (double)sampleRate / synthesizer.SampleRate;
 
             position = start;
         }
@@ -37,20 +49,27 @@ namespace MeltySynth
             loopMode = LoopMode.NoLoop;
         }
 
-        internal bool Process(float[] block, double pitchRatio)
+        internal bool Process(float[] block, float pitch)
+        {
+            var relativeKey = pitch - rootKey + coarseTune + fineTune / 100.0;
+            var pitchRatio = sampleRateRatio * Math.Pow(2, relativeKey / 12);
+            return FillBlock(block, pitchRatio);
+        }
+
+        internal bool FillBlock(float[] block, double pitchRatio)
         {
             switch (loopMode)
             {
                 case LoopMode.NoLoop:
-                    return Process_NoLoop(block, pitchRatio);
+                    return FillBlock_NoLoop(block, pitchRatio);
                 case LoopMode.Continuous:
-                    return Process_Continuous(block, pitchRatio);
+                    return FillBlock_Continuous(block, pitchRatio);
                 default:
                     throw new InvalidOperationException("Invalid loop mode.");
             }
         }
 
-        private bool Process_NoLoop(float[] block, double pitchRatio)
+        private bool FillBlock_NoLoop(float[] block, double pitchRatio)
         {
             var data = synthesizer.SoundFont.WaveData;
 
@@ -75,7 +94,7 @@ namespace MeltySynth
             return true;
         }
 
-        private bool Process_Continuous(float[] block, double pitchRatio)
+        private bool FillBlock_Continuous(float[] block, double pitchRatio)
         {
             var data = synthesizer.SoundFont.WaveData;
 

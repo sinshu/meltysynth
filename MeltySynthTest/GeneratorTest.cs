@@ -40,7 +40,7 @@ namespace MeltySynthTest
 
             while (true)
             {
-                var result = generator.Process(block, 1);
+                var result = generator.FillBlock(block, 1);
 
                 actual.AddRange(block);
 
@@ -113,7 +113,7 @@ namespace MeltySynthTest
 
             while (true)
             {
-                var result = generator.Process(block, 0.5);
+                var result = generator.FillBlock(block, 0.5);
 
                 actual.AddRange(block);
 
@@ -188,7 +188,7 @@ namespace MeltySynthTest
 
             for (var i = 0; i < 500; i++)
             {
-                var result = generator.Process(block, 1);
+                var result = generator.FillBlock(block, 1);
 
                 Assert.IsTrue(result);
 
@@ -253,7 +253,7 @@ namespace MeltySynthTest
 
             for (var i = 0; i < 500; i++)
             {
-                var result = generator.Process(block, 0.5);
+                var result = generator.FillBlock(block, 0.5);
 
                 Assert.IsTrue(result);
 
