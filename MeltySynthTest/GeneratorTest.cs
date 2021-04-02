@@ -34,7 +34,7 @@ namespace MeltySynthTest
 
             var block = new float[synthesizer.BlockSize];
 
-            generator.Start(region);
+            generator.Start(synthesizer.SoundFont.WaveData, region);
 
             var actual = new List<float>();
 
@@ -107,7 +107,7 @@ namespace MeltySynthTest
 
             var block = new float[synthesizer.BlockSize];
 
-            generator.Start(region);
+            generator.Start(synthesizer.SoundFont.WaveData, region);
 
             var actual = new List<float>();
 
@@ -182,7 +182,7 @@ namespace MeltySynthTest
 
             var block = new float[synthesizer.BlockSize];
 
-            generator.Start(region);
+            generator.Start(synthesizer.SoundFont.WaveData, region);
 
             var actual = new List<float>();
 
@@ -247,7 +247,7 @@ namespace MeltySynthTest
 
             var block = new float[synthesizer.BlockSize];
 
-            generator.Start(region);
+            generator.Start(synthesizer.SoundFont.WaveData, region);
 
             var actual = new List<float>();
 

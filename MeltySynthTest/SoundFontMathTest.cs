@@ -27,5 +27,16 @@ namespace MeltySynthTest
             var actual = SoundFontMath.CentsToHertz(x);
             Assert.AreEqual(expected, actual, delta);
         }
+
+        [TestCase(0F, 1F, 1.0E-5)]
+        [TestCase(6F, 1.99526F, 1.0E-5)]
+        [TestCase(12F, 3.98107F, 1.0E-5)]
+        [TestCase(-6F, 0.501187F, 1.0E-5)]
+        [TestCase(-12F, 0.251189F, 1.0E-5)]
+        public void DecibelsToLinear(float x, float expected, double delta)
+        {
+            var actual = SoundFontMath.DecibelsToLinear(x);
+            Assert.AreEqual(expected, actual, delta);
+        }
     }
 }

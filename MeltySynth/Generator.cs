@@ -6,8 +6,8 @@ namespace MeltySynth
     {
         private Synthesizer synthesizer;
 
+        private short[] data;
         private LoopMode loopMode;
-
         private int start;
         private int end;
         private int startLoop;
@@ -20,30 +20,14 @@ namespace MeltySynth
             this.synthesizer = synthesizer;
         }
 
-        internal void Start(InstrumentRegion region)
+        internal void Start(short[] data, LoopMode loopMode, int start, int end, int startLoop, int endLoop)
         {
-            Start(new RegionPair(PresetRegion.Default, region));
-        }
-
-        internal void Start(RegionPair region)
-        {
-            switch (region.SampleModes)
-            {
-                case LoopMode.NoLoop:
-                    loopMode = LoopMode.NoLoop;
-                    break;
-                case LoopMode.Continuous:
-                case LoopMode.LoopUntilNoteOff:
-                    loopMode = LoopMode.Continuous;
-                    break;
-                default:
-                    throw new InvalidOperationException("Invalid loop mode.");
-            }
-
-            start = region.SampleStart;
-            end = region.SampleEnd;
-            startLoop = region.SampleStartLoop;
-            endLoop = region.SampleEndLoop;
+            this.data = data;
+            this.loopMode = loopMode;
+            this.start = start;
+            this.end = end;
+            this.startLoop = startLoop;
+            this.endLoop = endLoop;
 
             position = start;
         }
@@ -82,8 +66,8 @@ namespace MeltySynth
 
                 var x1 = data[index];
                 var x2 = data[index + 1];
-                var a = position - index;
-                block[t] = (float)((x1 + a * (x2 - x1)) / 32768);
+                var a = (float)(position - index);
+                block[t] = (x1 + a * (x2 - x1)) / 32768;
 
                 position += pitchRatio;
             }

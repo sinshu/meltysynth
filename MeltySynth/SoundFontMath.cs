@@ -15,5 +15,17 @@ namespace MeltySynth
         {
             return 8.176F * MathF.Pow(2F, x / 1200F);
         }
+
+        internal static float DecibelsToLinear(float x)
+        {
+            if (x > -100F)
+            {
+                return MathF.Pow(10F, 0.05F * x);
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }
