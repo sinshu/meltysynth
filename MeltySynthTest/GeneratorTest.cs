@@ -40,11 +40,11 @@ namespace MeltySynthTest
 
             while (true)
             {
-                var result = generator.FillBlock(block, 1);
-
-                actual.AddRange(block);
-
-                if (!result)
+                if (generator.FillBlock(block, 1))
+                {
+                    actual.AddRange(block);
+                }
+                else
                 {
                     break;
                 }
@@ -62,6 +62,7 @@ namespace MeltySynthTest
                 expected[i] = x;
             }
 
+            Assert.IsTrue(actual.Count - length >= 0);
             Assert.IsTrue(actual.Count - length <= synthesizer.BlockSize);
 
             for (var t = 0; t < expected.Length; t++)
@@ -113,11 +114,11 @@ namespace MeltySynthTest
 
             while (true)
             {
-                var result = generator.FillBlock(block, 0.5);
-
-                actual.AddRange(block);
-
-                if (!result)
+                if (generator.FillBlock(block, 0.5))
+                {
+                    actual.AddRange(block);
+                }
+                else
                 {
                     break;
                 }
@@ -137,6 +138,7 @@ namespace MeltySynthTest
                 expected[2 * i + 1] = (x1 + x2) / 2;
             }
 
+            Assert.IsTrue(actual.Count - 2 * length >= 0);
             Assert.IsTrue(actual.Count - 2 * length <= synthesizer.BlockSize);
 
             for (var t = 0; t < expected.Length; t++)

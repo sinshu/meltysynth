@@ -79,8 +79,15 @@ namespace MeltySynth
 
                 if (index >= end)
                 {
-                    Array.Clear(block, t, block.Length - t);
-                    return false;
+                    if (t > 0)
+                    {
+                        Array.Clear(block, t, block.Length - t);
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
 
                 var x1 = data[index];
