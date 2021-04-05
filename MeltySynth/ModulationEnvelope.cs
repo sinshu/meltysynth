@@ -73,12 +73,15 @@ namespace MeltySynth
                     case Stage.Delay:
                         endTime = attackStartTime;
                         break;
+
                     case Stage.Attack:
                         endTime = holdStartTime;
                         break;
+
                     case Stage.Hold:
                         endTime = decayStartTime;
                         break;
+
                     default:
                         throw new InvalidOperationException("Invalid envelope stage.");
                 }
@@ -97,28 +100,26 @@ namespace MeltySynth
             {
                 case Stage.Delay:
                     value = 0;
-                    break;
+                    return true;
+
                 case Stage.Attack:
                     value = (float)(attackSlope * (currentTime - attackStartTime));
-                    break;
+                    return true;
+
                 case Stage.Hold:
                     value = 1;
-                    break;
+                    return true;
+
                 case Stage.Decay:
                     value = Math.Max((float)(decaySlope * (decayEndTime - currentTime)), sustainLevel);
-                    break;
-                case Stage.Release:
-                    value = Math.Max(releaseLevel * (float)(releaseSlope * (releaseEndTime - currentTime)), 0F);
-                    break;
-            }
+                    return value > SoundFontMath.NonAudible;
 
-            if (stage <= Stage.Hold)
-            {
-                return true;
-            }
-            else
-            {
-                return value > SoundFontMath.NonAudible;
+                case Stage.Release:
+                    value = Math.Max((float)(releaseLevel * releaseSlope * (releaseEndTime - currentTime)), 0F);
+                    return value > SoundFontMath.NonAudible;
+
+                default:
+                    throw new InvalidOperationException("Invalid envelope stage.");
             }
         }
 
