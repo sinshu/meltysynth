@@ -17,8 +17,6 @@ namespace MeltySynth
         private int key;
         private int velocity;
 
-        private bool isActive;
-
         internal Voice(Synthesizer synthesizer)
         {
             this.synthesizer = synthesizer;
@@ -28,8 +26,6 @@ namespace MeltySynth
             generator = new Generator(synthesizer);
 
             block = new float[synthesizer.BlockSize];
-
-            isActive = false;
         }
 
         internal void Start(RegionPair region, int channel, int key, int velocity)
@@ -42,8 +38,6 @@ namespace MeltySynth
             this.channel = channel;
             this.key = key;
             this.velocity = velocity;
-
-            isActive = true;
         }
 
         internal void End()
@@ -56,33 +50,32 @@ namespace MeltySynth
             }
         }
 
-        internal void Process()
+        internal bool Process()
         {
-            var volumeEnvelopeIsActive = volumeEnvelope.Process(synthesizer.BlockSize);
-            var modulationEnvelopeIsActive = modulationEnvelope.Process(synthesizer.BlockSize);
-
-            if (!volumeEnvelopeIsActive)
+            if (!volumeEnvelope.Process(synthesizer.BlockSize))
             {
-                isActive = false;
-                return;
+                return false;
             }
 
-            var generatorIsActive = generator.Process(block, key);
-
-            if (!generatorIsActive)
+            if (!generator.Process(block, key))
             {
-                isActive = false;
-                return;
+                return false;
             }
+
+            modulationEnvelope.Process(synthesizer.BlockSize);
 
             var test = volumeEnvelope.Value;
             for (var t = 0; t < block.Length; t++)
             {
                 block[t] *= test;
             }
+
+            return true;
         }
 
         internal float[] Block => block;
-        internal bool IsActive => isActive;
+        internal int Channel => channel;
+        internal int Key => key;
+        internal int Velocity => velocity;
     }
 }

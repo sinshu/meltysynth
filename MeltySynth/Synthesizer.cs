@@ -11,14 +11,14 @@ namespace MeltySynth
         private SoundFont soundFont;
         private int sampleRate;
 
-        private Voice test;
+        private VoiceCollection voices;
 
         public Synthesizer(SoundFont soundFont, int sampleRate)
         {
             this.soundFont = soundFont;
             this.sampleRate = sampleRate;
 
-            test = new Voice(this);
+            voices = new VoiceCollection(this, maxActiveVoiceCount);
         }
 
         internal Synthesizer(int sampleRate)
@@ -30,16 +30,40 @@ namespace MeltySynth
         {
             var inst = soundFont.Instruments.First(x => x.Name == "Piano 1");
             var region = inst.Regions.First(x => x.Contains(key, velocity));
-            test.Start(new RegionPair(PresetRegion.Default, region), channel, key, velocity);
+
+            var voice = voices.GetFreeVoice();
+            if (voice != null)
+            {
+                voice.Start(new RegionPair(PresetRegion.Default, region), channel, key, velocity);
+            }
         }
 
         public void NoteOff(int channel, int key)
         {
-            test.End();
+            foreach (var voice in voices)
+            {
+                if (voice.Channel == channel && voice.Key == key)
+                {
+                    voice.End();
+                }
+            }
         }
 
-        public void Render(float[] data)
+        public void RenderBlock(float[] destination)
         {
+            Array.Clear(destination, 0, destination.Length);
+
+            voices.Process();
+
+            foreach (var voice in voices)
+            {
+                var source = voice.Block;
+
+                for (var t = 0; t < source.Length; t++)
+                {
+                    destination[t] += 0.2F * source[t];
+                }
+            }
         }
 
         public int BlockSize => blockSize;
