@@ -71,5 +71,7 @@ namespace MeltySynth
 
         public SoundFont SoundFont => soundFont;
         public int SampleRate => sampleRate;
+
+        public int ActiveVoiceCount => voices.ActiveVoiceCount;
     }
 }

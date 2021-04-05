@@ -57,10 +57,11 @@ namespace MeltySynth
                 }
                 else
                 {
+                    activeVoiceCount--;
+
                     var tmp = voices[i];
                     voices[i] = voices[activeVoiceCount];
                     voices[activeVoiceCount] = tmp;
-                    activeVoiceCount--;
                 }
             }
         }
@@ -69,6 +70,8 @@ namespace MeltySynth
         {
             return new Enumerator(this);
         }
+
+        public int ActiveVoiceCount => activeVoiceCount;
 
 
 
