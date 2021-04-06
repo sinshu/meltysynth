@@ -8,6 +8,7 @@ namespace MeltySynth
 
         private VolumeEnvelope volumeEnvelope;
         private ModulationEnvelope modulationEnvelope;
+
         private Generator generator;
 
         private float[] block;
@@ -23,6 +24,7 @@ namespace MeltySynth
 
             volumeEnvelope = new VolumeEnvelope(synthesizer);
             modulationEnvelope = new ModulationEnvelope(synthesizer);
+
             generator = new Generator(synthesizer);
 
             block = new float[synthesizer.BlockSize];
@@ -43,11 +45,7 @@ namespace MeltySynth
         public void End()
         {
             volumeEnvelope.Release();
-
-            if (region.SampleModes == LoopMode.LoopUntilNoteOff)
-            {
-                generator.Release();
-            }
+            generator.Release();
         }
 
         public bool Process()

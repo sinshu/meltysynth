@@ -19,6 +19,8 @@ namespace MeltySynth
 
         private double sampleRateRatio;
 
+        private bool looping;
+
         private double position;
 
         internal Generator(Synthesizer synthesizer)
@@ -41,12 +43,24 @@ namespace MeltySynth
 
             sampleRateRatio = (double)sampleRate / synthesizer.SampleRate;
 
+            if (loopMode == LoopMode.NoLoop)
+            {
+                looping = false;
+            }
+            else
+            {
+                looping = true;
+            }
+
             position = start;
         }
 
         public void Release()
         {
-            loopMode = LoopMode.NoLoop;
+            if (loopMode == LoopMode.LoopUntilNoteOff)
+            {
+                looping = false;
+            }
         }
 
         public bool Process(float[] block, float pitch)
@@ -58,14 +72,13 @@ namespace MeltySynth
 
         internal bool FillBlock(float[] block, double pitchRatio)
         {
-            switch (loopMode)
+            if (looping)
             {
-                case LoopMode.NoLoop:
-                    return FillBlock_NoLoop(block, pitchRatio);
-                case LoopMode.Continuous:
-                    return FillBlock_Continuous(block, pitchRatio);
-                default:
-                    throw new InvalidOperationException("Invalid loop mode.");
+                return FillBlock_Continuous(block, pitchRatio);
+            }
+            else
+            {
+                return FillBlock_NoLoop(block, pitchRatio);
             }
         }
 
