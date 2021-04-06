@@ -6,7 +6,7 @@ namespace MeltySynth
 {
     internal static class BinaryReaderEx
     {
-        internal static string ReadFixedLengthString(this BinaryReader reader, int length)
+        public static string ReadFixedLengthString(this BinaryReader reader, int length)
         {
             var data = reader.ReadBytes(length);
 

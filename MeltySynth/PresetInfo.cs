@@ -51,13 +51,13 @@ namespace MeltySynth
             return presets;
         }
 
-        internal string Name => name;
-        internal int PatchNumber => patchNumber;
-        internal int BankNumber => bankNumber;
-        internal int ZoneStartIndex => zoneStartIndex;
-        internal int ZoneEndIndex => zoneEndIndex;
-        internal int Library => library;
-        internal int Genre => genre;
-        internal int Morphology => morphology;
+        public string Name => name;
+        public int PatchNumber => patchNumber;
+        public int BankNumber => bankNumber;
+        public int ZoneStartIndex => zoneStartIndex;
+        public int ZoneEndIndex => zoneEndIndex;
+        public int Library => library;
+        public int Genre => genre;
+        public int Morphology => morphology;
     }
 }

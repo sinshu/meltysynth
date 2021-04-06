@@ -40,10 +40,10 @@ namespace MeltySynth
             controllerSource = (ushort)(value & 0x007F);
         }
 
-        internal CurveType CurveType => curveType;
-        internal CurvePolarity CurvePolarity => polarity;
-        internal CurveDirection CurveDirection => direction;
-        internal bool IsMidiContinuousController => isMidiContinuousController;
-        internal ushort ControllerSource => controllerSource;
+        public CurveType CurveType => curveType;
+        public CurvePolarity CurvePolarity => polarity;
+        public CurveDirection CurveDirection => direction;
+        public bool IsMidiContinuousController => isMidiContinuousController;
+        public ushort ControllerSource => controllerSource;
     }
 }

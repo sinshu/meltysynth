@@ -40,10 +40,10 @@ namespace MeltySynth
             return modulators;
         }
 
-        internal ModulatorParameterType SourceModulationData => sourceModulationData;
-        internal GeneratorParameterType DestinationGenerator => destinationGenerator;
-        internal short Amount => amount;
-        internal ModulatorParameterType SourceModulationAmount => sourceModulationAmount;
-        internal TransformType SourceTransform => sourceTransform;
+        public ModulatorParameterType SourceModulationData => sourceModulationData;
+        public GeneratorParameterType DestinationGenerator => destinationGenerator;
+        public short Amount => amount;
+        public ModulatorParameterType SourceModulationAmount => sourceModulationAmount;
+        public TransformType SourceTransform => sourceTransform;
     }
 }

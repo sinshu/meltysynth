@@ -15,67 +15,67 @@ namespace MeltySynth
 
         private int this[GeneratorParameterType generatortType] => instrument[generatortType] + preset[generatortType];
 
-        internal PresetRegion Preset => preset;
-        internal InstrumentRegion Instrument => instrument;
+        public PresetRegion Preset => preset;
+        public InstrumentRegion Instrument => instrument;
 
-        internal int SampleStart => instrument.SampleStart;
-        internal int SampleEnd => instrument.SampleEnd;
-        internal int SampleStartLoop => instrument.SampleStartLoop;
-        internal int SampleEndLoop => instrument.SampleEndLoop;
+        public int SampleStart => instrument.SampleStart;
+        public int SampleEnd => instrument.SampleEnd;
+        public int SampleStartLoop => instrument.SampleStartLoop;
+        public int SampleEndLoop => instrument.SampleEndLoop;
 
-        internal int StartAddressOffset => instrument.StartAddressOffset;
-        internal int EndAddressOffset => instrument.EndAddressOffset;
-        internal int StartLoopAddressOffset => instrument.StartLoopAddressOffset;
-        internal int EndLoopAddressOffset => instrument.EndLoopAddressOffset;
+        public int StartAddressOffset => instrument.StartAddressOffset;
+        public int EndAddressOffset => instrument.EndAddressOffset;
+        public int StartLoopAddressOffset => instrument.StartLoopAddressOffset;
+        public int EndLoopAddressOffset => instrument.EndLoopAddressOffset;
 
-        internal int ModulationLfoToPitch => this[GeneratorParameterType.ModulationLfoToPitch];
-        internal int VibratoLfoToPitch => this[GeneratorParameterType.VibratoLfoToPitch];
-        internal int ModulationEnvelopeToPitch => this[GeneratorParameterType.ModulationEnvelopeToPitch];
-        internal float InitialFilterCutoffFrequency => SoundFontMath.CentsToHertz(this[GeneratorParameterType.InitialFilterCutoffFrequency]);
-        internal float InitialFilterQ => this[GeneratorParameterType.InitialFilterQ] / 10F;
-        internal int ModulationLfoToFilterCutoffFrequency => this[GeneratorParameterType.ModulationLfoToFilterCutoffFrequency];
-        internal int ModulationEnvelopeToFilterCutoffFrequency => this[GeneratorParameterType.ModulationEnvelopeToFilterCutoffFrequency];
+        public int ModulationLfoToPitch => this[GeneratorParameterType.ModulationLfoToPitch];
+        public int VibratoLfoToPitch => this[GeneratorParameterType.VibratoLfoToPitch];
+        public int ModulationEnvelopeToPitch => this[GeneratorParameterType.ModulationEnvelopeToPitch];
+        public float InitialFilterCutoffFrequency => SoundFontMath.CentsToHertz(this[GeneratorParameterType.InitialFilterCutoffFrequency]);
+        public float InitialFilterQ => this[GeneratorParameterType.InitialFilterQ] / 10F;
+        public int ModulationLfoToFilterCutoffFrequency => this[GeneratorParameterType.ModulationLfoToFilterCutoffFrequency];
+        public int ModulationEnvelopeToFilterCutoffFrequency => this[GeneratorParameterType.ModulationEnvelopeToFilterCutoffFrequency];
 
-        internal float ModulationLfoToVolume => this[GeneratorParameterType.ModulationLfoToVolume] / 10F;
+        public float ModulationLfoToVolume => this[GeneratorParameterType.ModulationLfoToVolume] / 10F;
 
-        internal float ChorusEffectsSend => this[GeneratorParameterType.ChorusEffectsSend] / 10F;
-        internal float ReverbEffectsSend => this[GeneratorParameterType.ReverbEffectsSend] / 10F;
-        internal float Pan => this[GeneratorParameterType.Pan] / 10F;
+        public float ChorusEffectsSend => this[GeneratorParameterType.ChorusEffectsSend] / 10F;
+        public float ReverbEffectsSend => this[GeneratorParameterType.ReverbEffectsSend] / 10F;
+        public float Pan => this[GeneratorParameterType.Pan] / 10F;
 
-        internal float DelayModulationLfo => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.DelayModulationLfo]);
-        internal float FrequencyModulationLfo => SoundFontMath.CentsToHertz(this[GeneratorParameterType.FrequencyModulationLfo]);
-        internal float DelayVibratoLfo => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.DelayVibratoLfo]);
-        internal float FrequencyVibratoLfo => SoundFontMath.CentsToHertz(this[GeneratorParameterType.FrequencyVibratoLfo]);
-        internal float DelayModulationEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.DelayModulationEnvelope]);
-        internal float AttackModulationEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.AttackModulationEnvelope]);
-        internal float HoldModulationEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.HoldModulationEnvelope]);
-        internal float DecayModulationEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.DecayModulationEnvelope]);
-        internal float SustainModulationEnvelope => this[GeneratorParameterType.SustainModulationEnvelope] / 10F;
-        internal float ReleaseModulationEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.ReleaseModulationEnvelope]);
-        internal int KeyNumberToModulationEnvelopeHold => this[GeneratorParameterType.KeyNumberToModulationEnvelopeHold];
-        internal int KeyNumberToModulationEnvelopeDecay => this[GeneratorParameterType.KeyNumberToModulationEnvelopeDecay];
-        internal float DelayVolumeEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.DelayVolumeEnvelope]);
-        internal float AttackVolumeEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.AttackVolumeEnvelope]);
-        internal float HoldVolumeEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.HoldVolumeEnvelope]);
-        internal float DecayVolumeEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.DecayVolumeEnvelope]);
-        internal float SustainVolumeEnvelope => this[GeneratorParameterType.SustainVolumeEnvelope] / 10F;
-        internal float ReleaseVolumeEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.ReleaseVolumeEnvelope]);
-        internal int KeyNumberToVolumeEnvelopeHold => this[GeneratorParameterType.KeyNumberToVolumeEnvelopeHold];
-        internal int KeyNumberToVolumeEnvelopeDecay => this[GeneratorParameterType.KeyNumberToVolumeEnvelopeDecay];
+        public float DelayModulationLfo => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.DelayModulationLfo]);
+        public float FrequencyModulationLfo => SoundFontMath.CentsToHertz(this[GeneratorParameterType.FrequencyModulationLfo]);
+        public float DelayVibratoLfo => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.DelayVibratoLfo]);
+        public float FrequencyVibratoLfo => SoundFontMath.CentsToHertz(this[GeneratorParameterType.FrequencyVibratoLfo]);
+        public float DelayModulationEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.DelayModulationEnvelope]);
+        public float AttackModulationEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.AttackModulationEnvelope]);
+        public float HoldModulationEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.HoldModulationEnvelope]);
+        public float DecayModulationEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.DecayModulationEnvelope]);
+        public float SustainModulationEnvelope => this[GeneratorParameterType.SustainModulationEnvelope] / 10F;
+        public float ReleaseModulationEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.ReleaseModulationEnvelope]);
+        public int KeyNumberToModulationEnvelopeHold => this[GeneratorParameterType.KeyNumberToModulationEnvelopeHold];
+        public int KeyNumberToModulationEnvelopeDecay => this[GeneratorParameterType.KeyNumberToModulationEnvelopeDecay];
+        public float DelayVolumeEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.DelayVolumeEnvelope]);
+        public float AttackVolumeEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.AttackVolumeEnvelope]);
+        public float HoldVolumeEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.HoldVolumeEnvelope]);
+        public float DecayVolumeEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.DecayVolumeEnvelope]);
+        public float SustainVolumeEnvelope => this[GeneratorParameterType.SustainVolumeEnvelope] / 10F;
+        public float ReleaseVolumeEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.ReleaseVolumeEnvelope]);
+        public int KeyNumberToVolumeEnvelopeHold => this[GeneratorParameterType.KeyNumberToVolumeEnvelopeHold];
+        public int KeyNumberToVolumeEnvelopeDecay => this[GeneratorParameterType.KeyNumberToVolumeEnvelopeDecay];
 
-        // internal int KeyRangeStart => this[GeneratorParameterType.KeyRange] & 0xFF;
-        // internal int KeyRangeEnd => (this[GeneratorParameterType.KeyRange] >> 8) & 0xFF;
-        // internal int VelocityRangeStart => this[GeneratorParameterType.VelocityRange] & 0xFF;
-        // internal int VelocityRangeEnd => (this[GeneratorParameterType.VelocityRange] >> 8) & 0xFF;
+        // public int KeyRangeStart => this[GeneratorParameterType.KeyRange] & 0xFF;
+        // public int KeyRangeEnd => (this[GeneratorParameterType.KeyRange] >> 8) & 0xFF;
+        // public int VelocityRangeStart => this[GeneratorParameterType.VelocityRange] & 0xFF;
+        // public int VelocityRangeEnd => (this[GeneratorParameterType.VelocityRange] >> 8) & 0xFF;
 
-        internal float InitialAttenuation => this[GeneratorParameterType.InitialAttenuation] / 10F;
+        public float InitialAttenuation => this[GeneratorParameterType.InitialAttenuation] / 10F;
 
-        internal int CoarseTune => this[GeneratorParameterType.CoarseTune];
-        internal int FineTune => this[GeneratorParameterType.FineTune] + instrument.Sample.PitchCorrection;
-        internal LoopMode SampleModes => instrument.SampleModes;
+        public int CoarseTune => this[GeneratorParameterType.CoarseTune];
+        public int FineTune => this[GeneratorParameterType.FineTune] + instrument.Sample.PitchCorrection;
+        public LoopMode SampleModes => instrument.SampleModes;
 
-        internal int ScaleTuning => this[GeneratorParameterType.ScaleTuning];
-        internal int ExclusiveClass => instrument.ExclusiveClass;
-        internal int RootKey => instrument.RootKey;
+        public int ScaleTuning => this[GeneratorParameterType.ScaleTuning];
+        public int ExclusiveClass => instrument.ExclusiveClass;
+        public int RootKey => instrument.RootKey;
     }
 }

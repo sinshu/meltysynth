@@ -43,9 +43,9 @@ namespace MeltySynth
             return zones;
         }
 
-        internal int GeneratorIndex => generatorIndex;
-        internal int ModulatorIndex => modulatorIndex;
-        internal int GeneratorCount => generatorCount;
-        internal int ModulatorCount => modulatorCount;
+        public int GeneratorIndex => generatorIndex;
+        public int ModulatorIndex => modulatorIndex;
+        public int GeneratorCount => generatorCount;
+        public int ModulatorCount => modulatorCount;
     }
 }

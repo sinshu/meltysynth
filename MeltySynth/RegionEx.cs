@@ -4,12 +4,12 @@ namespace MeltySynth
 {
     internal static class RegionEx
     {
-        internal static void Start(this Generator generator, short[] data, InstrumentRegion region)
+        public static void Start(this Generator generator, short[] data, InstrumentRegion region)
         {
             Start(generator, data, new RegionPair(PresetRegion.Default, region));
         }
 
-        internal static void Start(this Generator generator, short[] data, RegionPair region)
+        public static void Start(this Generator generator, short[] data, RegionPair region)
         {
             var sampleRate = region.Instrument.Sample.SampleRate;
             var loopMode = region.SampleModes;
@@ -24,12 +24,12 @@ namespace MeltySynth
             generator.Start(data, loopMode, sampleRate, start, end, startLoop, endLoop, rootKey, coarseTune, fineTune);
         }
 
-        internal static void Start(this VolumeEnvelope envelope, InstrumentRegion region, int key, int velocity)
+        public static void Start(this VolumeEnvelope envelope, InstrumentRegion region, int key, int velocity)
         {
             Start(envelope, new RegionPair(PresetRegion.Default, region), key, velocity);
         }
 
-        internal static void Start(this VolumeEnvelope envelope, RegionPair region, int key, int velocity)
+        public static void Start(this VolumeEnvelope envelope, RegionPair region, int key, int velocity)
         {
             var delay = region.DelayVolumeEnvelope;
             var attack = region.AttackVolumeEnvelope;
@@ -41,12 +41,12 @@ namespace MeltySynth
             envelope.Start(delay, attack, hold, decay, sustain, release);
         }
 
-        internal static void Start(this ModulationEnvelope envelope, InstrumentRegion region, int key, int velocity)
+        public static void Start(this ModulationEnvelope envelope, InstrumentRegion region, int key, int velocity)
         {
             Start(envelope, new RegionPair(PresetRegion.Default, region), key, velocity);
         }
 
-        internal static void Start(this ModulationEnvelope envelope, RegionPair region, int key, int velocity)
+        public static void Start(this ModulationEnvelope envelope, RegionPair region, int key, int velocity)
         {
             var delay = region.DelayModulationEnvelope;
             var attack = region.AttackModulationEnvelope;

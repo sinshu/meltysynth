@@ -41,8 +41,8 @@ namespace MeltySynth
             return instruments;
         }
 
-        internal string Name => name;
-        internal int ZoneStartIndex => zoneStartIndex;
-        internal int ZoneEndIndex => zoneEndIndex;
+        public string Name => name;
+        public int ZoneStartIndex => zoneStartIndex;
+        public int ZoneEndIndex => zoneEndIndex;
     }
 }

@@ -28,7 +28,7 @@ namespace MeltySynth
             block = new float[synthesizer.BlockSize];
         }
 
-        internal void Start(RegionPair region, int channel, int key, int velocity)
+        public void Start(RegionPair region, int channel, int key, int velocity)
         {
             volumeEnvelope.Start(region, key, velocity);
             modulationEnvelope.Start(region, key, velocity);
@@ -40,7 +40,7 @@ namespace MeltySynth
             this.velocity = velocity;
         }
 
-        internal void End()
+        public void End()
         {
             volumeEnvelope.Release();
 
@@ -50,7 +50,7 @@ namespace MeltySynth
             }
         }
 
-        internal bool Process()
+        public bool Process()
         {
             if (!volumeEnvelope.Process(synthesizer.BlockSize))
             {
@@ -73,9 +73,9 @@ namespace MeltySynth
             return true;
         }
 
-        internal float[] Block => block;
-        internal int Channel => channel;
-        internal int Key => key;
-        internal int Velocity => velocity;
+        public float[] Block => block;
+        public int Channel => channel;
+        public int Key => key;
+        public int Velocity => velocity;
     }
 }

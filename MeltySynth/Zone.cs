@@ -44,7 +44,7 @@ namespace MeltySynth
             return zones;
         }
 
-        internal ModulatorParameter[] ModulatorParameters => modulatorParameters;
-        internal GeneratorParameter[] GeneratorParameters => generatorParameters;
+        public ModulatorParameter[] ModulatorParameters => modulatorParameters;
+        public GeneratorParameter[] GeneratorParameters => generatorParameters;
     }
 }

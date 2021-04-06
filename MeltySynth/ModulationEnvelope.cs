@@ -29,7 +29,7 @@ namespace MeltySynth
             this.synthesizer = synthesizer;
         }
 
-        internal void Start(float delay, float attack, float hold, float decay, float sustain, float release)
+        public void Start(float delay, float attack, float hold, float decay, float sustain, float release)
         {
             attackSlope = 1 / attack;
             decaySlope = 1 / decay;
@@ -52,14 +52,14 @@ namespace MeltySynth
             Process(0);
         }
 
-        internal void Release()
+        public void Release()
         {
             stage = Stage.Release;
             releaseEndTime += (double)processedSampleCount / synthesizer.SampleRate;
             releaseLevel = value;
         }
 
-        internal bool Process(int sampleCount)
+        public bool Process(int sampleCount)
         {
             processedSampleCount += sampleCount;
 
@@ -123,7 +123,7 @@ namespace MeltySynth
             }
         }
 
-        internal float Value => value;
+        public float Value => value;
 
 
 

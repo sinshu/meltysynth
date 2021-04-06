@@ -90,8 +90,8 @@ namespace MeltySynth
             presets = Preset.Create(presetInfos, presetZones, instruments);
         }
 
-        internal SampleHeader[] SampleHeaders => sampleHeaders;
-        internal Preset[] Presets => presets;
-        internal Instrument[] Instruments => instruments;
+        public SampleHeader[] SampleHeaders => sampleHeaders;
+        public Preset[] Presets => presets;
+        public Instrument[] Instruments => instruments;
     }
 }

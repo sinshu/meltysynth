@@ -58,7 +58,7 @@ namespace MeltySynth
             }
         }
 
-        internal int BitsPerSample => bitsPerSample;
-        internal short[] Samples => samples;
+        public int BitsPerSample => bitsPerSample;
+        public short[] Samples => samples;
     }
 }

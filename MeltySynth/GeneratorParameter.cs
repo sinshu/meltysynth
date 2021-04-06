@@ -34,7 +34,7 @@ namespace MeltySynth
             return generators;
         }
 
-        internal GeneratorParameterType Type => type;
-        internal ushort Value => value;
+        public GeneratorParameterType Type => type;
+        public ushort Value => value;
     }
 }

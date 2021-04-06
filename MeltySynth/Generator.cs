@@ -26,7 +26,7 @@ namespace MeltySynth
             this.synthesizer = synthesizer;
         }
 
-        internal void Start(short[] data, LoopMode loopMode, int sampleRate, int start, int end, int startLoop, int endLoop, int rootKey, int coarseTune, int fineTune)
+        public void Start(short[] data, LoopMode loopMode, int sampleRate, int start, int end, int startLoop, int endLoop, int rootKey, int coarseTune, int fineTune)
         {
             this.data = data;
             this.loopMode = loopMode;
@@ -44,12 +44,12 @@ namespace MeltySynth
             position = start;
         }
 
-        internal void Release()
+        public void Release()
         {
             loopMode = LoopMode.NoLoop;
         }
 
-        internal bool Process(float[] block, float pitch)
+        public bool Process(float[] block, float pitch)
         {
             var relativeKey = pitch - rootKey + coarseTune + fineTune / 100.0;
             var pitchRatio = sampleRateRatio * Math.Pow(2, relativeKey / 12);
