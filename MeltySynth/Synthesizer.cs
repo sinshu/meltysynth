@@ -8,8 +8,13 @@ namespace MeltySynth
         private static readonly int blockSize = 64;
         private static readonly int maxActiveVoiceCount = 64;
 
+        private static readonly int channelCount = 16;
+        private static readonly int percussionChannel = 9;
+
         private SoundFont soundFont;
         private int sampleRate;
+
+        private Channel[] channels;
 
         private VoiceCollection voices;
 
@@ -17,6 +22,12 @@ namespace MeltySynth
         {
             this.soundFont = soundFont;
             this.sampleRate = sampleRate;
+
+            channels = new Channel[channelCount];
+            for (var i = 0; i < channels.Length; i++)
+            {
+                channels[i] = new Channel(this);
+            }
 
             voices = new VoiceCollection(this, maxActiveVoiceCount);
         }
@@ -69,9 +80,14 @@ namespace MeltySynth
         public int BlockSize => blockSize;
         public int MaxActiveVoiceCount => maxActiveVoiceCount;
 
+        public int ChannelCount => channelCount;
+        public int PercussionChannel => percussionChannel;
+
         public SoundFont SoundFont => soundFont;
         public int SampleRate => sampleRate;
 
         public int ActiveVoiceCount => voices.ActiveVoiceCount;
+
+        internal Channel[] Channels => channels;
     }
 }
