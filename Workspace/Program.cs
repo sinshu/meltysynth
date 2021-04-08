@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Runtime.InteropServices;
+using MathNet.Numerics;
+using MathNet.Numerics.IntegralTransforms;
 using NAudio.Wave;
 using MeltySynth;
 
