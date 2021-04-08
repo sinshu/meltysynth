@@ -24,6 +24,14 @@ namespace MeltySynth
             this.synthesizer = synthesizer;
         }
 
+        public void ClearBuffer()
+        {
+            x1 = 0;
+            x2 = 0;
+            y1 = 0;
+            y2 = 0;
+        }
+
         public void SetLowPassFilter(float cutoffFrequency, float resonance)
         {
             var q = resonance - resonancePeakOffset / (1 + 6 * (resonance - 1));
