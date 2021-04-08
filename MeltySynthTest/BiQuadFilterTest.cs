@@ -16,6 +16,8 @@ namespace MeltySynthTest
         [TestCase(44100, 5000)]
         [TestCase(22050, 3000)]
         [TestCase(11025, 500)]
+        [TestCase(44100, 22050)]
+        [TestCase(44100, 50000)]
         public void LowPassFilterTest(int sampleRate, int cutoffFrequency)
         {
             var synthesizer = new Synthesizer(sampleRate);

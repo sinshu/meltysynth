@@ -8,6 +8,8 @@ namespace MeltySynth
 
         private Synthesizer synthesizer;
 
+        private bool active;
+
         private float a0;
         private float a1;
         private float a2;
@@ -34,35 +36,54 @@ namespace MeltySynth
 
         public void SetLowPassFilter(float cutoffFrequency, float resonance)
         {
-            var q = resonance - resonancePeakOffset / (1 + 6 * (resonance - 1));
+            if (cutoffFrequency < 0.499F * synthesizer.SampleRate)
+            {
+                active = true;
 
-            var w = 2 * MathF.PI * cutoffFrequency / synthesizer.SampleRate;
-            var cos = MathF.Cos(w);
-            var alpha = MathF.Sin(w) / (2 * q);
+                var q = resonance - resonancePeakOffset / (1 + 6 * (resonance - 1));
 
-            var b0 = (1 - cos) / 2;
-            var b1 = 1 - cos;
-            var b2 = (1 - cos) / 2;
-            var a0 = 1 + alpha;
-            var a1 = -2 * cos;
-            var a2 = 1 - alpha;
+                var w = 2 * MathF.PI * cutoffFrequency / synthesizer.SampleRate;
+                var cos = MathF.Cos(w);
+                var alpha = MathF.Sin(w) / (2 * q);
 
-            SetCoefficients(a0, a1, a2, b0, b1, b2);
+                var b0 = (1 - cos) / 2;
+                var b1 = 1 - cos;
+                var b2 = (1 - cos) / 2;
+                var a0 = 1 + alpha;
+                var a1 = -2 * cos;
+                var a2 = 1 - alpha;
+
+                SetCoefficients(a0, a1, a2, b0, b1, b2);
+            }
+            else
+            {
+                active = false;
+            }
         }
 
         public void Process(float[] block)
         {
-            for (var t = 0; t < block.Length; t++)
+            if (active)
             {
-                var input = block[t];
-                var output = a0 * input + a1 * x1 + a2 * x2 - a3 * y1 - a4 * y2;
+                for (var t = 0; t < block.Length; t++)
+                {
+                    var input = block[t];
+                    var output = a0 * input + a1 * x1 + a2 * x2 - a3 * y1 - a4 * y2;
 
-                x2 = x1;
-                x1 = input;
-                y2 = y1;
-                y1 = output;
+                    x2 = x1;
+                    x1 = input;
+                    y2 = y1;
+                    y1 = output;
 
-                block[t] = output;
+                    block[t] = output;
+                }
+            }
+            else
+            {
+                x2 = block[block.Length - 2];
+                x1 = block[block.Length - 1];
+                y2 = x2;
+                y1 = x1;
             }
         }
 
