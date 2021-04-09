@@ -6,12 +6,18 @@ namespace MeltySynth
     {
         private Synthesizer synthesizer;
 
+        private float[] blockLeft;
+        private float[] blockRight;
+
         private short volume;
         private short expression;
 
         internal Channel(Synthesizer synthesizer)
         {
             this.synthesizer = synthesizer;
+
+            blockLeft = new float[synthesizer.BlockSize];
+            blockRight = new float[synthesizer.BlockSize];
 
             Reset();
         }

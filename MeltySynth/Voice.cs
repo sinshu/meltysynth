@@ -14,7 +14,7 @@ namespace MeltySynth
 
         private float[] block;
 
-        private float mixGain;
+        private float mixFactor;
 
         private RegionPair region;
         private int channel;
@@ -57,6 +57,16 @@ namespace MeltySynth
 
         public bool Process()
         {
+            float noteGain;
+            if (velocity > 0)
+            {
+                noteGain = 2 * SoundFontMath.LinearToDecibels(velocity / 127F) - region.InitialAttenuation;
+            }
+            else
+            {
+                return false;
+            }
+
             if (!volumeEnvelope.Process())
             {
                 return false;
@@ -74,13 +84,18 @@ namespace MeltySynth
             filter.SetLowPassFilter(cutoffFrequency, 1);
             filter.Process(block);
 
-            mixGain = volumeEnvelope.Value;
+            var noteFactor = SoundFontMath.DecibelsToLinear(noteGain);
+
+            var channelInfo = synthesizer.Channels[channel];
+            var channelFactor = channelInfo.Volume * channelInfo.Expression;
+
+            mixFactor = noteFactor * channelFactor * volumeEnvelope.Value;
 
             return true;
         }
 
         public float[] Block => block;
-        public float MixGain => mixGain;
+        public float MixFactor => mixFactor;
 
         public int Channel => channel;
         public int Key => key;

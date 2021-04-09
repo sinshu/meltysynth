@@ -69,18 +69,12 @@ namespace MeltySynth
             foreach (var voice in voices)
             {
                 var source = voice.Block;
-                var gain = voice.MixGain;
+                var factor = voice.MixFactor;
 
                 for (var t = 0; t < source.Length; t++)
                 {
-                    destination[t] += gain * source[t];
+                    destination[t] += factor * source[t];
                 }
-            }
-
-            var mv = 0.5F;
-            for (var t = 0; t < destination.Length; t++)
-            {
-                destination[t] *= mv;
             }
         }
 
