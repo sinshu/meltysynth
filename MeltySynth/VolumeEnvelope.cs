@@ -55,7 +55,12 @@ namespace MeltySynth
             releaseLevel = value;
         }
 
-        public bool Process(int sampleCount)
+        public bool Process()
+        {
+            return Process(synthesizer.BlockSize);
+        }
+
+        private bool Process(int sampleCount)
         {
             processedSampleCount += sampleCount;
 

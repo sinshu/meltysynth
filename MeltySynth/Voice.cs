@@ -45,12 +45,13 @@ namespace MeltySynth
         public void End()
         {
             volumeEnvelope.Release();
+            modulationEnvelope.Release();
             generator.Release();
         }
 
         public bool Process()
         {
-            if (!volumeEnvelope.Process(synthesizer.BlockSize))
+            if (!volumeEnvelope.Process())
             {
                 return false;
             }
@@ -60,7 +61,7 @@ namespace MeltySynth
                 return false;
             }
 
-            modulationEnvelope.Process(synthesizer.BlockSize);
+            modulationEnvelope.Process();
 
             var test = volumeEnvelope.Value;
             for (var t = 0; t < block.Length; t++)

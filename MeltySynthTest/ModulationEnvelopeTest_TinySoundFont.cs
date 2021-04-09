@@ -23,7 +23,7 @@ namespace MeltySynthTest
 
             for (var i = 0; i < expected.Length; i++)
             {
-                envelope.Process(synthesizer.BlockSize);
+                envelope.Process();
 
                 if (Math.Abs(envelope.Value - expected[i]) >= 2.0E-2)
                 {
@@ -55,7 +55,7 @@ namespace MeltySynthTest
                         envelope.Release();
                     }
 
-                    envelope.Process(synthesizer.BlockSize);
+                    envelope.Process();
 
                     if (Math.Abs(envelope.Value - expected[i]) >= 2.0E-2)
                     {
@@ -79,7 +79,7 @@ namespace MeltySynthTest
 
             for (var i = 0; i < expected.Length; i++)
             {
-                envelope.Process(synthesizer.BlockSize);
+                envelope.Process();
 
                 if (Math.Abs(envelope.Value - expected[i]) >= 2.0E-2)
                 {
@@ -111,7 +111,7 @@ namespace MeltySynthTest
                         envelope.Release();
                     }
 
-                    envelope.Process(synthesizer.BlockSize);
+                    envelope.Process();
 
                     if (Math.Abs(envelope.Value - expected[i]) >= 2.0E-2)
                     {
