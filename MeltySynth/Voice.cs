@@ -10,8 +10,11 @@ namespace MeltySynth
         private ModulationEnvelope modulationEnvelope;
 
         private Generator generator;
+        private BiQuadFilter filter;
 
         private float[] block;
+
+        private float mixGain;
 
         private RegionPair region;
         private int channel;
@@ -26,6 +29,7 @@ namespace MeltySynth
             modulationEnvelope = new ModulationEnvelope(synthesizer);
 
             generator = new Generator(synthesizer);
+            filter = new BiQuadFilter(synthesizer);
 
             block = new float[synthesizer.BlockSize];
         }
@@ -35,6 +39,8 @@ namespace MeltySynth
             volumeEnvelope.Start(region, key, velocity);
             modulationEnvelope.Start(region, key, velocity);
             generator.Start(synthesizer.SoundFont.WaveData, region);
+            filter.ClearBuffer();
+            filter.SetLowPassFilter(region.InitialFilterCutoffFrequency, 1);
 
             this.region = region;
             this.channel = channel;
@@ -63,16 +69,19 @@ namespace MeltySynth
 
             modulationEnvelope.Process();
 
-            var test = volumeEnvelope.Value;
-            for (var t = 0; t < block.Length; t++)
-            {
-                block[t] *= test;
-            }
+            var cutoffFrequency = region.InitialFilterCutoffFrequency;
+            cutoffFrequency *= SoundFontMath.CentsToMultiplyingFactor(modulationEnvelope.Value * region.ModulationEnvelopeToFilterCutoffFrequency);
+            filter.SetLowPassFilter(cutoffFrequency, 1);
+            filter.Process(block);
+
+            mixGain = volumeEnvelope.Value;
 
             return true;
         }
 
         public float[] Block => block;
+        public float MixGain => mixGain;
+
         public int Channel => channel;
         public int Key => key;
         public int Velocity => velocity;

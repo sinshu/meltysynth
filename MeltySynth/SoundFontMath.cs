@@ -16,6 +16,16 @@ namespace MeltySynth
             return 8.176F * MathF.Pow(2F, x / 1200F);
         }
 
+        public static float CentsToMultiplyingFactor(int x)
+        {
+            return MathF.Pow(2F, x / 1200F);
+        }
+
+        public static float CentsToMultiplyingFactor(float x)
+        {
+            return MathF.Pow(2F, x / 1200F);
+        }
+
         public static float DecibelsToLinear(float x)
         {
             if (x > -100F)
