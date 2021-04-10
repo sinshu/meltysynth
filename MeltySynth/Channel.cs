@@ -5,16 +5,21 @@ namespace MeltySynth
     internal sealed class Channel
     {
         private Synthesizer synthesizer;
+        private bool isPercussionChannel;
 
         private float[] blockLeft;
         private float[] blockRight;
 
+        private int bankNumber;
+        private int patchNumber;
+
         private short volume;
         private short expression;
 
-        internal Channel(Synthesizer synthesizer)
+        internal Channel(Synthesizer synthesizer, bool isPercussionChannel)
         {
             this.synthesizer = synthesizer;
+            this.isPercussionChannel = isPercussionChannel;
 
             blockLeft = new float[synthesizer.BlockSize];
             blockRight = new float[synthesizer.BlockSize];
@@ -24,8 +29,26 @@ namespace MeltySynth
 
         public void Reset()
         {
+            bankNumber = isPercussionChannel ? 128 : 0;
+            patchNumber = 0;
+
             volume = 100 << 7;
             expression = 127 << 7;
+        }
+
+        public void SetBank(int value)
+        {
+            bankNumber = value;
+
+            if (isPercussionChannel)
+            {
+                bankNumber += 128;
+            }
+        }
+
+        public void SetPatch(int value)
+        {
+            patchNumber = value;
         }
 
         public void SetVolumeCourse(int value)
@@ -47,6 +70,8 @@ namespace MeltySynth
         {
             expression = (short)((expression & 0xFF80) | value);
         }
+
+        public Preset Preset => synthesizer.GetPreset(bankNumber, patchNumber);
 
         public float Volume => volume / 16383F;
         public float Expression => expression / 16383F;

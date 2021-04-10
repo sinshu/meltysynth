@@ -26,7 +26,7 @@ namespace MeltySynth
             channels = new Channel[channelCount];
             for (var i = 0; i < channels.Length; i++)
             {
-                channels[i] = new Channel(this);
+                channels[i] = new Channel(this, i == percussionChannel);
             }
 
             voices = new VoiceCollection(this, maxActiveVoiceCount);
@@ -37,15 +37,65 @@ namespace MeltySynth
             this.sampleRate = sampleRate;
         }
 
+        public void ProcessMidiMessage(int channel, int command, int data1, int data2)
+        {
+            var channelInfo = channels[channel];
+
+            switch (command)
+            {
+                case 0xB0: // Controller
+                    switch (data1)
+                    {
+                        case 0x00: // Bank select coarse
+                            channelInfo.SetBank(data2);
+                            break;
+
+                        case 0x07: // Channel volume coarse
+                            channelInfo.SetVolumeCourse(data2);
+                            break;
+
+                        case 0x27: // Channel volume fine
+                            channelInfo.SetVolumeFine(data2);
+                            break;
+
+                        case 0x0B: // Expression coarse
+                            channelInfo.SetExpressionCourse(data2);
+                            break;
+
+                        case 0x2B: // Expression fine
+                            channelInfo.SetExpressionFine(data2);
+                            break;
+                    }
+                    break;
+
+                case 0xC0: // Program change
+                    channelInfo.SetPatch(data1);
+                    break;
+            }
+        }
+
         public void NoteOn(int channel, int key, int velocity)
         {
-            var inst = soundFont.Instruments.First(x => x.Name == "Piano 1");
-            var region = inst.Regions.First(x => x.Contains(key, velocity));
+            var preset = channels[channel].Preset;
 
-            var voice = voices.GetFreeVoice();
-            if (voice != null)
+            foreach (var presetRegion in preset.Regions)
             {
-                voice.Start(new RegionPair(PresetRegion.Default, region), channel, key, velocity);
+                if (presetRegion.Contains(key, velocity))
+                {
+                    foreach (var instrumentRegion in presetRegion.Instrument.Regions)
+                    {
+                        if (instrumentRegion.Contains(key, velocity))
+                        {
+                            var regionPair = new RegionPair(presetRegion, instrumentRegion);
+
+                            var voice = voices.GetFreeVoice();
+                            if (voice != null)
+                            {
+                                voice.Start(regionPair, channel, key, velocity);
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -76,6 +126,19 @@ namespace MeltySynth
                     destination[t] += factor * source[t];
                 }
             }
+        }
+
+        internal Preset GetPreset(int bankNumber, int patchNumber)
+        {
+            foreach (var preset in soundFont.Presets)
+            {
+                if (preset.BankNumber == bankNumber && preset.PatchNumber == patchNumber)
+                {
+                    return preset;
+                }
+            }
+
+            return null;
         }
 
         public int BlockSize => blockSize;
