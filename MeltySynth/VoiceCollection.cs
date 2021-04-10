@@ -29,13 +29,12 @@ namespace MeltySynth
             if (activeVoiceCount < voices.Length)
             {
                 freeVoice = voices[activeVoiceCount];
+                activeVoiceCount++;
             }
             else
             {
                 freeVoice = null;
             }
-
-            activeVoiceCount++;
 
             return freeVoice;
         }
