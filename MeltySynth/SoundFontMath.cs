@@ -4,7 +4,7 @@ namespace MeltySynth
 {
     internal static class SoundFontMath
     {
-        public static readonly float NonAudible = 1.0E-5F;
+        public static readonly float NonAudible = 1.0E-3F;
 
         public static float TimecentsToSeconds(float x)
         {
