@@ -6269,6 +6269,12 @@
     <None Update="ReferenceData\Polyphone\TimGM6mb\Presets\128 048 Orchestra.tsv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="ReferenceData\TinySoundFont\Lfo\D00_F70.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ReferenceData\TinySoundFont\Lfo\D03_F50.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="ReferenceData\TinySoundFont\ModulationEnvelope\D00_A00_H00_D23_S01_R57\Continuous.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
