@@ -10,7 +10,6 @@ namespace MeltySynth
         private double period;
 
         private int processedSampleCount;
-
         private float value;
 
         internal Lfo(Synthesizer synthesizer)
@@ -24,6 +23,7 @@ namespace MeltySynth
             this.period = 1.0 / frequency;
 
             processedSampleCount = 0;
+            value = 0;
         }
 
         public void Process()
