@@ -26,7 +26,8 @@ https://www.youtube.com/watch?v=z8eNM-U1e0k
     - [x] Wave generator
     - [x] Envelope generator
     - [x] Low-pass filter
-    - [ ] LFO
+    - [ ] Vibrato LFO
+    - [ ] Modulation LFO
 * __MIDI message processing__
     - [x] Note on/off
     - [x] Bank selection
@@ -40,6 +41,8 @@ https://www.youtube.com/watch?v=z8eNM-U1e0k
 * __Effects__
     - [ ] Chorus
     - [ ] Reverb
+* __Other things__
+    - [ ] SMF support
 
 
 ## License
