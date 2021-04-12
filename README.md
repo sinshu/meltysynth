@@ -43,6 +43,7 @@ https://www.youtube.com/watch?v=z8eNM-U1e0k
     - [ ] Reverb
 * __Other things__
     - [ ] SMF support
+    - [ ] Performace optimization
 
 
 ## License
