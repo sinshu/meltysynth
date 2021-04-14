@@ -57,5 +57,25 @@ namespace MeltySynth
 
             envelope.Start(delay, attack, hold, decay, sustain, release);
         }
+
+        public static void StartVibrato(this Lfo lfo, InstrumentRegion region, int key, int velocity)
+        {
+            StartVibrato(lfo, new RegionPair(PresetRegion.Default, region), key, velocity);
+        }
+
+        public static void StartVibrato(this Lfo lfo, RegionPair region, int key, int velocity)
+        {
+            lfo.Start(region.DelayVibratoLfo, region.FrequencyVibratoLfo);
+        }
+
+        public static void StartModulation(this Lfo lfo, InstrumentRegion region, int key, int velocity)
+        {
+            StartModulation(lfo, new RegionPair(PresetRegion.Default, region), key, velocity);
+        }
+
+        public static void StartModulation(this Lfo lfo, RegionPair region, int key, int velocity)
+        {
+            lfo.Start(region.DelayModulationLfo, region.FrequencyModulationLfo);
+        }
     }
 }

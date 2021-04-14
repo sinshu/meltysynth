@@ -9,6 +9,9 @@ namespace MeltySynth
         private VolumeEnvelope volumeEnvelope;
         private ModulationEnvelope modulationEnvelope;
 
+        private Lfo vibratoLfo;
+        private Lfo modulationLfo;
+
         private Generator generator;
         private BiQuadFilter filter;
 
@@ -28,6 +31,9 @@ namespace MeltySynth
             volumeEnvelope = new VolumeEnvelope(synthesizer);
             modulationEnvelope = new ModulationEnvelope(synthesizer);
 
+            vibratoLfo = new Lfo(synthesizer);
+            modulationLfo = new Lfo(synthesizer);
+
             generator = new Generator(synthesizer);
             filter = new BiQuadFilter(synthesizer);
 
@@ -39,6 +45,8 @@ namespace MeltySynth
             volumeEnvelope.Start(region, key, velocity);
             modulationEnvelope.Start(region, key, velocity);
             generator.Start(synthesizer.SoundFont.WaveData, region);
+            vibratoLfo.StartVibrato(region, key, velocity);
+            modulationLfo.StartModulation(region, key, velocity);
             filter.ClearBuffer();
             filter.SetLowPassFilter(region.InitialFilterCutoffFrequency, 1);
 
@@ -72,7 +80,8 @@ namespace MeltySynth
                 return false;
             }
 
-            if (!generator.Process(block, key))
+            var pitch = key + 0.01F * vibratoLfo.Value * region.VibratoLfoToPitch;
+            if (!generator.Process(block, pitch))
             {
                 return false;
             }
@@ -90,6 +99,9 @@ namespace MeltySynth
             var channelFactor = channelInfo.Volume * channelInfo.Expression;
 
             mixFactor = noteFactor * channelFactor * volumeEnvelope.Value;
+
+            vibratoLfo.Process();
+            modulationLfo.Process();
 
             return true;
         }

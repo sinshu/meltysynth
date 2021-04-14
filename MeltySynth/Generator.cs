@@ -65,7 +65,7 @@ namespace MeltySynth
 
         public bool Process(float[] block, float pitch)
         {
-            var relativeKey = pitch - rootKey + coarseTune + fineTune / 100.0;
+            var relativeKey = pitch - rootKey + coarseTune + 0.01F * fineTune;
             var pitchRatio = sampleRateRatio * Math.Pow(2, relativeKey / 12);
             return FillBlock(block, pitchRatio);
         }

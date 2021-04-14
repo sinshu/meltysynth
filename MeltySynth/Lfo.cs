@@ -6,6 +6,8 @@ namespace MeltySynth
     {
         private Synthesizer synthesizer;
 
+        private bool active;
+
         private double delay;
         private double period;
 
@@ -19,15 +21,30 @@ namespace MeltySynth
 
         public void Start(float delay, float frequency)
         {
-            this.delay = delay;
-            this.period = 1.0 / frequency;
+            if (frequency > 1.0E-3)
+            {
+                active = true;
 
-            processedSampleCount = 0;
-            value = 0;
+                this.delay = delay;
+                this.period = 1.0 / frequency;
+
+                processedSampleCount = 0;
+                value = 0;
+            }
+            else
+            {
+                active = false;
+                value = 0;
+            }
         }
 
         public void Process()
         {
+            if (!active)
+            {
+                return;
+            }
+
             processedSampleCount += synthesizer.BlockSize;
 
             var currentTime = (double)processedSampleCount / synthesizer.SampleRate;
