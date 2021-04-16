@@ -19,6 +19,7 @@ namespace MeltySynth
         private float mixGain;
 
         private InstrumentRegion instrumentRegion;
+        private int exclusiveClass;
         private int channel;
         private int key;
         private int velocity;
@@ -48,6 +49,7 @@ namespace MeltySynth
         public void Start(RegionPair region, int channel, int key, int velocity)
         {
             this.instrumentRegion = region.Instrument;
+            this.exclusiveClass = region.ExclusiveClass;
             this.channel = channel;
             this.key = key;
             this.velocity = velocity;
@@ -80,6 +82,11 @@ namespace MeltySynth
             volumeEnvelope.Release();
             modulationEnvelope.Release();
             generator.Release();
+        }
+
+        public void Kill()
+        {
+            noteGain = 0;
         }
 
         public bool Process()
@@ -120,10 +127,26 @@ namespace MeltySynth
             return true;
         }
 
+        public float Priority
+        {
+            get
+            {
+                if (noteGain < SoundFontMath.NonAudible)
+                {
+                    return 0F;
+                }
+                else
+                {
+                    return volumeEnvelope.Priority;
+                }
+            }
+        }
+
         public float[] Block => block;
         public float MixGain => mixGain;
 
         public InstrumentRegion Region => instrumentRegion;
+        public int ExclusiveClass => exclusiveClass;
         public int Channel => channel;
         public int Key => key;
         public int Velocity => velocity;

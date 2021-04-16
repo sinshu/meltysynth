@@ -6,7 +6,7 @@ namespace MeltySynth
     public sealed class Synthesizer
     {
         private static readonly int blockSize = 64;
-        private static readonly int maxActiveVoiceCount = 64;
+        private static readonly int maxActiveVoiceCount = 32;
 
         private static readonly int channelCount = 16;
         private static readonly int percussionChannel = 9;
@@ -88,7 +88,7 @@ namespace MeltySynth
                         {
                             var regionPair = new RegionPair(presetRegion, instrumentRegion);
 
-                            var voice = voices.GetFreeVoice();
+                            var voice = voices.RequestNew(instrumentRegion, channel, key);
                             if (voice != null)
                             {
                                 voice.Start(regionPair, channel, key, velocity);

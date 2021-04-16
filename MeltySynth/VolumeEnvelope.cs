@@ -125,7 +125,7 @@ namespace MeltySynth
         }
 
         public float Value => value;
-
+        public float Priority => (Stage.Release - stage) + value;
 
 
         private enum Stage

@@ -23,20 +23,63 @@ namespace MeltySynth
             }
         }
 
-        public Voice GetFreeVoice()
+        public Voice RequestNew(InstrumentRegion region, int channel, int key)
         {
-            Voice freeVoice;
-            if (activeVoiceCount < voices.Length)
+            Voice free = null;
+            Voice low = null;
+            var lowestPriority = float.MaxValue;
+
+            var exclusiveClass = region.ExclusiveClass;
+            if (exclusiveClass == 0)
             {
-                freeVoice = voices[activeVoiceCount];
-                activeVoiceCount++;
+                for (var i = 0; i < activeVoiceCount; i++)
+                {
+                    var voice = voices[i];
+                    if (voice.Region == region && voice.Channel == channel && voice.Key == key)
+                    {
+                        voice.Kill();
+                        free = voice;
+                    }
+                    if (voice.Priority < lowestPriority)
+                    {
+                        lowestPriority = voice.Priority;
+                        low = voice;
+                    }
+                }
             }
             else
             {
-                freeVoice = null;
+                for (var i = 0; i < activeVoiceCount; i++)
+                {
+                    var voice = voices[i];
+                    if (voice.ExclusiveClass == exclusiveClass && voice.Channel == channel)
+                    {
+                        voice.Kill();
+                        free = voice;
+                    }
+                    if (voice.Priority < lowestPriority)
+                    {
+                        lowestPriority = voice.Priority;
+                        low = voice;
+                    }
+                }
             }
 
-            return freeVoice;
+            if (free != null)
+            {
+                return free;
+            }
+
+            if (activeVoiceCount < voices.Length)
+            {
+                free = voices[activeVoiceCount];
+                activeVoiceCount++;
+                return free;
+            }
+            else
+            {
+                return low;
+            }
         }
 
         public void Process()
