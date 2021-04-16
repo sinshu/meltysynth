@@ -20,6 +20,16 @@ namespace MeltySynth
 
         public Synthesizer(SoundFont soundFont, int sampleRate)
         {
+            if (soundFont == null)
+            {
+                throw new ArgumentNullException(nameof(soundFont));
+            }
+
+            if (!(8000 <= sampleRate && sampleRate <= 192000))
+            {
+                throw new ArgumentOutOfRangeException("The sample rate must be between 8000 and 192000.");
+            }
+
             this.soundFont = soundFont;
             this.sampleRate = sampleRate;
 
@@ -39,6 +49,11 @@ namespace MeltySynth
 
         public void ProcessMidiMessage(int channel, int command, int data1, int data2)
         {
+            if (!(0 <= channel && channel < channels.Length))
+            {
+                return;
+            }
+
             var channelInfo = channels[channel];
 
             switch (command)
@@ -76,6 +91,11 @@ namespace MeltySynth
 
         public void NoteOn(int channel, int key, int velocity)
         {
+            if (!(0 <= channel && channel < channels.Length))
+            {
+                return;
+            }
+
             var preset = channels[channel].Preset;
 
             foreach (var presetRegion in preset.Regions)
@@ -101,6 +121,11 @@ namespace MeltySynth
 
         public void NoteOff(int channel, int key)
         {
+            if (!(0 <= channel && channel < channels.Length))
+            {
+                return;
+            }
+
             foreach (var voice in voices)
             {
                 if (voice.Channel == channel && voice.Key == key)
@@ -110,7 +135,7 @@ namespace MeltySynth
             }
         }
 
-        public void RenderBlock(float[] destination)
+        internal void RenderBlock(float[] destination)
         {
             Array.Clear(destination, 0, destination.Length);
 
