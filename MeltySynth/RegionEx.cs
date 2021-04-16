@@ -49,7 +49,7 @@ namespace MeltySynth
         public static void Start(this ModulationEnvelope envelope, RegionPair region, int key, int velocity)
         {
             var delay = region.DelayModulationEnvelope;
-            var attack = region.AttackModulationEnvelope;
+            var attack = region.AttackModulationEnvelope * ((145 - velocity) / 144F);
             var hold = region.HoldModulationEnvelope;
             var decay = region.DecayModulationEnvelope;
             var sustain = 1F - region.SustainModulationEnvelope / 100F;
