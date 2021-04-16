@@ -119,12 +119,18 @@ namespace MeltySynth
             foreach (var voice in voices)
             {
                 var source = voice.Block;
-                var factor = voice.MixFactor;
+                var factor = voice.MixGain;
 
                 for (var t = 0; t < source.Length; t++)
                 {
                     destination[t] += factor * source[t];
                 }
+            }
+
+            // TODO: Implement master volume.
+            for (var t = 0; t < destination.Length; t++)
+            {
+                destination[t] *= 0.5F;
             }
         }
 

@@ -16,13 +16,18 @@ namespace MeltySynth
         private BiQuadFilter filter;
 
         private float[] block;
+        private float mixGain;
 
-        private float mixFactor;
-
-        private RegionPair region;
+        private InstrumentRegion instrumentRegion;
         private int channel;
         private int key;
         private int velocity;
+
+        private float noteGain;
+        private float cutoffFrequency;
+        private float resonance;
+        private float vibratoLfoToPitch;
+        private int modulationEnvelopeToFilterCutoffFrequency;
 
         internal Voice(Synthesizer synthesizer)
         {
@@ -42,18 +47,32 @@ namespace MeltySynth
 
         public void Start(RegionPair region, int channel, int key, int velocity)
         {
+            this.instrumentRegion = region.Instrument;
+            this.channel = channel;
+            this.key = key;
+            this.velocity = velocity;
+
+            if (velocity > 0)
+            {
+                var decibels = 2 * SoundFontMath.LinearToDecibels(velocity / 127F) - region.InitialAttenuation - region.InitialFilterQ / 2;
+                noteGain = SoundFontMath.DecibelsToLinear(decibels);
+            }
+            else
+            {
+                noteGain = 0;
+            }
+            cutoffFrequency = region.InitialFilterCutoffFrequency;
+            resonance = SoundFontMath.DecibelsToLinear(region.InitialFilterQ);
+            vibratoLfoToPitch = 0.01F * region.VibratoLfoToPitch;
+            modulationEnvelopeToFilterCutoffFrequency = region.ModulationEnvelopeToFilterCutoffFrequency;
+
             volumeEnvelope.Start(region, key, velocity);
             modulationEnvelope.Start(region, key, velocity);
             generator.Start(synthesizer.SoundFont.WaveData, region);
             vibratoLfo.StartVibrato(region, key, velocity);
             modulationLfo.StartModulation(region, key, velocity);
             filter.ClearBuffer();
-            filter.SetLowPassFilter(region.InitialFilterCutoffFrequency, 1);
-
-            this.region = region;
-            this.channel = channel;
-            this.key = key;
-            this.velocity = velocity;
+            filter.SetLowPassFilter(cutoffFrequency, resonance);
         }
 
         public void End()
@@ -65,12 +84,7 @@ namespace MeltySynth
 
         public bool Process()
         {
-            float noteGain;
-            if (velocity > 0)
-            {
-                noteGain = 2 * SoundFontMath.LinearToDecibels(velocity / 127F) - region.InitialAttenuation;
-            }
-            else
+            if (noteGain < SoundFontMath.NonAudible)
             {
                 return false;
             }
@@ -80,7 +94,7 @@ namespace MeltySynth
                 return false;
             }
 
-            var pitch = key + 0.01F * vibratoLfo.Value * region.VibratoLfoToPitch;
+            var pitch = key + vibratoLfoToPitch * vibratoLfo.Value;
             if (!generator.Process(block, pitch))
             {
                 return false;
@@ -88,17 +102,17 @@ namespace MeltySynth
 
             modulationEnvelope.Process();
 
-            var cutoffFrequency = region.InitialFilterCutoffFrequency;
-            cutoffFrequency *= SoundFontMath.CentsToMultiplyingFactor(modulationEnvelope.Value * region.ModulationEnvelopeToFilterCutoffFrequency);
-            filter.SetLowPassFilter(cutoffFrequency, 1);
+            if (modulationEnvelopeToFilterCutoffFrequency != 0)
+            {
+                var factor = SoundFontMath.CentsToMultiplyingFactor(modulationEnvelopeToFilterCutoffFrequency * modulationEnvelope.Value);
+                filter.SetLowPassFilter(factor * cutoffFrequency, resonance);
+            }
             filter.Process(block);
 
-            var noteFactor = SoundFontMath.DecibelsToLinear(noteGain);
-
             var channelInfo = synthesizer.Channels[channel];
-            var channelFactor = channelInfo.Volume * channelInfo.Expression;
+            var channelGain = channelInfo.Volume * channelInfo.Expression;
 
-            mixFactor = noteFactor * channelFactor * volumeEnvelope.Value;
+            mixGain = noteGain * channelGain * volumeEnvelope.Value;
 
             vibratoLfo.Process();
             modulationLfo.Process();
@@ -107,8 +121,9 @@ namespace MeltySynth
         }
 
         public float[] Block => block;
-        public float MixFactor => mixFactor;
+        public float MixGain => mixGain;
 
+        public InstrumentRegion Region => instrumentRegion;
         public int Channel => channel;
         public int Key => key;
         public int Velocity => velocity;
