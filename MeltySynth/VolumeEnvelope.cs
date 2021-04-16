@@ -22,6 +22,8 @@ namespace MeltySynth
         private Stage stage;
         private float value;
 
+        private float priority;
+
         internal VolumeEnvelope(Synthesizer synthesizer)
         {
             this.synthesizer = synthesizer;
@@ -101,22 +103,27 @@ namespace MeltySynth
             {
                 case Stage.Delay:
                     value = 0;
+                    priority = 4F + value;
                     return true;
 
                 case Stage.Attack:
                     value = (float)(attackSlope * (currentTime - attackStartTime));
+                    priority = 3F + value;
                     return true;
 
                 case Stage.Hold:
                     value = 1;
+                    priority = 2F + value;
                     return true;
 
                 case Stage.Decay:
                     value = Math.Max((float)Math.Exp(decaySlope * (currentTime - decayStartTime)), sustainLevel);
+                    priority = 1F + value;
                     return value > SoundFontMath.NonAudible;
 
                 case Stage.Release:
                     value = (float)(releaseLevel * Math.Exp(releaseSlope * (currentTime - releaseStartTime)));
+                    priority = value;
                     return value > SoundFontMath.NonAudible;
 
                 default:
@@ -125,7 +132,7 @@ namespace MeltySynth
         }
 
         public float Value => value;
-        public float Priority => (Stage.Release - stage) + value;
+        public float Priority => priority;
 
 
         private enum Stage
