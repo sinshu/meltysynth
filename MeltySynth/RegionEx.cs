@@ -33,8 +33,8 @@ namespace MeltySynth
         {
             var delay = region.DelayVolumeEnvelope;
             var attack = region.AttackVolumeEnvelope;
-            var hold = region.HoldVolumeEnvelope;
-            var decay = region.DecayVolumeEnvelope;
+            var hold = region.HoldVolumeEnvelope * SoundFontMath.KeyNumberToMultiplyingFactor(region.KeyNumberToVolumeEnvelopeHold, key);
+            var decay = region.DecayVolumeEnvelope * SoundFontMath.KeyNumberToMultiplyingFactor(region.KeyNumberToVolumeEnvelopeDecay, key);
             var sustain = SoundFontMath.DecibelsToLinear(-region.SustainVolumeEnvelope);
             var release = region.ReleaseVolumeEnvelope;
 
@@ -50,8 +50,8 @@ namespace MeltySynth
         {
             var delay = region.DelayModulationEnvelope;
             var attack = region.AttackModulationEnvelope * ((145 - velocity) / 144F);
-            var hold = region.HoldModulationEnvelope;
-            var decay = region.DecayModulationEnvelope;
+            var hold = region.HoldModulationEnvelope * SoundFontMath.KeyNumberToMultiplyingFactor(region.KeyNumberToModulationEnvelopeHold, key);
+            var decay = region.DecayModulationEnvelope * SoundFontMath.KeyNumberToMultiplyingFactor(region.KeyNumberToModulationEnvelopeDecay, key);
             var sustain = 1F - region.SustainModulationEnvelope / 100F;
             var release = region.ReleaseModulationEnvelope;
 

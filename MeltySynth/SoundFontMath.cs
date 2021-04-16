@@ -30,5 +30,10 @@ namespace MeltySynth
         {
             return 20F * MathF.Log10(x);
         }
+
+        public static float KeyNumberToMultiplyingFactor(int cents, int key)
+        {
+            return TimecentsToSeconds(cents * (60 - key));
+        }
     }
 }
