@@ -4,6 +4,8 @@ namespace MeltySynth
 {
     internal sealed class Voice
     {
+        private const float panToAngle = MathF.PI / 200F;
+
         private Synthesizer synthesizer;
 
         private VolumeEnvelope volEnv;
@@ -140,21 +142,21 @@ namespace MeltySynth
             var channelGain = channelInfo.Volume * channelInfo.Expression;
             var mixGain = noteGain * channelGain * volEnv.Value;
 
-            var pan = 0.01F * (channelInfo.Pan + instrumentPan);
-            if (pan <= -0.5F)
+            var angle = panToAngle * (channelInfo.Pan + instrumentPan + 50F);
+            if (angle <= 0F)
             {
                 mixGainLeft = mixGain;
                 mixGainRight = 0F;
             }
-            else if (pan >= 0.5F)
+            else if (angle >= SoundFontMath.HalfPi)
             {
                 mixGainLeft = 0F;
                 mixGainRight = mixGain;
             }
             else
             {
-                mixGainLeft = mixGain * MathF.Sqrt(0.5F - pan);
-                mixGainRight = mixGain * MathF.Sqrt(0.5F + pan);
+                mixGainLeft = mixGain * MathF.Cos(angle);
+                mixGainRight = mixGain * MathF.Sin(angle);
             }
 
             vibLfo.Process();

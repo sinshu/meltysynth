@@ -4,6 +4,8 @@ namespace MeltySynth
 {
     internal static class SoundFontMath
     {
+        public const float HalfPi = MathF.PI / 2;
+
         public static readonly float NonAudible = 1.0E-3F;
 
         public static float TimecentsToSeconds(float x)
