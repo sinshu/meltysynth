@@ -6,11 +6,11 @@ namespace MeltySynth
     {
         private Synthesizer synthesizer;
 
-        private VolumeEnvelope volumeEnvelope;
-        private ModulationEnvelope modulationEnvelope;
+        private VolumeEnvelope volEnv;
+        private ModulationEnvelope modEnv;
 
-        private Lfo vibratoLfo;
-        private Lfo modulationLfo;
+        private Lfo vibLfo;
+        private Lfo modLfo;
 
         private Generator generator;
         private BiQuadFilter filter;
@@ -25,20 +25,26 @@ namespace MeltySynth
         private int velocity;
 
         private float noteGain;
-        private float cutoffFrequency;
+
+        private float cutoff;
         private float resonance;
-        private float vibratoLfoToPitch;
-        private int modulationEnvelopeToFilterCutoffFrequency;
+
+        private float vibLfoToPitch;
+        private float modLfoToPitch;
+        private float modEnvToPitch;
+
+        private int modLfoToCutoff;
+        private int modEnvToCutoff;
 
         internal Voice(Synthesizer synthesizer)
         {
             this.synthesizer = synthesizer;
 
-            volumeEnvelope = new VolumeEnvelope(synthesizer);
-            modulationEnvelope = new ModulationEnvelope(synthesizer);
+            volEnv = new VolumeEnvelope(synthesizer);
+            modEnv = new ModulationEnvelope(synthesizer);
 
-            vibratoLfo = new Lfo(synthesizer);
-            modulationLfo = new Lfo(synthesizer);
+            vibLfo = new Lfo(synthesizer);
+            modLfo = new Lfo(synthesizer);
 
             generator = new Generator(synthesizer);
             filter = new BiQuadFilter(synthesizer);
@@ -63,24 +69,30 @@ namespace MeltySynth
             {
                 noteGain = 0;
             }
-            cutoffFrequency = region.InitialFilterCutoffFrequency;
-            resonance = SoundFontMath.DecibelsToLinear(region.InitialFilterQ);
-            vibratoLfoToPitch = 0.01F * region.VibratoLfoToPitch;
-            modulationEnvelopeToFilterCutoffFrequency = region.ModulationEnvelopeToFilterCutoffFrequency;
 
-            volumeEnvelope.Start(region, key, velocity);
-            modulationEnvelope.Start(region, key, velocity);
+            cutoff = region.InitialFilterCutoffFrequency;
+            resonance = SoundFontMath.DecibelsToLinear(region.InitialFilterQ);
+
+            vibLfoToPitch = 0.01F * region.VibratoLfoToPitch;
+            modLfoToPitch = 0.01F * region.ModulationLfoToPitch;
+            modEnvToPitch = 0.01F * region.ModulationEnvelopeToPitch;
+
+            modLfoToCutoff = region.ModulationLfoToFilterCutoffFrequency;
+            modEnvToCutoff = region.ModulationEnvelopeToFilterCutoffFrequency;
+
+            volEnv.Start(region, key, velocity);
+            modEnv.Start(region, key, velocity);
             generator.Start(synthesizer.SoundFont.WaveData, region);
-            vibratoLfo.StartVibrato(region, key, velocity);
-            modulationLfo.StartModulation(region, key, velocity);
+            vibLfo.StartVibrato(region, key, velocity);
+            modLfo.StartModulation(region, key, velocity);
             filter.ClearBuffer();
-            filter.SetLowPassFilter(cutoffFrequency, resonance);
+            filter.SetLowPassFilter(cutoff, resonance);
         }
 
         public void End()
         {
-            volumeEnvelope.Release();
-            modulationEnvelope.Release();
+            volEnv.Release();
+            modEnv.Release();
             generator.Release();
         }
 
@@ -96,33 +108,34 @@ namespace MeltySynth
                 return false;
             }
 
-            if (!volumeEnvelope.Process())
+            if (!volEnv.Process())
             {
                 return false;
             }
 
-            var pitch = key + vibratoLfoToPitch * vibratoLfo.Value;
+            var pitch = key + vibLfoToPitch * vibLfo.Value + modLfoToPitch * modLfo.Value + modEnvToPitch * modEnv.Value;
             if (!generator.Process(block, pitch))
             {
                 return false;
             }
 
-            modulationEnvelope.Process();
+            modEnv.Process();
 
-            if (modulationEnvelopeToFilterCutoffFrequency != 0)
+            if (modLfoToCutoff != 0 || modEnvToCutoff != 0)
             {
-                var factor = SoundFontMath.CentsToMultiplyingFactor(modulationEnvelopeToFilterCutoffFrequency * modulationEnvelope.Value);
-                filter.SetLowPassFilter(factor * cutoffFrequency, resonance);
+                var cents = modLfoToCutoff * modLfo.Value + modEnvToCutoff * modEnv.Value;
+                var factor = SoundFontMath.CentsToMultiplyingFactor(cents);
+                filter.SetLowPassFilter(factor * cutoff, resonance);
             }
             filter.Process(block);
 
             var channelInfo = synthesizer.Channels[channel];
             var channelGain = channelInfo.Volume * channelInfo.Expression;
 
-            mixGain = noteGain * channelGain * volumeEnvelope.Value;
+            mixGain = noteGain * channelGain * volEnv.Value;
 
-            vibratoLfo.Process();
-            modulationLfo.Process();
+            vibLfo.Process();
+            modLfo.Process();
 
             return true;
         }
@@ -137,7 +150,7 @@ namespace MeltySynth
                 }
                 else
                 {
-                    return volumeEnvelope.Priority;
+                    return volEnv.Priority;
                 }
             }
         }
