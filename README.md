@@ -26,12 +26,12 @@ https://www.youtube.com/watch?v=z8eNM-U1e0k
     - [x] Wave generator
     - [x] Envelope generator
     - [x] Low-pass filter
-    - [ ] Vibrato LFO
-    - [ ] Modulation LFO
+    - [x] Vibrato LFO
+    - [x] Modulation LFO
 * __MIDI message processing__
     - [x] Note on/off
     - [x] Bank selection
-    - [ ] Modulation
+    - [x] Modulation
     - [x] Volume control
     - [ ] Pan
     - [x] Expression
