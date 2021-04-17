@@ -18,6 +18,12 @@ namespace MeltySynth
 
         private VoiceCollection voices;
 
+        private float[] blockLeft;
+        private float[] blockRight;
+        private int blockRead;
+
+        private float masterVolume;
+
         public Synthesizer(SoundFont soundFont, int sampleRate)
         {
             if (soundFont == null)
@@ -40,6 +46,12 @@ namespace MeltySynth
             }
 
             voices = new VoiceCollection(this, maxActiveVoiceCount);
+
+            blockLeft = new float[blockSize];
+            blockRight = new float[blockSize];
+            blockRead = blockSize;
+
+            masterVolume = 0.5F;
         }
 
         internal Synthesizer(int sampleRate)
@@ -79,6 +91,14 @@ namespace MeltySynth
 
                         case 0x27: // Channel volume fine
                             channelInfo.SetVolumeFine(data2);
+                            break;
+
+                        case 0x0A: // Pan coarse
+                            channelInfo.SetPanCourse(data2);
+                            break;
+
+                        case 0x2A: // Pan fine
+                            channelInfo.SetPanFine(data2);
                             break;
 
                         case 0x0B: // Expression coarse
@@ -143,27 +163,81 @@ namespace MeltySynth
             }
         }
 
-        internal void RenderBlock(float[] destination)
+        public void RenderStereo(float[] left, float[] right)
         {
-            Array.Clear(destination, 0, destination.Length);
+            if (left == null)
+            {
+                throw new ArgumentNullException(nameof(left));
+            }
 
+            if (right == null)
+            {
+                throw new ArgumentNullException(nameof(right));
+            }
+
+            if (left.Length != right.Length)
+            {
+                throw new ArgumentException("The arrays must be the same length.");
+            }
+
+            for (var t = 0; t < left.Length; t++)
+            {
+                if (blockRead == blockSize)
+                {
+                    RenderBlock();
+                    blockRead = 0;
+                }
+
+                left[t] = blockLeft[blockRead];
+                right[t] = blockRight[blockRead];
+
+                blockRead++;
+            }
+        }
+
+        public void RenderMono(float[] destination)
+        {
+            if (destination == null)
+            {
+                throw new ArgumentNullException(nameof(destination));
+            }
+
+            for (var t = 0; t < destination.Length; t++)
+            {
+                if (blockRead == blockSize)
+                {
+                    RenderBlock();
+                    blockRead = 0;
+                }
+
+                destination[t] = (blockLeft[blockRead] + blockRight[blockRead]) / 2;
+
+                blockRead++;
+            }
+        }
+
+        internal void RenderBlock()
+        {
             voices.Process();
+
+            Array.Clear(blockLeft, 0, blockLeft.Length);
+            Array.Clear(blockRight, 0, blockRight.Length);
 
             foreach (var voice in voices)
             {
                 var source = voice.Block;
-                var factor = voice.MixGain;
+                var gainLeft = masterVolume * voice.MixGainLeft;
+                var gainRight = masterVolume * voice.MixGainRight;
 
-                for (var t = 0; t < source.Length; t++)
+                for (var t = 0; t < blockLeft.Length; t++)
                 {
-                    destination[t] += factor * source[t];
+                    blockLeft[t] += gainLeft * source[t];
                 }
-            }
 
-            // TODO: Implement master volume.
-            for (var t = 0; t < destination.Length; t++)
-            {
-                destination[t] *= 0.5F;
+                for (var t = 0; t < blockRight.Length; t++)
+                {
+                    blockRight[t] += gainRight * source[t];
+                }
             }
         }
 

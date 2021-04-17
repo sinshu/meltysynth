@@ -16,7 +16,8 @@ namespace MeltySynth
         private BiQuadFilter filter;
 
         private float[] block;
-        private float mixGain;
+        private float mixGainLeft;
+        private float mixGainRight;
 
         private InstrumentRegion instrumentRegion;
         private int exclusiveClass;
@@ -35,6 +36,8 @@ namespace MeltySynth
 
         private int modLfoToCutoff;
         private int modEnvToCutoff;
+
+        private float instrumentPan;
 
         internal Voice(Synthesizer synthesizer)
         {
@@ -67,7 +70,7 @@ namespace MeltySynth
             }
             else
             {
-                noteGain = 0;
+                noteGain = 0F;
             }
 
             cutoff = region.InitialFilterCutoffFrequency;
@@ -79,6 +82,8 @@ namespace MeltySynth
 
             modLfoToCutoff = region.ModulationLfoToFilterCutoffFrequency;
             modEnvToCutoff = region.ModulationEnvelopeToFilterCutoffFrequency;
+
+            instrumentPan = Math.Clamp(region.Pan, -50F, 50F);
 
             volEnv.Start(region, key, velocity);
             modEnv.Start(region, key, velocity);
@@ -98,7 +103,7 @@ namespace MeltySynth
 
         public void Kill()
         {
-            noteGain = 0;
+            noteGain = 0F;
         }
 
         public bool Process()
@@ -133,7 +138,24 @@ namespace MeltySynth
             filter.Process(block);
 
             var channelGain = channelInfo.Volume * channelInfo.Expression;
-            mixGain = noteGain * channelGain * volEnv.Value;
+            var mixGain = noteGain * channelGain * volEnv.Value;
+
+            var pan = 0.01F * (channelInfo.Pan + instrumentPan);
+            if (pan <= -0.5F)
+            {
+                mixGainLeft = mixGain;
+                mixGainRight = 0F;
+            }
+            else if (pan >= 0.5F)
+            {
+                mixGainLeft = 0F;
+                mixGainRight = mixGain;
+            }
+            else
+            {
+                mixGainLeft = mixGain * MathF.Sqrt(0.5F - pan);
+                mixGainRight = mixGain * MathF.Sqrt(0.5F + pan);
+            }
 
             vibLfo.Process();
             modLfo.Process();
@@ -157,7 +179,8 @@ namespace MeltySynth
         }
 
         public float[] Block => block;
-        public float MixGain => mixGain;
+        public float MixGainLeft => mixGainLeft;
+        public float MixGainRight => mixGainRight;
 
         public InstrumentRegion Region => instrumentRegion;
         public int ExclusiveClass => exclusiveClass;

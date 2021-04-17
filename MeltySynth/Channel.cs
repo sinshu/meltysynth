@@ -15,6 +15,7 @@ namespace MeltySynth
 
         private short modulation;
         private short volume;
+        private short pan;
         private short expression;
 
         internal Channel(Synthesizer synthesizer, bool isPercussionChannel)
@@ -35,6 +36,7 @@ namespace MeltySynth
 
             modulation = 0;
             volume = 100 << 7;
+            pan = 64 << 7;
             expression = 127 << 7;
         }
 
@@ -73,6 +75,16 @@ namespace MeltySynth
             volume = (short)((volume & 0xFF80) | value);
         }
 
+        public void SetPanCourse(int value)
+        {
+            pan = (short)((pan & 0x7F) | (value << 7));
+        }
+
+        public void SetPanFine(int value)
+        {
+            pan = (short)((pan & 0xFF80) | value);
+        }
+
         public void SetExpressionCourse(int value)
         {
             expression = (short)((expression & 0x7F) | (value << 7));
@@ -87,6 +99,7 @@ namespace MeltySynth
 
         public float Modulation => modulation * (50F / 16383F);
         public float Volume => volume / 16383F;
+        public float Pan => pan * (100F / 16383F) - 50F;
         public float Expression => expression / 16383F;
     }
 }
