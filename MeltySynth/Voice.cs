@@ -113,7 +113,10 @@ namespace MeltySynth
                 return false;
             }
 
-            var pitch = key + vibLfoToPitch * vibLfo.Value + modLfoToPitch * modLfo.Value + modEnvToPitch * modEnv.Value;
+            var channelInfo = synthesizer.Channels[channel];
+
+            var channelMod = 0.01F * channelInfo.Modulation;
+            var pitch = key + (channelMod + vibLfoToPitch) * vibLfo.Value + modLfoToPitch * modLfo.Value + modEnvToPitch * modEnv.Value;
             if (!generator.Process(block, pitch))
             {
                 return false;
@@ -129,9 +132,7 @@ namespace MeltySynth
             }
             filter.Process(block);
 
-            var channelInfo = synthesizer.Channels[channel];
             var channelGain = channelInfo.Volume * channelInfo.Expression;
-
             mixGain = noteGain * channelGain * volEnv.Value;
 
             vibLfo.Process();

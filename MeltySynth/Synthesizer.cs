@@ -61,8 +61,16 @@ namespace MeltySynth
                 case 0xB0: // Controller
                     switch (data1)
                     {
-                        case 0x00: // Bank select coarse
+                        case 0x00: // Bank selection
                             channelInfo.SetBank(data2);
+                            break;
+
+                        case 0x01: // Modulation coarse
+                            channelInfo.SetModulationCourse(data2);
+                            break;
+
+                        case 0x21: // Modulation fine
+                            channelInfo.SetModulationCourse(data2);
                             break;
 
                         case 0x07: // Channel volume coarse

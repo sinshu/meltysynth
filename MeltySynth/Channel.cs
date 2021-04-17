@@ -13,6 +13,7 @@ namespace MeltySynth
         private int bankNumber;
         private int patchNumber;
 
+        private short modulation;
         private short volume;
         private short expression;
 
@@ -32,6 +33,7 @@ namespace MeltySynth
             bankNumber = isPercussionChannel ? 128 : 0;
             patchNumber = 0;
 
+            modulation = 0;
             volume = 100 << 7;
             expression = 127 << 7;
         }
@@ -49,6 +51,16 @@ namespace MeltySynth
         public void SetPatch(int value)
         {
             patchNumber = value;
+        }
+
+        public void SetModulationCourse(int value)
+        {
+            modulation = (short)((modulation & 0x7F) | (value << 7));
+        }
+
+        public void SetModulationFine(int value)
+        {
+            modulation = (short)((modulation & 0xFF80) | value);
         }
 
         public void SetVolumeCourse(int value)
@@ -73,6 +85,7 @@ namespace MeltySynth
 
         public Preset Preset => synthesizer.GetPreset(bankNumber, patchNumber);
 
+        public float Modulation => modulation * (50F / 16383F);
         public float Volume => volume / 16383F;
         public float Expression => expression / 16383F;
     }
