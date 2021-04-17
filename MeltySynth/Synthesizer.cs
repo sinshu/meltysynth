@@ -177,10 +177,11 @@ namespace MeltySynth
 
             if (left.Length != right.Length)
             {
-                throw new ArgumentException("The arrays must be the same length.");
+                throw new ArgumentException("The output buffers must be the same length.");
             }
 
-            for (var t = 0; t < left.Length; t++)
+            var wrote = 0;
+            while (wrote < left.Length)
             {
                 if (blockRead == blockSize)
                 {
@@ -188,10 +189,15 @@ namespace MeltySynth
                     blockRead = 0;
                 }
 
-                left[t] = blockLeft[blockRead];
-                right[t] = blockRight[blockRead];
+                var srcRem = blockSize - blockRead;
+                var dstRem = left.Length - wrote;
+                var rem = Math.Min(srcRem, dstRem);
 
-                blockRead++;
+                Array.Copy(blockLeft, blockRead, left, wrote, rem);
+                Array.Copy(blockRight, blockRead, right, wrote, rem);
+
+                blockRead += rem;
+                wrote += rem;
             }
         }
 
@@ -202,7 +208,8 @@ namespace MeltySynth
                 throw new ArgumentNullException(nameof(destination));
             }
 
-            for (var t = 0; t < destination.Length; t++)
+            var wrote = 0;
+            while (wrote < destination.Length)
             {
                 if (blockRead == blockSize)
                 {
@@ -210,13 +217,21 @@ namespace MeltySynth
                     blockRead = 0;
                 }
 
-                destination[t] = (blockLeft[blockRead] + blockRight[blockRead]) / 2;
+                var srcRem = blockSize - blockRead;
+                var dstRem = destination.Length - wrote;
+                var rem = Math.Min(srcRem, dstRem);
 
-                blockRead++;
+                var blockLeftSpan = blockLeft.AsSpan(blockRead, rem);
+                var blockRightSpan = blockRight.AsSpan(blockRead, rem);
+                var destinationSpan = destination.AsSpan(wrote, rem);
+                SpanMath.Mean(blockLeftSpan, blockRightSpan, destinationSpan);
+
+                blockRead += rem;
+                wrote += rem;
             }
         }
 
-        internal void RenderBlock()
+        private void RenderBlock()
         {
             voices.Process();
 
@@ -226,17 +241,17 @@ namespace MeltySynth
             foreach (var voice in voices)
             {
                 var source = voice.Block;
-                var gainLeft = masterVolume * voice.MixGainLeft;
-                var gainRight = masterVolume * voice.MixGainRight;
 
-                for (var t = 0; t < blockLeft.Length; t++)
+                var gainLeft = masterVolume * voice.MixGainLeft;
+                if (gainLeft > SoundFontMath.NonAudible)
                 {
-                    blockLeft[t] += gainLeft * source[t];
+                    SpanMath.MultiplyAdd(gainLeft, source, blockLeft);
                 }
 
-                for (var t = 0; t < blockRight.Length; t++)
+                var gainRight = masterVolume * voice.MixGainRight;
+                if (gainRight > SoundFontMath.NonAudible)
                 {
-                    blockRight[t] += gainRight * source[t];
+                    SpanMath.MultiplyAdd(gainRight, source, blockRight);
                 }
             }
         }
