@@ -33,7 +33,7 @@ https://www.youtube.com/watch?v=z8eNM-U1e0k
     - [x] Bank selection
     - [x] Modulation
     - [x] Volume control
-    - [ ] Pan
+    - [x] Pan
     - [x] Expression
     - [ ] Hold pedal
     - [x] Program change
