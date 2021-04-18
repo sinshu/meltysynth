@@ -31,9 +31,9 @@ synthesizer.RenderMono(buffer);
 
 Here is a sample audio of "At Doom's Gate" generated with [TimGM6mb](https://musescore.org/en/handbook/soundfonts-and-sfz-files#gm_soundfonts).
 
-https://www.youtube.com/watch?v=z8eNM-U1e0k  
+https://www.youtube.com/watch?v=Wl-S0cOeIMY  
 
-[![Demo video](https://img.youtube.com/vi/z8eNM-U1e0k/0.jpg)](https://www.youtube.com/watch?v=z8eNM-U1e0k)
+[![Demo video](https://img.youtube.com/vi/Wl-S0cOeIMY/0.jpg)](https://www.youtube.com/watch?v=Wl-S0cOeIMY)
 
 
 ## Todo
