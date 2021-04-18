@@ -18,7 +18,9 @@ namespace MeltySynth
         private short pan;
         private short expression;
 
-        private float pitchBendRange;
+        private short rpn;
+        private short pitchBendRange;
+
         private float pitchBend;
 
         internal Channel(Synthesizer synthesizer, bool isPercussionChannel)
@@ -42,7 +44,9 @@ namespace MeltySynth
             pan = 64 << 7;
             expression = 127 << 7;
 
-            pitchBendRange = 2F;
+            rpn = -1;
+            pitchBendRange = 2 << 7;
+
             pitchBend = 0F;
         }
 
@@ -101,6 +105,48 @@ namespace MeltySynth
             expression = (short)((expression & 0xFF80) | value);
         }
 
+        public void SetRpnCourse(int value)
+        {
+            rpn = (short)((rpn & 0x7F) | (value << 7));
+        }
+
+        public void SetRpnFine(int value)
+        {
+            rpn = (short)((rpn & 0xFF80) | value);
+        }
+
+        public void DataEntryCourse(int value)
+        {
+            switch (rpn)
+            {
+                case 0:
+                    pitchBendRange = (short)((pitchBendRange & 0x7F) | (value << 7));
+                    break;
+
+                case 1:
+                    break;
+
+                case 2:
+                    break;
+            }
+        }
+
+        public void DataEntryFine(int value)
+        {
+            switch (rpn)
+            {
+                case 0:
+                    pitchBendRange = (short)((pitchBendRange & 0xFF80) | value);
+                    break;
+
+                case 1:
+                    break;
+
+                case 2:
+                    break;
+            }
+        }
+
         public void SetPitchBend(int value1, int value2)
         {
             pitchBend = ((value1 | (value2 << 7)) - 8192) / 8192F;
@@ -113,6 +159,8 @@ namespace MeltySynth
         public float Pan => pan * (100F / 16383F) - 50F;
         public float Expression => expression / 16383F;
 
-        public float PitchBend => pitchBendRange * pitchBend;
+        public float PitchBendRange => (pitchBendRange >> 7) + 0.01F * (pitchBendRange & 0x7F);
+
+        public float PitchBend => PitchBendRange * pitchBend;
     }
 }

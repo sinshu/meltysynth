@@ -70,6 +70,14 @@ namespace MeltySynth
 
             switch (command)
             {
+                case 0x80: // Note off
+                    NoteOff(channel, data1);
+                    break;
+
+                case 0x90:
+                    NoteOn(channel, data1, data2);
+                    break;
+
                 case 0xB0: // Controller
                     switch (data1)
                     {
@@ -107,6 +115,30 @@ namespace MeltySynth
 
                         case 0x2B: // Expression fine
                             channelInfo.SetExpressionFine(data2);
+                            break;
+
+                        case 0x65: // RPN coarse
+                            channelInfo.SetRpnCourse(data2);
+                            break;
+
+                        case 0x64: // RPN Fine
+                            channelInfo.SetRpnFine(data2);
+                            break;
+
+                        case 0x7B: // Note Off All
+                            // NoteOffAll(false);
+                            break;
+
+                        case 0x06: // Data entry Coarse
+                            channelInfo.DataEntryCourse(data2);
+                            break;
+
+                        case 0x26: // Data entry Fine
+                            channelInfo.DataEntryFine(data2);
+                            break;
+
+                        case 0x79: // Reset All
+                            // ResetSynthControls();
                             break;
                     }
                     break;
