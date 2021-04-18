@@ -40,7 +40,7 @@ https://www.youtube.com/watch?v=Wl-S0cOeIMY
 
 * __Wave synthesis__
     - [x] SoundFont reader
-    - [x] Wave generator
+    - [x] Waveform generator
     - [x] Envelope generator
     - [x] Low-pass filter
     - [x] Vibrato LFO
@@ -54,7 +54,8 @@ https://www.youtube.com/watch?v=Wl-S0cOeIMY
     - [x] Expression
     - [ ] Hold pedal
     - [x] Program change
-    - [ ] Pitch bend
+    - [x] Pitch bend
+    - [ ] Tuning
 * __Effects__
     - [ ] Chorus
     - [ ] Reverb
