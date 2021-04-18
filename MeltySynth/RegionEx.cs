@@ -20,8 +20,9 @@ namespace MeltySynth
             var rootKey = region.RootKey;
             var coarseTune = region.CoarseTune;
             var fineTune = region.FineTune;
+            var scaleTuning = region.ScaleTuning;
 
-            generator.Start(data, loopMode, sampleRate, start, end, startLoop, endLoop, rootKey, coarseTune, fineTune);
+            generator.Start(data, loopMode, sampleRate, start, end, startLoop, endLoop, rootKey, coarseTune, fineTune, scaleTuning);
         }
 
         public static void Start(this VolumeEnvelope envelope, InstrumentRegion region, int key, int velocity)

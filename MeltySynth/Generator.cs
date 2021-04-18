@@ -14,10 +14,10 @@ namespace MeltySynth
         private int startLoop;
         private int endLoop;
         private int rootKey;
-        private int coarseTune;
-        private int fineTune;
 
-        private double sampleRateRatio;
+        private float tune;
+        private float pitchChangeScale;
+        private float sampleRateRatio;
 
         private bool looping;
 
@@ -28,7 +28,7 @@ namespace MeltySynth
             this.synthesizer = synthesizer;
         }
 
-        public void Start(short[] data, LoopMode loopMode, int sampleRate, int start, int end, int startLoop, int endLoop, int rootKey, int coarseTune, int fineTune)
+        public void Start(short[] data, LoopMode loopMode, int sampleRate, int start, int end, int startLoop, int endLoop, int rootKey, int coarseTune, int fineTune, int scaleTuning)
         {
             this.data = data;
             this.loopMode = loopMode;
@@ -38,10 +38,10 @@ namespace MeltySynth
             this.startLoop = startLoop;
             this.endLoop = endLoop;
             this.rootKey = rootKey;
-            this.coarseTune = coarseTune;
-            this.fineTune = fineTune;
 
-            sampleRateRatio = (double)sampleRate / synthesizer.SampleRate;
+            tune = coarseTune + 0.01F * fineTune;
+            pitchChangeScale = 0.01F * scaleTuning;
+            sampleRateRatio = (float)sampleRate / synthesizer.SampleRate;
 
             if (loopMode == LoopMode.NoLoop)
             {
@@ -65,8 +65,8 @@ namespace MeltySynth
 
         public bool Process(float[] block, float pitch)
         {
-            var relativeKey = pitch - rootKey + coarseTune + 0.01F * fineTune;
-            var pitchRatio = sampleRateRatio * Math.Pow(2, relativeKey / 12);
+            var pitchChange = pitchChangeScale * (pitch - rootKey) + tune;
+            var pitchRatio = sampleRateRatio * MathF.Pow(2, pitchChange / 12);
             return FillBlock(block, pitchRatio);
         }
 
