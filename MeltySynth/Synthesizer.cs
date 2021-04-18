@@ -114,6 +114,10 @@ namespace MeltySynth
                 case 0xC0: // Program change
                     channelInfo.SetPatch(data1);
                     break;
+
+                case 0xE0: // Pitch Bend
+                    channelInfo.SetPitchBend(data1, data2);
+                    break;
             }
         }
 

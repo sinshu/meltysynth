@@ -122,8 +122,8 @@ namespace MeltySynth
 
             var channelInfo = synthesizer.Channels[channel];
 
-            var channelMod = 0.01F * channelInfo.Modulation;
-            var pitch = key + (channelMod + vibLfoToPitch) * vibLfo.Value + modLfoToPitch * modLfo.Value + modEnvToPitch * modEnv.Value;
+            var vibDepth = 0.01F * channelInfo.Modulation + vibLfoToPitch;
+            var pitch = key + vibDepth * vibLfo.Value + modLfoToPitch * modLfo.Value + modEnvToPitch * modEnv.Value + channelInfo.PitchBend;
             if (!generator.Process(block, pitch))
             {
                 return false;

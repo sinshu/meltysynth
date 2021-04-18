@@ -18,6 +18,9 @@ namespace MeltySynth
         private short pan;
         private short expression;
 
+        private float pitchBendRange;
+        private float pitchBend;
+
         internal Channel(Synthesizer synthesizer, bool isPercussionChannel)
         {
             this.synthesizer = synthesizer;
@@ -38,6 +41,9 @@ namespace MeltySynth
             volume = 100 << 7;
             pan = 64 << 7;
             expression = 127 << 7;
+
+            pitchBendRange = 2F;
+            pitchBend = 0F;
         }
 
         public void SetBank(int value)
@@ -95,11 +101,18 @@ namespace MeltySynth
             expression = (short)((expression & 0xFF80) | value);
         }
 
+        public void SetPitchBend(int value1, int value2)
+        {
+            pitchBend = ((value1 | (value2 << 7)) - 8192) / 8192F;
+        }
+
         public Preset Preset => synthesizer.GetPreset(bankNumber, patchNumber);
 
         public float Modulation => modulation * (50F / 16383F);
         public float Volume => volume / 16383F;
         public float Pan => pan * (100F / 16383F) - 50F;
         public float Expression => expression / 16383F;
+
+        public float PitchBend => pitchBendRange * pitchBend;
     }
 }
