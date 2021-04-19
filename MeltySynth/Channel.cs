@@ -20,6 +20,8 @@ namespace MeltySynth
 
         private short rpn;
         private short pitchBendRange;
+        private short coarseTune;
+        private short fineTune;
 
         private float pitchBend;
 
@@ -46,6 +48,8 @@ namespace MeltySynth
 
             rpn = -1;
             pitchBendRange = 2 << 7;
+            coarseTune = 0;
+            fineTune = 8192;
 
             pitchBend = 0F;
         }
@@ -65,7 +69,7 @@ namespace MeltySynth
             patchNumber = value;
         }
 
-        public void SetModulationCourse(int value)
+        public void SetModulationCoarse(int value)
         {
             modulation = (short)((modulation & 0x7F) | (value << 7));
         }
@@ -75,7 +79,7 @@ namespace MeltySynth
             modulation = (short)((modulation & 0xFF80) | value);
         }
 
-        public void SetVolumeCourse(int value)
+        public void SetVolumeCoarse(int value)
         {
             volume = (short)((volume & 0x7F) | (value << 7));
         }
@@ -85,7 +89,7 @@ namespace MeltySynth
             volume = (short)((volume & 0xFF80) | value);
         }
 
-        public void SetPanCourse(int value)
+        public void SetPanCoarse(int value)
         {
             pan = (short)((pan & 0x7F) | (value << 7));
         }
@@ -95,7 +99,7 @@ namespace MeltySynth
             pan = (short)((pan & 0xFF80) | value);
         }
 
-        public void SetExpressionCourse(int value)
+        public void SetExpressionCoarse(int value)
         {
             expression = (short)((expression & 0x7F) | (value << 7));
         }
@@ -105,7 +109,7 @@ namespace MeltySynth
             expression = (short)((expression & 0xFF80) | value);
         }
 
-        public void SetRpnCourse(int value)
+        public void SetRpnCoarse(int value)
         {
             rpn = (short)((rpn & 0x7F) | (value << 7));
         }
@@ -115,7 +119,7 @@ namespace MeltySynth
             rpn = (short)((rpn & 0xFF80) | value);
         }
 
-        public void DataEntryCourse(int value)
+        public void DataEntryCoarse(int value)
         {
             switch (rpn)
             {
@@ -124,9 +128,11 @@ namespace MeltySynth
                     break;
 
                 case 1:
+                    fineTune = (short)((fineTune & 0x7F) | (value << 7));
                     break;
 
                 case 2:
+                    coarseTune = (short)(value - 64);
                     break;
             }
         }
@@ -140,9 +146,7 @@ namespace MeltySynth
                     break;
 
                 case 1:
-                    break;
-
-                case 2:
+                    fineTune = (short)((fineTune & 0xFF80) | value);
                     break;
             }
         }
@@ -160,6 +164,7 @@ namespace MeltySynth
         public float Expression => expression / 16383F;
 
         public float PitchBendRange => (pitchBendRange >> 7) + 0.01F * (pitchBendRange & 0x7F);
+        public float Tune => coarseTune + (fineTune - 8192) / 8192F;
 
         public float PitchBend => PitchBendRange * pitchBend;
     }

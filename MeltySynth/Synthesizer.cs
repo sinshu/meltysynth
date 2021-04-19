@@ -86,15 +86,15 @@ namespace MeltySynth
                             break;
 
                         case 0x01: // Modulation coarse
-                            channelInfo.SetModulationCourse(data2);
+                            channelInfo.SetModulationCoarse(data2);
                             break;
 
                         case 0x21: // Modulation fine
-                            channelInfo.SetModulationCourse(data2);
+                            channelInfo.SetModulationCoarse(data2);
                             break;
 
                         case 0x07: // Channel volume coarse
-                            channelInfo.SetVolumeCourse(data2);
+                            channelInfo.SetVolumeCoarse(data2);
                             break;
 
                         case 0x27: // Channel volume fine
@@ -102,7 +102,7 @@ namespace MeltySynth
                             break;
 
                         case 0x0A: // Pan coarse
-                            channelInfo.SetPanCourse(data2);
+                            channelInfo.SetPanCoarse(data2);
                             break;
 
                         case 0x2A: // Pan fine
@@ -110,7 +110,7 @@ namespace MeltySynth
                             break;
 
                         case 0x0B: // Expression coarse
-                            channelInfo.SetExpressionCourse(data2);
+                            channelInfo.SetExpressionCoarse(data2);
                             break;
 
                         case 0x2B: // Expression fine
@@ -118,7 +118,7 @@ namespace MeltySynth
                             break;
 
                         case 0x65: // RPN coarse
-                            channelInfo.SetRpnCourse(data2);
+                            channelInfo.SetRpnCoarse(data2);
                             break;
 
                         case 0x64: // RPN Fine
@@ -130,7 +130,7 @@ namespace MeltySynth
                             break;
 
                         case 0x06: // Data entry Coarse
-                            channelInfo.DataEntryCourse(data2);
+                            channelInfo.DataEntryCoarse(data2);
                             break;
 
                         case 0x26: // Data entry Fine
