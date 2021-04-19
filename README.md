@@ -55,7 +55,7 @@ https://www.youtube.com/watch?v=Wl-S0cOeIMY
     - [ ] Hold pedal
     - [x] Program change
     - [x] Pitch bend
-    - [ ] Tuning
+    - [x] Tuning
 * __Effects__
     - [ ] Chorus
     - [ ] Reverb
