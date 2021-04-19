@@ -163,7 +163,8 @@ namespace MeltySynth
             pitchBend = ((value1 | (value2 << 7)) - 8192) / 8192F;
         }
 
-        public Preset Preset => synthesizer.GetPreset(bankNumber, patchNumber);
+        public int BankNumber => bankNumber;
+        public int PatchNumber => patchNumber;
 
         public float Modulation => modulation * (50F / 16383F);
         public float Volume => volume / 16383F;

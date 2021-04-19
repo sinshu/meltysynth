@@ -135,6 +135,7 @@ namespace MeltySynth
         public float Priority => priority;
 
 
+
         private enum Stage
         {
             Delay,

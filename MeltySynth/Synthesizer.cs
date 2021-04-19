@@ -138,23 +138,23 @@ namespace MeltySynth
                             channelInfo.SetRpnCoarse(data2);
                             break;
 
-                        case 0x64: // RPN Fine
+                        case 0x64: // RPN fine
                             channelInfo.SetRpnFine(data2);
                             break;
 
-                        case 0x7B: // Note Off All
+                        case 0x7B: // Note off all
                             NoteOffAll(false);
                             break;
 
-                        case 0x06: // Data entry Coarse
+                        case 0x06: // Data entry coarse
                             channelInfo.DataEntryCoarse(data2);
                             break;
 
-                        case 0x26: // Data entry Fine
+                        case 0x26: // Data entry fine
                             channelInfo.DataEntryFine(data2);
                             break;
 
-                        case 0x79: // Reset All
+                        case 0x79: // Reset all
                             Reset();
                             break;
                     }
@@ -164,7 +164,7 @@ namespace MeltySynth
                     channelInfo.SetPatch(data1);
                     break;
 
-                case 0xE0: // Pitch Bend
+                case 0xE0: // Pitch bend
                     channelInfo.SetPitchBend(data1, data2);
                     break;
             }
@@ -193,7 +193,15 @@ namespace MeltySynth
                 return;
             }
 
-            var preset = channels[channel].Preset;
+            var channelInfo = channels[channel];
+
+            var presetId = (channelInfo.BankNumber << 16) | channelInfo.PatchNumber;
+
+            Preset preset;
+            if (!presetLookup.TryGetValue(presetId, out preset))
+            {
+                return;
+            }
 
             foreach (var presetRegion in preset.Regions)
             {
@@ -331,20 +339,6 @@ namespace MeltySynth
                 {
                     SpanMath.MultiplyAdd(gainRight, source, blockRight);
                 }
-            }
-        }
-
-        internal Preset GetPreset(int bankNumber, int patchNumber)
-        {
-            var presetId = (bankNumber << 16) | patchNumber;
-
-            if (presetLookup.TryGetValue(presetId, out Preset found))
-            {
-                return found;
-            }
-            else
-            {
-                return Preset.Default;
             }
         }
 
