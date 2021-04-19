@@ -108,6 +108,11 @@ namespace MeltySynth
             }
         }
 
+        public void Clear()
+        {
+            activeVoiceCount = 0;
+        }
+
         public Enumerator GetEnumerator()
         {
             return new Enumerator(this);

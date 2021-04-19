@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 
 namespace MeltySynth
 {
@@ -15,6 +15,8 @@ namespace MeltySynth
         private int sampleRate;
 
         private int minimumVoiceLength;
+
+        private Dictionary<int, Preset> presetLookup;
 
         private Channel[] channels;
 
@@ -42,6 +44,13 @@ namespace MeltySynth
             this.sampleRate = sampleRate;
 
             minimumVoiceLength = sampleRate / 500;
+
+            presetLookup = new Dictionary<int, Preset>();
+            foreach (var preset in soundFont.Presets)
+            {
+                var presetId = (preset.BankNumber << 16) | preset.PatchNumber;
+                presetLookup.TryAdd(presetId, preset);
+            }
 
             channels = new Channel[channelCount];
             for (var i = 0; i < channels.Length; i++)
@@ -134,7 +143,7 @@ namespace MeltySynth
                             break;
 
                         case 0x7B: // Note Off All
-                            // NoteOffAll(false);
+                            NoteOffAll(false);
                             break;
 
                         case 0x06: // Data entry Coarse
@@ -146,7 +155,7 @@ namespace MeltySynth
                             break;
 
                         case 0x79: // Reset All
-                            // ResetSynthControls();
+                            Reset();
                             break;
                     }
                     break;
@@ -158,6 +167,22 @@ namespace MeltySynth
                 case 0xE0: // Pitch Bend
                     channelInfo.SetPitchBend(data1, data2);
                     break;
+            }
+        }
+
+        public void NoteOff(int channel, int key)
+        {
+            if (!(0 <= channel && channel < channels.Length))
+            {
+                return;
+            }
+
+            foreach (var voice in voices)
+            {
+                if (voice.Channel == channel && voice.Key == key)
+                {
+                    voice.End();
+                }
             }
         }
 
@@ -191,19 +216,28 @@ namespace MeltySynth
             }
         }
 
-        public void NoteOff(int channel, int key)
+        public void NoteOffAll(bool immediate)
         {
-            if (!(0 <= channel && channel < channels.Length))
+            if (immediate)
             {
-                return;
+                voices.Clear();
             }
-
-            foreach (var voice in voices)
+            else
             {
-                if (voice.Channel == channel && voice.Key == key)
+                foreach (var voice in voices)
                 {
                     voice.End();
                 }
+            }
+        }
+
+        public void Reset()
+        {
+            voices.Clear();
+
+            foreach (var channel in channels)
+            {
+                channel.Reset();
             }
         }
 
@@ -302,15 +336,16 @@ namespace MeltySynth
 
         internal Preset GetPreset(int bankNumber, int patchNumber)
         {
-            foreach (var preset in soundFont.Presets)
-            {
-                if (preset.BankNumber == bankNumber && preset.PatchNumber == patchNumber)
-                {
-                    return preset;
-                }
-            }
+            var presetId = (bankNumber << 16) | patchNumber;
 
-            return null;
+            if (presetLookup.TryGetValue(presetId, out Preset found))
+            {
+                return found;
+            }
+            else
+            {
+                return Preset.Default;
+            }
         }
 
         public int BlockSize => blockSize;
