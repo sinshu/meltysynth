@@ -52,7 +52,7 @@ https://www.youtube.com/watch?v=Wl-S0cOeIMY
     - [x] Volume control
     - [x] Pan
     - [x] Expression
-    - [ ] Hold pedal
+    - [x] Hold pedal
     - [x] Program change
     - [x] Pitch bend
     - [x] Tuning
