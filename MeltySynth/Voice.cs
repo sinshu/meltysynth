@@ -41,6 +41,9 @@ namespace MeltySynth
 
         private float instrumentPan;
 
+        private VoiceState voiceState;
+        private int voiceLength;
+
         internal Voice(Synthesizer synthesizer)
         {
             this.synthesizer = synthesizer;
@@ -94,13 +97,17 @@ namespace MeltySynth
             modLfo.StartModulation(region, key, velocity);
             filter.ClearBuffer();
             filter.SetLowPassFilter(cutoff, resonance);
+
+            voiceState = VoiceState.Playing;
+            voiceLength = 0;
         }
 
         public void End()
         {
-            volEnv.Release();
-            modEnv.Release();
-            generator.Release();
+            if (voiceState == VoiceState.Playing)
+            {
+                voiceState = VoiceState.ReleaseRequested;
+            }
         }
 
         public void Kill()
@@ -115,6 +122,10 @@ namespace MeltySynth
                 return false;
             }
 
+            var channelInfo = synthesizer.Channels[channel];
+
+            ReleaseIfNecessary(channelInfo);
+
             if (!volEnv.Process())
             {
                 return false;
@@ -123,8 +134,6 @@ namespace MeltySynth
             modEnv.Process();
             vibLfo.Process();
             modLfo.Process();
-
-            var channelInfo = synthesizer.Channels[channel];
 
             var vibPitchChange = (0.01F * channelInfo.Modulation + vibLfoToPitch) * vibLfo.Value;
             var modPitchChange = modLfoToPitch * modLfo.Value + modEnvToPitch * modEnv.Value;
@@ -163,7 +172,26 @@ namespace MeltySynth
                 mixGainRight = mixGain * MathF.Sin(angle);
             }
 
+            voiceLength += synthesizer.BlockSize;
+
             return true;
+        }
+
+        private void ReleaseIfNecessary(Channel channelInfo)
+        {
+            if (voiceLength < synthesizer.MinimumVoiceLength)
+            {
+                return;
+            }
+
+            if (voiceState == VoiceState.ReleaseRequested && !channelInfo.HoldPedal)
+            {
+                volEnv.Release();
+                modEnv.Release();
+                generator.Release();
+
+                voiceState = VoiceState.Released;
+            }
         }
 
         public float Priority
@@ -190,5 +218,14 @@ namespace MeltySynth
         public int Channel => channel;
         public int Key => key;
         public int Velocity => velocity;
+
+
+
+        private enum VoiceState
+        {
+            Playing,
+            ReleaseRequested,
+            Released
+        }
     }
 }

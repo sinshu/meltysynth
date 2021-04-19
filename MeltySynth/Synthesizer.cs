@@ -14,6 +14,8 @@ namespace MeltySynth
         private SoundFont soundFont;
         private int sampleRate;
 
+        private int minimumVoiceLength;
+
         private Channel[] channels;
 
         private VoiceCollection voices;
@@ -38,6 +40,8 @@ namespace MeltySynth
 
             this.soundFont = soundFont;
             this.sampleRate = sampleRate;
+
+            minimumVoiceLength = sampleRate / 500;
 
             channels = new Channel[channelCount];
             for (var i = 0; i < channels.Length; i++)
@@ -115,6 +119,10 @@ namespace MeltySynth
 
                         case 0x2B: // Expression fine
                             channelInfo.SetExpressionFine(data2);
+                            break;
+
+                        case 0x40: // Hold pedal
+                            channelInfo.SetHoldPedal(data2);
                             break;
 
                         case 0x65: // RPN coarse
@@ -316,6 +324,7 @@ namespace MeltySynth
 
         public int ActiveVoiceCount => voices.ActiveVoiceCount;
 
+        internal int MinimumVoiceLength => minimumVoiceLength;
         internal Channel[] Channels => channels;
     }
 }

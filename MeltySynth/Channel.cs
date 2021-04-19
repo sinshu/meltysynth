@@ -17,6 +17,7 @@ namespace MeltySynth
         private short volume;
         private short pan;
         private short expression;
+        private bool holdPedal;
 
         private short rpn;
         private short pitchBendRange;
@@ -45,6 +46,7 @@ namespace MeltySynth
             volume = 100 << 7;
             pan = 64 << 7;
             expression = 127 << 7;
+            holdPedal = false;
 
             rpn = -1;
             pitchBendRange = 2 << 7;
@@ -109,6 +111,11 @@ namespace MeltySynth
             expression = (short)((expression & 0xFF80) | value);
         }
 
+        public void SetHoldPedal(int value)
+        {
+            holdPedal = value >= 64;
+        }
+
         public void SetRpnCoarse(int value)
         {
             rpn = (short)((rpn & 0x7F) | (value << 7));
@@ -162,6 +169,7 @@ namespace MeltySynth
         public float Volume => volume / 16383F;
         public float Pan => pan * (100F / 16383F) - 50F;
         public float Expression => expression / 16383F;
+        public bool HoldPedal => holdPedal;
 
         public float PitchBendRange => (pitchBendRange >> 7) + 0.01F * (pitchBendRange & 0x7F);
         public float Tune => coarseTune + (fineTune - 8192) / 8192F;
