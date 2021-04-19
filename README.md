@@ -1,6 +1,6 @@
 # MeltySynth
 
-This is an attempt to implement a SoundFont synthesizer in C#. Currently, some basic operations (note on/off, volume control, program change, and so on) are supported.
+MeltySynth is a SoundFont synthesizer written in C#.
 
 The entire code is heavily inspired by the following projects:
 
