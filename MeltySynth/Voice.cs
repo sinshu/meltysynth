@@ -120,6 +120,10 @@ namespace MeltySynth
                 return false;
             }
 
+            modEnv.Process();
+            vibLfo.Process();
+            modLfo.Process();
+
             var channelInfo = synthesizer.Channels[channel];
 
             var vibPitchChange = (0.01F * channelInfo.Modulation + vibLfoToPitch) * vibLfo.Value;
@@ -130,8 +134,6 @@ namespace MeltySynth
             {
                 return false;
             }
-
-            modEnv.Process();
 
             if (modLfoToCutoff != 0 || modEnvToCutoff != 0)
             {
@@ -160,9 +162,6 @@ namespace MeltySynth
                 mixGainLeft = mixGain * MathF.Cos(angle);
                 mixGainRight = mixGain * MathF.Sin(angle);
             }
-
-            vibLfo.Process();
-            modLfo.Process();
 
             return true;
         }
