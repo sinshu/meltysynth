@@ -192,6 +192,12 @@ namespace MeltySynth
 
         public void NoteOn(int channel, int key, int velocity)
         {
+            if (velocity == 0)
+            {
+                NoteOff(channel, key);
+                return;
+            }
+
             if (!(0 <= channel && channel < channels.Length))
             {
                 return;

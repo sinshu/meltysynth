@@ -44,7 +44,7 @@ namespace MeltySynth
                 }
 
                 var format = reader.ReadInt16BigEndian();
-                if (!(format == 1 || format == 2))
+                if (!(format == 0 || format == 1))
                 {
                     throw new NotSupportedException($"The format {format} is not supported.");
                 }
