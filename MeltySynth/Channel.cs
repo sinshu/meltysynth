@@ -163,6 +163,8 @@ namespace MeltySynth
             pitchBend = ((value1 | (value2 << 7)) - 8192) / 8192F;
         }
 
+        public bool IsPercussionChannel => isPercussionChannel;
+
         public int BankNumber => bankNumber;
         public int PatchNumber => patchNumber;
 

@@ -6,7 +6,7 @@ namespace MeltySynth
     public sealed class Synthesizer
     {
         private static readonly int blockSize = 64;
-        private static readonly int maxActiveVoiceCount = 32;
+        private static readonly int maxActiveVoiceCount = 64;
 
         private static readonly int channelCount = 16;
         private static readonly int percussionChannel = 9;
@@ -25,6 +25,8 @@ namespace MeltySynth
         private float[] blockLeft;
         private float[] blockRight;
         private int blockRead;
+
+        private long processedSampleCount;
 
         private float masterVolume;
 
@@ -63,6 +65,8 @@ namespace MeltySynth
             blockLeft = new float[blockSize];
             blockRight = new float[blockSize];
             blockRead = blockSize;
+
+            processedSampleCount = 0;
 
             masterVolume = 0.5F;
         }
@@ -213,7 +217,7 @@ namespace MeltySynth
                         {
                             var regionPair = new RegionPair(presetRegion, instrumentRegion);
 
-                            var voice = voices.RequestNew(instrumentRegion, channel, key);
+                            var voice = voices.RequestNew(instrumentRegion, channel);
                             if (voice != null)
                             {
                                 voice.Start(regionPair, channel, key, velocity);
@@ -340,6 +344,8 @@ namespace MeltySynth
                     SpanMath.MultiplyAdd(gainRight, source, blockRight);
                 }
             }
+
+            processedSampleCount += blockSize;
         }
 
         public int BlockSize => blockSize;
@@ -352,6 +358,14 @@ namespace MeltySynth
         public int SampleRate => sampleRate;
 
         public int ActiveVoiceCount => voices.ActiveVoiceCount;
+
+        public long ProcessedSampleCount => processedSampleCount;
+
+        public float MasterVolume
+        {
+            get => masterVolume;
+            set => masterVolume = value;
+        }
 
         internal int MinimumVoiceLength => minimumVoiceLength;
         internal Channel[] Channels => channels;

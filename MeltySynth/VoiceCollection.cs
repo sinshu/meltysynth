@@ -23,7 +23,7 @@ namespace MeltySynth
             }
         }
 
-        public Voice RequestNew(InstrumentRegion region, int channel, int key)
+        public Voice RequestNew(InstrumentRegion region, int channel)
         {
             Voice free = null;
             Voice low = null;
@@ -35,11 +35,6 @@ namespace MeltySynth
                 for (var i = 0; i < activeVoiceCount; i++)
                 {
                     var voice = voices[i];
-                    if (voice.Region == region && voice.Channel == channel && voice.Key == key)
-                    {
-                        voice.Kill();
-                        free = voice;
-                    }
                     if (voice.Priority < lowestPriority)
                     {
                         lowestPriority = voice.Priority;
