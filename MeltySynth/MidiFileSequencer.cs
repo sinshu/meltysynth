@@ -10,11 +10,11 @@ namespace MeltySynth
         private bool loop;
         private long startSampleCount;
 
-        private int ptr;
+        private int msgIndex;
 
-        private long previousSampleCount;
+        private TimeSpan previousTime;
         private double previousTick;
-        private int tempo;
+        private double tempo;
 
         public MidiFileSequencer(Synthesizer synthesizer)
         {
@@ -27,41 +27,47 @@ namespace MeltySynth
             this.loop = loop;
             this.startSampleCount = synthesizer.ProcessedSampleCount;
 
-            ptr = 0;
+            msgIndex = 0;
 
-            previousSampleCount = startSampleCount;
+            previousTime = TimeSpan.Zero;
             previousTick = 0;
-            tempo = 140;
+            tempo = 120;
 
             synthesizer.Reset();
         }
 
         public void ProcessEvents()
         {
-            var currentSampleCount = synthesizer.ProcessedSampleCount;
-            var deltaTime = (double)(currentSampleCount - previousSampleCount) / synthesizer.SampleRate;
-            var deltaTick = (double)(midiFile.Resolution * tempo) / 60 * deltaTime;
-            var currentTick = previousTick + deltaTick;
+            var sampleCount = synthesizer.ProcessedSampleCount - startSampleCount;
+            var targetTime = TimeSpan.FromSeconds((double)sampleCount / synthesizer.SampleRate);
 
-            while (midiFile.Ticks[ptr] <= currentTick)
+            while (msgIndex < midiFile.Messages.Length)
             {
-                if (ptr < midiFile.Messages.Length)
+                var currentTick = midiFile.Ticks[msgIndex];
+                var deltaTick = currentTick - previousTick;
+                var currentTime = previousTime + TimeSpan.FromSeconds(60.0 / (midiFile.Resolution * tempo) * deltaTick);
+
+                previousTime = currentTime;
+                previousTick = currentTick;
+
+                if (currentTime <= targetTime)
                 {
-                    if (midiFile.Messages[ptr].Type == MidiFile.MessageType.Normal)
+                    var msg = midiFile.Messages[msgIndex];
+                    if (midiFile.Messages[msgIndex].Type == MidiFile.MessageType.Normal)
                     {
-                        var msg = midiFile.Messages[ptr];
                         synthesizer.ProcessMidiMessage(msg.Channel, msg.Command, msg.Data1, msg.Data2);
                     }
-                    ptr++;
+                    else if (midiFile.Messages[msgIndex].Type == MidiFile.MessageType.TempoChange)
+                    {
+                        tempo = 60000000.0 / msg.Tempo;
+                    }
+                    msgIndex++;
                 }
                 else
                 {
                     break;
                 }
             }
-
-            previousSampleCount = currentSampleCount;
-            previousTick = currentTick;
         }
     }
 }
