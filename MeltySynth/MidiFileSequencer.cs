@@ -53,13 +53,13 @@ namespace MeltySynth
                 if (currentTime <= targetTime)
                 {
                     var msg = midiFile.Messages[msgIndex];
-                    if (midiFile.Messages[msgIndex].Type == MidiFile.MessageType.Normal)
+                    if (msg.Type == MidiFile.MessageType.Normal)
                     {
                         synthesizer.ProcessMidiMessage(msg.Channel, msg.Command, msg.Data1, msg.Data2);
                     }
-                    else if (midiFile.Messages[msgIndex].Type == MidiFile.MessageType.TempoChange)
+                    else if (msg.Type == MidiFile.MessageType.TempoChange)
                     {
-                        tempo = 60000000.0 / msg.Tempo;
+                        tempo = msg.Tempo;
                     }
                     msgIndex++;
                 }

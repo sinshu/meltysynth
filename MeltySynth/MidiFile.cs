@@ -291,7 +291,7 @@ namespace MeltySynth
             public byte Data1 => data1;
             public byte Data2 => data2;
 
-            public int Tempo => (command << 16) | (data1 << 8) | data2;
+            public double Tempo => 60000000.0 / ((command << 16) | (data1 << 8) | data2);
         }
 
 
