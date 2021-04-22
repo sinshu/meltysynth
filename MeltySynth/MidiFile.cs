@@ -117,18 +117,18 @@ namespace MeltySynth
 
                 switch (first)
                 {
-                    case 0xF0: // System exclusive
+                    case 0xF0: // System Exclusive
                         DiscardData(reader);
                         break;
 
-                    case 0xF7: // System exclusive
+                    case 0xF7: // System Exclusive
                         DiscardData(reader);
                         break;
 
-                    case 0xFF: // Meta event
+                    case 0xFF: // Meta Event
                         switch (reader.ReadByte())
                         {
-                            case 0x2F: // End of track
+                            case 0x2F: // End of Track
                                 reader.ReadByte();
                                 ticks.Add(tick);
                                 return;

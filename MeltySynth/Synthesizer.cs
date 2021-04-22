@@ -87,88 +87,92 @@ namespace MeltySynth
 
             switch (command)
             {
-                case 0x80: // Note off
+                case 0x80: // Note Off
                     NoteOff(channel, data1);
                     break;
 
-                case 0x90:
+                case 0x90: // Note On
                     NoteOn(channel, data1, data2);
                     break;
 
                 case 0xB0: // Controller
                     switch (data1)
                     {
-                        case 0x00: // Bank selection
+                        case 0x00: // Bank Selection
                             channelInfo.SetBank(data2);
                             break;
 
-                        case 0x01: // Modulation coarse
+                        case 0x01: // Modulation Coarse
                             channelInfo.SetModulationCoarse(data2);
                             break;
 
-                        case 0x21: // Modulation fine
+                        case 0x21: // Modulation Fine
                             channelInfo.SetModulationCoarse(data2);
                             break;
 
-                        case 0x07: // Channel volume coarse
-                            channelInfo.SetVolumeCoarse(data2);
-                            break;
-
-                        case 0x27: // Channel volume fine
-                            channelInfo.SetVolumeFine(data2);
-                            break;
-
-                        case 0x0A: // Pan coarse
-                            channelInfo.SetPanCoarse(data2);
-                            break;
-
-                        case 0x2A: // Pan fine
-                            channelInfo.SetPanFine(data2);
-                            break;
-
-                        case 0x0B: // Expression coarse
-                            channelInfo.SetExpressionCoarse(data2);
-                            break;
-
-                        case 0x2B: // Expression fine
-                            channelInfo.SetExpressionFine(data2);
-                            break;
-
-                        case 0x40: // Hold pedal
-                            channelInfo.SetHoldPedal(data2);
-                            break;
-
-                        case 0x65: // RPN coarse
-                            channelInfo.SetRpnCoarse(data2);
-                            break;
-
-                        case 0x64: // RPN fine
-                            channelInfo.SetRpnFine(data2);
-                            break;
-
-                        case 0x7B: // Note off all
-                            NoteOffAll(false);
-                            break;
-
-                        case 0x06: // Data entry coarse
+                        case 0x06: // Data Entry Coarse
                             channelInfo.DataEntryCoarse(data2);
                             break;
 
-                        case 0x26: // Data entry fine
+                        case 0x26: // Data Entry Fine
                             channelInfo.DataEntryFine(data2);
                             break;
 
-                        case 0x79: // Reset all
-                            Reset();
+                        case 0x07: // Channel Volume Coarse
+                            channelInfo.SetVolumeCoarse(data2);
+                            break;
+
+                        case 0x27: // Channel Volume Fine
+                            channelInfo.SetVolumeFine(data2);
+                            break;
+
+                        case 0x0A: // Pan Coarse
+                            channelInfo.SetPanCoarse(data2);
+                            break;
+
+                        case 0x2A: // Pan Fine
+                            channelInfo.SetPanFine(data2);
+                            break;
+
+                        case 0x0B: // Expression Coarse
+                            channelInfo.SetExpressionCoarse(data2);
+                            break;
+
+                        case 0x2B: // Expression Fine
+                            channelInfo.SetExpressionFine(data2);
+                            break;
+
+                        case 0x40: // Hold Pedal
+                            channelInfo.SetHoldPedal(data2);
+                            break;
+
+                        case 0x65: // RPN Coarse
+                            channelInfo.SetRpnCoarse(data2);
+                            break;
+
+                        case 0x64: // RPN Fine
+                            channelInfo.SetRpnFine(data2);
+                            break;
+
+                        case 0x78: // All Sound Off
+                            NoteOffAll(channel, true);
+                            break;
+
+                        case 0x79: // Reset All Controllers
+                            ResetAllControllers(channel);
+                            break;
+
+                        case 0x7B: // All Note Off
+                            NoteOffAll(channel, false);
                             break;
                     }
                     break;
 
-                case 0xC0: // Program change
+                case 0xC0: // Program Change
                     channelInfo.SetPatch(data1);
                     break;
 
-                case 0xE0: // Pitch bend
+                case 0xE0: // Pitch Bend
                     channelInfo.SetPitchBend(data1, data2);
                     break;
             }
@@ -247,6 +251,35 @@ namespace MeltySynth
                     voice.End();
                 }
             }
+        }
+
+        public void NoteOffAll(int channel, bool immediate)
+        {
+            if (immediate)
+            {
+                foreach (var voice in voices)
+                {
+                    if (voice.Channel == channel)
+                    {
+                        voice.Kill();
+                    }
+                }
+            }
+            else
+            {
+                foreach (var voice in voices)
+                {
+                    if (voice.Channel == channel)
+                    {
+                        voice.End();
+                    }
+                }
+            }
+        }
+
+        public void ResetAllControllers(int channel)
+        {
+            channels[channel].ResetAllControllers();
         }
 
         public void Reset()

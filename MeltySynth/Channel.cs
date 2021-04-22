@@ -56,6 +56,13 @@ namespace MeltySynth
             pitchBend = 0F;
         }
 
+        public void ResetAllControllers()
+        {
+            modulation = 0;
+            holdPedal = false;
+            pitchBend = 0F;
+        }
+
         public void SetBank(int value)
         {
             bankNumber = value;
