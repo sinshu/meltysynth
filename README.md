@@ -60,7 +60,7 @@ https://www.youtube.com/watch?v=Wl-S0cOeIMY
     - [ ] Chorus
     - [ ] Reverb
 * __Other things__
-    - [ ] SMF support
+    - [x] SMF support
     - [ ] Performace optimization
 
 
