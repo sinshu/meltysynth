@@ -11,7 +11,6 @@ namespace MeltySynth
         private long startSampleCount;
 
         private int msgIndex;
-
         private TimeSpan previousTime;
         private double previousTick;
         private double tempo;
@@ -28,7 +27,6 @@ namespace MeltySynth
             this.startSampleCount = synthesizer.ProcessedSampleCount;
 
             msgIndex = 0;
-
             previousTime = TimeSpan.Zero;
             previousTick = 0;
             tempo = 120;
@@ -65,7 +63,22 @@ namespace MeltySynth
                 }
                 else
                 {
-                    break;
+                    return;
+                }
+            }
+
+            if (loop)
+            {
+                var currentTick = midiFile.Ticks[msgIndex];
+                var deltaTick = currentTick - previousTick;
+                var endTime = previousTime + TimeSpan.FromSeconds(60.0 / (midiFile.Resolution * tempo) * deltaTick);
+
+                if (targetTime >= endTime)
+                {
+                    startSampleCount = synthesizer.ProcessedSampleCount + synthesizer.BlockSize;
+                    msgIndex = 0;
+                    previousTime = TimeSpan.Zero;
+                    previousTick = 0;
                 }
             }
         }
