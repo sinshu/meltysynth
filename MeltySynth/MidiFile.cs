@@ -12,7 +12,7 @@ namespace MeltySynth
         private int resolution;
 
         private Message[] messages;
-        private long[] ticks;
+        private int[] ticks;
 
         public MidiFile(Stream stream)
         {
@@ -53,11 +53,11 @@ namespace MeltySynth
                 resolution = reader.ReadInt16BigEndian();
 
                 var messageLists = new List<Message>[trackCount];
-                var tickLists = new List<long>[trackCount];
+                var tickLists = new List<int>[trackCount];
                 for (var i = 0; i < trackCount; i++)
                 {
                     List<Message> messageList;
-                    List<long> tickList;
+                    List<int> tickList;
                     ReadTrack(reader, out messageList, out tickList);
                     messageLists[i] = messageList;
                     tickLists[i] = tickList;
@@ -67,7 +67,7 @@ namespace MeltySynth
             }
         }
 
-        private static void ReadTrack(BinaryReader reader, out List<Message> messages, out List<long> ticks)
+        private static void ReadTrack(BinaryReader reader, out List<Message> messages, out List<int> ticks)
         {
             var chunkType = reader.ReadFixedLengthString(4);
             if (chunkType != "MTrk")
@@ -78,9 +78,9 @@ namespace MeltySynth
             reader.ReadInt32BigEndian();
 
             messages = new List<Message>();
-            ticks = new List<long>();
+            ticks = new List<int>();
 
-            long tick = 0;
+            int tick = 0;
             byte lastStatus = 0;
 
             while (true)
@@ -88,7 +88,14 @@ namespace MeltySynth
                 var delta = reader.ReadIntVariableLength();
                 var first = reader.ReadByte();
 
-                tick += delta;
+                try
+                {
+                    tick = checked(tick + delta);
+                }
+                catch (OverflowException)
+                {
+                    throw new NotSupportedException("Long MIDI file is not supported.");
+                }
 
                 if ((first & 128) == 0)
                 {
@@ -159,7 +166,7 @@ namespace MeltySynth
             }
         }
 
-        private static void CombineTracks(List<Message>[] messageLists, List<long>[] tickLists, out Message[] messages, out long[] ticks)
+        private static void CombineTracks(List<Message>[] messageLists, List<int>[] tickLists, out Message[] messages, out int[] ticks)
         {
             var messageCount = 0;
             foreach (var list in messageLists)
@@ -168,7 +175,7 @@ namespace MeltySynth
             }
 
             messages = new Message[messageCount];
-            ticks = new long[messageCount + 1];
+            ticks = new int[messageCount + 1];
 
             var indices = new int[messageLists.Length];
 
@@ -194,7 +201,7 @@ namespace MeltySynth
                 indices[minIndex]++;
             }
 
-            var lastTick = long.MinValue;
+            var lastTick = int.MinValue;
             for (var j = 0; j < tickLists.Length; j++)
             {
                 if (tickLists[j].Last() > lastTick)
@@ -229,7 +236,7 @@ namespace MeltySynth
         internal int TrackCount => trackCount;
         internal int Resolution => resolution;
         internal Message[] Messages => messages;
-        internal long[] Ticks => ticks;
+        internal int[] Ticks => ticks;
 
 
 
