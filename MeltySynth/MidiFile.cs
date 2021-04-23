@@ -181,8 +181,8 @@ namespace MeltySynth
 
             for (var i = 0; i < messages.Length; i++)
             {
-                long minTick = long.MaxValue;
-                int minIndex = -1;
+                var minTick = int.MaxValue;
+                var minIndex = -1;
                 for (var j = 0; j < tickLists.Length; j++)
                 {
                     if (indices[j] < messageLists[j].Count)
