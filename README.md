@@ -11,12 +11,12 @@ An example code to synthesize a simple chord:
 
 ```cs
 // Create the synthesizer.
-var soundFont = new SoundFont("TimGM6mb.sf2");
 var sampleRate = 44100;
-var synthesizer = new Synthesizer(soundFont, sampleRate);
+var synthesizer = new Synthesizer("TimGM6mb.sf2", sampleRate);
 
-// The output buffer (2 seconds).
-var buffer = new float[2 * sampleRate];
+// The output buffer (3 seconds).
+var left = new float[3 * sampleRate];
+var right = new float[3 * sampleRate];
 
 // Play some notes (middle C, E, G).
 synthesizer.NoteOn(0, 60, 100);
@@ -24,7 +24,7 @@ synthesizer.NoteOn(0, 64, 100);
 synthesizer.NoteOn(0, 67, 100);
 
 // Render the waveform.
-synthesizer.RenderMono(buffer);
+synthesizer.Render(left, right);
 ```
 
 ## Demo
@@ -61,7 +61,7 @@ https://www.youtube.com/watch?v=gT81QPjWSd8
     - [ ] Reverb
 * __Other things__
     - [x] SMF support
-    - [ ] Performace optimization
+    - [x] Performace optimization
 
 
 ## License
