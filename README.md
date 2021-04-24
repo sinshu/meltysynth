@@ -29,11 +29,11 @@ synthesizer.RenderMono(buffer);
 
 ## Demo
 
-Here is a sample audio of "At Doom's Gate" generated with [TimGM6mb](https://musescore.org/en/handbook/soundfonts-and-sfz-files#gm_soundfonts).
+Here is a sample audio of [flourish.mid](https://midis.fandom.com/wiki/Flourish), generated with [Arachno SoundFont](http://www.arachnosoft.com/main/soundfont.php).
 
-https://www.youtube.com/watch?v=Wl-S0cOeIMY  
+https://www.youtube.com/watch?v=gT81QPjWSd8  
 
-[![Demo video](https://img.youtube.com/vi/Wl-S0cOeIMY/0.jpg)](https://www.youtube.com/watch?v=Wl-S0cOeIMY)
+[![Demo video](https://img.youtube.com/vi/gT81QPjWSd8/0.jpg)](https://www.youtube.com/watch?v=gT81QPjWSd8)
 
 
 ## Todo
