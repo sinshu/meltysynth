@@ -5,45 +5,59 @@ namespace MeltySynth
 {
     public sealed class Synthesizer
     {
-        private static readonly int blockSize = 64;
-        private static readonly int maxActiveVoiceCount = 64;
-
         private static readonly int channelCount = 16;
         private static readonly int percussionChannel = 9;
 
-        private SoundFont soundFont;
-        private int sampleRate;
+        private readonly SoundFont soundFont;
+        private readonly int sampleRate;
+        private readonly int blockSize;
+        private readonly int maxActiveVoiceCount;
 
-        private int minimumVoiceLength;
+        private readonly int minimumVoiceLength;
 
-        private Dictionary<int, Preset> presetLookup;
+        private readonly Dictionary<int, Preset> presetLookup;
 
-        private Channel[] channels;
+        private readonly Channel[] channels;
 
-        private VoiceCollection voices;
+        private readonly VoiceCollection voices;
 
-        private float[] blockLeft;
-        private float[] blockRight;
+        private readonly float[] blockLeft;
+        private readonly float[] blockRight;
+
         private int blockRead;
 
         private long processedSampleCount;
 
         private float masterVolume;
 
-        public Synthesizer(SoundFont soundFont, int sampleRate)
+        public Synthesizer(string soundFontPath, int sampleRate) : this(new SoundFont(soundFontPath), new SynthesizerSettings(sampleRate))
+        {
+        }
+
+        public Synthesizer(SoundFont soundFont, int sampleRate) : this(soundFont, new SynthesizerSettings(sampleRate))
+        {
+        }
+
+        public Synthesizer(string soundFontPath, SynthesizerSettings settings) : this(new SoundFont(soundFontPath), settings)
+        {
+        }
+
+        public Synthesizer(SoundFont soundFont, SynthesizerSettings settings)
         {
             if (soundFont == null)
             {
                 throw new ArgumentNullException(nameof(soundFont));
             }
 
-            if (!(8000 <= sampleRate && sampleRate <= 192000))
+            if (settings == null)
             {
-                throw new ArgumentOutOfRangeException("The sample rate must be between 8000 and 192000.");
+                throw new ArgumentNullException(nameof(settings));
             }
 
             this.soundFont = soundFont;
-            this.sampleRate = sampleRate;
+            this.sampleRate = settings.SampleRate;
+            this.blockSize = settings.BlockSize;
+            this.maxActiveVoiceCount = settings.MaxActiveVoiceCount;
 
             minimumVoiceLength = sampleRate / 500;
 
@@ -64,6 +78,7 @@ namespace MeltySynth
 
             blockLeft = new float[blockSize];
             blockRight = new float[blockSize];
+
             blockRead = blockSize;
 
             processedSampleCount = 0;
@@ -74,6 +89,8 @@ namespace MeltySynth
         internal Synthesizer(int sampleRate)
         {
             this.sampleRate = sampleRate;
+            this.blockSize = 64;
+            this.maxActiveVoiceCount = 32;
         }
 
         public void ProcessMidiMessage(int channel, int command, int data1, int data2)
@@ -292,7 +309,7 @@ namespace MeltySynth
             }
         }
 
-        public void RenderStereo(Span<float> left, Span<float> right)
+        public void Render(Span<float> left, Span<float> right)
         {
             if (left.Length != right.Length)
             {
@@ -312,32 +329,8 @@ namespace MeltySynth
                 var dstRem = left.Length - wrote;
                 var rem = Math.Min(srcRem, dstRem);
 
-                blockLeft.AsSpan(blockRead, rem).CopyTo(left);
-                blockRight.AsSpan(blockRead, rem).CopyTo(right);
-
-                blockRead += rem;
-                wrote += rem;
-            }
-        }
-
-        public void RenderMono(Span<float> destination)
-        {
-            var wrote = 0;
-            while (wrote < destination.Length)
-            {
-                if (blockRead == blockSize)
-                {
-                    RenderBlock();
-                    blockRead = 0;
-                }
-
-                var srcRem = blockSize - blockRead;
-                var dstRem = destination.Length - wrote;
-                var rem = Math.Min(srcRem, dstRem);
-
-                var blockLeftSpan = blockLeft.AsSpan(blockRead, rem);
-                var blockRightSpan = blockRight.AsSpan(blockRead, rem);
-                SpanMath.Mean(blockLeftSpan, blockRightSpan, destination.Slice(wrote, rem));
+                blockLeft.AsSpan(blockRead, rem).CopyTo(left.Slice(wrote, rem));
+                blockRight.AsSpan(blockRead, rem).CopyTo(right.Slice(wrote, rem));
 
                 blockRead += rem;
                 wrote += rem;

@@ -16,11 +16,21 @@ namespace MeltySynth
 
         public SoundFont(Stream stream)
         {
+            if (stream == null)
+            {
+                throw new ArgumentNullException(nameof(stream));
+            }
+
             Load(stream);
         }
 
         public SoundFont(string path)
         {
+            if (path == null)
+            {
+                throw new ArgumentNullException(nameof(path));
+            }
+
             using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
                 Load(stream);
