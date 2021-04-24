@@ -292,18 +292,8 @@ namespace MeltySynth
             }
         }
 
-        public void RenderStereo(float[] left, float[] right)
+        public void RenderStereo(Span<float> left, Span<float> right)
         {
-            if (left == null)
-            {
-                throw new ArgumentNullException(nameof(left));
-            }
-
-            if (right == null)
-            {
-                throw new ArgumentNullException(nameof(right));
-            }
-
             if (left.Length != right.Length)
             {
                 throw new ArgumentException("The output buffers must be the same length.");
@@ -322,21 +312,16 @@ namespace MeltySynth
                 var dstRem = left.Length - wrote;
                 var rem = Math.Min(srcRem, dstRem);
 
-                Array.Copy(blockLeft, blockRead, left, wrote, rem);
-                Array.Copy(blockRight, blockRead, right, wrote, rem);
+                blockLeft.AsSpan(blockRead, rem).CopyTo(left);
+                blockRight.AsSpan(blockRead, rem).CopyTo(right);
 
                 blockRead += rem;
                 wrote += rem;
             }
         }
 
-        public void RenderMono(float[] destination)
+        public void RenderMono(Span<float> destination)
         {
-            if (destination == null)
-            {
-                throw new ArgumentNullException(nameof(destination));
-            }
-
             var wrote = 0;
             while (wrote < destination.Length)
             {
@@ -352,8 +337,7 @@ namespace MeltySynth
 
                 var blockLeftSpan = blockLeft.AsSpan(blockRead, rem);
                 var blockRightSpan = blockRight.AsSpan(blockRead, rem);
-                var destinationSpan = destination.AsSpan(wrote, rem);
-                SpanMath.Mean(blockLeftSpan, blockRightSpan, destinationSpan);
+                SpanMath.Mean(blockLeftSpan, blockRightSpan, destination.Slice(wrote, rem));
 
                 blockRead += rem;
                 wrote += rem;
