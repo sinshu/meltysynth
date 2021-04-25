@@ -67,3 +67,13 @@ https://www.youtube.com/watch?v=gT81QPjWSd8
 ## License
 
 MeltySynth is available under the [MIT license](LICENSE.txt).
+
+
+## References
+
+* __SoundFont&reg; Technical Specification__  
+http://www.synthfont.com/SFSPEC21.PDF
+
+* __Polyphone Soundfont Editor__  
+Some of the test cases are generated with Polyphone.  
+https://www.polyphone-soundfonts.com/
