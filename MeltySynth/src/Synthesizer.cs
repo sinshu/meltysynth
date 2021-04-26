@@ -351,13 +351,13 @@ namespace MeltySynth
                 var gainLeft = masterVolume * voice.MixGainLeft;
                 if (gainLeft > SoundFontMath.NonAudible)
                 {
-                    SpanMath.MultiplyAdd(gainLeft, source, blockLeft);
+                    ArrayMath.MultiplyAdd(gainLeft, source, blockLeft);
                 }
 
                 var gainRight = masterVolume * voice.MixGainRight;
                 if (gainRight > SoundFontMath.NonAudible)
                 {
-                    SpanMath.MultiplyAdd(gainRight, source, blockRight);
+                    ArrayMath.MultiplyAdd(gainRight, source, blockRight);
                 }
             }
 

@@ -1,5 +1,5 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleToAttribute("MeltySynthTest")]
-[assembly: InternalsVisibleToAttribute("Workspace")]
+[assembly: InternalsVisibleTo("MeltySynthTest")]
+[assembly: InternalsVisibleTo("Workspace")]

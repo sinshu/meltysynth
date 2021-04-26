@@ -2,9 +2,9 @@
 
 namespace MeltySynth
 {
-    internal static class SpanMath
+    internal static class ArrayMath
     {
-        public static void MultiplyAdd(float a, Span<float> x, Span<float> destination)
+        public static void MultiplyAdd(float a, float[] x, float[] destination)
         {
             for (var i = 0; i < destination.Length; i++)
             {

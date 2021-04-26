@@ -63,7 +63,7 @@ namespace MeltySynth
                     tickLists[i] = tickList;
                 }
 
-                CombineTracks(messageLists, tickLists, out messages, out ticks);
+                MergeTracks(messageLists, tickLists, out messages, out ticks);
             }
         }
 
@@ -166,7 +166,7 @@ namespace MeltySynth
             }
         }
 
-        private static void CombineTracks(List<Message>[] messageLists, List<int>[] tickLists, out Message[] messages, out int[] ticks)
+        private static void MergeTracks(List<Message>[] messageLists, List<int>[] tickLists, out Message[] messages, out int[] ticks)
         {
             var messageCount = 0;
             foreach (var list in messageLists)
@@ -242,6 +242,9 @@ namespace MeltySynth
 
         internal struct Message
         {
+            // These values fit 4-byte alignment so that the array can be memory-efficient.
+            // If the channel value is 0xFF, the message is a tempo change.
+            // The tempo value is represented with remaining 3 bytes.
             private byte channel;
             private byte command;
             private byte data1;
