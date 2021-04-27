@@ -38,6 +38,10 @@ namespace MeltySynth
 
         private int modLfoToCutoff;
         private int modEnvToCutoff;
+        private bool dynamicCutoff;
+
+        private float modLfoToVolume;
+        private bool dynamicVolume;
 
         private float instrumentPan;
 
@@ -87,14 +91,18 @@ namespace MeltySynth
 
             modLfoToCutoff = region.ModulationLfoToFilterCutoffFrequency;
             modEnvToCutoff = region.ModulationEnvelopeToFilterCutoffFrequency;
+            dynamicCutoff = modLfoToCutoff != 0 || modEnvToCutoff != 0;
+
+            modLfoToVolume = region.ModulationLfoToVolume;
+            dynamicVolume = modLfoToVolume > 0.05F;
 
             instrumentPan = Math.Clamp(region.Pan, -50F, 50F);
 
             volEnv.Start(region, key, velocity);
             modEnv.Start(region, key, velocity);
-            generator.Start(synthesizer.SoundFont.WaveData, region);
             vibLfo.StartVibrato(region, key, velocity);
             modLfo.StartModulation(region, key, velocity);
+            generator.Start(synthesizer.SoundFont.WaveData, region);
             filter.ClearBuffer();
             filter.SetLowPassFilter(cutoff, resonance);
 
@@ -144,7 +152,7 @@ namespace MeltySynth
                 return false;
             }
 
-            if (modLfoToCutoff != 0 || modEnvToCutoff != 0)
+            if (dynamicCutoff)
             {
                 var cents = modLfoToCutoff * modLfo.Value + modEnvToCutoff * modEnv.Value;
                 var factor = SoundFontMath.CentsToMultiplyingFactor(cents);
@@ -154,6 +162,11 @@ namespace MeltySynth
 
             var channelGain = channelInfo.Volume * channelInfo.Expression;
             var mixGain = noteGain * channelGain * volEnv.Value;
+            if (dynamicVolume)
+            {
+                var decibels = modLfoToVolume * modLfo.Value;
+                mixGain *= SoundFontMath.DecibelsToLinear(decibels);
+            }
 
             var angle = panToAngle * (channelInfo.Pan + instrumentPan + 50F);
             if (angle <= 0F)
