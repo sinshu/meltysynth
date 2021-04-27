@@ -10,17 +10,17 @@ namespace MeltySynth
 
         public static float TimecentsToSeconds(float x)
         {
-            return MathF.Pow(2F, x / 1200F);
+            return MathF.Pow(2F, (1F / 1200F) * x);
         }
 
         public static float CentsToHertz(float x)
         {
-            return 8.176F * MathF.Pow(2F, x / 1200F);
+            return 8.176F * MathF.Pow(2F, (1F / 1200F) * x);
         }
 
         public static float CentsToMultiplyingFactor(float x)
         {
-            return MathF.Pow(2F, x / 1200F);
+            return MathF.Pow(2F, (1F / 1200F) * x);
         }
 
         public static float DecibelsToLinear(float x)

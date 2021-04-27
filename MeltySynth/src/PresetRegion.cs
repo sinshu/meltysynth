@@ -112,15 +112,15 @@ namespace MeltySynth
         public int VibratoLfoToPitch => this[GeneratorParameterType.VibratoLfoToPitch];
         public int ModulationEnvelopeToPitch => this[GeneratorParameterType.ModulationEnvelopeToPitch];
         public float InitialFilterCutoffFrequency => SoundFontMath.CentsToMultiplyingFactor(this[GeneratorParameterType.InitialFilterCutoffFrequency]);
-        public float InitialFilterQ => this[GeneratorParameterType.InitialFilterQ] / 10F;
+        public float InitialFilterQ => 0.1F * this[GeneratorParameterType.InitialFilterQ];
         public int ModulationLfoToFilterCutoffFrequency => this[GeneratorParameterType.ModulationLfoToFilterCutoffFrequency];
         public int ModulationEnvelopeToFilterCutoffFrequency => this[GeneratorParameterType.ModulationEnvelopeToFilterCutoffFrequency];
 
-        public float ModulationLfoToVolume => this[GeneratorParameterType.ModulationLfoToVolume] / 10F;
+        public float ModulationLfoToVolume => 0.1F * this[GeneratorParameterType.ModulationLfoToVolume];
 
-        public float ChorusEffectsSend => this[GeneratorParameterType.ChorusEffectsSend] / 10F;
-        public float ReverbEffectsSend => this[GeneratorParameterType.ReverbEffectsSend] / 10F;
-        public float Pan => this[GeneratorParameterType.Pan] / 10F;
+        public float ChorusEffectsSend => 0.1F * this[GeneratorParameterType.ChorusEffectsSend];
+        public float ReverbEffectsSend => 0.1F * this[GeneratorParameterType.ReverbEffectsSend];
+        public float Pan => 0.1F * this[GeneratorParameterType.Pan];
 
         public float DelayModulationLfo => SoundFontMath.CentsToMultiplyingFactor(this[GeneratorParameterType.DelayModulationLfo]);
         public float FrequencyModulationLfo => SoundFontMath.CentsToMultiplyingFactor(this[GeneratorParameterType.FrequencyModulationLfo]);
@@ -130,7 +130,7 @@ namespace MeltySynth
         public float AttackModulationEnvelope => SoundFontMath.CentsToMultiplyingFactor(this[GeneratorParameterType.AttackModulationEnvelope]);
         public float HoldModulationEnvelope => SoundFontMath.CentsToMultiplyingFactor(this[GeneratorParameterType.HoldModulationEnvelope]);
         public float DecayModulationEnvelope => SoundFontMath.CentsToMultiplyingFactor(this[GeneratorParameterType.DecayModulationEnvelope]);
-        public float SustainModulationEnvelope => this[GeneratorParameterType.SustainModulationEnvelope] / 10F;
+        public float SustainModulationEnvelope => 0.1F * this[GeneratorParameterType.SustainModulationEnvelope];
         public float ReleaseModulationEnvelope => SoundFontMath.CentsToMultiplyingFactor(this[GeneratorParameterType.ReleaseModulationEnvelope]);
         public int KeyNumberToModulationEnvelopeHold => this[GeneratorParameterType.KeyNumberToModulationEnvelopeHold];
         public int KeyNumberToModulationEnvelopeDecay => this[GeneratorParameterType.KeyNumberToModulationEnvelopeDecay];
@@ -138,7 +138,7 @@ namespace MeltySynth
         public float AttackVolumeEnvelope => SoundFontMath.CentsToMultiplyingFactor(this[GeneratorParameterType.AttackVolumeEnvelope]);
         public float HoldVolumeEnvelope => SoundFontMath.CentsToMultiplyingFactor(this[GeneratorParameterType.HoldVolumeEnvelope]);
         public float DecayVolumeEnvelope => SoundFontMath.CentsToMultiplyingFactor(this[GeneratorParameterType.DecayVolumeEnvelope]);
-        public float SustainVolumeEnvelope => this[GeneratorParameterType.SustainVolumeEnvelope] / 10F;
+        public float SustainVolumeEnvelope => 0.1F * this[GeneratorParameterType.SustainVolumeEnvelope];
         public float ReleaseVolumeEnvelope => SoundFontMath.CentsToMultiplyingFactor(this[GeneratorParameterType.ReleaseVolumeEnvelope]);
         public int KeyNumberToVolumeEnvelopeHold => this[GeneratorParameterType.KeyNumberToVolumeEnvelopeHold];
         public int KeyNumberToVolumeEnvelopeDecay => this[GeneratorParameterType.KeyNumberToVolumeEnvelopeDecay];
@@ -148,7 +148,7 @@ namespace MeltySynth
         public int VelocityRangeStart => this[GeneratorParameterType.VelocityRange] & 0xFF;
         public int VelocityRangeEnd => (this[GeneratorParameterType.VelocityRange] >> 8) & 0xFF;
 
-        public float InitialAttenuation => this[GeneratorParameterType.InitialAttenuation] / 10F;
+        public float InitialAttenuation => 0.1F * this[GeneratorParameterType.InitialAttenuation];
 
         public int CoarseTune => this[GeneratorParameterType.CoarseTune];
         public int FineTune => this[GeneratorParameterType.FineTune];

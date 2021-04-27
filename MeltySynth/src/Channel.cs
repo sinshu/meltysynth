@@ -167,7 +167,7 @@ namespace MeltySynth
 
         public void SetPitchBend(int value1, int value2)
         {
-            pitchBend = ((value1 | (value2 << 7)) - 8192) / 8192F;
+            pitchBend = (1F / 8192F) * ((value1 | (value2 << 7)) - 8192);
         }
 
         public bool IsPercussionChannel => isPercussionChannel;
@@ -175,14 +175,14 @@ namespace MeltySynth
         public int BankNumber => bankNumber;
         public int PatchNumber => patchNumber;
 
-        public float Modulation => modulation * (50F / 16383F);
-        public float Volume => volume / 16383F;
-        public float Pan => pan * (100F / 16383F) - 50F;
-        public float Expression => expression / 16383F;
+        public float Modulation => (50F / 16383F) * modulation;
+        public float Volume => (1F / 16383F) * volume;
+        public float Pan => (100F / 16383F) * pan - 50F;
+        public float Expression => (1F / 16383F) * expression;
         public bool HoldPedal => holdPedal;
 
         public float PitchBendRange => (pitchBendRange >> 7) + 0.01F * (pitchBendRange & 0x7F);
-        public float Tune => coarseTune + (fineTune - 8192) / 8192F;
+        public float Tune => coarseTune + (1F / 8192F) * (fineTune - 8192);
 
         public float PitchBend => PitchBendRange * pitchBend;
     }
