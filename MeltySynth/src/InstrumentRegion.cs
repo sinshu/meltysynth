@@ -8,9 +8,9 @@ namespace MeltySynth
     {
         internal static readonly InstrumentRegion Default = new InstrumentRegion(Instrument.Default, null, null, null);
 
-        private SampleHeader sample;
+        private readonly SampleHeader sample;
 
-        private short[] gps;
+        private readonly short[] gps;
 
         private InstrumentRegion(Instrument instrument, GeneratorParameter[] global, GeneratorParameter[] local, SampleHeader[] samples)
         {

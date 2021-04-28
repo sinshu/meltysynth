@@ -5,8 +5,8 @@ namespace MeltySynth
 {
     internal sealed class GeneratorParameter
     {
-        private GeneratorParameterType type;
-        private ushort value;
+        private readonly GeneratorParameterType type;
+        private readonly ushort value;
 
         private GeneratorParameter(BinaryReader reader)
         {

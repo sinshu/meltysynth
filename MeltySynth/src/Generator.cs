@@ -4,7 +4,7 @@ namespace MeltySynth
 {
     internal sealed class Generator
     {
-        private Synthesizer synthesizer;
+        private readonly Synthesizer synthesizer;
 
         private short[] data;
         private LoopMode loopMode;

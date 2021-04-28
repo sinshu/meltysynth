@@ -4,7 +4,7 @@ namespace MeltySynth
 {
     internal sealed class Lfo
     {
-        private Synthesizer synthesizer;
+        private readonly Synthesizer synthesizer;
 
         private bool active;
 

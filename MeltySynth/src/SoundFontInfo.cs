@@ -5,17 +5,17 @@ namespace MeltySynth
 {
     public sealed class SoundFontInfo
     {
-        private SoundFontVersion version = default;
-        private string targetSoundEngine = string.Empty;
-        private string bankName = string.Empty;
-        private string romName = string.Empty;
-        private SoundFontVersion romVersion = default;
-        private string creationDate = string.Empty;
-        private string author = string.Empty;
-        private string targetProduct = string.Empty;
-        private string copyright = string.Empty;
-        private string comments = string.Empty;
-        private string tools = string.Empty;
+        private readonly SoundFontVersion version = default;
+        private readonly string targetSoundEngine = string.Empty;
+        private readonly string bankName = string.Empty;
+        private readonly string romName = string.Empty;
+        private readonly SoundFontVersion romVersion = default;
+        private readonly string creationDate = string.Empty;
+        private readonly string author = string.Empty;
+        private readonly string targetProduct = string.Empty;
+        private readonly string copyright = string.Empty;
+        private readonly string comments = string.Empty;
+        private readonly string tools = string.Empty;
 
         internal SoundFontInfo(BinaryReader reader)
         {

@@ -7,16 +7,16 @@ namespace MeltySynth
     {
         internal static readonly SampleHeader Default = new SampleHeader();
 
-        private string name;
-        private int start;
-        private int end;
-        private int startLoop;
-        private int endLoop;
-        private int sampleRate;
-        private byte originalPitch;
-        private sbyte pitchCorrection;
-        private ushort link;
-        private SampleType type;
+        private readonly string name;
+        private readonly int start;
+        private readonly int end;
+        private readonly int startLoop;
+        private readonly int endLoop;
+        private readonly int sampleRate;
+        private readonly byte originalPitch;
+        private readonly sbyte pitchCorrection;
+        private readonly ushort link;
+        private readonly SampleType type;
 
         private SampleHeader()
         {

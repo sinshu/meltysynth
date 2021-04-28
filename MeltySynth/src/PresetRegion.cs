@@ -8,9 +8,9 @@ namespace MeltySynth
     {
         internal static readonly PresetRegion Default = new PresetRegion(Preset.Default, null, null, null);
 
-        private Instrument instrument;
+        private readonly Instrument instrument;
 
-        private short[] gps;
+        private readonly short[] gps;
 
         private PresetRegion(Preset preset, GeneratorParameter[] global, GeneratorParameter[] local, Instrument[] instruments)
         {

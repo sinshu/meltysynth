@@ -5,9 +5,9 @@ namespace MeltySynth
 {
     internal sealed class SoundFontParameters
     {
-        private SampleHeader[] sampleHeaders;
-        private Preset[] presets;
-        private Instrument[] instruments;
+        private readonly SampleHeader[] sampleHeaders;
+        private readonly Preset[] presets;
+        private readonly Instrument[] instruments;
 
         internal SoundFontParameters(BinaryReader reader)
         {

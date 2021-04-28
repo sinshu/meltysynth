@@ -4,24 +4,22 @@ namespace MeltySynth
 {
     internal sealed class Voice
     {
-        private const float panToAngle = MathF.PI / 200F;
+        private readonly Synthesizer synthesizer;
 
-        private Synthesizer synthesizer;
+        private readonly VolumeEnvelope volEnv;
+        private readonly ModulationEnvelope modEnv;
 
-        private VolumeEnvelope volEnv;
-        private ModulationEnvelope modEnv;
+        private readonly Lfo vibLfo;
+        private readonly Lfo modLfo;
 
-        private Lfo vibLfo;
-        private Lfo modLfo;
+        private readonly Generator generator;
+        private readonly BiQuadFilter filter;
 
-        private Generator generator;
-        private BiQuadFilter filter;
+        private readonly float[] block;
 
-        private float[] block;
         private float mixGainLeft;
         private float mixGainRight;
 
-        private InstrumentRegion instrumentRegion;
         private int exclusiveClass;
         private int channel;
         private int key;
@@ -66,7 +64,6 @@ namespace MeltySynth
 
         public void Start(RegionPair region, int channel, int key, int velocity)
         {
-            this.instrumentRegion = region.Instrument;
             this.exclusiveClass = region.ExclusiveClass;
             this.channel = channel;
             this.key = key;
@@ -168,7 +165,7 @@ namespace MeltySynth
                 mixGain *= SoundFontMath.DecibelsToLinear(decibels);
             }
 
-            var angle = panToAngle * (channelInfo.Pan + instrumentPan + 50F);
+            var angle = (MathF.PI / 200F) * (channelInfo.Pan + instrumentPan + 50F);
             if (angle <= 0F)
             {
                 mixGainLeft = mixGain;
@@ -192,7 +189,7 @@ namespace MeltySynth
 
         private void ReleaseIfNecessary(Channel channelInfo)
         {
-            if (voiceLength < synthesizer.MinimumVoiceLength)
+            if (voiceLength < synthesizer.MinimumVoiceDuration)
             {
                 return;
             }
@@ -226,7 +223,6 @@ namespace MeltySynth
         public float MixGainLeft => mixGainLeft;
         public float MixGainRight => mixGainRight;
 
-        public InstrumentRegion Region => instrumentRegion;
         public int ExclusiveClass => exclusiveClass;
         public int Channel => channel;
         public int Key => key;

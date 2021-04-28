@@ -6,8 +6,8 @@ namespace MeltySynth
 {
     internal sealed class SoundFontSampleData
     {
-        private int bitsPerSample;
-        private short[] samples;
+        private readonly int bitsPerSample;
+        private readonly short[] samples;
 
         internal SoundFontSampleData(BinaryReader reader)
         {

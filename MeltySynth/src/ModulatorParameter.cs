@@ -5,11 +5,11 @@ namespace MeltySynth
 {
     internal sealed class ModulatorParameter
     {
-        private ModulatorParameterType sourceModulationData;
-        private GeneratorParameterType destinationGenerator;
-        private short amount;
-        private ModulatorParameterType sourceModulationAmount;
-        private TransformType sourceTransform;
+        private readonly ModulatorParameterType sourceModulationData;
+        private readonly GeneratorParameterType destinationGenerator;
+        private readonly short amount;
+        private readonly ModulatorParameterType sourceModulationAmount;
+        private readonly TransformType sourceTransform;
 
         private ModulatorParameter(BinaryReader reader)
         {

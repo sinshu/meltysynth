@@ -4,7 +4,7 @@ namespace MeltySynth
 {
     public sealed class MidiFileSequencer
     {
-        private Synthesizer synthesizer;
+        private readonly Synthesizer synthesizer;
 
         private MidiFile midiFile;
         private bool loop;

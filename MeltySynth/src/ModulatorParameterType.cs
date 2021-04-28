@@ -5,11 +5,11 @@ namespace MeltySynth
 {
     internal sealed class ModulatorParameterType
     {
-        private CurveType curveType;
-        private CurvePolarity polarity;
-        private CurveDirection direction;
-        private bool isMidiContinuousController;
-        private ushort controllerSource;
+        private readonly CurveType curveType;
+        private readonly CurvePolarity polarity;
+        private readonly CurveDirection direction;
+        private readonly bool isMidiContinuousController;
+        private readonly ushort controllerSource;
 
         internal ModulatorParameterType(BinaryReader reader)
         {

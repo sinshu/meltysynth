@@ -6,7 +6,7 @@ namespace MeltySynth
     {
         private static readonly float resonancePeakOffset = 1 - 1 / MathF.Sqrt(2);
 
-        private Synthesizer synthesizer;
+        private readonly Synthesizer synthesizer;
 
         private bool active;
 

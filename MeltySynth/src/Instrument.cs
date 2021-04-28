@@ -8,8 +8,8 @@ namespace MeltySynth
     {
         internal static readonly Instrument Default = new Instrument();
 
-        private string name;
-        private ImmutableArray<InstrumentRegion> regions;
+        private readonly string name;
+        private readonly ImmutableArray<InstrumentRegion> regions;
 
         private Instrument()
         {

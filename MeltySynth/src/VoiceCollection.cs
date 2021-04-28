@@ -6,9 +6,9 @@ namespace MeltySynth
 {
     internal sealed class VoiceCollection
     {
-        private Synthesizer synthesizer;
+        private readonly Synthesizer synthesizer;
 
-        private Voice[] voices;
+        private readonly Voice[] voices;
 
         private int activeVoiceCount;
 
@@ -21,6 +21,8 @@ namespace MeltySynth
             {
                 voices[i] = new Voice(synthesizer);
             }
+
+            activeVoiceCount = 0;
         }
 
         public Voice RequestNew(InstrumentRegion region, int channel)
@@ -152,6 +154,8 @@ namespace MeltySynth
 
             public void Reset()
             {
+                index = 0;
+                current = null;
             }
 
             public Voice Current => current;

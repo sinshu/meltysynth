@@ -4,7 +4,7 @@ namespace MeltySynth
 {
     internal sealed class VolumeEnvelope
     {
-        private Synthesizer synthesizer;
+        private readonly Synthesizer synthesizer;
 
         private double attackSlope;
         private double decaySlope;

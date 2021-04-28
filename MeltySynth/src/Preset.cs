@@ -8,13 +8,13 @@ namespace MeltySynth
     {
         internal static readonly Preset Default = new Preset();
 
-        private string name;
-        private int patchNumber;
-        private int bankNumber;
-        private int library;
-        private int genre;
-        private int morphology;
-        private ImmutableArray<PresetRegion> regions;
+        private readonly string name;
+        private readonly int patchNumber;
+        private readonly int bankNumber;
+        private readonly int library;
+        private readonly int genre;
+        private readonly int morphology;
+        private readonly ImmutableArray<PresetRegion> regions;
 
         private Preset()
         {

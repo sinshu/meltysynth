@@ -4,8 +4,8 @@ namespace MeltySynth
 {
     internal struct RegionPair
     {
-        private PresetRegion preset;
-        private InstrumentRegion instrument;
+        private readonly PresetRegion preset;
+        private readonly InstrumentRegion instrument;
 
         internal RegionPair(PresetRegion preset, InstrumentRegion instrument)
         {

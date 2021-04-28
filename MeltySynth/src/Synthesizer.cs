@@ -11,9 +11,9 @@ namespace MeltySynth
         private readonly SoundFont soundFont;
         private readonly int sampleRate;
         private readonly int blockSize;
-        private readonly int maxActiveVoiceCount;
+        private readonly int maximumPolyphony;
 
-        private readonly int minimumVoiceLength;
+        private readonly int minimumVoiceDuration;
 
         private readonly Dictionary<int, Preset> presetLookup;
 
@@ -57,9 +57,9 @@ namespace MeltySynth
             this.soundFont = soundFont;
             this.sampleRate = settings.SampleRate;
             this.blockSize = settings.BlockSize;
-            this.maxActiveVoiceCount = settings.MaxActiveVoiceCount;
+            this.maximumPolyphony = settings.MaximumPolyphony;
 
-            minimumVoiceLength = sampleRate / 500;
+            minimumVoiceDuration = sampleRate / 500;
 
             presetLookup = new Dictionary<int, Preset>();
             foreach (var preset in soundFont.Presets)
@@ -74,7 +74,7 @@ namespace MeltySynth
                 channels[i] = new Channel(this, i == percussionChannel);
             }
 
-            voices = new VoiceCollection(this, maxActiveVoiceCount);
+            voices = new VoiceCollection(this, maximumPolyphony);
 
             blockLeft = new float[blockSize];
             blockRight = new float[blockSize];
@@ -89,8 +89,8 @@ namespace MeltySynth
         internal Synthesizer(int sampleRate)
         {
             this.sampleRate = sampleRate;
-            this.blockSize = 64;
-            this.maxActiveVoiceCount = 32;
+            this.blockSize = SynthesizerSettings.DefaultBlockSize;
+            this.maximumPolyphony = SynthesizerSettings.DefaultMaximumPolyphony;
         }
 
         public void ProcessMidiMessage(int channel, int command, int data1, int data2)
@@ -365,7 +365,7 @@ namespace MeltySynth
         }
 
         public int BlockSize => blockSize;
-        public int MaxActiveVoiceCount => maxActiveVoiceCount;
+        public int MaximumPolyphony => maximumPolyphony;
 
         public int ChannelCount => channelCount;
         public int PercussionChannel => percussionChannel;
@@ -383,7 +383,7 @@ namespace MeltySynth
             set => masterVolume = value;
         }
 
-        internal int MinimumVoiceLength => minimumVoiceLength;
+        internal int MinimumVoiceDuration => minimumVoiceDuration;
         internal Channel[] Channels => channels;
     }
 }

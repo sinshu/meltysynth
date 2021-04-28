@@ -4,11 +4,11 @@ namespace MeltySynth
 {
     internal sealed class Channel
     {
-        private Synthesizer synthesizer;
-        private bool isPercussionChannel;
+        private readonly Synthesizer synthesizer;
+        private readonly bool isPercussionChannel;
 
-        private float[] blockLeft;
-        private float[] blockRight;
+        private readonly float[] blockLeft;
+        private readonly float[] blockRight;
 
         private int bankNumber;
         private int patchNumber;

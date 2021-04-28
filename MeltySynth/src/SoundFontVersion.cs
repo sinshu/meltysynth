@@ -4,8 +4,8 @@ namespace MeltySynth
 {
     public struct SoundFontVersion
     {
-        private short major;
-        private short minor;
+        private readonly short major;
+        private readonly short minor;
 
         internal SoundFontVersion(short major, short minor)
         {
