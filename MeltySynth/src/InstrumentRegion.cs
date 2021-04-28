@@ -4,6 +4,12 @@ using System.Linq;
 
 namespace MeltySynth
 {
+    /// <summary>
+    /// Represents an instrument region.
+    /// </summary>
+    /// <remarks>
+    /// An instrument region contains all the parameters necessary to synthesize a note.
+    /// </remarks>
     public sealed class InstrumentRegion
     {
         internal static readonly InstrumentRegion Default = new InstrumentRegion(Instrument.Default, null, null, null);
@@ -104,6 +110,14 @@ namespace MeltySynth
             gps[(int)parameter.Type] = (short)parameter.Value;
         }
 
+        /// <summary>
+        /// Checks if the region covers the given key and velocity.
+        /// </summary>
+        /// <param name="key">The key of a note.</param>
+        /// <param name="velocity">The velocity of a note.</param>
+        /// <returns>
+        /// <c>true</c> if the region covers the given key and velocity.
+        /// </returns>
         public bool Contains(int key, int velocity)
         {
             var containsKey = KeyRangeStart <= key && key <= KeyRangeEnd;
@@ -111,6 +125,12 @@ namespace MeltySynth
             return containsKey && containsVelocity;
         }
 
+        /// <summary>
+        /// Gets the string representation of the region.
+        /// </summary>
+        /// <returns>
+        /// The string representation of the region.
+        /// </returns>
         public override string ToString()
         {
             return $"{sample.Name} (Key: {KeyRangeStart}-{KeyRangeEnd}, Velocity: {VelocityRangeStart}-{VelocityRangeEnd})";
@@ -118,6 +138,9 @@ namespace MeltySynth
 
         internal short this[GeneratorParameterType generatortType] => gps[(int)generatortType];
 
+        /// <summary>
+        /// The sample header corresponding to the region.
+        /// </summary>
         public SampleHeader Sample => sample;
 
         public int SampleStart => sample.Start + StartAddressOffset;

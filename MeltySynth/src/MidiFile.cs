@@ -6,6 +6,9 @@ using System.Text;
 
 namespace MeltySynth
 {
+    /// <summary>
+    /// Represents a standard MIDI file.
+    /// </summary>
     public sealed class MidiFile
     {
         private int trackCount;
@@ -14,11 +17,19 @@ namespace MeltySynth
         private Message[] messages;
         private int[] ticks;
 
+        /// <summary>
+        /// Loads a MIDI file from the stream.
+        /// </summary>
+        /// <param name="stream">The data stream used to load the MIDI file.</param>
         public MidiFile(Stream stream)
         {
             Load(stream);
         }
 
+        /// <summary>
+        /// Loads a MIDI file from the file.
+        /// </summary>
+        /// <param name="path">The MIDI file name and path.</param>
         public MidiFile(string path)
         {
             using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))

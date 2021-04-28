@@ -2,6 +2,9 @@
 
 namespace MeltySynth
 {
+    /// <summary>
+    /// An instance of the MIDI file sequencer.
+    /// </summary>
     public sealed class MidiFileSequencer
     {
         private readonly Synthesizer synthesizer;
@@ -15,11 +18,20 @@ namespace MeltySynth
         private double previousTick;
         private double tempo;
 
+        /// <summary>
+        /// Initializes a new instance of the sequencer.
+        /// </summary>
+        /// <param name="synthesizer">The synthesizer to be handled by the sequencer.</param>
         public MidiFileSequencer(Synthesizer synthesizer)
         {
             this.synthesizer = synthesizer;
         }
 
+        /// <summary>
+        /// Plays the MIDI file.
+        /// </summary>
+        /// <param name="midiFile">The MIDI file to be played.</param>
+        /// <param name="loop">If <c>true</c>, the MIDI file loops after reaching the end.</param>
         public void Play(MidiFile midiFile, bool loop)
         {
             this.midiFile = midiFile;
@@ -34,6 +46,10 @@ namespace MeltySynth
             synthesizer.Reset();
         }
 
+        /// <summary>
+        /// Send the MIDI events to the synthesizer.
+        /// This method should be called enough frequently in the rendering process.
+        /// </summary>
         public void ProcessEvents()
         {
             var sampleCount = synthesizer.ProcessedSampleCount - startSampleCount;

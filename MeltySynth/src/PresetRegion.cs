@@ -4,6 +4,12 @@ using System.Linq;
 
 namespace MeltySynth
 {
+    /// <summary>
+    /// Represents a preset region.
+    /// </summary>
+    /// <remarks>
+    /// A preset region indicates how the parameters of the instrument should be modified in the preset.
+    /// </remarks>
     public sealed class PresetRegion
     {
         internal static readonly PresetRegion Default = new PresetRegion(Preset.Default, null, null, null);
@@ -87,6 +93,14 @@ namespace MeltySynth
             gps[(int)parameter.Type] = (short)parameter.Value;
         }
 
+        /// <summary>
+        /// Checks if the region covers the given key and velocity.
+        /// </summary>
+        /// <param name="key">The key of a note.</param>
+        /// <param name="velocity">The velocity of a note.</param>
+        /// <returns>
+        /// <c>true</c> if the region covers the given key and velocity.
+        /// </returns>
         public bool Contains(int key, int velocity)
         {
             var containsKey = KeyRangeStart <= key && key <= KeyRangeEnd;
@@ -94,6 +108,12 @@ namespace MeltySynth
             return containsKey && containsVelocity;
         }
 
+        /// <summary>
+        /// Gets the string representation of the region.
+        /// </summary>
+        /// <returns>
+        /// The string representation of the region.
+        /// </returns>
         public override string ToString()
         {
             return $"{instrument.Name} (Key: {KeyRangeStart}-{KeyRangeEnd}, Velocity: {VelocityRangeStart}-{VelocityRangeEnd})";
@@ -101,6 +121,9 @@ namespace MeltySynth
 
         internal short this[GeneratorParameterType generatortType] => gps[(int)generatortType];
 
+        /// <summary>
+        /// The instrument corresponding to the region.
+        /// </summary>
         public Instrument Instrument => instrument;
 
         // public int StartAddressOffset => 32768 * this[GeneratorParameterType.StartAddressCoarseOffset] + this[GeneratorParameterType.StartAddressOffset];

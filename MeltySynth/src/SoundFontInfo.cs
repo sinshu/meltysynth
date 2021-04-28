@@ -3,6 +3,9 @@ using System.IO;
 
 namespace MeltySynth
 {
+    /// <summary>
+    /// The information of a SoundFont.
+    /// </summary>
     public sealed class SoundFontInfo
     {
         private readonly SoundFontVersion version = default;
@@ -79,6 +82,12 @@ namespace MeltySynth
             }
         }
 
+        /// <summary>
+        /// Gets the name of the SoundFont.
+        /// </summary>
+        /// <returns>
+        /// The name of the SoundFont.
+        /// </returns>
         public override string ToString()
         {
             return bankName;

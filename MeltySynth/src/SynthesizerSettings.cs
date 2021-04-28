@@ -11,6 +11,10 @@ namespace MeltySynth
         private int blockSize;
         private int maximumPolyphony;
 
+        /// <summary>
+        /// Initializes a new instance of synthesizer settings.
+        /// </summary>
+        /// <param name="sampleRate">The sample rate for synthesis.</param>
         public SynthesizerSettings(int sampleRate)
         {
             CheckSampleRate(sampleRate);
@@ -44,6 +48,9 @@ namespace MeltySynth
             }
         }
 
+        /// <summary>
+        /// Gets or sets the sample rate for synthesis.
+        /// </summary>
         public int SampleRate
         {
             get => sampleRate;
@@ -55,6 +62,9 @@ namespace MeltySynth
             }
         }
 
+        /// <summary>
+        /// Gets or sets the block size of waveform rendering..
+        /// </summary>
         public int BlockSize
         {
             get => blockSize;
@@ -66,6 +76,9 @@ namespace MeltySynth
             }
         }
 
+        /// <summary>
+        /// Gets or sets the number of maximum polyphony.
+        /// </summary>
         public int MaximumPolyphony
         {
             get => maximumPolyphony;

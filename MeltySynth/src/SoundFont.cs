@@ -5,6 +5,9 @@ using System.Text;
 
 namespace MeltySynth
 {
+    /// <summary>
+    /// Reperesents a SoundFont.
+    /// </summary>
     public sealed class SoundFont
     {
         private SoundFontInfo info;
@@ -14,6 +17,12 @@ namespace MeltySynth
         private ImmutableArray<Preset> presets;
         private ImmutableArray<Instrument> instruments;
 
+        /// <summary>
+        /// Loads a SoundFont from the stream.
+        /// </summary>
+        /// <param name="stream">
+        /// The data stream used to load the SoundFont.
+        /// </param>
         public SoundFont(Stream stream)
         {
             if (stream == null)
@@ -24,6 +33,12 @@ namespace MeltySynth
             Load(stream);
         }
 
+        /// <summary>
+        /// Loads a SoundFont from the file.
+        /// </summary>
+        /// <param name="path">
+        /// The SoundFont file name and path.
+        /// </param>
         public SoundFont(string path)
         {
             if (path == null)
@@ -71,6 +86,12 @@ namespace MeltySynth
             CheckRegions();
         }
 
+        /// <summary>
+        /// Gets the name of the SoundFont.
+        /// </summary>
+        /// <returns>
+        /// The name of the SoundFont.
+        /// </returns>
         public override string ToString()
         {
             return info.BankName;
@@ -139,11 +160,40 @@ namespace MeltySynth
             }
         }
 
+        /// <summary>
+        /// The information of the SoundFont.
+        /// </summary>
         public SoundFontInfo Info => info;
+
+        /// <summary>
+        /// The bits per sample of the sample data.
+        /// </summary>
+        /// <remarks>
+        /// This value is always 16.
+        /// </remarks>
         public int BitsPerSample => bitsPerSample;
+
+        /// <summary>
+        /// The sample data.
+        /// </summary>
+        /// <remarks>
+        /// This single array contains all the sample data in the SoundFont.
+        /// </remarks>
         public short[] WaveData => waveData;
+
+        /// <summary>
+        /// The samples of the SoundFont.
+        /// </summary>
         public ImmutableArray<SampleHeader> SampleHeaders => sampleHeaders;
+
+        /// <summary>
+        /// The presets of the SoundFont.
+        /// </summary>
         public ImmutableArray<Preset> Presets => presets;
+
+        /// <summary>
+        /// The instruments of the SoundFont.
+        /// </summary>
         public ImmutableArray<Instrument> Instruments => instruments;
     }
 }

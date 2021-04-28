@@ -4,6 +4,9 @@ using System.IO;
 
 namespace MeltySynth
 {
+    /// <summary>
+    /// Represents a preset in the SoundFont.
+    /// </summary>
     public sealed class Preset
     {
         internal static readonly Preset Default = new Preset();
@@ -60,17 +63,39 @@ namespace MeltySynth
             return presets;
         }
 
+        /// <summary>
+        /// Gets the name of the preset.
+        /// </summary>
+        /// <returns>
+        /// The name of the preset.
+        /// </returns>
         public override string ToString()
         {
             return name;
         }
 
+        /// <summary>
+        /// The name of the preset.
+        /// </summary>
         public string Name => name;
+
+        /// <summary>
+        /// The patch number of the preset.
+        /// </summary>
         public int PatchNumber => patchNumber;
+
+        /// <summary>
+        /// The bank number of the preset.
+        /// </summary>
         public int BankNumber => bankNumber;
+
         public int Library => library;
         public int Genre => genre;
         public int Morphology => morphology;
+
+        /// <summary>
+        /// The regions of the preset.
+        /// </summary>
         public ImmutableArray<PresetRegion> Regions => regions;
     }
 }

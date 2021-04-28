@@ -4,6 +4,9 @@ using System.IO;
 
 namespace MeltySynth
 {
+    /// <summary>
+    /// Represents an instrument in the SoundFont.
+    /// </summary>
     public sealed class Instrument
     {
         internal static readonly Instrument Default = new Instrument();
@@ -50,12 +53,25 @@ namespace MeltySynth
             return instruments;
         }
 
+        /// <summary>
+        /// Gets the name of the instrument.
+        /// </summary>
+        /// <returns>
+        /// The name of the instrument.
+        /// </returns>
         public override string ToString()
         {
             return name;
         }
 
+        /// <summary>
+        /// The name of the instrument.
+        /// </summary>
         public string Name => name;
+
+        /// <summary>
+        /// The regions of the instrument.
+        /// </summary>
         public ImmutableArray<InstrumentRegion> Regions => regions;
     }
 }
