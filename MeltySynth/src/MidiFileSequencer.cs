@@ -52,6 +52,11 @@ namespace MeltySynth
         /// </summary>
         public void ProcessEvents()
         {
+            if (midiFile == null)
+            {
+                return;
+            }
+
             var sampleCount = synthesizer.ProcessedSampleCount - startSampleCount;
             var targetTime = TimeSpan.FromSeconds((double)sampleCount / synthesizer.SampleRate);
 
