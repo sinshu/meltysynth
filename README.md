@@ -27,13 +27,29 @@ synthesizer.NoteOn(0, 67, 100);
 synthesizer.Render(left, right);
 ```
 
+
+## Installation
+
+[The NuGet package](https://www.nuget.org/packages/MeltySynth/) is available.
+
+```ps1
+Install-Package MeltySynth
+```
+
+
 ## Demo
 
-Here is a sample audio of [flourish.mid](https://midis.fandom.com/wiki/Flourish), generated with [Arachno SoundFont](http://www.arachnosoft.com/main/soundfont.php).
+Here is a sample audio of [flourish.mid](https://midis.fandom.com/wiki/Flourish) generated with [Arachno SoundFont](http://www.arachnosoft.com/main/soundfont.php).
 
 https://www.youtube.com/watch?v=gT81QPjWSd8  
 
 [![Demo video](https://img.youtube.com/vi/gT81QPjWSd8/0.jpg)](https://www.youtube.com/watch?v=gT81QPjWSd8)
+
+
+# Examples
+
+* [A MIDI file player for SFML.Net](https://github.com/sinshu/meltysynth/tree/main/Examples/SFML.Net)
+* [A MIDI file player for NAudio](https://github.com/sinshu/meltysynth/tree/main/Examples/NAudio)
 
 
 ## Todo
@@ -75,5 +91,5 @@ MeltySynth is available under the [MIT license](LICENSE.txt).
 http://www.synthfont.com/SFSPEC21.PDF
 
 * __Polyphone Soundfont Editor__  
-Some of the test cases are generated with Polyphone.  
+Some of the test cases were generated with Polyphone.  
 https://www.polyphone-soundfonts.com/
