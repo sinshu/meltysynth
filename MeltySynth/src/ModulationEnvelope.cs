@@ -42,7 +42,7 @@ namespace MeltySynth
             decayEndTime = decayStartTime + decay;
             releaseEndTime = release;
 
-            sustainLevel = Math.Max(sustain, 0F);
+            sustainLevel = Math.Clamp(sustain, 0F, 1F);
             releaseLevel = 0;
 
             processedSampleCount = 0;
