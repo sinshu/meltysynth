@@ -2,6 +2,24 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Nobuaki Tanaka</Authors>
+    <Company />
+    <Product />
+    <Description>A SoundFont synthesizer for .NET</Description>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/sinshu/meltysynth/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/sinshu/meltysynth/</RepositoryUrl>
+    <PackageTags>audio soundfont synthesizer midi</PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <PackageReleaseNotes>Now most of the basic functionalities are implemented.</PackageReleaseNotes>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
