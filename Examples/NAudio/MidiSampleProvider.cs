@@ -10,9 +10,9 @@ public class MidiSampleProvider : ISampleProvider
     private float[] left;
     private float[] right;
 
-    private int blockRead;
-
     private MidiFileSequencer sequencer;
+
+    private int blockRead;
 
     private object mutex;
 
@@ -21,6 +21,8 @@ public class MidiSampleProvider : ISampleProvider
         synthesizer = new Synthesizer(soundFontPath, format.SampleRate);
         left = new float[synthesizer.BlockSize];
         right = new float[synthesizer.BlockSize];
+
+        sequencer = new MidiFileSequencer(synthesizer);
 
         blockRead = synthesizer.BlockSize;
 
@@ -31,7 +33,6 @@ public class MidiSampleProvider : ISampleProvider
     {
         lock (mutex)
         {
-            sequencer = new MidiFileSequencer(synthesizer);
             sequencer.Play(midiFile, loop);
         }
     }
@@ -40,12 +41,6 @@ public class MidiSampleProvider : ISampleProvider
     {
         lock (mutex)
         {
-            if (sequencer == null)
-            {
-                Array.Clear(buffer, offset, count);
-                return count;
-            }
-
             var dstLength = count / 2;
 
             var wrote = 0;
