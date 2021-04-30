@@ -28,6 +28,12 @@ synthesizer.Render(left, right);
 ```
 
 
+## Features
+
+* No dependencies other than .NET Core 3.1.
+* No memory allocation in the rendering process.
+
+
 ## Installation
 
 [The NuGet package](https://www.nuget.org/packages/MeltySynth/) is available.
@@ -39,7 +45,7 @@ Install-Package MeltySynth
 
 ## Demo
 
-Here is a sample audio of [flourish.mid](https://midis.fandom.com/wiki/Flourish) generated with [Arachno SoundFont](http://www.arachnosoft.com/main/soundfont.php).
+Here is an audio sample of [flourish.mid](https://midis.fandom.com/wiki/Flourish) generated with [Arachno SoundFont](http://www.arachnosoft.com/main/soundfont.php).
 
 https://www.youtube.com/watch?v=gT81QPjWSd8  
 
