@@ -57,11 +57,11 @@ public class MidiSampleProvider : ISampleProvider
                 var dstRem = dstLength - wrote;
                 var rem = Math.Min(srcRem, dstRem);
 
+                var t = 2 * wrote;
                 for (var i = 0; i < rem; i++)
                 {
-                    var t = 2 * (wrote + i);
-                    buffer[t] = left[blockRead + i];
-                    buffer[t + 1] = right[blockRead + i];
+                    buffer[t++] = left[blockRead + i];
+                    buffer[t++] = right[blockRead + i];
                 }
 
                 blockRead += rem;

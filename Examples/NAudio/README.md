@@ -12,9 +12,10 @@ class Program
 {
     static void Main()
     {
+        var player = new MidiSampleProvider("TimGM6mb.sf2");
+
         using (var waveOut = new WaveOut(WaveCallbackInfo.FunctionCallback()))
         {
-            var player = new MidiSampleProvider("TimGM6mb.sf2");
             waveOut.Init(player);
             waveOut.Play();
 
