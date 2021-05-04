@@ -345,11 +345,27 @@ namespace MeltySynth
         }
 
         /// <summary>
+        /// Reset all the controllers.
+        /// </summary>
+        public void ResetAllControllers()
+        {
+            foreach (var channel in channels)
+            {
+                channel.ResetAllControllers();
+            }
+        }
+
+        /// <summary>
         /// Reset all the controllers of the specified channel.
         /// </summary>
         /// <param name="channel">The channel to reset the controllers.</param>
         public void ResetAllControllers(int channel)
         {
+            if (!(0 <= channel && channel < channels.Length))
+            {
+                return;
+            }
+
             channels[channel].ResetAllControllers();
         }
 
