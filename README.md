@@ -32,6 +32,7 @@ synthesizer.Render(left, right);
 
 * No dependencies other than .NET Core 3.1.
 * No memory allocation in the rendering process.
+* No unsafe code.
 
 
 ## Installation
