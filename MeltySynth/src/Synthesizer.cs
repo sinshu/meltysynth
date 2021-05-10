@@ -406,6 +406,11 @@ namespace MeltySynth
             {
                 channel.Reset();
             }
+
+            if (enableReverbAndChorus)
+            {
+                reverb.Mute();
+            }
         }
 
         /// <summary>
