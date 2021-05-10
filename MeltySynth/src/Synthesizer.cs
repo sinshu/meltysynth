@@ -15,6 +15,7 @@ namespace MeltySynth
         private readonly int sampleRate;
         private readonly int blockSize;
         private readonly int maximumPolyphony;
+        private readonly bool enableReverbAndChorus;
 
         private readonly int minimumVoiceDuration;
 
@@ -32,6 +33,12 @@ namespace MeltySynth
         private long processedSampleCount;
 
         private float masterVolume;
+
+        private Reverb reverb;
+        private float[] reverbInputLeft;
+        private float[] reverbInputRight;
+        private float[] reverbOutputLeft;
+        private float[] reverbOutputRight;
 
         /// <summary>
         /// Initializes a new instance of the synthesizer.
@@ -81,6 +88,7 @@ namespace MeltySynth
             this.sampleRate = settings.SampleRate;
             this.blockSize = settings.BlockSize;
             this.maximumPolyphony = settings.MaximumPolyphony;
+            this.enableReverbAndChorus = settings.EnableReverbAndChorus;
 
             minimumVoiceDuration = sampleRate / 500;
 
@@ -107,6 +115,15 @@ namespace MeltySynth
             processedSampleCount = 0;
 
             masterVolume = 0.5F;
+
+            if (enableReverbAndChorus)
+            {
+                reverb = new Reverb(sampleRate, blockSize);
+                reverbInputLeft = new float[blockSize];
+                reverbInputRight = new float[blockSize];
+                reverbOutputLeft = new float[blockSize];
+                reverbOutputRight = new float[blockSize];
+            }
         }
 
         internal Synthesizer(int sampleRate)
@@ -114,6 +131,7 @@ namespace MeltySynth
             this.sampleRate = sampleRate;
             this.blockSize = SynthesizerSettings.DefaultBlockSize;
             this.maximumPolyphony = SynthesizerSettings.DefaultMaximumPolyphony;
+            this.enableReverbAndChorus = SynthesizerSettings.DefaultEnableReverbAndChorus;
         }
 
         /// <summary>
@@ -191,6 +209,14 @@ namespace MeltySynth
 
                         case 0x40: // Hold Pedal
                             channelInfo.SetHoldPedal(data2);
+                            break;
+
+                        case 0x5B: // Reverb Send
+                            channelInfo.SetReverbSend(data2);
+                            break;
+
+                        case 0x5D: // Chorus Send
+                            channelInfo.SetChorusSend(data2);
                             break;
 
                         case 0x65: // RPN Coarse
@@ -440,6 +466,33 @@ namespace MeltySynth
                 {
                     ArrayMath.MultiplyAdd(gainRight, source, blockRight);
                 }
+            }
+
+            if (enableReverbAndChorus)
+            {
+                Array.Clear(reverbInputLeft, 0, reverbInputLeft.Length);
+                Array.Clear(reverbInputRight, 0, reverbInputRight.Length);
+
+                foreach (var voice in voices)
+                {
+                    var source = voice.Block;
+
+                    var gainLeft = voice.MixGainLeft * voice.ReverbSend;
+                    if (gainLeft > SoundFontMath.NonAudible)
+                    {
+                        ArrayMath.MultiplyAdd(gainLeft, source, reverbInputLeft);
+                    }
+
+                    var gainRight = voice.MixGainRight * voice.ReverbSend;
+                    if (gainRight > SoundFontMath.NonAudible)
+                    {
+                        ArrayMath.MultiplyAdd(gainRight, source, reverbInputRight);
+                    }
+                }
+
+                reverb.Process(reverbInputLeft, reverbInputRight, reverbOutputLeft, reverbOutputRight);
+                ArrayMath.MultiplyAdd(masterVolume, reverbOutputLeft, blockLeft);
+                ArrayMath.MultiplyAdd(masterVolume, reverbOutputRight, blockRight);
             }
 
             processedSampleCount += blockSize;

@@ -19,6 +19,9 @@ namespace MeltySynth
         private short expression;
         private bool holdPedal;
 
+        private byte reverbSend;
+        private byte chorusSend;
+
         private short rpn;
         private short pitchBendRange;
         private short coarseTune;
@@ -48,6 +51,9 @@ namespace MeltySynth
             expression = 127 << 7;
             holdPedal = false;
 
+            reverbSend = 40;
+            chorusSend = 0;
+
             rpn = -1;
             pitchBendRange = 2 << 7;
             coarseTune = 0;
@@ -59,7 +65,11 @@ namespace MeltySynth
         public void ResetAllControllers()
         {
             modulation = 0;
+            expression = 127 << 7;
             holdPedal = false;
+
+            rpn = -1;
+
             pitchBend = 0F;
         }
 
@@ -123,6 +133,16 @@ namespace MeltySynth
             holdPedal = value >= 64;
         }
 
+        public void SetReverbSend(int value)
+        {
+            reverbSend = (byte)value;
+        }
+
+        public void SetChorusSend(int value)
+        {
+            chorusSend = (byte)value;
+        }
+
         public void SetRpnCoarse(int value)
         {
             rpn = (short)((rpn & 0x7F) | (value << 7));
@@ -180,6 +200,9 @@ namespace MeltySynth
         public float Pan => (100F / 16383F) * pan - 50F;
         public float Expression => (1F / 16383F) * expression;
         public bool HoldPedal => holdPedal;
+
+        public float ReverbSend => (1F / 127F) * reverbSend;
+        public float ChorusSend => (1F / 127F) * chorusSend;
 
         public float PitchBendRange => (pitchBendRange >> 7) + 0.01F * (pitchBendRange & 0x7F);
         public float Tune => coarseTune + (1F / 8192F) * (fineTune - 8192);
