@@ -35,8 +35,7 @@ namespace MeltySynth
         private float masterVolume;
 
         private Reverb reverb;
-        private float[] reverbInputLeft;
-        private float[] reverbInputRight;
+        private float[] reverbInput;
         private float[] reverbOutputLeft;
         private float[] reverbOutputRight;
 
@@ -118,9 +117,8 @@ namespace MeltySynth
 
             if (enableReverbAndChorus)
             {
-                reverb = new Reverb(sampleRate, blockSize);
-                reverbInputLeft = new float[blockSize];
-                reverbInputRight = new float[blockSize];
+                reverb = new Reverb(sampleRate);
+                reverbInput = new float[blockSize];
                 reverbOutputLeft = new float[blockSize];
                 reverbOutputRight = new float[blockSize];
             }
@@ -458,44 +456,34 @@ namespace MeltySynth
 
             foreach (var voice in voices)
             {
-                var source = voice.Block;
-
                 var gainLeft = masterVolume * voice.MixGainLeft;
                 if (gainLeft > SoundFontMath.NonAudible)
                 {
-                    ArrayMath.MultiplyAdd(gainLeft, source, blockLeft);
+                    ArrayMath.MultiplyAdd(gainLeft, voice.Block, blockLeft);
                 }
 
                 var gainRight = masterVolume * voice.MixGainRight;
                 if (gainRight > SoundFontMath.NonAudible)
                 {
-                    ArrayMath.MultiplyAdd(gainRight, source, blockRight);
+                    ArrayMath.MultiplyAdd(gainRight, voice.Block, blockRight);
                 }
             }
 
             if (enableReverbAndChorus)
             {
-                Array.Clear(reverbInputLeft, 0, reverbInputLeft.Length);
-                Array.Clear(reverbInputRight, 0, reverbInputRight.Length);
+                Array.Clear(reverbInput, 0, reverbInput.Length);
 
                 foreach (var voice in voices)
                 {
-                    var source = voice.Block;
-
-                    var gainLeft = voice.MixGainLeft * voice.ReverbSend;
-                    if (gainLeft > SoundFontMath.NonAudible)
+                    var gain = reverb.InputGain * voice.ReverbSend * (voice.MixGainLeft + voice.MixGainRight);
+                    if (gain > SoundFontMath.NonAudible)
                     {
-                        ArrayMath.MultiplyAdd(gainLeft, source, reverbInputLeft);
-                    }
-
-                    var gainRight = voice.MixGainRight * voice.ReverbSend;
-                    if (gainRight > SoundFontMath.NonAudible)
-                    {
-                        ArrayMath.MultiplyAdd(gainRight, source, reverbInputRight);
+                        ArrayMath.MultiplyAdd(gain, voice.Block, reverbInput);
                     }
                 }
 
-                reverb.Process(reverbInputLeft, reverbInputRight, reverbOutputLeft, reverbOutputRight);
+                reverb.Process(reverbInput, reverbOutputLeft, reverbOutputRight);
+
                 ArrayMath.MultiplyAdd(masterVolume, reverbOutputLeft, blockLeft);
                 ArrayMath.MultiplyAdd(masterVolume, reverbOutputRight, blockRight);
             }

@@ -44,8 +44,6 @@ namespace MeltySynth
         private const int apfTuningL4 = 225;
         private const int apfTuningR4 = 225 + stereoSpread;
 
-        private readonly float[] inputBuffer;
-
         private readonly CombFilter[] cfsL;
         private readonly CombFilter[] cfsR;
         private readonly AllPassFilter[] apfsL;
@@ -57,10 +55,8 @@ namespace MeltySynth
         private float wet, wet1, wet2;
         private float width;
 
-        public Reverb(int sampleRate, int blockSize)
+        public Reverb(int sampleRate)
         {
-            inputBuffer = new float[blockSize];
-
             cfsL = new CombFilter[]
             {
                 new CombFilter(ScaleTuning(sampleRate, cfTuningL1)),
@@ -122,19 +118,14 @@ namespace MeltySynth
             return (int)Math.Round((double)sampleRate / 44100 * tuning);
         }
 
-        public void Process(float[] inputLeft, float[] inputRight, float[] outputLeft, float[] outputRight)
+        public void Process(float[] input, float[] outputLeft, float[] outputRight)
         {
-            for (var t = 0; t < inputBuffer.Length; t++)
-            {
-                inputBuffer[t] = (inputLeft[t] + inputRight[t]) * gain;
-            }
-
             Array.Clear(outputLeft, 0, outputLeft.Length);
             Array.Clear(outputRight, 0, outputRight.Length);
 
             foreach (var cf in cfsL)
             {
-                cf.Process(inputBuffer, outputLeft);
+                cf.Process(input, outputLeft);
             }
 
             foreach (var apf in apfsL)
@@ -144,7 +135,7 @@ namespace MeltySynth
 
             foreach (var cf in cfsR)
             {
-                cf.Process(inputBuffer, outputRight);
+                cf.Process(input, outputRight);
             }
 
             foreach (var apf in apfsR)
@@ -155,7 +146,7 @@ namespace MeltySynth
             // With the default settings, we can skip this part.
             if (Math.Abs(wet1 - 1.0F) > 1.0E-3 || wet2 > 1.0E-3)
             {
-                for (var t = 0; t < inputLeft.Length; t++)
+                for (var t = 0; t < input.Length; t++)
                 {
                     var left = outputLeft[t];
                     var right = outputRight[t];
@@ -209,6 +200,8 @@ namespace MeltySynth
                 cf.Damp = damp1;
             }
         }
+
+        public float InputGain => gain;
 
         public float RoomSize
         {
