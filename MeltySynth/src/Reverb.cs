@@ -144,7 +144,7 @@ namespace MeltySynth
             }
 
             // With the default settings, we can skip this part.
-            if (Math.Abs(wet1 - 1.0F) > 1.0E-3 || wet2 > 1.0E-3)
+            if (1F - wet1 > 1.0E-3 || wet2 > 1.0E-3)
             {
                 for (var t = 0; t < input.Length; t++)
                 {
