@@ -2,7 +2,6 @@
 // implementation by Jezar at Dreampoint.
 
 using System;
-using System.Runtime.CompilerServices;
 
 namespace MeltySynth
 {
@@ -311,14 +310,19 @@ namespace MeltySynth
 
                         var input = inputBlock[blockPos];
 
+                        // The following ifs are to avoid performance problem due to denormalized number.
+                        // The original implementation uses unsafe cast to detect denormalized number.
+                        // I tried to reproduce the original implementation using Unsafe.As,
+                        // but the simple Math.Abs version was faster according to some benchmarks.
+
                         var output = buffer[bufferPos];
-                        if ((Unsafe.As<float, int>(ref output) & 0x7F800000) < 0x32000000)
+                        if (MathF.Abs(output) < 1.0E-6F)
                         {
                             output = 0F;
                         }
 
                         filterStore = (output * damp2) + (filterStore * damp1);
-                        if ((Unsafe.As<float, int>(ref filterStore) & 0x7F800000) < 0x32000000)
+                        if (MathF.Abs(filterStore) < 1.0E-6F)
                         {
                             filterStore = 0F;
                         }
@@ -396,7 +400,7 @@ namespace MeltySynth
                         var input = block[blockPos];
 
                         var bufout = buffer[bufferPos];
-                        if ((Unsafe.As<float, int>(ref bufout) & 0x7F800000) < 0x32000000)
+                        if (MathF.Abs(bufout) < 1.0E-6F)
                         {
                             bufout = 0F;
                         }
