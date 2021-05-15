@@ -80,8 +80,8 @@ https://www.youtube.com/watch?v=gT81QPjWSd8
     - [x] Pitch bend
     - [x] Tuning
 * __Effects__
-    - [ ] Chorus
-    - [ ] Reverb
+    - [x] Chorus
+    - [x] Reverb
 * __Other things__
     - [x] SMF support
     - [x] Performace optimization
@@ -100,3 +100,7 @@ http://www.synthfont.com/SFSPEC21.PDF
 * __Polyphone Soundfont Editor__  
 Some of the test cases were generated with Polyphone.  
 https://www.polyphone-soundfonts.com/
+
+* __Freeverb by Jezar at Dreampoint__  
+The implementation of the reverb effect is based on Freeverb.  
+https://music.columbia.edu/pipermail/music-dsp/2001-October/045433.html
