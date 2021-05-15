@@ -20,6 +20,9 @@ namespace MeltySynth
         private float mixGainLeft;
         private float mixGainRight;
 
+        private float reverbSend;
+        private float chorusSend;
+
         private int exclusiveClass;
         private int channel;
         private int key;
@@ -42,6 +45,8 @@ namespace MeltySynth
         private bool dynamicVolume;
 
         private float instrumentPan;
+        private float instrumentReverb;
+        private float instrumentChorus;
 
         private VoiceState voiceState;
         private int voiceLength;
@@ -98,6 +103,8 @@ namespace MeltySynth
             dynamicVolume = modLfoToVolume > 0.05F;
 
             instrumentPan = Math.Clamp(region.Pan, -50F, 50F);
+            instrumentReverb = 0.01F * region.ReverbEffectsSend;
+            instrumentChorus = 0.01F * region.ChorusEffectsSend;
 
             volEnv.Start(region, key, velocity);
             modEnv.Start(region, key, velocity);
@@ -161,7 +168,10 @@ namespace MeltySynth
             }
             filter.Process(block);
 
-            var channelGain = channelInfo.Volume * channelInfo.Expression;
+            // According to the GM spec, the following value should be squared.
+            var ve = channelInfo.Volume * channelInfo.Expression;
+            var channelGain = ve * ve;
+
             var mixGain = noteGain * channelGain * volEnv.Value;
             if (dynamicVolume)
             {
@@ -185,6 +195,9 @@ namespace MeltySynth
                 mixGainLeft = mixGain * MathF.Cos(angle);
                 mixGainRight = mixGain * MathF.Sin(angle);
             }
+
+            reverbSend = Math.Clamp(channelInfo.ReverbSend + instrumentReverb, 0F, 1F);
+            chorusSend = Math.Clamp(channelInfo.ChorusSend + instrumentChorus, 0F, 1F);
 
             voiceLength += synthesizer.BlockSize;
 
@@ -226,6 +239,9 @@ namespace MeltySynth
         public float[] Block => block;
         public float MixGainLeft => mixGainLeft;
         public float MixGainRight => mixGainRight;
+
+        public float ReverbSend => reverbSend;
+        public float ChorusSend => chorusSend;
 
         public int ExclusiveClass => exclusiveClass;
         public int Channel => channel;

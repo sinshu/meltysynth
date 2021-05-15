@@ -15,6 +15,7 @@ namespace MeltySynth
         private readonly int sampleRate;
         private readonly int blockSize;
         private readonly int maximumPolyphony;
+        private readonly bool enableReverbAndChorus;
 
         private readonly int minimumVoiceDuration;
 
@@ -32,6 +33,17 @@ namespace MeltySynth
         private long processedSampleCount;
 
         private float masterVolume;
+
+        private Reverb reverb;
+        private float[] reverbInput;
+        private float[] reverbOutputLeft;
+        private float[] reverbOutputRight;
+
+        private Chorus chorus;
+        private float[] chorusInputLeft;
+        private float[] chorusInputRight;
+        private float[] chorusOutputLeft;
+        private float[] chorusOutputRight;
 
         /// <summary>
         /// Initializes a new instance of the synthesizer.
@@ -81,6 +93,7 @@ namespace MeltySynth
             this.sampleRate = settings.SampleRate;
             this.blockSize = settings.BlockSize;
             this.maximumPolyphony = settings.MaximumPolyphony;
+            this.enableReverbAndChorus = settings.EnableReverbAndChorus;
 
             minimumVoiceDuration = sampleRate / 500;
 
@@ -107,6 +120,20 @@ namespace MeltySynth
             processedSampleCount = 0;
 
             masterVolume = 0.5F;
+
+            if (enableReverbAndChorus)
+            {
+                reverb = new Reverb(sampleRate);
+                reverbInput = new float[blockSize];
+                reverbOutputLeft = new float[blockSize];
+                reverbOutputRight = new float[blockSize];
+
+                chorus = new Chorus(sampleRate, 0.002, 0.0019, 0.4);
+                chorusInputLeft = new float[blockSize];
+                chorusInputRight = new float[blockSize];
+                chorusOutputLeft = new float[blockSize];
+                chorusOutputRight = new float[blockSize];
+            }
         }
 
         internal Synthesizer(int sampleRate)
@@ -114,6 +141,7 @@ namespace MeltySynth
             this.sampleRate = sampleRate;
             this.blockSize = SynthesizerSettings.DefaultBlockSize;
             this.maximumPolyphony = SynthesizerSettings.DefaultMaximumPolyphony;
+            this.enableReverbAndChorus = SynthesizerSettings.DefaultEnableReverbAndChorus;
         }
 
         /// <summary>
@@ -191,6 +219,14 @@ namespace MeltySynth
 
                         case 0x40: // Hold Pedal
                             channelInfo.SetHoldPedal(data2);
+                            break;
+
+                        case 0x5B: // Reverb Send
+                            channelInfo.SetReverbSend(data2);
+                            break;
+
+                        case 0x5D: // Chorus Send
+                            channelInfo.SetChorusSend(data2);
                             break;
 
                         case 0x65: // RPN Coarse
@@ -380,6 +416,12 @@ namespace MeltySynth
             {
                 channel.Reset();
             }
+
+            if (enableReverbAndChorus)
+            {
+                reverb.Mute();
+                chorus.Mute();
+            }
         }
 
         /// <summary>
@@ -424,22 +466,53 @@ namespace MeltySynth
 
             Array.Clear(blockLeft, 0, blockLeft.Length);
             Array.Clear(blockRight, 0, blockRight.Length);
-
             foreach (var voice in voices)
             {
-                var source = voice.Block;
-
                 var gainLeft = masterVolume * voice.MixGainLeft;
                 if (gainLeft > SoundFontMath.NonAudible)
                 {
-                    ArrayMath.MultiplyAdd(gainLeft, source, blockLeft);
+                    ArrayMath.MultiplyAdd(gainLeft, voice.Block, blockLeft);
                 }
-
                 var gainRight = masterVolume * voice.MixGainRight;
                 if (gainRight > SoundFontMath.NonAudible)
                 {
-                    ArrayMath.MultiplyAdd(gainRight, source, blockRight);
+                    ArrayMath.MultiplyAdd(gainRight, voice.Block, blockRight);
                 }
+            }
+
+            if (enableReverbAndChorus)
+            {
+                Array.Clear(chorusInputLeft, 0, chorusInputLeft.Length);
+                Array.Clear(chorusInputRight, 0, chorusInputRight.Length);
+                foreach (var voice in voices)
+                {
+                    var gainLeft = voice.ChorusSend * voice.MixGainLeft;
+                    if (gainLeft > SoundFontMath.NonAudible)
+                    {
+                        ArrayMath.MultiplyAdd(gainLeft, voice.Block, chorusInputLeft);
+                    }
+                    var gainRight = voice.ChorusSend * voice.MixGainRight;
+                    if (gainRight > SoundFontMath.NonAudible)
+                    {
+                        ArrayMath.MultiplyAdd(gainRight, voice.Block, chorusInputRight);
+                    }
+                }
+                chorus.Process(chorusInputLeft, chorusInputRight, chorusOutputLeft, chorusOutputRight);
+                ArrayMath.MultiplyAdd(masterVolume, chorusOutputLeft, blockLeft);
+                ArrayMath.MultiplyAdd(masterVolume, chorusOutputRight, blockRight);
+
+                Array.Clear(reverbInput, 0, reverbInput.Length);
+                foreach (var voice in voices)
+                {
+                    var gain = reverb.InputGain * voice.ReverbSend * (voice.MixGainLeft + voice.MixGainRight);
+                    if (gain > SoundFontMath.NonAudible)
+                    {
+                        ArrayMath.MultiplyAdd(gain, voice.Block, reverbInput);
+                    }
+                }
+                reverb.Process(reverbInput, reverbOutputLeft, reverbOutputRight);
+                ArrayMath.MultiplyAdd(masterVolume, reverbOutputLeft, blockLeft);
+                ArrayMath.MultiplyAdd(masterVolume, reverbOutputRight, blockRight);
             }
 
             processedSampleCount += blockSize;

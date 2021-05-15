@@ -6,10 +6,12 @@ namespace MeltySynth
     {
         internal static int DefaultBlockSize = 64;
         internal static int DefaultMaximumPolyphony = 64;
+        internal static bool DefaultEnableReverbAndChorus = true;
 
         private int sampleRate;
         private int blockSize;
         private int maximumPolyphony;
+        private bool enableReverbAndChorus;
 
         /// <summary>
         /// Initializes a new instance of synthesizer settings.
@@ -22,6 +24,7 @@ namespace MeltySynth
             this.sampleRate = sampleRate;
             this.blockSize = DefaultBlockSize;
             this.maximumPolyphony = DefaultMaximumPolyphony;
+            this.enableReverbAndChorus = DefaultEnableReverbAndChorus;
         }
 
         private static void CheckSampleRate(int value)
@@ -63,7 +66,7 @@ namespace MeltySynth
         }
 
         /// <summary>
-        /// Gets or sets the block size of waveform rendering..
+        /// Gets or sets the block size of waveform rendering.
         /// </summary>
         public int BlockSize
         {
@@ -88,6 +91,15 @@ namespace MeltySynth
                 CheckMaximumPolyphony(value);
                 maximumPolyphony = value;
             }
+        }
+
+        /// <summary>
+        /// Gets or sets whether reverb and chorus are enabled.
+        /// </summary>
+        public bool EnableReverbAndChorus
+        {
+            get => enableReverbAndChorus;
+            set => enableReverbAndChorus = value;
         }
     }
 }
