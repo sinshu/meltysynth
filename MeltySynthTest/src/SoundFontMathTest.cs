@@ -72,5 +72,20 @@ namespace MeltySynthTest
             var actual = SoundFontMath.KeyNumberToMultiplyingFactor(cents, key);
             Assert.AreEqual(expected, actual, delta);
         }
+
+        [TestCase(1.0, Math.E, 1.0E-5)]
+        [TestCase(2.0, Math.E * Math.E, 1.0E-5)]
+        [TestCase(3.0, Math.E * Math.E * Math.E, 1.0E-5)]
+        [TestCase(0.0, 1.0, 1.0E-5)]
+        [TestCase(-1.0, 1.0 / Math.E, 1.0E-5)]
+        [TestCase(-2.0, 1.0 / (Math.E * Math.E), 1.0E-5)]
+        [TestCase(-3.0, 1.0 / (Math.E * Math.E * Math.E), 1.0E-5)]
+        [TestCase(-6.9, 0.001007, 1.0E-5)]
+        [TestCase(-7.0, 0.0, 1.0E-9)]
+        public void ExpCutoffTest(double x, double expected, double delta)
+        {
+            var actual = SoundFontMath.ExpCutoff(x);
+            Assert.AreEqual(expected, actual, delta);
+        }
     }
 }
