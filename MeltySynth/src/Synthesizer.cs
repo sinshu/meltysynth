@@ -128,7 +128,7 @@ namespace MeltySynth
                 reverbOutputLeft = new float[blockSize];
                 reverbOutputRight = new float[blockSize];
 
-                chorus = new Chorus(sampleRate, 0.0127, 0.0063, 0.4);
+                chorus = new Chorus(sampleRate, 0.002, 0.0019, 0.4);
                 chorusInputLeft = new float[blockSize];
                 chorusInputRight = new float[blockSize];
                 chorusOutputLeft = new float[blockSize];

@@ -6,7 +6,7 @@ namespace MeltySynth
     {
         internal static int DefaultBlockSize = 64;
         internal static int DefaultMaximumPolyphony = 64;
-        internal static bool DefaultEnableReverbAndChorus = false;
+        internal static bool DefaultEnableReverbAndChorus = true;
 
         private int sampleRate;
         private int blockSize;

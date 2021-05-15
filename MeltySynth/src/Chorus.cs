@@ -41,7 +41,7 @@ namespace MeltySynth
         {
             for (var t = 0; t < outputLeft.Length; t++)
             {
-                var position = bufferIndexL - delayTableL[delayTableIndexL];
+                var position = bufferIndexL - (double)delayTableL[delayTableIndexL];
                 if (position < 0F)
                 {
                     position += bufferL.Length;
@@ -55,10 +55,10 @@ namespace MeltySynth
                     index2 = 0;
                 }
 
-                var x1 = bufferL[index1];
-                var x2 = bufferL[index2];
+                var x1 = (double)bufferL[index1];
+                var x2 = (double)bufferL[index2];
                 var a = position - index1;
-                outputLeft[t] = x1 + a * (x2 - x1);
+                outputLeft[t] = (float)(x1 + a * (x2 - x1));
 
                 bufferL[bufferIndexL] = inputLeft[t];
                 bufferIndexL++;
@@ -76,7 +76,7 @@ namespace MeltySynth
 
             for (var t = 0; t < outputRight.Length; t++)
             {
-                var position = bufferIndexR - delayTableR[delayTableIndexR];
+                var position = bufferIndexR - (double)delayTableR[delayTableIndexR];
                 if (position < 0F)
                 {
                     position += bufferR.Length;
@@ -90,10 +90,10 @@ namespace MeltySynth
                     index2 = 0;
                 }
 
-                var x1 = bufferR[index1];
-                var x2 = bufferR[index2];
+                var x1 = (double)bufferR[index1];
+                var x2 = (double)bufferR[index2];
                 var a = position - index1;
-                outputRight[t] = x1 + a * (x2 - x1);
+                outputRight[t] = (float)(x1 + a * (x2 - x1));
 
                 bufferR[bufferIndexR] = inputRight[t];
                 bufferIndexR++;
