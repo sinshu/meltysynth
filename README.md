@@ -1,6 +1,7 @@
 # MeltySynth
 
 MeltySynth is a SoundFont synthesizer written in C#.
+The purpose of this projects is to provide a MIDI music playback functionality for .NET applications, without suffering from complicated dependencies.
 
 The entire code is heavily inspired by the following projects:
 
