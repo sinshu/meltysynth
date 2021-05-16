@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MeltySynth" Version="1.0.3" />
+    <PackageReference Include="MeltySynth" Version="1.1.0" />
     <PackageReference Include="SFML.Net" Version="2.5.0" />
   </ItemGroup>
 
