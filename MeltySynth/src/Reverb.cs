@@ -5,7 +5,7 @@ using System;
 
 namespace MeltySynth
 {
-    public sealed class Reverb
+    internal sealed class Reverb
     {
         private const float fixedGain = 0.015F;
         private const float scaleWet = 3F;

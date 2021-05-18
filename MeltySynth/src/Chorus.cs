@@ -2,7 +2,7 @@
 
 namespace MeltySynth
 {
-    public sealed class Chorus
+    internal sealed class Chorus
     {
         private readonly float[] bufferL;
         private readonly float[] bufferR;
