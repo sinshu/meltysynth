@@ -16,7 +16,7 @@ namespace MeltySynth
         private int delayTableIndexL;
         private int delayTableIndexR;
 
-        public Chorus(int sampleRate, double delay, double depth, double frequency)
+        internal Chorus(int sampleRate, double delay, double depth, double frequency)
         {
             bufferL = new float[(int)(sampleRate * (delay + depth)) + 2];
             bufferR = new float[(int)(sampleRate * (delay + depth)) + 2];

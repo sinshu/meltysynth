@@ -54,7 +54,7 @@ namespace MeltySynth
         private float wet, wet1, wet2;
         private float width;
 
-        public Reverb(int sampleRate)
+        internal Reverb(int sampleRate)
         {
             cfsL = new CombFilter[]
             {
