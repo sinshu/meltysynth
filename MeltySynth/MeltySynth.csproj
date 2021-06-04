@@ -12,8 +12,8 @@
     <RepositoryUrl>https://github.com/sinshu/meltysynth/</RepositoryUrl>
     <PackageTags>audio soundfont synthesizer midi</PackageTags>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>Implemented reverb and chorus.</PackageReleaseNotes>
-    <Version>1.1.0</Version>
+    <PackageReleaseNotes>Revised accessibility of members.</PackageReleaseNotes>
+    <Version>1.1.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
