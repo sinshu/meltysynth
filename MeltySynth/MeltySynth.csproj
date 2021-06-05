@@ -12,8 +12,8 @@
     <RepositoryUrl>https://github.com/sinshu/meltysynth/</RepositoryUrl>
     <PackageTags>audio soundfont synthesizer midi</PackageTags>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>Revised accessibility of members.</PackageReleaseNotes>
-    <Version>1.1.1</Version>
+    <PackageReleaseNotes>Now the package contains the XML documentation.</PackageReleaseNotes>
+    <Version>1.1.2</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
