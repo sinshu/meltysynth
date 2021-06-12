@@ -58,6 +58,10 @@ namespace MeltySynth
         private float instrumentReverb;
         private float instrumentChorus;
 
+        // Some instruments require fast cutoff change, which can make click noise.
+        // This is used to smooth the cutoff frequency to reduce noise.
+        private float smoothedCutoff;
+
         private VoiceState voiceState;
         private int voiceLength;
 
@@ -124,6 +128,8 @@ namespace MeltySynth
             filter.ClearBuffer();
             filter.SetLowPassFilter(cutoff, resonance);
 
+            smoothedCutoff = cutoff;
+
             voiceState = VoiceState.Playing;
             voiceLength = 0;
         }
@@ -174,7 +180,9 @@ namespace MeltySynth
             {
                 var cents = modLfoToCutoff * modLfo.Value + modEnvToCutoff * modEnv.Value;
                 var factor = SoundFontMath.CentsToMultiplyingFactor(cents);
-                filter.SetLowPassFilter(factor * cutoff, resonance);
+                var newCutoff = factor * cutoff;
+                smoothedCutoff = 0.8F * smoothedCutoff + 0.2F * newCutoff;
+                filter.SetLowPassFilter(smoothedCutoff, resonance);
             }
             filter.Process(block);
 
