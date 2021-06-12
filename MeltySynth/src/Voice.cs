@@ -181,7 +181,14 @@ namespace MeltySynth
                 var cents = modLfoToCutoff * modLfo.Value + modEnvToCutoff * modEnv.Value;
                 var factor = SoundFontMath.CentsToMultiplyingFactor(cents);
                 var newCutoff = factor * cutoff;
-                smoothedCutoff = 0.8F * smoothedCutoff + 0.2F * newCutoff;
+                if (newCutoff > smoothedCutoff)
+                {
+                    smoothedCutoff = 0.5F * (smoothedCutoff + newCutoff);
+                }
+                else
+                {
+                    smoothedCutoff = 0.8F * smoothedCutoff + 0.2F * newCutoff;
+                }
                 filter.SetLowPassFilter(smoothedCutoff, resonance);
             }
             filter.Process(block);
