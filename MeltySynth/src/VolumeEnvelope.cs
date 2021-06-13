@@ -20,7 +20,9 @@ namespace MeltySynth
 
         private int processedSampleCount;
         private Stage stage;
-        private float value;
+
+        private float previousValue;
+        private float currentValue;
 
         private float priority;
 
@@ -45,7 +47,9 @@ namespace MeltySynth
 
             processedSampleCount = 0;
             stage = Stage.Delay;
-            value = 0;
+
+            previousValue = 0;
+            currentValue = 0;
 
             Process(0);
         }
@@ -54,7 +58,7 @@ namespace MeltySynth
         {
             stage = Stage.Release;
             releaseStartTime = (double)processedSampleCount / synthesizer.SampleRate;
-            releaseLevel = value;
+            releaseLevel = currentValue;
         }
 
         public bool Process()
@@ -65,6 +69,8 @@ namespace MeltySynth
         private bool Process(int sampleCount)
         {
             processedSampleCount += sampleCount;
+
+            previousValue = currentValue;
 
             var currentTime = (double)processedSampleCount / synthesizer.SampleRate;
 
@@ -102,36 +108,36 @@ namespace MeltySynth
             switch (stage)
             {
                 case Stage.Delay:
-                    value = 0;
-                    priority = 4F + value;
+                    currentValue = 0;
+                    priority = 4F + currentValue;
                     return true;
 
                 case Stage.Attack:
-                    value = (float)(attackSlope * (currentTime - attackStartTime));
-                    priority = 3F + value;
+                    currentValue = (float)(attackSlope * (currentTime - attackStartTime));
+                    priority = 3F + currentValue;
                     return true;
 
                 case Stage.Hold:
-                    value = 1;
-                    priority = 2F + value;
+                    currentValue = 1;
+                    priority = 2F + currentValue;
                     return true;
 
                 case Stage.Decay:
-                    value = Math.Max((float)SoundFontMath.ExpCutoff(decaySlope * (currentTime - decayStartTime)), sustainLevel);
-                    priority = 1F + value;
-                    return value > SoundFontMath.NonAudible;
+                    currentValue = Math.Max((float)SoundFontMath.ExpCutoff(decaySlope * (currentTime - decayStartTime)), sustainLevel);
+                    priority = 1F + currentValue;
+                    return previousValue > SoundFontMath.NonAudible;
 
                 case Stage.Release:
-                    value = (float)(releaseLevel * SoundFontMath.ExpCutoff(releaseSlope * (currentTime - releaseStartTime)));
-                    priority = value;
-                    return value > SoundFontMath.NonAudible;
+                    currentValue = (float)(releaseLevel * SoundFontMath.ExpCutoff(releaseSlope * (currentTime - releaseStartTime)));
+                    priority = currentValue;
+                    return previousValue > SoundFontMath.NonAudible;
 
                 default:
                     throw new InvalidOperationException("Invalid envelope stage.");
             }
         }
 
-        public float Value => value;
+        public float Value => currentValue;
         public float Priority => priority;
 
 
