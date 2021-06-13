@@ -17,11 +17,21 @@ namespace MeltySynth
 
         private readonly float[] block;
 
-        private float mixGainLeft;
-        private float mixGainRight;
+        // In the past, a mix gain never changed in a single block,
+        // so instruments with a short release time could make click noise.
+        // To avoid noise, now the mix gain can be a slope in a block
+        // if the gain changes dramatically from the previous block.
+        // The previous gains are saved for this.
 
-        private float reverbSend;
-        private float chorusSend;
+        private float previousMixGainLeft;
+        private float previousMixGainRight;
+        private float currentMixGainLeft;
+        private float currentMixGainRight;
+
+        private float previousReverbSend;
+        private float previousChorusSend;
+        private float currentReverbSend;
+        private float currentChorusSend;
 
         private int exclusiveClass;
         private int channel;
@@ -47,6 +57,10 @@ namespace MeltySynth
         private float instrumentPan;
         private float instrumentReverb;
         private float instrumentChorus;
+
+        // Some instruments require fast cutoff change, which can make click noise.
+        // This is used to smooth the cutoff frequency to reduce noise.
+        private float smoothedCutoff;
 
         private VoiceState voiceState;
         private int voiceLength;
@@ -114,6 +128,8 @@ namespace MeltySynth
             filter.ClearBuffer();
             filter.SetLowPassFilter(cutoff, resonance);
 
+            smoothedCutoff = cutoff;
+
             voiceState = VoiceState.Playing;
             voiceLength = 0;
         }
@@ -164,9 +180,32 @@ namespace MeltySynth
             {
                 var cents = modLfoToCutoff * modLfo.Value + modEnvToCutoff * modEnv.Value;
                 var factor = SoundFontMath.CentsToMultiplyingFactor(cents);
-                filter.SetLowPassFilter(factor * cutoff, resonance);
+                var newCutoff = factor * cutoff;
+
+                // The cutoff change is limited within x0.5 and x2 to reduce click noise.
+                var lowerLimit = 0.5F * smoothedCutoff;
+                var upperLimit = 2F * smoothedCutoff;
+                if (newCutoff < lowerLimit)
+                {
+                    smoothedCutoff = lowerLimit;
+                }
+                else if (newCutoff > upperLimit)
+                {
+                    smoothedCutoff = upperLimit;
+                }
+                else
+                {
+                    smoothedCutoff = newCutoff;
+                }
+
+                filter.SetLowPassFilter(smoothedCutoff, resonance);
             }
             filter.Process(block);
+
+            previousMixGainLeft = currentMixGainLeft;
+            previousMixGainRight = currentMixGainRight;
+            previousReverbSend = currentReverbSend;
+            previousChorusSend = currentChorusSend;
 
             // According to the GM spec, the following value should be squared.
             var ve = channelInfo.Volume * channelInfo.Expression;
@@ -182,22 +221,30 @@ namespace MeltySynth
             var angle = (MathF.PI / 200F) * (channelInfo.Pan + instrumentPan + 50F);
             if (angle <= 0F)
             {
-                mixGainLeft = mixGain;
-                mixGainRight = 0F;
+                currentMixGainLeft = mixGain;
+                currentMixGainRight = 0F;
             }
             else if (angle >= SoundFontMath.HalfPi)
             {
-                mixGainLeft = 0F;
-                mixGainRight = mixGain;
+                currentMixGainLeft = 0F;
+                currentMixGainRight = mixGain;
             }
             else
             {
-                mixGainLeft = mixGain * MathF.Cos(angle);
-                mixGainRight = mixGain * MathF.Sin(angle);
+                currentMixGainLeft = mixGain * MathF.Cos(angle);
+                currentMixGainRight = mixGain * MathF.Sin(angle);
             }
 
-            reverbSend = Math.Clamp(channelInfo.ReverbSend + instrumentReverb, 0F, 1F);
-            chorusSend = Math.Clamp(channelInfo.ChorusSend + instrumentChorus, 0F, 1F);
+            currentReverbSend = Math.Clamp(channelInfo.ReverbSend + instrumentReverb, 0F, 1F);
+            currentChorusSend = Math.Clamp(channelInfo.ChorusSend + instrumentChorus, 0F, 1F);
+
+            if (voiceLength == 0)
+            {
+                previousMixGainLeft = currentMixGainLeft;
+                previousMixGainRight = currentMixGainRight;
+                previousReverbSend = currentReverbSend;
+                previousChorusSend = currentChorusSend;
+            }
 
             voiceLength += synthesizer.BlockSize;
 
@@ -237,11 +284,16 @@ namespace MeltySynth
         }
 
         public float[] Block => block;
-        public float MixGainLeft => mixGainLeft;
-        public float MixGainRight => mixGainRight;
 
-        public float ReverbSend => reverbSend;
-        public float ChorusSend => chorusSend;
+        public float PreviousMixGainLeft => previousMixGainLeft;
+        public float PreviousMixGainRight => previousMixGainRight;
+        public float CurrentMixGainLeft => currentMixGainLeft;
+        public float CurrentMixGainRight => currentMixGainRight;
+
+        public float PreviousReverbSend => previousReverbSend;
+        public float PreviousChorusSend => previousChorusSend;
+        public float CurrentReverbSend => currentReverbSend;
+        public float CurrentChorusSend => currentChorusSend;
 
         public int ExclusiveClass => exclusiveClass;
         public int Channel => channel;

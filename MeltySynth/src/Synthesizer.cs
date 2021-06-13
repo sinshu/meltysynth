@@ -34,6 +34,8 @@ namespace MeltySynth
 
         private float masterVolume;
 
+        private float inverseBlockSize;
+
         private Reverb reverb;
         private float[] reverbInput;
         private float[] reverbOutputLeft;
@@ -120,6 +122,8 @@ namespace MeltySynth
             processedSampleCount = 0;
 
             masterVolume = 0.5F;
+
+            inverseBlockSize = 1F / blockSize;
 
             if (enableReverbAndChorus)
             {
@@ -468,16 +472,12 @@ namespace MeltySynth
             Array.Clear(blockRight, 0, blockRight.Length);
             foreach (var voice in voices)
             {
-                var gainLeft = masterVolume * voice.MixGainLeft;
-                if (gainLeft > SoundFontMath.NonAudible)
-                {
-                    ArrayMath.MultiplyAdd(gainLeft, voice.Block, blockLeft);
-                }
-                var gainRight = masterVolume * voice.MixGainRight;
-                if (gainRight > SoundFontMath.NonAudible)
-                {
-                    ArrayMath.MultiplyAdd(gainRight, voice.Block, blockRight);
-                }
+                var previousGainLeft = masterVolume * voice.PreviousMixGainLeft;
+                var currentGainLeft = masterVolume * voice.CurrentMixGainLeft;
+                WriteBlock(previousGainLeft, currentGainLeft, voice.Block, blockLeft);
+                var previousGainRight = masterVolume * voice.PreviousMixGainRight;
+                var currentGainRight = masterVolume * voice.CurrentMixGainRight;
+                WriteBlock(previousGainRight, currentGainRight, voice.Block, blockRight);
             }
 
             if (enableReverbAndChorus)
@@ -486,16 +486,12 @@ namespace MeltySynth
                 Array.Clear(chorusInputRight, 0, chorusInputRight.Length);
                 foreach (var voice in voices)
                 {
-                    var gainLeft = voice.ChorusSend * voice.MixGainLeft;
-                    if (gainLeft > SoundFontMath.NonAudible)
-                    {
-                        ArrayMath.MultiplyAdd(gainLeft, voice.Block, chorusInputLeft);
-                    }
-                    var gainRight = voice.ChorusSend * voice.MixGainRight;
-                    if (gainRight > SoundFontMath.NonAudible)
-                    {
-                        ArrayMath.MultiplyAdd(gainRight, voice.Block, chorusInputRight);
-                    }
+                    var previousGainLeft = voice.PreviousChorusSend * voice.PreviousMixGainLeft;
+                    var currentGainLeft = voice.CurrentChorusSend * voice.CurrentMixGainLeft;
+                    WriteBlock(previousGainLeft, currentGainLeft, voice.Block, chorusInputLeft);
+                    var previousGainRight = voice.PreviousChorusSend * voice.PreviousMixGainRight;
+                    var currentGainRight = voice.CurrentChorusSend * voice.CurrentMixGainRight;
+                    WriteBlock(previousGainRight, currentGainRight, voice.Block, chorusInputRight);
                 }
                 chorus.Process(chorusInputLeft, chorusInputRight, chorusOutputLeft, chorusOutputRight);
                 ArrayMath.MultiplyAdd(masterVolume, chorusOutputLeft, blockLeft);
@@ -504,11 +500,9 @@ namespace MeltySynth
                 Array.Clear(reverbInput, 0, reverbInput.Length);
                 foreach (var voice in voices)
                 {
-                    var gain = reverb.InputGain * voice.ReverbSend * (voice.MixGainLeft + voice.MixGainRight);
-                    if (gain > SoundFontMath.NonAudible)
-                    {
-                        ArrayMath.MultiplyAdd(gain, voice.Block, reverbInput);
-                    }
+                    var previousGain = reverb.InputGain * voice.PreviousReverbSend * (voice.PreviousMixGainLeft + voice.PreviousMixGainRight);
+                    var currentGain = reverb.InputGain * voice.CurrentReverbSend * (voice.CurrentMixGainLeft + voice.CurrentMixGainRight);
+                    WriteBlock(previousGain, currentGain, voice.Block, reverbInput);
                 }
                 reverb.Process(reverbInput, reverbOutputLeft, reverbOutputRight);
                 ArrayMath.MultiplyAdd(masterVolume, reverbOutputLeft, blockLeft);
@@ -516,6 +510,24 @@ namespace MeltySynth
             }
 
             processedSampleCount += blockSize;
+        }
+
+        private void WriteBlock(float previousGain, float currentGain, float[] source, float[] destination)
+        {
+            if (Math.Max(previousGain, currentGain) < SoundFontMath.NonAudible)
+            {
+                return;
+            }
+
+            if (MathF.Abs(currentGain - previousGain) < 1.0E-3)
+            {
+                ArrayMath.MultiplyAdd(currentGain, source, destination);
+            }
+            else
+            {
+                var step = inverseBlockSize * (currentGain - previousGain);
+                ArrayMath.MultiplyAdd(previousGain, step, source, destination);
+            }
         }
 
         /// <summary>
