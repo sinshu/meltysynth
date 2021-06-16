@@ -30,8 +30,6 @@ namespace MeltySynthTest
             Assert.AreEqual(expected.SampleRate, actual.SampleRate);
             Assert.AreEqual(expected.OriginalPitch, actual.OriginalPitch);
             Assert.AreEqual(expected.PitchCorrection, actual.PitchCorrection);
-            Assert.AreEqual((int)expected.SampleLink, (int)actual.Link);
-            Assert.AreEqual((int)expected.SFSampleLink, (int)actual.Type);
         }
     }
 }

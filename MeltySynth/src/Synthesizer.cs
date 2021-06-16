@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace MeltySynth
 {
     /// <summary>
-    /// An instance of the SoundFount synthesizer.
+    /// An instance of the SoundFont synthesizer.
     /// </summary>
     public sealed class Synthesizer
     {
@@ -48,7 +48,7 @@ namespace MeltySynth
         private float[] chorusOutputRight;
 
         /// <summary>
-        /// Initializes a new instance of the synthesizer.
+        /// Initializes a new synthesizer using a specified SoundFont and sample rate.
         /// </summary>
         /// <param name="soundFontPath">The SoundFont file name and path.</param>
         /// <param name="sampleRate">The sample rate for synthesis.</param>
@@ -57,7 +57,7 @@ namespace MeltySynth
         }
 
         /// <summary>
-        /// Initializes a new instance of the synthesizer.
+        /// Initializes a new synthesizer using a specified SoundFont and sample rate.
         /// </summary>
         /// <param name="soundFont">The SoundFont instance.</param>
         /// <param name="sampleRate">The sample rate for synthesis.</param>
@@ -66,19 +66,19 @@ namespace MeltySynth
         }
 
         /// <summary>
-        /// Initializes a new instance of the synthesizer.
+        /// Initializes a new synthesizer using a specified SoundFont and settings.
         /// </summary>
         /// <param name="soundFontPath">The SoundFont file name and path.</param>
-        /// <param name="settings">The settings of the synthesizer.</param>
+        /// <param name="settings">The settings for synthesis.</param>
         public Synthesizer(string soundFontPath, SynthesizerSettings settings) : this(new SoundFont(soundFontPath), settings)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the synthesizer.
+        /// Initializes a new synthesizer using a specified SoundFont and settings.
         /// </summary>
         /// <param name="soundFont">The SoundFont instance.</param>
-        /// <param name="settings">The settings of the synthesizer.</param>
+        /// <param name="settings">The settings for synthesis.</param>
         public Synthesizer(SoundFont soundFont, SynthesizerSettings settings)
         {
             if (soundFont == null)
@@ -149,9 +149,9 @@ namespace MeltySynth
         }
 
         /// <summary>
-        /// Processes the MIDI message.
+        /// Processes a MIDI message.
         /// </summary>
-        /// <param name="channel">The channel to which the message should be sent.</param>
+        /// <param name="channel">The channel to which the message will be sent.</param>
         /// <param name="command">The type of the message.</param>
         /// <param name="data1">The first data part of the message.</param>
         /// <param name="data2">The second data part of the message.</param>
@@ -266,7 +266,7 @@ namespace MeltySynth
         }
 
         /// <summary>
-        /// End a note.
+        /// Stops a note.
         /// </summary>
         /// <param name="channel">The channel of the note.</param>
         /// <param name="key">The key of the note.</param>
@@ -287,7 +287,7 @@ namespace MeltySynth
         }
 
         /// <summary>
-        /// Start a note.
+        /// Starts a note.
         /// </summary>
         /// <param name="channel">The channel of the note.</param>
         /// <param name="key">The key of the note.</param>
@@ -337,9 +337,9 @@ namespace MeltySynth
         }
 
         /// <summary>
-        /// End all the notes.
+        /// Stops all the notes.
         /// </summary>
-        /// <param name="immediate">If <c>true</c>, notes stop without the release sound.</param>
+        /// <param name="immediate">If <c>true</c>, notes will stop immediately without the release sound.</param>
         public void NoteOffAll(bool immediate)
         {
             if (immediate)
@@ -356,10 +356,10 @@ namespace MeltySynth
         }
 
         /// <summary>
-        /// End all the notes in the specified channel.
+        /// Stops all the notes in the specified channel.
         /// </summary>
-        /// <param name="channel">The channel in which the notes should be stopped.</param>
-        /// <param name="immediate">If <c>true</c>, notes stop without the release sound.</param>
+        /// <param name="channel">The channel in which the notes will be stopped.</param>
+        /// <param name="immediate">If <c>true</c>, notes will stop immediately without the release sound.</param>
         public void NoteOffAll(int channel, bool immediate)
         {
             if (immediate)
@@ -385,7 +385,7 @@ namespace MeltySynth
         }
 
         /// <summary>
-        /// Reset all the controllers.
+        /// Resets all the controllers.
         /// </summary>
         public void ResetAllControllers()
         {
@@ -396,9 +396,9 @@ namespace MeltySynth
         }
 
         /// <summary>
-        /// Reset all the controllers of the specified channel.
+        /// Resets all the controllers of the specified channel.
         /// </summary>
-        /// <param name="channel">The channel to reset the controllers.</param>
+        /// <param name="channel">The channel to be reset.</param>
         public void ResetAllControllers(int channel)
         {
             if (!(0 <= channel && channel < channels.Length))
@@ -410,7 +410,7 @@ namespace MeltySynth
         }
 
         /// <summary>
-        /// Reset the synthesizer.
+        /// Resets the synthesizer.
         /// </summary>
         public void Reset()
         {
@@ -429,7 +429,7 @@ namespace MeltySynth
         }
 
         /// <summary>
-        /// Render the waveform.
+        /// Renders the waveform.
         /// </summary>
         /// <param name="left">The buffer of the left channel to store the rendered waveform.</param>
         /// <param name="right">The buffer of the right channel to store the rendered waveform.</param>
@@ -531,7 +531,7 @@ namespace MeltySynth
         }
 
         /// <summary>
-        /// The block size of waveform rendering.
+        /// The block size for waveform rendering.
         /// </summary>
         public int BlockSize => blockSize;
 

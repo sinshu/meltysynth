@@ -89,10 +89,6 @@ namespace MeltySynth
         /// </summary>
         public int BankNumber => bankNumber;
 
-        public int Library => library;
-        public int Genre => genre;
-        public int Morphology => morphology;
-
         /// <summary>
         /// The regions of the preset.
         /// </summary>

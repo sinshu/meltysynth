@@ -139,9 +139,11 @@ namespace MeltySynth
         internal short this[GeneratorParameterType generatortType] => gps[(int)generatortType];
 
         /// <summary>
-        /// The sample header corresponding to the region.
+        /// The sample corresponding to the region.
         /// </summary>
         public SampleHeader Sample => sample;
+
+#pragma warning disable CS1591 // I'm too lazy to add comments for all the following things.
 
         public int SampleStart => sample.Start + StartAddressOffset;
         public int SampleEnd => sample.End + EndAddressOffset;
@@ -202,5 +204,7 @@ namespace MeltySynth
         public int ScaleTuning => this[GeneratorParameterType.ScaleTuning];
         public int ExclusiveClass => this[GeneratorParameterType.ExclusiveClass];
         public int RootKey => this[GeneratorParameterType.OverridingRootKey] != -1 ? this[GeneratorParameterType.OverridingRootKey] : sample.OriginalPitch;
+
+#pragma warning restore CS1591
     }
 }

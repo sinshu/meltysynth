@@ -110,8 +110,5 @@ namespace MeltySynth
         /// The pitch correction in cents that should be applied to the sample on playback.
         /// </summary>
         public sbyte PitchCorrection => pitchCorrection;
-
-        public ushort Link => link;
-        public SampleType Type => type;
     }
 }

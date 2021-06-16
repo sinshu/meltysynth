@@ -2,6 +2,9 @@
 
 namespace MeltySynth
 {
+    /// <summary>
+    /// Specifies a set of parameters for synthesis.
+    /// </summary>
     public sealed class SynthesizerSettings
     {
         internal static int DefaultBlockSize = 64;

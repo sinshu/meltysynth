@@ -126,6 +126,8 @@ namespace MeltySynth
         /// </summary>
         public Instrument Instrument => instrument;
 
+#pragma warning disable CS1591 // I'm too lazy to add comments for all the following things.
+
         // public int StartAddressOffset => 32768 * this[GeneratorParameterType.StartAddressCoarseOffset] + this[GeneratorParameterType.StartAddressOffset];
         // public int EndAddressOffset => 32768 * this[GeneratorParameterType.EndAddressCoarseOffset] + this[GeneratorParameterType.EndAddressOffset];
         // public int StartLoopAddressOffset => 32768 * this[GeneratorParameterType.StartLoopAddressCoarseOffset] + this[GeneratorParameterType.StartLoopAddressOffset];
@@ -180,5 +182,7 @@ namespace MeltySynth
         public int ScaleTuning => this[GeneratorParameterType.ScaleTuning];
         // public int ExclusiveClass => this[GeneratorParameterType.ExclusiveClass];
         // public int RootKey => this[GeneratorParameterType.OverridingRootKey];
+
+#pragma warning restore CS1591
     }
 }

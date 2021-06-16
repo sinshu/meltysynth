@@ -93,16 +93,59 @@ namespace MeltySynth
             return bankName;
         }
 
+        /// <summary>
+        /// The version of the SoundFont.
+        /// </summary>
         public SoundFontVersion Version => version;
+
+        /// <summary>
+        /// The target sound engine of the SoundFont.
+        /// </summary>
         public string TargetSoundEngine => targetSoundEngine;
+
+        /// <summary>
+        /// The bank name of the SoundFont.
+        /// </summary>
         public string BankName => bankName;
+
+        /// <summary>
+        /// The ROM name of the SoundFont.
+        /// </summary>
         public string RomName => romName;
+
+        /// <summary>
+        /// The ROM version of the SoundFont.
+        /// </summary>
         public SoundFontVersion RomVersion => romVersion;
+
+        /// <summary>
+        /// The creation date of the SoundFont.
+        /// </summary>
         public string CeationDate => creationDate;
+
+        /// <summary>
+        /// The auther of the SoundFont.
+        /// </summary>
         public string Author => author;
+
+        /// <summary>
+        /// The target product of the SoundFont.
+        /// </summary>
         public string TargetProduct => targetProduct;
+
+        /// <summary>
+        /// The copyright message for the SoundFont.
+        /// </summary>
         public string Copyright => copyright;
+
+        /// <summary>
+        /// The comments for the SoundFont.
+        /// </summary>
         public string Comments => comments;
+
+        /// <summary>
+        /// The tools used to create the SoundFont.
+        /// </summary>
         public string Tools => tools;
     }
 }

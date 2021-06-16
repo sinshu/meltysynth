@@ -2,7 +2,7 @@
 
 namespace MeltySynth
 {
-    public enum SampleType
+    internal enum SampleType
     {
         Mono = 1,
         Right = 2,
