@@ -3,7 +3,7 @@ using System.IO;
 
 namespace MeltySynth
 {
-    internal sealed class GeneratorParameter
+    internal struct GeneratorParameter
     {
         private readonly GeneratorParameterType type;
         private readonly ushort value;
