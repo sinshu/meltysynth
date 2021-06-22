@@ -76,17 +76,10 @@ public class SoundStream : IDisposable
 
             for (var i = 0; i < processedCount; i++)
             {
+                fillBuffer(bufferData);
                 AL.SourceUnqueueBuffers(source, bufferQueue);
-
-                foreach (var buffer in buffers)
-                {
-                    if (buffer == bufferQueue[0])
-                    {
-                        fillBuffer(bufferData);
-                        AL.BufferData(buffer, format, bufferData, sampleRate);
-                        AL.SourceQueueBuffers(source, bufferQueue);
-                    }
-                }
+                AL.BufferData(bufferQueue[0], format, bufferData, sampleRate);
+                AL.SourceQueueBuffers(source, bufferQueue);
             }
 
             int state;
