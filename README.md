@@ -2,7 +2,7 @@
 
 MeltySynth is a SoundFont synthesizer written in C#.
 The purpose of this project is to provide a MIDI music playback functionality for any .NET applications without suffering from complicated dependencies.
-The code base is lightweight and can be applied to any audio drivers which support streaming audio, such as [SFML.Net](https://github.com/SFML/SFML.Net) and [NAudio](https://github.com/naudio/NAudio).
+The codebase is lightweight and can be applied to any audio drivers which support streaming audio, such as [SFML.Net](https://github.com/SFML/SFML.Net), [Silk.NET](https://github.com/dotnet/Silk.NET), [OpenTK](https://github.com/opentk/opentk), and [NAudio](https://github.com/naudio/NAudio).
 
 The entire code is heavily inspired by the following projects:
 
@@ -57,8 +57,10 @@ https://www.youtube.com/watch?v=gT81QPjWSd8
 
 ## Examples
 
-* [A MIDI file player for SFML.Net](https://github.com/sinshu/meltysynth/tree/main/Examples/SFML.Net)
-* [A MIDI file player for NAudio](https://github.com/sinshu/meltysynth/tree/main/Examples/NAudio)
+* [MIDI file player for SFML.Net](https://github.com/sinshu/meltysynth/tree/main/Examples/SFML.Net)
+* [MIDI file player for Silk.NET](https://github.com/sinshu/meltysynth/tree/main/Examples/Silk.NET)
+* [MIDI file player for OpenTK](https://github.com/sinshu/meltysynth/tree/main/Examples/OpenTK)
+* [MIDI file player for NAudio](https://github.com/sinshu/meltysynth/tree/main/Examples/NAudio)
 
 
 ## Todo
