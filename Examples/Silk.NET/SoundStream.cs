@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.ExceptionServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Silk.NET.OpenAL;
@@ -33,6 +34,19 @@ public class SoundStream : IDisposable
         this.bufferSize = bufferSize;
         this.fillBuffer = fillBuffer;
 
+        try
+        {
+            Initialize();
+        }
+        catch (Exception e)
+        {
+            Dispose();
+            ExceptionDispatchInfo.Throw(e);
+        }
+    }
+
+    private void Initialize()
+    {
         var bufferCount = (int)Math.Ceiling((double)(sampleRate * latency) / (1000 * bufferSize));
         if (bufferCount < 2)
         {
@@ -40,14 +54,32 @@ public class SoundStream : IDisposable
         }
 
         source = al.GenSource();
+        if (al.GetError() != AudioError.NoError)
+        {
+            throw new Exception("Failed to generate a sound source.");
+        }
 
         buffers = new uint[bufferCount];
         for (var i = 0; i < buffers.Length; i++)
         {
             buffers[i] = al.GenBuffer();
+            if (al.GetError() != AudioError.NoError)
+            {
+                throw new Exception("Failed to generate a sound buffer.");
+            }
         }
 
-        format = channelCount == 1 ? BufferFormat.Mono16 : BufferFormat.Stereo16;
+        switch (channelCount)
+        {
+            case 1:
+                format = BufferFormat.Mono16;
+                break;
+            case 2:
+                format = BufferFormat.Stereo16;
+                break;
+            default:
+                throw new Exception("The number of channels must be 1 or 2.");
+        }
 
         bufferData = new short[channelCount * bufferSize];
         bufferQueue = new uint[1];
@@ -66,10 +98,10 @@ public class SoundStream : IDisposable
         al.SourcePlay(source);
 
         stopRequested = false;
-        task = Task.Run(Run);
+        task = Task.Run(ProcessBuffers);
     }
 
-    private void Run()
+    private void ProcessBuffers()
     {
         while (!stopRequested)
         {
@@ -103,22 +135,31 @@ public class SoundStream : IDisposable
             return;
         }
 
+        stopRequested = true;
+
         if (disposing)
         {
             if (task != null)
             {
-                stopRequested = true;
                 task.Wait();
-                task = null;
             }
         }
 
-        al.SourceStop(source);
-        al.DeleteSource(source);
-
-        for (var i = 0; i < buffers.Length; i++)
+        if (source != 0)
         {
-            al.DeleteBuffer(buffers[i]);
+            al.SourceStop(source);
+            al.DeleteSource(source);
+        }
+
+        if (buffers != null)
+        {
+            for (var i = 0; i < buffers.Length; i++)
+            {
+                if (buffers[i] != 0)
+                {
+                    al.DeleteBuffer(buffers[i]);
+                }
+            }
         }
 
         disposed = true;
