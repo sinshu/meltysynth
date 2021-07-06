@@ -84,8 +84,6 @@ namespace MeltySynth
 
         private bool FillBlock_NoLoop(float[] block, double pitchRatio)
         {
-            var data = synthesizer.SoundFont.WaveData;
-
             for (var t = 0; t < block.Length; t++)
             {
                 var index = (int)position;
@@ -116,8 +114,6 @@ namespace MeltySynth
 
         private bool FillBlock_Continuous(float[] block, double pitchRatio)
         {
-            var data = synthesizer.SoundFont.WaveData;
-
             var endLoopPosition = (double)endLoop;
 
             var loopLength = endLoop - startLoop;
