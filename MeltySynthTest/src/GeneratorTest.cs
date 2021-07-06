@@ -34,7 +34,7 @@ namespace MeltySynthTest
 
             var block = new float[synthesizer.BlockSize];
 
-            generator.Start(synthesizer.SoundFont.WaveData, region);
+            generator.Start(synthesizer.SoundFont.WaveDataArray, region);
 
             var actual = new List<float>();
 
@@ -54,7 +54,7 @@ namespace MeltySynthTest
             var end = region.SampleEnd;
             var length = end - start;
 
-            var raw = soundFont.WaveData.AsSpan(start, length);
+            var raw = soundFont.WaveDataArray.AsSpan(start, length);
             var expected = new float[length];
             for (var i = 0; i < length; i++)
             {
@@ -108,7 +108,7 @@ namespace MeltySynthTest
 
             var block = new float[synthesizer.BlockSize];
 
-            generator.Start(synthesizer.SoundFont.WaveData, region);
+            generator.Start(synthesizer.SoundFont.WaveDataArray, region);
 
             var actual = new List<float>();
 
@@ -128,7 +128,7 @@ namespace MeltySynthTest
             var end = region.SampleEnd;
             var length = end - start;
 
-            var raw = soundFont.WaveData.AsSpan(start, length + 1);
+            var raw = soundFont.WaveDataArray.AsSpan(start, length + 1);
             var expected = new float[2 * length];
             for (var i = 0; i < length; i++)
             {
@@ -184,7 +184,7 @@ namespace MeltySynthTest
 
             var block = new float[synthesizer.BlockSize];
 
-            generator.Start(synthesizer.SoundFont.WaveData, region);
+            generator.Start(synthesizer.SoundFont.WaveDataArray, region);
 
             var actual = new List<float>();
 
@@ -206,7 +206,7 @@ namespace MeltySynthTest
             var pos = start;
             for (var t = 0; t < expected.Length; t++)
             {
-                expected[t] = (float)soundFont.WaveData[pos] / 32768;
+                expected[t] = (float)soundFont.WaveDataArray[pos] / 32768;
                 pos++;
                 if (pos == endLoop)
                 {
@@ -249,7 +249,7 @@ namespace MeltySynthTest
 
             var block = new float[synthesizer.BlockSize];
 
-            generator.Start(synthesizer.SoundFont.WaveData, region);
+            generator.Start(synthesizer.SoundFont.WaveDataArray, region);
 
             var actual = new List<float>();
 
@@ -271,7 +271,7 @@ namespace MeltySynthTest
             var pos = start;
             for (var t = 0; t < raw.Length; t++)
             {
-                raw[t] = (float)soundFont.WaveData[pos] / 32768;
+                raw[t] = (float)soundFont.WaveDataArray[pos] / 32768;
                 pos++;
                 if (pos == endLoop)
                 {

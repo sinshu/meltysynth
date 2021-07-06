@@ -177,9 +177,10 @@ namespace MeltySynth
         /// The sample data.
         /// </summary>
         /// <remarks>
-        /// This single array contains all the sample data in the SoundFont.
+        /// This single array contains all the waveform data in the SoundFont.
+        /// An instance of <see cref="SampleHeader"/> indicates a range of the array corresponding to a sample.
         /// </remarks>
-        public short[] WaveData => waveData;
+        public ReadOnlySpan<short> WaveData => waveData;
 
         /// <summary>
         /// The samples of the SoundFont.
@@ -195,5 +196,7 @@ namespace MeltySynth
         /// The instruments of the SoundFont.
         /// </summary>
         public ImmutableArray<Instrument> Instruments => instruments;
+
+        internal short[] WaveDataArray => waveData;
     }
 }

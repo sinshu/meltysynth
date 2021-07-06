@@ -124,7 +124,7 @@ namespace MeltySynth
             modEnv.Start(region, key, velocity);
             vibLfo.StartVibrato(region, key, velocity);
             modLfo.StartModulation(region, key, velocity);
-            generator.Start(synthesizer.SoundFont.WaveData, region);
+            generator.Start(synthesizer.SoundFont.WaveDataArray, region);
             filter.ClearBuffer();
             filter.SetLowPassFilter(cutoff, resonance);
 
