@@ -85,6 +85,11 @@ public class SoundStream : IDisposable
 
     public void Start()
     {
+        if (task != null)
+        {
+            return;
+        }
+
         for (var i = 0; i < buffers.Length; i++)
         {
             fillBuffer(bufferData);
