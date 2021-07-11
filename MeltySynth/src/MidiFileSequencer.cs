@@ -17,6 +17,7 @@ namespace MeltySynth
         private long currentSampleCount;
         private TimeSpan currentTime;
         private int msgIndex;
+        private int loopIndex;
 
         /// <summary>
         /// Initializes a new instance of the sequencer.
@@ -42,6 +43,7 @@ namespace MeltySynth
             currentSampleCount = synthesizer.ProcessedSampleCount;
             currentTime = TimeSpan.Zero;
             msgIndex = 0;
+            loopIndex = 0;
 
             synthesizer.Reset();
         }
@@ -72,6 +74,10 @@ namespace MeltySynth
                     {
                         synthesizer.ProcessMidiMessage(msg.Channel, msg.Command, msg.Data1, msg.Data2);
                     }
+                    else if (msg.Type == MidiFile.MessageType.LoopPoint)
+                    {
+                        loopIndex = msgIndex;
+                    }
                     msgIndex++;
                 }
                 else
@@ -85,8 +91,8 @@ namespace MeltySynth
 
             if (msgIndex == midiFile.Messages.Length && loop)
             {
-                currentTime = TimeSpan.Zero;
-                msgIndex = 0;
+                currentTime = midiFile.Times[loopIndex];
+                msgIndex = loopIndex;
             }
         }
 

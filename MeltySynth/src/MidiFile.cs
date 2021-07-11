@@ -24,7 +24,32 @@ namespace MeltySynth
         /// <param name="stream">The data stream used to load the MIDI file.</param>
         public MidiFile(Stream stream)
         {
-            Load(stream);
+            if (stream == null)
+            {
+                throw new ArgumentNullException(nameof(stream));
+            }
+
+            Load(stream, 0);
+        }
+
+        /// <summary>
+        /// Loads a MIDI file from the stream.
+        /// </summary>
+        /// <param name="stream">The data stream used to load the MIDI file.</param>
+        /// <param name="loopPoint">The loop point in ticks.</param>
+        public MidiFile(Stream stream, int loopPoint)
+        {
+            if (stream == null)
+            {
+                throw new ArgumentNullException(nameof(stream));
+            }
+
+            if (loopPoint < 0)
+            {
+                throw new ArgumentException("The loop point must be a non-negative value.", nameof(loopPoint));
+            }
+
+            Load(stream, loopPoint);
         }
 
         /// <summary>
@@ -33,13 +58,41 @@ namespace MeltySynth
         /// <param name="path">The MIDI file name and path.</param>
         public MidiFile(string path)
         {
+            if (path == null)
+            {
+                throw new ArgumentNullException(nameof(path));
+            }
+
             using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
-                Load(stream);
+                Load(stream, 0);
             }
         }
 
-        private void Load(Stream stream)
+        /// <summary>
+        /// Loads a MIDI file from the file.
+        /// </summary>
+        /// <param name="path">The MIDI file name and path.</param>
+        /// /// <param name="loopPoint">The loop point in ticks.</param>
+        public MidiFile(string path, int loopPoint)
+        {
+            if (path == null)
+            {
+                throw new ArgumentNullException(nameof(path));
+            }
+
+            if (loopPoint < 0)
+            {
+                throw new ArgumentException("The loop point must be a non-negative value.", nameof(loopPoint));
+            }
+
+            using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+            {
+                Load(stream, loopPoint);
+            }
+        }
+
+        private void Load(Stream stream, int loopPoint)
         {
             using (var reader = new BinaryReader(stream, Encoding.ASCII, true))
             {
@@ -73,6 +126,29 @@ namespace MeltySynth
                     ReadTrack(reader, out messageList, out tickList);
                     messageLists[i] = messageList;
                     tickLists[i] = tickList;
+                }
+
+                if (loopPoint != 0)
+                {
+                    var tickList = tickLists[0];
+                    var messageList = messageLists[0];
+                    if (loopPoint < tickList.Last())
+                    {
+                        for (var i = 0; i < tickList.Count; i++)
+                        {
+                            if (tickList[i] >= loopPoint)
+                            {
+                                tickList.Insert(i, loopPoint);
+                                messageList.Insert(i, Message.LoopPoint());
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        tickList.Add(loopPoint);
+                        messageList.Add(Message.LoopPoint());
+                    }
                 }
 
                 MergeTracks(messageLists, tickLists, resolution, out messages, out times);
@@ -272,10 +348,6 @@ namespace MeltySynth
 
         internal struct Message
         {
-            // These values fit 4-byte alignment so that the array can be memory-efficient.
-            // If the channel value is 254, the message is a tempo change.
-            // The tempo value is represented with remaining 3 bytes.
-            // If the channel value is 255, the message is the end of track.
             private byte channel;
             private byte command;
             private byte data1;
@@ -309,22 +381,32 @@ namespace MeltySynth
                 byte command = (byte)(tempo >> 16);
                 byte data1 = (byte)(tempo >> 8);
                 byte data2 = (byte)(tempo);
-                return new Message(254, command, data1, data2);
+                return new Message((int)MessageType.TempoChange, command, data1, data2);
+            }
+
+            public static Message LoopPoint()
+            {
+                return new Message((int)MessageType.LoopPoint, 0, 0, 0);
             }
 
             public static Message EndOfTrack()
             {
-                return new Message(255, 0, 0, 0);
+                return new Message((int)MessageType.EndOfTrack, 0, 0, 0);
             }
 
             public override string ToString()
             {
                 switch (channel)
                 {
-                    case 254:
+                    case (int)MessageType.TempoChange:
                         return "Tempo: " + Tempo;
-                    case 255:
+
+                    case (int)MessageType.LoopPoint:
+                        return "LoopPoint";
+
+                    case (int)MessageType.EndOfTrack:
                         return "EndOfTrack";
+
                     default:
                         return "CH" + channel + ": " + command.ToString("X2") + ", " + data1.ToString("X2") + ", " + data2.ToString("X2");
                 }
@@ -336,10 +418,15 @@ namespace MeltySynth
                 {
                     switch (channel)
                     {
-                        case 254:
+                        case (int)MessageType.TempoChange:
                             return MessageType.TempoChange;
-                        case 255:
+
+                        case (int)MessageType.LoopPoint:
+                            return MessageType.LoopPoint;
+
+                        case (int)MessageType.EndOfTrack:
                             return MessageType.EndOfTrack;
+
                         default:
                             return MessageType.Normal;
                     }
@@ -358,9 +445,10 @@ namespace MeltySynth
 
         internal enum MessageType
         {
-            Normal,
-            TempoChange,
-            EndOfTrack
+            Normal = 0,
+            TempoChange = 253,
+            LoopPoint = 254,
+            EndOfTrack = 255
         }
     }
 }
