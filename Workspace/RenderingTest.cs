@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using NAudio.Wave;
 using MeltySynth;
 
@@ -36,9 +37,9 @@ public static class RenderingTest
         var sequencer = new MidiFileSequencer(synthesizer);
         sequencer.Play(midiFile, false);
 
-        // The output buffer (87 seconds).
-        var left = new float[87 * sampleRate];
-        var right = new float[87 * sampleRate];
+        // The output buffer.
+        var left = new float[(int)(sampleRate * midiFile.Length.TotalSeconds)];
+        var right = new float[(int)(sampleRate * midiFile.Length.TotalSeconds)];
 
         var midiEventInterval = 100;
 
@@ -57,13 +58,17 @@ public static class RenderingTest
 
     private static void WriteWaveFile(float[] left, float[] right, int sampleRate, string path)
     {
+        var leftMax = left.Max(x => Math.Abs(x));
+        var rightMax = right.Max(x => Math.Abs(x));
+        var a = 0.99F / Math.Max(leftMax, rightMax);
+
         var format = new WaveFormat(sampleRate, 16, 2);
         using (var writer = new WaveFileWriter(path, format))
         {
             for (var t = 0; t < left.Length; t++)
             {
-                writer.WriteSample(left[t]);
-                writer.WriteSample(right[t]);
+                writer.WriteSample(a * left[t]);
+                writer.WriteSample(a * right[t]);
             }
         }
     }
