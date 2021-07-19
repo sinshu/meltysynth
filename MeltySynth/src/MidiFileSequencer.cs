@@ -25,6 +25,11 @@ namespace MeltySynth
         /// <param name="synthesizer">The synthesizer to be handled by the sequencer.</param>
         public MidiFileSequencer(Synthesizer synthesizer)
         {
+            if (synthesizer == null)
+            {
+                throw new ArgumentNullException(nameof(synthesizer));
+            }
+
             this.synthesizer = synthesizer;
 
             speed = 1F;
@@ -37,6 +42,11 @@ namespace MeltySynth
         /// <param name="loop">If <c>true</c>, the MIDI file loops after reaching the end.</param>
         public void Play(MidiFile midiFile, bool loop)
         {
+            if (midiFile == null)
+            {
+                throw new ArgumentNullException(nameof(midiFile));
+            }
+
             this.midiFile = midiFile;
             this.loop = loop;
 
@@ -115,7 +125,7 @@ namespace MeltySynth
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException("The speed must be a positive value.");
+                    throw new ArgumentOutOfRangeException("The playback speed must be a positive value.");
                 }
             }
         }
