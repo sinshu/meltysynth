@@ -132,7 +132,7 @@ namespace MeltySynth
                 {
                     var tickList = tickLists[0];
                     var messageList = messageLists[0];
-                    if (loopPoint < tickList.Last())
+                    if (loopPoint <= tickList.Last())
                     {
                         for (var i = 0; i < tickList.Count; i++)
                         {
@@ -273,7 +273,7 @@ namespace MeltySynth
                 var minIndex = -1;
                 for (var ch = 0; ch < tickLists.Length; ch++)
                 {
-                    if (indices[ch] < messageLists[ch].Count)
+                    if (indices[ch] < tickLists[ch].Count)
                     {
                         var tick = tickLists[ch][indices[ch]];
                         if (tick < minTick)
