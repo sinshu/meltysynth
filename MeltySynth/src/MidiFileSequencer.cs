@@ -9,14 +9,15 @@ namespace MeltySynth
     {
         private readonly Synthesizer synthesizer;
 
+        private float speed;
+
         private MidiFile midiFile;
         private bool loop;
-        private long startSampleCount;
 
+        private long currentSampleCount;
+        private TimeSpan currentTime;
         private int msgIndex;
-        private TimeSpan previousTime;
-        private double previousTick;
-        private double tempo;
+        private int loopIndex;
 
         /// <summary>
         /// Initializes a new instance of the sequencer.
@@ -25,6 +26,8 @@ namespace MeltySynth
         public MidiFileSequencer(Synthesizer synthesizer)
         {
             this.synthesizer = synthesizer;
+
+            speed = 1F;
         }
 
         /// <summary>
@@ -36,12 +39,11 @@ namespace MeltySynth
         {
             this.midiFile = midiFile;
             this.loop = loop;
-            this.startSampleCount = synthesizer.ProcessedSampleCount;
 
+            currentSampleCount = synthesizer.ProcessedSampleCount;
+            currentTime = TimeSpan.Zero;
             msgIndex = 0;
-            previousTime = TimeSpan.Zero;
-            previousTick = 0;
-            tempo = 120;
+            loopIndex = 0;
 
             synthesizer.Reset();
         }
@@ -57,49 +59,59 @@ namespace MeltySynth
                 return;
             }
 
-            var sampleCount = synthesizer.ProcessedSampleCount - startSampleCount;
-            var targetTime = TimeSpan.FromSeconds((double)sampleCount / synthesizer.SampleRate);
+            var nextSampleCount = synthesizer.ProcessedSampleCount;
+            var deltaSampleCount = nextSampleCount - currentSampleCount;
+            var deltaTime = speed * TimeSpan.FromSeconds((double)deltaSampleCount / synthesizer.SampleRate);
+            var nextTime = currentTime + deltaTime;
 
             while (msgIndex < midiFile.Messages.Length)
             {
-                var currentTick = midiFile.Ticks[msgIndex];
-                var deltaTick = currentTick - previousTick;
-                var currentTime = previousTime + TimeSpan.FromSeconds(60.0 / (midiFile.Resolution * tempo) * deltaTick);
-
-                previousTime = currentTime;
-                previousTick = currentTick;
-
-                if (currentTime <= targetTime)
+                var time = midiFile.Times[msgIndex];
+                var msg = midiFile.Messages[msgIndex];
+                if (time <= nextTime)
                 {
-                    var msg = midiFile.Messages[msgIndex];
                     if (msg.Type == MidiFile.MessageType.Normal)
                     {
                         synthesizer.ProcessMidiMessage(msg.Channel, msg.Command, msg.Data1, msg.Data2);
                     }
-                    else if (msg.Type == MidiFile.MessageType.TempoChange)
+                    else if (msg.Type == MidiFile.MessageType.LoopPoint)
                     {
-                        tempo = msg.Tempo;
+                        loopIndex = msgIndex;
                     }
                     msgIndex++;
                 }
                 else
                 {
-                    return;
+                    break;
                 }
             }
 
-            if (loop)
-            {
-                var currentTick = midiFile.Ticks[msgIndex];
-                var deltaTick = currentTick - previousTick;
-                var endTime = previousTime + TimeSpan.FromSeconds(60.0 / (midiFile.Resolution * tempo) * deltaTick);
+            currentSampleCount = nextSampleCount;
+            currentTime = nextTime;
 
-                if (targetTime >= endTime)
+            if (msgIndex == midiFile.Messages.Length && loop)
+            {
+                currentTime = midiFile.Times[loopIndex];
+                msgIndex = loopIndex;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the playback speed.
+        /// </summary>
+        public float Speed
+        {
+            get => speed;
+
+            set
+            {
+                if (value > 0)
                 {
-                    startSampleCount = synthesizer.ProcessedSampleCount + synthesizer.BlockSize;
-                    msgIndex = 0;
-                    previousTime = TimeSpan.Zero;
-                    previousTick = 0;
+                    speed = value;
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("The speed must be a positive value.");
                 }
             }
         }

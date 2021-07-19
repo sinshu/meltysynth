@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Immutable;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace MeltySynth
         private int resolution;
 
         private Message[] messages;
-        private int[] ticks;
+        private TimeSpan[] times;
 
         /// <summary>
         /// Loads a MIDI file from the stream.
@@ -23,7 +24,32 @@ namespace MeltySynth
         /// <param name="stream">The data stream used to load the MIDI file.</param>
         public MidiFile(Stream stream)
         {
-            Load(stream);
+            if (stream == null)
+            {
+                throw new ArgumentNullException(nameof(stream));
+            }
+
+            Load(stream, 0);
+        }
+
+        /// <summary>
+        /// Loads a MIDI file from the stream.
+        /// </summary>
+        /// <param name="stream">The data stream used to load the MIDI file.</param>
+        /// <param name="loopPoint">The loop point in ticks.</param>
+        public MidiFile(Stream stream, int loopPoint)
+        {
+            if (stream == null)
+            {
+                throw new ArgumentNullException(nameof(stream));
+            }
+
+            if (loopPoint < 0)
+            {
+                throw new ArgumentException("The loop point must be a non-negative value.", nameof(loopPoint));
+            }
+
+            Load(stream, loopPoint);
         }
 
         /// <summary>
@@ -32,13 +58,41 @@ namespace MeltySynth
         /// <param name="path">The MIDI file name and path.</param>
         public MidiFile(string path)
         {
+            if (path == null)
+            {
+                throw new ArgumentNullException(nameof(path));
+            }
+
             using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
-                Load(stream);
+                Load(stream, 0);
             }
         }
 
-        private void Load(Stream stream)
+        /// <summary>
+        /// Loads a MIDI file from the file.
+        /// </summary>
+        /// <param name="path">The MIDI file name and path.</param>
+        /// /// <param name="loopPoint">The loop point in ticks.</param>
+        public MidiFile(string path, int loopPoint)
+        {
+            if (path == null)
+            {
+                throw new ArgumentNullException(nameof(path));
+            }
+
+            if (loopPoint < 0)
+            {
+                throw new ArgumentException("The loop point must be a non-negative value.", nameof(loopPoint));
+            }
+
+            using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+            {
+                Load(stream, loopPoint);
+            }
+        }
+
+        private void Load(Stream stream, int loopPoint)
         {
             using (var reader = new BinaryReader(stream, Encoding.ASCII, true))
             {
@@ -74,7 +128,30 @@ namespace MeltySynth
                     tickLists[i] = tickList;
                 }
 
-                MergeTracks(messageLists, tickLists, out messages, out ticks);
+                if (loopPoint != 0)
+                {
+                    var tickList = tickLists[0];
+                    var messageList = messageLists[0];
+                    if (loopPoint <= tickList.Last())
+                    {
+                        for (var i = 0; i < tickList.Count; i++)
+                        {
+                            if (tickList[i] >= loopPoint)
+                            {
+                                tickList.Insert(i, loopPoint);
+                                messageList.Insert(i, Message.LoopPoint());
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        tickList.Add(loopPoint);
+                        messageList.Add(Message.LoopPoint());
+                    }
+                }
+
+                MergeTracks(messageLists, tickLists, resolution, out messages, out times);
             }
         }
 
@@ -141,6 +218,7 @@ namespace MeltySynth
                         {
                             case 0x2F: // End of Track
                                 reader.ReadByte();
+                                messages.Add(Message.EndOfTrack());
                                 ticks.Add(tick);
                                 return;
 
@@ -177,51 +255,63 @@ namespace MeltySynth
             }
         }
 
-        private static void MergeTracks(List<Message>[] messageLists, List<int>[] tickLists, out Message[] messages, out int[] ticks)
+        private static void MergeTracks(List<Message>[] messageLists, List<int>[] tickLists, int resolution, out Message[] messages, out TimeSpan[] times)
         {
-            var messageCount = 0;
-            foreach (var list in messageLists)
-            {
-                messageCount += list.Count;
-            }
-
-            messages = new Message[messageCount];
-            ticks = new int[messageCount + 1];
+            var mergedMessages = new List<Message>();
+            var mergedTimes = new List<TimeSpan>();
 
             var indices = new int[messageLists.Length];
 
-            for (var i = 0; i < messages.Length; i++)
+            var currentTick = 0;
+            var currentTime = TimeSpan.Zero;
+
+            var tempo = 120.0;
+
+            while (true)
             {
                 var minTick = int.MaxValue;
                 var minIndex = -1;
-                for (var j = 0; j < tickLists.Length; j++)
+                for (var ch = 0; ch < tickLists.Length; ch++)
                 {
-                    if (indices[j] < messageLists[j].Count)
+                    if (indices[ch] < tickLists[ch].Count)
                     {
-                        var tick = tickLists[j][indices[j]];
+                        var tick = tickLists[ch][indices[ch]];
                         if (tick < minTick)
                         {
                             minTick = tick;
-                            minIndex = j;
+                            minIndex = ch;
                         }
                     }
                 }
 
-                messages[i] = messageLists[minIndex][indices[minIndex]];
-                ticks[i] = tickLists[minIndex][indices[minIndex]];
+                if (minIndex == -1)
+                {
+                    break;
+                }
+
+                var nextTick = tickLists[minIndex][indices[minIndex]];
+                var deltaTick = nextTick - currentTick;
+                var deltaTime = TimeSpan.FromSeconds(60.0 / (resolution * tempo) * deltaTick);
+
+                currentTick += deltaTick;
+                currentTime += deltaTime;
+
+                var message = messageLists[minIndex][indices[minIndex]];
+                if (message.Type == MessageType.TempoChange)
+                {
+                    tempo = message.Tempo;
+                }
+                else
+                {
+                    mergedMessages.Add(message);
+                    mergedTimes.Add(currentTime);
+                }
+
                 indices[minIndex]++;
             }
 
-            var lastTick = int.MinValue;
-            for (var j = 0; j < tickLists.Length; j++)
-            {
-                if (tickLists[j].Last() > lastTick)
-                {
-                    lastTick = tickLists[j].Last();
-                }
-            }
-
-            ticks[messageCount] = lastTick;
+            messages = mergedMessages.ToArray();
+            times = mergedTimes.ToArray();
         }
 
         private static int ReadTempo(BinaryReader reader)
@@ -244,18 +334,20 @@ namespace MeltySynth
             reader.BaseStream.Position += size;
         }
 
+        /// <summary>
+        /// The length of the MIDI file.
+        /// </summary>
+        public TimeSpan Length => times.Last();
+
         internal int TrackCount => trackCount;
         internal int Resolution => resolution;
         internal Message[] Messages => messages;
-        internal int[] Ticks => ticks;
+        internal TimeSpan[] Times => times;
 
 
 
         internal struct Message
         {
-            // These values fit 4-byte alignment so that the array can be memory-efficient.
-            // If the channel value is 0xFF, the message is a tempo change.
-            // The tempo value is represented with remaining 3 bytes.
             private byte channel;
             private byte command;
             private byte data1;
@@ -286,26 +378,60 @@ namespace MeltySynth
 
             public static Message TempoChange(int tempo)
             {
-                byte channel = 0xFF;
                 byte command = (byte)(tempo >> 16);
                 byte data1 = (byte)(tempo >> 8);
                 byte data2 = (byte)(tempo);
-                return new Message(channel, command, data1, data2);
+                return new Message((int)MessageType.TempoChange, command, data1, data2);
+            }
+
+            public static Message LoopPoint()
+            {
+                return new Message((int)MessageType.LoopPoint, 0, 0, 0);
+            }
+
+            public static Message EndOfTrack()
+            {
+                return new Message((int)MessageType.EndOfTrack, 0, 0, 0);
             }
 
             public override string ToString()
             {
-                if (channel != 0xFF)
+                switch (channel)
                 {
-                    return "CH" + channel + ": " + command.ToString("X2") + ", " + data1.ToString("X2") + ", " + data2.ToString("X2");
-                }
-                else
-                {
-                    return "Tempo: " + Tempo;
+                    case (int)MessageType.TempoChange:
+                        return "Tempo: " + Tempo;
+
+                    case (int)MessageType.LoopPoint:
+                        return "LoopPoint";
+
+                    case (int)MessageType.EndOfTrack:
+                        return "EndOfTrack";
+
+                    default:
+                        return "CH" + channel + ": " + command.ToString("X2") + ", " + data1.ToString("X2") + ", " + data2.ToString("X2");
                 }
             }
 
-            public MessageType Type => channel != 0xFF ? MessageType.Normal : MessageType.TempoChange;
+            public MessageType Type
+            {
+                get
+                {
+                    switch (channel)
+                    {
+                        case (int)MessageType.TempoChange:
+                            return MessageType.TempoChange;
+
+                        case (int)MessageType.LoopPoint:
+                            return MessageType.LoopPoint;
+
+                        case (int)MessageType.EndOfTrack:
+                            return MessageType.EndOfTrack;
+
+                        default:
+                            return MessageType.Normal;
+                    }
+                }
+            }
 
             public byte Channel => channel;
             public byte Command => command;
@@ -319,8 +445,10 @@ namespace MeltySynth
 
         internal enum MessageType
         {
-            Normal,
-            TempoChange
+            Normal = 0,
+            TempoChange = 253,
+            LoopPoint = 254,
+            EndOfTrack = 255
         }
     }
 }
