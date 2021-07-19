@@ -99,6 +99,10 @@ namespace MeltySynth
         /// <summary>
         /// Gets or sets the playback speed.
         /// </summary>
+        /// <remarks>
+        /// The default value is 1.
+        /// The tempo will be multiplied by this value.
+        /// </remarks>
         public float Speed
         {
             get => speed;

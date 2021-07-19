@@ -73,7 +73,7 @@ namespace MeltySynth
         /// Loads a MIDI file from the file.
         /// </summary>
         /// <param name="path">The MIDI file name and path.</param>
-        /// /// <param name="loopPoint">The loop point in ticks.</param>
+        /// <param name="loopPoint">The loop point in ticks.</param>
         public MidiFile(string path, int loopPoint)
         {
             if (path == null)
