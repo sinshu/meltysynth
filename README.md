@@ -39,12 +39,13 @@ synthesizer.Render(left, right);
 
 ## Installation
 
-[The NuGet package](https://www.nuget.org/packages/MeltySynth/) is available.
+[The NuGet package](https://www.nuget.org/packages/MeltySynth/) is available:
 
 ```ps1
 Install-Package MeltySynth
 ```
 
+If you don't like DLLs, copy [all the .cs files](https://github.com/sinshu/meltysynth/tree/main/MeltySynth/src) to your project.
 
 ## Demo
 
@@ -84,16 +85,16 @@ https://www.youtube.com/watch?v=gT81QPjWSd8
     - [x] Pitch bend
     - [x] Tuning
 * __Effects__
-    - [x] Chorus
     - [x] Reverb
+    - [x] Chorus
 * __Other things__
-    - [x] SMF support
+    - [x] Standard MIDI file support
     - [x] Performace optimization
 
 
 ## License
 
-MeltySynth is available under the [MIT license](LICENSE.txt).
+MeltySynth is available under [the MIT license](LICENSE.txt).
 
 
 ## References
