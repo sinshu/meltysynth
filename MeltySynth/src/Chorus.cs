@@ -7,8 +7,7 @@ namespace MeltySynth
         private readonly float[] bufferL;
         private readonly float[] bufferR;
 
-        private readonly float[] delayTableL;
-        private readonly float[] delayTableR;
+        private readonly float[] delayTable;
 
         private int bufferIndexL;
         private int bufferIndexR;
@@ -21,27 +20,25 @@ namespace MeltySynth
             bufferL = new float[(int)(sampleRate * (delay + depth)) + 2];
             bufferR = new float[(int)(sampleRate * (delay + depth)) + 2];
 
-            delayTableL = new float[(int)Math.Round(sampleRate / frequency)];
-            delayTableR = new float[(int)Math.Round(sampleRate / frequency)];
-            for (var t = 0; t < delayTableL.Length; t++)
+            delayTable = new float[(int)Math.Round(sampleRate / frequency)];
+            for (var t = 0; t < delayTable.Length; t++)
             {
-                var phase = 2 * Math.PI * t / delayTableL.Length;
-                delayTableL[t] = (float)(sampleRate * (delay + depth * Math.Sin(phase)));
-                delayTableR[t] = (float)(sampleRate * (delay + depth * Math.Cos(phase)));
+                var phase = 2 * Math.PI * t / delayTable.Length;
+                delayTable[t] = (float)(sampleRate * (delay + depth * Math.Sin(phase)));
             }
 
             bufferIndexL = 0;
             bufferIndexR = 0;
 
             delayTableIndexL = 0;
-            delayTableIndexR = 0;
+            delayTableIndexR = delayTable.Length / 4;
         }
 
         public void Process(float[] inputLeft, float[] inputRight, float[] outputLeft, float[] outputRight)
         {
             for (var t = 0; t < outputLeft.Length; t++)
             {
-                var position = bufferIndexL - (double)delayTableL[delayTableIndexL];
+                var position = bufferIndexL - (double)delayTable[delayTableIndexL];
                 if (position < 0.0)
                 {
                     position += bufferL.Length;
@@ -68,7 +65,7 @@ namespace MeltySynth
                 }
 
                 delayTableIndexL++;
-                if (delayTableIndexL == delayTableL.Length)
+                if (delayTableIndexL == delayTable.Length)
                 {
                     delayTableIndexL = 0;
                 }
@@ -76,7 +73,7 @@ namespace MeltySynth
 
             for (var t = 0; t < outputRight.Length; t++)
             {
-                var position = bufferIndexR - (double)delayTableR[delayTableIndexR];
+                var position = bufferIndexR - (double)delayTable[delayTableIndexR];
                 if (position < 0.0)
                 {
                     position += bufferR.Length;
@@ -103,7 +100,7 @@ namespace MeltySynth
                 }
 
                 delayTableIndexR++;
-                if (delayTableIndexR == delayTableR.Length)
+                if (delayTableIndexR == delayTable.Length)
                 {
                     delayTableIndexR = 0;
                 }
