@@ -59,6 +59,16 @@ namespace MeltySynth
         }
 
         /// <summary>
+        /// Stop playing.
+        /// </summary>
+        public void Stop()
+        {
+            midiFile = null;
+
+            synthesizer.Reset();
+        }
+
+        /// <summary>
         /// Send the MIDI events to the synthesizer.
         /// This method should be called enough frequently in the rendering process.
         /// </summary>
