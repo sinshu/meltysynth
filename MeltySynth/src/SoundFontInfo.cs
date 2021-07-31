@@ -22,7 +22,7 @@ namespace MeltySynth
 
         internal SoundFontInfo(BinaryReader reader)
         {
-            var chunkId = reader.ReadFixedLengthString(4);
+            var chunkId = reader.ReadFourCC();
             if (chunkId != "LIST")
             {
                 throw new InvalidDataException("The LIST chunk was not found.");
@@ -30,7 +30,7 @@ namespace MeltySynth
 
             var end = reader.BaseStream.Position + reader.ReadInt32();
 
-            var listType = reader.ReadFixedLengthString(4);
+            var listType = reader.ReadFourCC();
             if (listType != "INFO")
             {
                 throw new InvalidDataException($"The type of the LIST chunk must be 'INFO', but was '{listType}'.");
@@ -38,7 +38,7 @@ namespace MeltySynth
 
             while (reader.BaseStream.Position < end)
             {
-                var id = reader.ReadFixedLengthString(4);
+                var id = reader.ReadFourCC();
                 var size = reader.ReadInt32();
 
                 switch (id)

@@ -96,7 +96,7 @@ namespace MeltySynth
         {
             using (var reader = new BinaryReader(stream, Encoding.ASCII, true))
             {
-                var chunkType = reader.ReadFixedLengthString(4);
+                var chunkType = reader.ReadFourCC();
                 if (chunkType != "MThd")
                 {
                     throw new InvalidDataException($"The chunk type must be 'MThd', but was '{chunkType}'.");
@@ -157,7 +157,7 @@ namespace MeltySynth
 
         private static void ReadTrack(BinaryReader reader, out List<Message> messages, out List<int> ticks)
         {
-            var chunkType = reader.ReadFixedLengthString(4);
+            var chunkType = reader.ReadFourCC();
             if (chunkType != "MTrk")
             {
                 throw new InvalidDataException($"The chunk type must be 'MTrk', but was '{chunkType}'.");

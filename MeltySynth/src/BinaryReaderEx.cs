@@ -6,6 +6,22 @@ namespace MeltySynth
 {
     internal static class BinaryReaderEx
     {
+        public static string ReadFourCC(this BinaryReader reader)
+        {
+            var data = reader.ReadBytes(4);
+
+            for (var i = 0; i < data.Length; i++)
+            {
+                var value = data[i];
+                if (!(32 <= value && value <= 126))
+                {
+                    data[i] = (byte)'?';
+                }
+            }
+
+            return Encoding.ASCII.GetString(data, 0, data.Length);
+        }
+
         public static string ReadFixedLengthString(this BinaryReader reader, int length)
         {
             var data = reader.ReadBytes(length);

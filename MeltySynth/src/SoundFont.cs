@@ -56,7 +56,7 @@ namespace MeltySynth
         {
             using (var reader = new BinaryReader(stream, Encoding.ASCII, true))
             {
-                var chunkId = reader.ReadFixedLengthString(4);
+                var chunkId = reader.ReadFourCC();
                 if (chunkId != "RIFF")
                 {
                     throw new InvalidDataException("The RIFF chunk was not found.");
@@ -64,7 +64,7 @@ namespace MeltySynth
 
                 var size = reader.ReadInt32();
 
-                var formType = reader.ReadFixedLengthString(4);
+                var formType = reader.ReadFourCC();
                 if (formType != "sfbk")
                 {
                     throw new InvalidDataException($"The type of the RIFF chunk must be 'sfbk', but was '{formType}'.");
