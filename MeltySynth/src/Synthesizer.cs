@@ -6,6 +6,11 @@ namespace MeltySynth
     /// <summary>
     /// An instance of the SoundFont synthesizer.
     /// </summary>
+    /// <remarks>
+    /// Note that this class does not provide thread safety.
+    /// If you want to send notes and render the waveform in separate threads,
+    /// you must ensure that the methods will not be called simultaneously.
+    /// </remarks>
     public sealed class Synthesizer
     {
         private static readonly int channelCount = 16;
