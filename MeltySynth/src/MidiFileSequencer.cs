@@ -92,7 +92,7 @@ namespace MeltySynth
                 {
                     ProcessEvents();
                     blockWrote = 0;
-                    currentTime += speed * TimeSpan.FromSeconds((double)synthesizer.BlockSize / synthesizer.SampleRate);
+                    currentTime += TimeSpan.FromSeconds((double)speed * synthesizer.BlockSize / synthesizer.SampleRate);
                 }
 
                 var srcRem = synthesizer.BlockSize - blockWrote;
