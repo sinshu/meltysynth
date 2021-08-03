@@ -14,7 +14,8 @@ namespace MeltySynth
         private MidiFile midiFile;
         private bool loop;
 
-        private long currentSampleCount;
+        private int blockWrote;
+
         private TimeSpan currentTime;
         private int msgIndex;
         private int loopIndex;
@@ -50,7 +51,8 @@ namespace MeltySynth
             this.midiFile = midiFile;
             this.loop = loop;
 
-            currentSampleCount = synthesizer.ProcessedSampleCount;
+            blockWrote = synthesizer.BlockSize;
+
             currentTime = TimeSpan.Zero;
             msgIndex = 0;
             loopIndex = 0;
@@ -69,26 +71,57 @@ namespace MeltySynth
         }
 
         /// <summary>
+        /// Renders the waveform.
+        /// </summary>
+        /// <param name="left">The buffer of the left channel to store the rendered waveform.</param>
+        /// <param name="right">The buffer of the right channel to store the rendered waveform.</param>
+        /// <remarks>
+        /// The buffers must be the same length.
+        /// </remarks>
+        public void Render(Span<float> left, Span<float> right)
+        {
+            if (left.Length != right.Length)
+            {
+                throw new ArgumentException("The output buffers must be the same length.");
+            }
+
+            var wrote = 0;
+            while (wrote < left.Length)
+            {
+                if (blockWrote == synthesizer.BlockSize)
+                {
+                    ProcessEvents();
+                    blockWrote = 0;
+                    currentTime += speed * TimeSpan.FromSeconds((double)synthesizer.BlockSize / synthesizer.SampleRate);
+                }
+
+                var srcRem = synthesizer.BlockSize - blockWrote;
+                var dstRem = left.Length - wrote;
+                var rem = Math.Min(srcRem, dstRem);
+
+                synthesizer.Render(left.Slice(wrote, rem), right.Slice(wrote, rem));
+
+                blockWrote += rem;
+                wrote += rem;
+            }
+        }
+
+        /// <summary>
         /// Send the MIDI events to the synthesizer.
         /// This method should be called enough frequently in the rendering process.
         /// </summary>
-        public void ProcessEvents()
+        private void ProcessEvents()
         {
             if (midiFile == null)
             {
                 return;
             }
 
-            var nextSampleCount = synthesizer.ProcessedSampleCount;
-            var deltaSampleCount = nextSampleCount - currentSampleCount;
-            var deltaTime = speed * TimeSpan.FromSeconds((double)deltaSampleCount / synthesizer.SampleRate);
-            var nextTime = currentTime + deltaTime;
-
             while (msgIndex < midiFile.Messages.Length)
             {
                 var time = midiFile.Times[msgIndex];
                 var msg = midiFile.Messages[msgIndex];
-                if (time <= nextTime)
+                if (time <= currentTime)
                 {
                     if (msg.Type == MidiFile.MessageType.Normal)
                     {
@@ -105,9 +138,6 @@ namespace MeltySynth
                     break;
                 }
             }
-
-            currentSampleCount = nextSampleCount;
-            currentTime = nextTime;
 
             if (msgIndex == midiFile.Messages.Length && loop)
             {

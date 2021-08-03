@@ -11,14 +11,14 @@ public static class RenderingTest
         var sampleRate = 44100;
         var synthesizer = new Synthesizer("TimGM6mb.sf2", sampleRate);
 
-        // The output buffer (3 seconds).
-        var left = new float[3 * sampleRate];
-        var right = new float[3 * sampleRate];
-
         // Play some notes (middle C, E, G).
         synthesizer.NoteOn(0, 60, 100);
         synthesizer.NoteOn(0, 64, 100);
         synthesizer.NoteOn(0, 67, 100);
+
+        // The output buffer (3 seconds).
+        var left = new float[3 * sampleRate];
+        var right = new float[3 * sampleRate];
 
         // Render the waveform.
         synthesizer.Render(left, right);
@@ -41,17 +41,8 @@ public static class RenderingTest
         var left = new float[(int)(sampleRate * midiFile.Length.TotalSeconds)];
         var right = new float[(int)(sampleRate * midiFile.Length.TotalSeconds)];
 
-        var midiEventInterval = 100;
-
-        for (var t = 0; t < left.Length; t += midiEventInterval)
-        {
-            sequencer.ProcessEvents();
-
-            var spanLength = Math.Min(t + midiEventInterval, left.Length) - t;
-            var spanLeft = left.AsSpan(t, spanLength);
-            var spanRight = right.AsSpan(t, spanLength);
-            synthesizer.Render(spanLeft, spanRight);
-        }
+        // Render the waveform.
+        sequencer.Render(left, right);
 
         WriteWaveFile(left, right, sampleRate, "Flourish.wav");
     }

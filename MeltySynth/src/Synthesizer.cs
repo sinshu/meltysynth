@@ -33,13 +33,11 @@ namespace MeltySynth
         private readonly float[] blockLeft;
         private readonly float[] blockRight;
 
+        private readonly float inverseBlockSize;
+
         private int blockRead;
 
-        private long processedSampleCount;
-
         private float masterVolume;
-
-        private float inverseBlockSize;
 
         private Reverb reverb;
         private float[] reverbInput;
@@ -122,13 +120,11 @@ namespace MeltySynth
             blockLeft = new float[blockSize];
             blockRight = new float[blockSize];
 
+            inverseBlockSize = 1F / blockSize;
+
             blockRead = blockSize;
 
-            processedSampleCount = 0;
-
             masterVolume = 0.5F;
-
-            inverseBlockSize = 1F / blockSize;
 
             if (enableReverbAndChorus)
             {
@@ -431,6 +427,8 @@ namespace MeltySynth
                 reverb.Mute();
                 chorus.Mute();
             }
+
+            blockRead = blockSize;
         }
 
         /// <summary>
@@ -513,8 +511,6 @@ namespace MeltySynth
                 ArrayMath.MultiplyAdd(masterVolume, reverbOutputLeft, blockLeft);
                 ArrayMath.MultiplyAdd(masterVolume, reverbOutputRight, blockRight);
             }
-
-            processedSampleCount += blockSize;
         }
 
         private void WriteBlock(float previousGain, float currentGain, float[] source, float[] destination)
@@ -575,11 +571,6 @@ namespace MeltySynth
         /// The number of voices currently played.
         /// </summary>
         public int ActiveVoiceCount => voices.ActiveVoiceCount;
-
-        /// <summary>
-        /// The number of samples processed.
-        /// </summary>
-        public long ProcessedSampleCount => processedSampleCount;
 
         /// <summary>
         /// Gets or sets the master volume.

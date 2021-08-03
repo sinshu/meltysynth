@@ -21,15 +21,7 @@ public static class Benchmark
         var sw = new Stopwatch();
         sw.Start();
 
-        for (var t = 0; t < left.Length; t += midiEventInterval)
-        {
-            sequencer.ProcessEvents();
-
-            var spanLength = Math.Min(t + midiEventInterval, left.Length) - t;
-            var spanLeft = left.AsSpan(t, spanLength);
-            var spanRight = right.AsSpan(t, spanLength);
-            synthesizer.Render(spanLeft, spanRight);
-        }
+        sequencer.Render(left, right);
 
         sw.Stop();
 
