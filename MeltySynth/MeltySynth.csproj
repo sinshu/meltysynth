@@ -12,8 +12,8 @@
     <RepositoryUrl>https://github.com/sinshu/meltysynth/</RepositoryUrl>
     <PackageTags>audio soundfont synthesizer midi</PackageTags>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>Fixed pop noise in certain instruments.</PackageReleaseNotes>
-    <Version>1.1.3</Version>
+    <PackageReleaseNotes>This is a test release.</PackageReleaseNotes>
+    <Version>2.0.0-alpha</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
