@@ -16,19 +16,37 @@ An example code to synthesize a simple chord:
 var sampleRate = 44100;
 var synthesizer = new Synthesizer("TimGM6mb.sf2", sampleRate);
 
-// The output buffer (3 seconds).
-var left = new float[3 * sampleRate];
-var right = new float[3 * sampleRate];
-
 // Play some notes (middle C, E, G).
 synthesizer.NoteOn(0, 60, 100);
 synthesizer.NoteOn(0, 64, 100);
 synthesizer.NoteOn(0, 67, 100);
 
+// The output buffer (3 seconds).
+var left = new float[3 * sampleRate];
+var right = new float[3 * sampleRate];
+
 // Render the waveform.
 synthesizer.Render(left, right);
 ```
 
+Another example code to synthesize a MIDI file:
+```cs
+// Create the synthesizer.
+var sampleRate = 44100;
+var synthesizer = new Synthesizer("TimGM6mb.sf2", sampleRate);
+
+// Read the MIDI file.
+var midiFile = new MidiFile("flourish.mid");
+var sequencer = new MidiFileSequencer(synthesizer);
+sequencer.Play(midiFile, false);
+
+// The output buffer.
+var left = new float[(int)(sampleRate * midiFile.Length.TotalSeconds)];
+var right = new float[(int)(sampleRate * midiFile.Length.TotalSeconds)];
+
+// Render the waveform.
+sequencer.Render(left, right);
+```
 
 ## Features
 
