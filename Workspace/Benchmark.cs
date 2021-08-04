@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Diagnostics;
 using NAudio.Wave;
 using MeltySynth;
 
 public static class Benchmark
 {
-    public static TimeSpan Run(string soundFontPath, string midiFilePath, string outputPath, int outputLengthSec, SynthesizerSettings settings)
+    public static TimeSpan Run(string soundFontPath, string midiFilePath, int outputLengthSec, SynthesizerSettings settings, string outputPath)
     {
         var synthesizer = new Synthesizer(soundFontPath, settings);
 
@@ -16,20 +17,10 @@ public static class Benchmark
         var left = new float[outputLengthSec * settings.SampleRate];
         var right = new float[outputLengthSec * settings.SampleRate];
 
-        var midiEventInterval = synthesizer.BlockSize;
-
         var sw = new Stopwatch();
         sw.Start();
 
-        for (var t = 0; t < left.Length; t += midiEventInterval)
-        {
-            sequencer.ProcessEvents();
-
-            var spanLength = Math.Min(t + midiEventInterval, left.Length) - t;
-            var spanLeft = left.AsSpan(t, spanLength);
-            var spanRight = right.AsSpan(t, spanLength);
-            synthesizer.Render(spanLeft, spanRight);
-        }
+        sequencer.Render(left, right);
 
         sw.Stop();
 
@@ -43,13 +34,17 @@ public static class Benchmark
 
     private static void WriteWaveFile(float[] left, float[] right, int sampleRate, string path)
     {
+        var leftMax = left.Max(x => Math.Abs(x));
+        var rightMax = right.Max(x => Math.Abs(x));
+        var a = 0.99F / Math.Max(leftMax, rightMax);
+
         var format = new WaveFormat(sampleRate, 16, 2);
         using (var writer = new WaveFileWriter(path, format))
         {
             for (var t = 0; t < left.Length; t++)
             {
-                writer.WriteSample(left[t]);
-                writer.WriteSample(right[t]);
+                writer.WriteSample(a * left[t]);
+                writer.WriteSample(a * right[t]);
             }
         }
     }
