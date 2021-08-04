@@ -7,24 +7,17 @@ public class MidiSampleProvider : ISampleProvider
     private static WaveFormat format = WaveFormat.CreateIeeeFloatWaveFormat(44100, 2);
 
     private Synthesizer synthesizer;
-    private float[] left;
-    private float[] right;
-
     private MidiFileSequencer sequencer;
 
-    private int blockRead;
-
     private object mutex;
+
+    private float[] left;
+    private float[] right;
 
     public MidiSampleProvider(string soundFontPath)
     {
         synthesizer = new Synthesizer(soundFontPath, format.SampleRate);
-        left = new float[synthesizer.BlockSize];
-        right = new float[synthesizer.BlockSize];
-
         sequencer = new MidiFileSequencer(synthesizer);
-
-        blockRead = synthesizer.BlockSize;
 
         mutex = new object();
     }
@@ -43,29 +36,25 @@ public class MidiSampleProvider : ISampleProvider
         {
             var dstLength = count / 2;
 
-            var wrote = 0;
-            while (wrote < dstLength)
+            if (left == null)
             {
-                if (blockRead == synthesizer.BlockSize)
-                {
-                    sequencer.ProcessEvents();
-                    synthesizer.Render(left, right);
-                    blockRead = 0;
-                }
+                left = new float[dstLength];
+                right = new float[dstLength];
+            }
 
-                var srcRem = synthesizer.BlockSize - blockRead;
-                var dstRem = dstLength - wrote;
-                var rem = Math.Min(srcRem, dstRem);
+            if (dstLength > left.Length)
+            {
+                Array.Resize(ref left, dstLength);
+                Array.Resize(ref right, dstLength);
+            }
 
-                var t = 2 * wrote;
-                for (var i = 0; i < rem; i++)
-                {
-                    buffer[t++] = left[blockRead + i];
-                    buffer[t++] = right[blockRead + i];
-                }
+            sequencer.Render(left, right);
 
-                blockRead += rem;
-                wrote += rem;
+            var pos = offset;
+            for (var t = 0; t < dstLength; t++)
+            {
+                buffer[pos++] = left[t];
+                buffer[pos++] = right[t];
             }
         }
 

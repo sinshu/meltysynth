@@ -13,7 +13,7 @@ public class SoundStream : IDisposable
     private AL al;
     private int sampleRate;
     private int channelCount;
-    private int bufferSize;
+    private int bufferLength;
     private Action<short[]> fillBuffer;
 
     private uint source;
@@ -26,12 +26,12 @@ public class SoundStream : IDisposable
     private bool stopRequested;
     private Task task;
 
-    public SoundStream(AL al, int sampleRate, int channelCount, int bufferSize, Action<short[]> fillBuffer)
+    public SoundStream(AL al, int sampleRate, int channelCount, int bufferLength, Action<short[]> fillBuffer)
     {
         this.al = al;
         this.sampleRate = sampleRate;
         this.channelCount = channelCount;
-        this.bufferSize = bufferSize;
+        this.bufferLength = bufferLength;
         this.fillBuffer = fillBuffer;
 
         try
@@ -47,7 +47,7 @@ public class SoundStream : IDisposable
 
     private void Initialize()
     {
-        var bufferCount = (int)Math.Ceiling((double)(sampleRate * latency) / (1000 * bufferSize));
+        var bufferCount = (int)Math.Ceiling((double)(sampleRate * latency) / (1000 * bufferLength));
         if (bufferCount < 2)
         {
             bufferCount = 2;
@@ -81,7 +81,7 @@ public class SoundStream : IDisposable
                 throw new Exception("The number of channels must be 1 or 2.");
         }
 
-        bufferData = new short[channelCount * bufferSize];
+        bufferData = new short[channelCount * bufferLength];
         bufferQueue = new uint[1];
     }
 

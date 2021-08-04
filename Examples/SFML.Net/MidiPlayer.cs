@@ -31,13 +31,11 @@ public class MidiPlayer : IDisposable
     private class MidiSoundStream : SoundStream
     {
         private Synthesizer synthesizer;
-        private float[] left;
-        private float[] right;
-
         private MidiFileSequencer sequencer;
 
-        private int blocksPerBatch;
         private int batchLength;
+        private float[] left;
+        private float[] right;
         private short[] batch;
 
         private object mutex;
@@ -45,14 +43,11 @@ public class MidiPlayer : IDisposable
         public MidiSoundStream(string soundFontPath, int sampleRate)
         {
             synthesizer = new Synthesizer(soundFontPath, sampleRate);
-            left = new float[synthesizer.BlockSize];
-            right = new float[synthesizer.BlockSize];
-
             sequencer = new MidiFileSequencer(synthesizer);
 
-            var blockDuration = (double)synthesizer.BlockSize / synthesizer.SampleRate;
-            blocksPerBatch = (int)Math.Ceiling(0.05 / blockDuration);
-            batchLength = synthesizer.BlockSize * blocksPerBatch;
+            batchLength = (int)Math.Round(0.05 * sampleRate);
+            left = new float[batchLength];
+            right = new float[batchLength];
             batch = new short[2 * batchLength];
 
             mutex = new object();
@@ -77,38 +72,34 @@ public class MidiPlayer : IDisposable
         {
             lock (mutex)
             {
-                var t = 0;
+                sequencer.Render(left, right);
 
-                for (var i = 0; i < blocksPerBatch; i++)
+                var pos = 0;
+
+                for (var t = 0; t < batchLength; t++)
                 {
-                    sequencer.ProcessEvents();
-                    synthesizer.Render(left, right);
-
-                    for (var j = 0; j < left.Length; j++)
+                    var sampleLeft = (int)(32768 * left[t]);
+                    if (sampleLeft < short.MinValue)
                     {
-                        var sampleLeft = (int)(32768 * left[j]);
-                        if (sampleLeft < short.MinValue)
-                        {
-                            sampleLeft = short.MinValue;
-                        }
-                        else if (sampleLeft > short.MaxValue)
-                        {
-                            sampleLeft = short.MaxValue;
-                        }
-
-                        var sampleRight = (int)(32768 * right[j]);
-                        if (sampleRight < short.MinValue)
-                        {
-                            sampleRight = short.MinValue;
-                        }
-                        else if (sampleRight > short.MaxValue)
-                        {
-                            sampleRight = short.MaxValue;
-                        }
-
-                        batch[t++] = (short)sampleLeft;
-                        batch[t++] = (short)sampleRight;
+                        sampleLeft = short.MinValue;
                     }
+                    else if (sampleLeft > short.MaxValue)
+                    {
+                        sampleLeft = short.MaxValue;
+                    }
+
+                    var sampleRight = (int)(32768 * right[t]);
+                    if (sampleRight < short.MinValue)
+                    {
+                        sampleRight = short.MinValue;
+                    }
+                    else if (sampleRight > short.MaxValue)
+                    {
+                        sampleRight = short.MaxValue;
+                    }
+
+                    batch[pos++] = (short)sampleLeft;
+                    batch[pos++] = (short)sampleRight;
                 }
 
                 samples = batch;
