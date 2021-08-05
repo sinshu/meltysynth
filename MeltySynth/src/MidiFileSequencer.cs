@@ -123,15 +123,18 @@ namespace MeltySynth
                     {
                         synthesizer.ProcessMidiMessage(msg.Channel, msg.Command, msg.Data1, msg.Data2);
                     }
-                    else if (msg.Type == MidiFile.MessageType.LoopStart)
+                    else if (loop)
                     {
-                        loopIndex = msgIndex;
-                    }
-                    else if (msg.Type == MidiFile.MessageType.LoopEnd)
-                    {
-                        currentTime = midiFile.Times[loopIndex];
-                        msgIndex = loopIndex;
-                        synthesizer.NoteOffAll(false);
+                        if (msg.Type == MidiFile.MessageType.LoopStart)
+                        {
+                            loopIndex = msgIndex;
+                        }
+                        else if (msg.Type == MidiFile.MessageType.LoopEnd)
+                        {
+                            currentTime = midiFile.Times[loopIndex];
+                            msgIndex = loopIndex;
+                            synthesizer.NoteOffAll(false);
+                        }
                     }
                     msgIndex++;
                 }
