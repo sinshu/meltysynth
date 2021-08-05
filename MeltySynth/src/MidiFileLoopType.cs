@@ -14,21 +14,21 @@ namespace MeltySynth
 
         /// <summary>
         /// The RPG Maker style loop is used.
-        /// CC 111 will be regarded as the loop start point.
+        /// CC #111 will be regarded as the loop start point.
         /// </summary>
         RpgMaker,
 
         /// <summary>
-        /// The RPG Maker style loop is used.
-        /// CC 110 will be regarded as the loop start point.
-        /// CC 111 will be regarded as the loop end point.
+        /// The Incredible Machine style loop is used.
+        /// CC #110 will be regarded as the loop start point.
+        /// CC #111 will be regarded as the loop end point.
         /// </summary>
         IncredibleMachine,
 
         /// <summary>
-        /// The RPG Maker style loop is used.
-        /// CC 116 will be regarded as the loop start point.
-        /// CC 117 will be regarded as the loop end point.
+        /// The Final Fantasy style loop is used.
+        /// CC #116 will be regarded as the loop start point.
+        /// CC #117 will be regarded as the loop end point.
         /// </summary>
         FinalFantasy
     }
