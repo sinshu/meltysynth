@@ -106,10 +106,6 @@ namespace MeltySynth
             }
         }
 
-        /// <summary>
-        /// Send the MIDI events to the synthesizer.
-        /// This method should be called enough frequently in the rendering process.
-        /// </summary>
         private void ProcessEvents()
         {
             if (midiFile == null)
@@ -127,9 +123,15 @@ namespace MeltySynth
                     {
                         synthesizer.ProcessMidiMessage(msg.Channel, msg.Command, msg.Data1, msg.Data2);
                     }
-                    else if (msg.Type == MidiFile.MessageType.LoopPoint)
+                    else if (msg.Type == MidiFile.MessageType.LoopStart)
                     {
                         loopIndex = msgIndex;
+                    }
+                    else if (msg.Type == MidiFile.MessageType.LoopEnd)
+                    {
+                        currentTime = midiFile.Times[loopIndex];
+                        msgIndex = loopIndex;
+                        synthesizer.NoteOffAll(false);
                     }
                     msgIndex++;
                 }
@@ -143,6 +145,7 @@ namespace MeltySynth
             {
                 currentTime = midiFile.Times[loopIndex];
                 msgIndex = loopIndex;
+                synthesizer.NoteOffAll(false);
             }
         }
 
