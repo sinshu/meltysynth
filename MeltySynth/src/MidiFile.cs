@@ -28,7 +28,7 @@ namespace MeltySynth
                 throw new ArgumentNullException(nameof(stream));
             }
 
-            Load(stream, 0, MidiFileLoopType.Normal);
+            Load(stream, 0, MidiFileLoopType.None);
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace MeltySynth
                 throw new ArgumentException("The loop point must be a non-negative value.", nameof(loopPoint));
             }
 
-            Load(stream, loopPoint, MidiFileLoopType.Normal);
+            Load(stream, loopPoint, MidiFileLoopType.None);
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace MeltySynth
 
             using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
-                Load(stream, 0, MidiFileLoopType.Normal);
+                Load(stream, 0, MidiFileLoopType.None);
             }
         }
 
@@ -102,7 +102,7 @@ namespace MeltySynth
 
             using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
-                Load(stream, loopPoint, MidiFileLoopType.Normal);
+                Load(stream, loopPoint, MidiFileLoopType.None);
             }
         }
 

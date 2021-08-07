@@ -10,7 +10,7 @@ namespace MeltySynth
         /// <summary>
         /// No loop extension is used.
         /// </summary>
-        Normal = 0,
+        None = 0,
 
         /// <summary>
         /// The RPG Maker style loop is used.
