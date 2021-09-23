@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Immutable;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -29,14 +28,14 @@ namespace MeltySynth
                 throw new ArgumentNullException(nameof(stream));
             }
 
-            Load(stream, 0);
+            Load(stream, 0, MidiFileLoopType.None);
         }
 
         /// <summary>
         /// Loads a MIDI file from the stream.
         /// </summary>
         /// <param name="stream">The data stream used to load the MIDI file.</param>
-        /// <param name="loopPoint">The loop point in ticks.</param>
+        /// <param name="loopPoint">The loop start point in ticks.</param>
         public MidiFile(Stream stream, int loopPoint)
         {
             if (stream == null)
@@ -49,7 +48,22 @@ namespace MeltySynth
                 throw new ArgumentException("The loop point must be a non-negative value.", nameof(loopPoint));
             }
 
-            Load(stream, loopPoint);
+            Load(stream, loopPoint, MidiFileLoopType.None);
+        }
+
+        /// <summary>
+        /// Loads a MIDI file from the stream.
+        /// </summary>
+        /// <param name="stream">The data stream used to load the MIDI file.</param>
+        /// <param name="loopType">The type of the loop extension to be used.</param>
+        public MidiFile(Stream stream, MidiFileLoopType loopType)
+        {
+            if (stream == null)
+            {
+                throw new ArgumentNullException(nameof(stream));
+            }
+
+            Load(stream, 0, loopType);
         }
 
         /// <summary>
@@ -65,7 +79,7 @@ namespace MeltySynth
 
             using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
-                Load(stream, 0);
+                Load(stream, 0, MidiFileLoopType.None);
             }
         }
 
@@ -73,7 +87,7 @@ namespace MeltySynth
         /// Loads a MIDI file from the file.
         /// </summary>
         /// <param name="path">The MIDI file name and path.</param>
-        /// <param name="loopPoint">The loop point in ticks.</param>
+        /// <param name="loopPoint">The loop start point in ticks.</param>
         public MidiFile(string path, int loopPoint)
         {
             if (path == null)
@@ -88,11 +102,29 @@ namespace MeltySynth
 
             using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
-                Load(stream, loopPoint);
+                Load(stream, loopPoint, MidiFileLoopType.None);
             }
         }
 
-        private void Load(Stream stream, int loopPoint)
+        /// <summary>
+        /// Loads a MIDI file from the file.
+        /// </summary>
+        /// <param name="path">The MIDI file name and path.</param>
+        /// <param name="loopType">The type of the loop extension to be used.</param>
+        public MidiFile(string path, MidiFileLoopType loopType)
+        {
+            if (path == null)
+            {
+                throw new ArgumentNullException(nameof(path));
+            }
+
+            using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+            {
+                Load(stream, 0, loopType);
+            }
+        }
+
+        private void Load(Stream stream, int loopPoint, MidiFileLoopType loopType)
         {
             using (var reader = new BinaryReader(stream, Encoding.ASCII, true))
             {
@@ -123,7 +155,7 @@ namespace MeltySynth
                 {
                     List<Message> messageList;
                     List<int> tickList;
-                    ReadTrack(reader, out messageList, out tickList);
+                    ReadTrack(reader, loopType, out messageList, out tickList);
                     messageLists[i] = messageList;
                     tickLists[i] = tickList;
                 }
@@ -139,7 +171,7 @@ namespace MeltySynth
                             if (tickList[i] >= loopPoint)
                             {
                                 tickList.Insert(i, loopPoint);
-                                messageList.Insert(i, Message.LoopPoint());
+                                messageList.Insert(i, Message.LoopStart());
                                 break;
                             }
                         }
@@ -147,7 +179,7 @@ namespace MeltySynth
                     else
                     {
                         tickList.Add(loopPoint);
-                        messageList.Add(Message.LoopPoint());
+                        messageList.Add(Message.LoopStart());
                     }
                 }
 
@@ -155,7 +187,7 @@ namespace MeltySynth
             }
         }
 
-        private static void ReadTrack(BinaryReader reader, out List<Message> messages, out List<int> ticks)
+        private static void ReadTrack(BinaryReader reader, MidiFileLoopType loopType, out List<Message> messages, out List<int> ticks)
         {
             var chunkType = reader.ReadFourCC();
             if (chunkType != "MTrk")
@@ -190,13 +222,13 @@ namespace MeltySynth
                     var command = lastStatus & 0xF0;
                     if (command == 0xC0 || command == 0xD0)
                     {
-                        messages.Add(Message.Normal(lastStatus, first));
+                        messages.Add(Message.Common(lastStatus, first));
                         ticks.Add(tick);
                     }
                     else
                     {
                         var data2 = reader.ReadByte();
-                        messages.Add(Message.Normal(lastStatus, first, data2));
+                        messages.Add(Message.Common(lastStatus, first, data2, loopType));
                         ticks.Add(tick);
                     }
 
@@ -238,14 +270,14 @@ namespace MeltySynth
                         if (command == 0xC0 || command == 0xD0)
                         {
                             var data1 = reader.ReadByte();
-                            messages.Add(Message.Normal(first, data1));
+                            messages.Add(Message.Common(first, data1));
                             ticks.Add(tick);
                         }
                         else
                         {
                             var data1 = reader.ReadByte();
                             var data2 = reader.ReadByte();
-                            messages.Add(Message.Normal(first, data1, data2));
+                            messages.Add(Message.Common(first, data1, data2, loopType));
                             ticks.Add(tick);
                         }
                         break;
@@ -361,7 +393,7 @@ namespace MeltySynth
                 this.data2 = data2;
             }
 
-            public static Message Normal(byte status, byte data1)
+            public static Message Common(byte status, byte data1)
             {
                 byte channel = (byte)(status & 0x0F);
                 byte command = (byte)(status & 0xF0);
@@ -369,10 +401,46 @@ namespace MeltySynth
                 return new Message(channel, command, data1, data2);
             }
 
-            public static Message Normal(byte status, byte data1, byte data2)
+            public static Message Common(byte status, byte data1, byte data2, MidiFileLoopType loopType)
             {
                 byte channel = (byte)(status & 0x0F);
                 byte command = (byte)(status & 0xF0);
+
+                if (command == 0xB0)
+                {
+                    switch (loopType)
+                    {
+                        case MidiFileLoopType.RpgMaker:
+                            if (data1 == 111)
+                            {
+                                return LoopStart();
+                            }
+                            break;
+
+                        case MidiFileLoopType.IncredibleMachine:
+                            if (data1 == 110)
+                            {
+                                return LoopStart();
+                            }
+                            if (data1 == 111)
+                            {
+                                return LoopEnd();
+                            }
+                            break;
+
+                        case MidiFileLoopType.FinalFantasy:
+                            if (data1 == 116)
+                            {
+                                return LoopStart();
+                            }
+                            if (data1 == 117)
+                            {
+                                return LoopEnd();
+                            }
+                            break;
+                    }
+                }
+
                 return new Message(channel, command, data1, data2);
             }
 
@@ -384,9 +452,14 @@ namespace MeltySynth
                 return new Message((int)MessageType.TempoChange, command, data1, data2);
             }
 
-            public static Message LoopPoint()
+            public static Message LoopStart()
             {
-                return new Message((int)MessageType.LoopPoint, 0, 0, 0);
+                return new Message((int)MessageType.LoopStart, 0, 0, 0);
+            }
+
+            public static Message LoopEnd()
+            {
+                return new Message((int)MessageType.LoopEnd, 0, 0, 0);
             }
 
             public static Message EndOfTrack()
@@ -401,8 +474,11 @@ namespace MeltySynth
                     case (int)MessageType.TempoChange:
                         return "Tempo: " + Tempo;
 
-                    case (int)MessageType.LoopPoint:
-                        return "LoopPoint";
+                    case (int)MessageType.LoopStart:
+                        return "LoopStart";
+
+                    case (int)MessageType.LoopEnd:
+                        return "LoopEnd";
 
                     case (int)MessageType.EndOfTrack:
                         return "EndOfTrack";
@@ -421,8 +497,11 @@ namespace MeltySynth
                         case (int)MessageType.TempoChange:
                             return MessageType.TempoChange;
 
-                        case (int)MessageType.LoopPoint:
-                            return MessageType.LoopPoint;
+                        case (int)MessageType.LoopStart:
+                            return MessageType.LoopStart;
+
+                        case (int)MessageType.LoopEnd:
+                            return MessageType.LoopEnd;
 
                         case (int)MessageType.EndOfTrack:
                             return MessageType.EndOfTrack;
@@ -446,8 +525,9 @@ namespace MeltySynth
         internal enum MessageType
         {
             Normal = 0,
-            TempoChange = 253,
-            LoopPoint = 254,
+            TempoChange = 252,
+            LoopStart = 253,
+            LoopEnd = 254,
             EndOfTrack = 255
         }
     }
