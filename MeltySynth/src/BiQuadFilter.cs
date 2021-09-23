@@ -45,14 +45,14 @@ namespace MeltySynth
                 var q = resonance - resonancePeakOffset / (1 + 6 * (resonance - 1));
 
                 var w = 2 * MathF.PI * cutoffFrequency / synthesizer.SampleRate;
-                var cos = MathF.Cos(w);
+                var cosw = MathF.Cos(w);
                 var alpha = MathF.Sin(w) / (2 * q);
 
-                var b0 = (1 - cos) / 2;
-                var b1 = 1 - cos;
-                var b2 = (1 - cos) / 2;
+                var b0 = (1 - cosw) / 2;
+                var b1 = 1 - cosw;
+                var b2 = (1 - cosw) / 2;
                 var a0 = 1 + alpha;
-                var a1 = -2 * cos;
+                var a1 = -2 * cosw;
                 var a2 = 1 - alpha;
 
                 SetCoefficients(a0, a1, a2, b0, b1, b2);
