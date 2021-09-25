@@ -37,7 +37,7 @@ namespace MeltySynth
             var hold = region.HoldVolumeEnvelope * SoundFontMath.KeyNumberToMultiplyingFactor(region.KeyNumberToVolumeEnvelopeHold, key);
             var decay = region.DecayVolumeEnvelope * SoundFontMath.KeyNumberToMultiplyingFactor(region.KeyNumberToVolumeEnvelopeDecay, key);
             var sustain = SoundFontMath.DecibelsToLinear(-region.SustainVolumeEnvelope);
-            var release = region.ReleaseVolumeEnvelope;
+            var release = Math.Max(region.ReleaseVolumeEnvelope, 0.01F);
 
             envelope.Start(delay, attack, hold, decay, sustain, release);
         }
