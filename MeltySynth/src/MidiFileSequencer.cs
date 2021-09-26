@@ -5,7 +5,7 @@ namespace MeltySynth
     /// <summary>
     /// An instance of the MIDI file sequencer.
     /// </summary>
-    public sealed class MidiFileSequencer
+    public sealed class MidiFileSequencer : IAudioRenderer
     {
         private readonly Synthesizer synthesizer;
 
@@ -70,14 +70,7 @@ namespace MeltySynth
             synthesizer.Reset();
         }
 
-        /// <summary>
-        /// Renders the waveform.
-        /// </summary>
-        /// <param name="left">The buffer of the left channel to store the rendered waveform.</param>
-        /// <param name="right">The buffer of the right channel to store the rendered waveform.</param>
-        /// <remarks>
-        /// The buffers must be the same length.
-        /// </remarks>
+        /// <inheritdoc/>
         public void Render(Span<float> left, Span<float> right)
         {
             if (left.Length != right.Length)

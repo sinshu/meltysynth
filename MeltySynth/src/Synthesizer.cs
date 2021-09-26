@@ -11,7 +11,7 @@ namespace MeltySynth
     /// If you want to send notes and render the waveform in separate threads,
     /// you must ensure that the methods will not be called simultaneously.
     /// </remarks>
-    public sealed class Synthesizer
+    public sealed class Synthesizer : IAudioRenderer
     {
         private static readonly int channelCount = 16;
         private static readonly int percussionChannel = 9;
@@ -431,14 +431,7 @@ namespace MeltySynth
             blockRead = blockSize;
         }
 
-        /// <summary>
-        /// Renders the waveform.
-        /// </summary>
-        /// <param name="left">The buffer of the left channel to store the rendered waveform.</param>
-        /// <param name="right">The buffer of the right channel to store the rendered waveform.</param>
-        /// <remarks>
-        /// The buffers must be the same length.
-        /// </remarks>
+        /// <inheritdoc/>
         public void Render(Span<float> left, Span<float> right)
         {
             if (left.Length != right.Length)
