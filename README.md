@@ -107,6 +107,7 @@ https://www.youtube.com/watch?v=gT81QPjWSd8
     - [x] Chorus
 * __Other things__
     - [x] Standard MIDI file support
+    - [x] Loop extension support
     - [x] Performace optimization
 
 
