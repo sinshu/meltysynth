@@ -1,147 +1,40 @@
 ﻿using System;
+using System.IO;
 
 namespace MeltySynth
 {
-    internal sealed class Generator
+    internal struct Generator
     {
-        private readonly Synthesizer synthesizer;
+        private readonly GeneratorType type;
+        private readonly ushort value;
 
-        private short[] data;
-        private LoopMode loopMode;
-        private int sampleRate;
-        private int start;
-        private int end;
-        private int startLoop;
-        private int endLoop;
-        private int rootKey;
-
-        private float tune;
-        private float pitchChangeScale;
-        private float sampleRateRatio;
-
-        private bool looping;
-
-        private double position;
-
-        internal Generator(Synthesizer synthesizer)
+        private Generator(BinaryReader reader)
         {
-            this.synthesizer = synthesizer;
+            type = (GeneratorType)reader.ReadUInt16();
+            value = reader.ReadUInt16();
         }
 
-        public void Start(short[] data, LoopMode loopMode, int sampleRate, int start, int end, int startLoop, int endLoop, int rootKey, int coarseTune, int fineTune, int scaleTuning)
+        internal static Generator[] ReadFromChunk(BinaryReader reader, int size)
         {
-            this.data = data;
-            this.loopMode = loopMode;
-            this.sampleRate = sampleRate;
-            this.start = start;
-            this.end = end;
-            this.startLoop = startLoop;
-            this.endLoop = endLoop;
-            this.rootKey = rootKey;
-
-            tune = coarseTune + 0.01F * fineTune;
-            pitchChangeScale = 0.01F * scaleTuning;
-            sampleRateRatio = (float)sampleRate / synthesizer.SampleRate;
-
-            if (loopMode == LoopMode.NoLoop)
+            if (size % 4 != 0)
             {
-                looping = false;
-            }
-            else
-            {
-                looping = true;
+                throw new InvalidDataException("The generator list is invalid.");
             }
 
-            position = start;
+            var generators = new Generator[size / 4 - 1];
+
+            for (var i = 0; i < generators.Length; i++)
+            {
+                generators[i] = new Generator(reader);
+            }
+
+            // The last one is the terminator.
+            new Generator(reader);
+
+            return generators;
         }
 
-        public void Release()
-        {
-            if (loopMode == LoopMode.LoopUntilNoteOff)
-            {
-                looping = false;
-            }
-        }
-
-        public bool Process(float[] block, float pitch)
-        {
-            var pitchChange = pitchChangeScale * (pitch - rootKey) + tune;
-            var pitchRatio = sampleRateRatio * MathF.Pow(2, pitchChange / 12);
-            return FillBlock(block, pitchRatio);
-        }
-
-        internal bool FillBlock(float[] block, double pitchRatio)
-        {
-            if (looping)
-            {
-                return FillBlock_Continuous(block, pitchRatio);
-            }
-            else
-            {
-                return FillBlock_NoLoop(block, pitchRatio);
-            }
-        }
-
-        private bool FillBlock_NoLoop(float[] block, double pitchRatio)
-        {
-            for (var t = 0; t < block.Length; t++)
-            {
-                var index = (int)position;
-
-                if (index >= end)
-                {
-                    if (t > 0)
-                    {
-                        Array.Clear(block, t, block.Length - t);
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-
-                var x1 = data[index];
-                var x2 = data[index + 1];
-                var a = (float)(position - index);
-                block[t] = (x1 + a * (x2 - x1)) / 32768;
-
-                position += pitchRatio;
-            }
-
-            return true;
-        }
-
-        private bool FillBlock_Continuous(float[] block, double pitchRatio)
-        {
-            var endLoopPosition = (double)endLoop;
-
-            var loopLength = endLoop - startLoop;
-
-            for (var t = 0; t < block.Length; t++)
-            {
-                if (position >= endLoopPosition)
-                {
-                    position -= loopLength;
-                }
-
-                var index1 = (int)position;
-                var index2 = index1 + 1;
-
-                if (index2 >= endLoop)
-                {
-                    index2 -= loopLength;
-                }
-
-                var x1 = data[index1];
-                var x2 = data[index2];
-                var a = position - index1;
-                block[t] = (float)((x1 + a * (x2 - x1)) / 32768);
-
-                position += pitchRatio;
-            }
-
-            return true;
-        }
+        public GeneratorType Type => type;
+        public ushort Value => value;
     }
 }

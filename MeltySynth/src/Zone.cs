@@ -5,14 +5,13 @@ namespace MeltySynth
 {
     internal sealed class Zone
     {
-        private ModulatorParameter[] modulatorParameters;
-        private GeneratorParameter[] generatorParameters;
+        private Generator[] generators;
 
         private Zone()
         {
         }
 
-        internal static Zone[] Create(ZoneInfo[] infos, GeneratorParameter[] gps, ModulatorParameter[] mps)
+        internal static Zone[] Create(ZoneInfo[] infos, Generator[] generators)
         {
             if (infos.Length <= 1)
             {
@@ -27,16 +26,8 @@ namespace MeltySynth
                 var info = infos[i];
 
                 var zone = new Zone();
-                zone.generatorParameters = new GeneratorParameter[info.GeneratorCount];
-                for (var j = 0; j < zone.generatorParameters.Length; j++)
-                {
-                    zone.generatorParameters[j] = gps[info.GeneratorIndex + j];
-                }
-                zone.modulatorParameters = new ModulatorParameter[info.ModulatorCount];
-                for (var j = 0; j < zone.modulatorParameters.Length; j++)
-                {
-                    zone.modulatorParameters[j] = mps[info.ModulatorIndex + j];
-                }
+                zone.generators = new Generator[info.GeneratorCount];
+                Array.Copy(generators, info.GeneratorIndex, zone.generators, 0, info.GeneratorCount);
 
                 zones[i] = zone;
             }
@@ -44,7 +35,6 @@ namespace MeltySynth
             return zones;
         }
 
-        public ModulatorParameter[] ModulatorParameters => modulatorParameters;
-        public GeneratorParameter[] GeneratorParameters => generatorParameters;
+        public Generator[] Generators => generators;
     }
 }

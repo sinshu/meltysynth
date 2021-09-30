@@ -27,12 +27,10 @@ namespace MeltySynth
 
             PresetInfo[] presetInfos = null;
             ZoneInfo[] presetBag = null;
-            ModulatorParameter[] presetModulators = null;
-            GeneratorParameter[] presetGenerators = null;
+            Generator[] presetGenerators = null;
             InstrumentInfo[] instrumentInfos = null;
             ZoneInfo[] instrumentBag = null;
-            ModulatorParameter[] instrumentModulators = null;
-            GeneratorParameter[] instrumentGenerators = null;
+            Generator[] instrumentGenerators = null;
 
             while (reader.BaseStream.Position < end)
             {
@@ -48,10 +46,10 @@ namespace MeltySynth
                         presetBag = ZoneInfo.ReadFromChunk(reader, size);
                         break;
                     case "pmod":
-                        presetModulators = ModulatorParameter.ReadFromChunk(reader, size);
+                        Modulator.DiscardData(reader, size);
                         break;
                     case "pgen":
-                        presetGenerators = GeneratorParameter.ReadFromChunk(reader, size);
+                        presetGenerators = Generator.ReadFromChunk(reader, size);
                         break;
                     case "inst":
                         instrumentInfos = InstrumentInfo.ReadFromChunk(reader, size);
@@ -60,10 +58,10 @@ namespace MeltySynth
                         instrumentBag = ZoneInfo.ReadFromChunk(reader, size);
                         break;
                     case "imod":
-                        instrumentModulators = ModulatorParameter.ReadFromChunk(reader, size);
+                        Modulator.DiscardData(reader, size);
                         break;
                     case "igen":
-                        instrumentGenerators = GeneratorParameter.ReadFromChunk(reader, size);
+                        instrumentGenerators = Generator.ReadFromChunk(reader, size);
                         break;
                     case "shdr":
                         sampleHeaders = SampleHeader.ReadFromChunk(reader, size);
@@ -75,18 +73,16 @@ namespace MeltySynth
 
             if (presetInfos == null) throw new InvalidDataException("The PHDR sub-chunk was not found.");
             if (presetBag == null) throw new InvalidDataException("The PBAG sub-chunk was not found.");
-            if (presetModulators == null) throw new InvalidDataException("The PMOD sub-chunk was not found.");
             if (presetGenerators == null) throw new InvalidDataException("The PGEN sub-chunk was not found.");
             if (instrumentInfos == null) throw new InvalidDataException("The INST sub-chunk was not found.");
             if (instrumentBag == null) throw new InvalidDataException("The IBAG sub-chunk was not found.");
-            if (instrumentModulators == null) throw new InvalidDataException("The IMOD sub-chunk was not found.");
             if (instrumentGenerators == null) throw new InvalidDataException("The IGEN sub-chunk was not found.");
             if (sampleHeaders == null) throw new InvalidDataException("The SHDR sub-chunk was not found.");
 
-            var instrumentZones = Zone.Create(instrumentBag, instrumentGenerators, instrumentModulators);
+            var instrumentZones = Zone.Create(instrumentBag, instrumentGenerators);
             instruments = Instrument.Create(instrumentInfos, instrumentZones, sampleHeaders);
 
-            var presetZones = Zone.Create(presetBag, presetGenerators, presetModulators);
+            var presetZones = Zone.Create(presetBag, presetGenerators);
             presets = Preset.Create(presetInfos, presetZones, instruments);
         }
 

@@ -16,30 +16,30 @@ namespace MeltySynth
 
         private readonly SampleHeader sample;
 
-        private readonly short[] gps;
+        private readonly short[] gs;
 
-        private InstrumentRegion(Instrument instrument, GeneratorParameter[] global, GeneratorParameter[] local, SampleHeader[] samples)
+        private InstrumentRegion(Instrument instrument, Generator[] global, Generator[] local, SampleHeader[] samples)
         {
-            gps = new short[61];
-            gps[(int)GeneratorParameterType.InitialFilterCutoffFrequency] = 13500;
-            gps[(int)GeneratorParameterType.DelayModulationLfo] = -12000;
-            gps[(int)GeneratorParameterType.DelayVibratoLfo] = -12000;
-            gps[(int)GeneratorParameterType.DelayModulationEnvelope] = -12000;
-            gps[(int)GeneratorParameterType.AttackModulationEnvelope] = -12000;
-            gps[(int)GeneratorParameterType.HoldModulationEnvelope] = -12000;
-            gps[(int)GeneratorParameterType.DecayModulationEnvelope] = -12000;
-            gps[(int)GeneratorParameterType.ReleaseModulationEnvelope] = -12000;
-            gps[(int)GeneratorParameterType.DelayVolumeEnvelope] = -12000;
-            gps[(int)GeneratorParameterType.AttackVolumeEnvelope] = -12000;
-            gps[(int)GeneratorParameterType.HoldVolumeEnvelope] = -12000;
-            gps[(int)GeneratorParameterType.DecayVolumeEnvelope] = -12000;
-            gps[(int)GeneratorParameterType.ReleaseVolumeEnvelope] = -12000;
-            gps[(int)GeneratorParameterType.KeyRange] = 0x7F00;
-            gps[(int)GeneratorParameterType.VelocityRange] = 0x7F00;
-            gps[(int)GeneratorParameterType.KeyNumber] = -1;
-            gps[(int)GeneratorParameterType.Velocity] = -1;
-            gps[(int)GeneratorParameterType.ScaleTuning] = 100;
-            gps[(int)GeneratorParameterType.OverridingRootKey] = -1;
+            gs = new short[61];
+            gs[(int)GeneratorType.InitialFilterCutoffFrequency] = 13500;
+            gs[(int)GeneratorType.DelayModulationLfo] = -12000;
+            gs[(int)GeneratorType.DelayVibratoLfo] = -12000;
+            gs[(int)GeneratorType.DelayModulationEnvelope] = -12000;
+            gs[(int)GeneratorType.AttackModulationEnvelope] = -12000;
+            gs[(int)GeneratorType.HoldModulationEnvelope] = -12000;
+            gs[(int)GeneratorType.DecayModulationEnvelope] = -12000;
+            gs[(int)GeneratorType.ReleaseModulationEnvelope] = -12000;
+            gs[(int)GeneratorType.DelayVolumeEnvelope] = -12000;
+            gs[(int)GeneratorType.AttackVolumeEnvelope] = -12000;
+            gs[(int)GeneratorType.HoldVolumeEnvelope] = -12000;
+            gs[(int)GeneratorType.DecayVolumeEnvelope] = -12000;
+            gs[(int)GeneratorType.ReleaseVolumeEnvelope] = -12000;
+            gs[(int)GeneratorType.KeyRange] = 0x7F00;
+            gs[(int)GeneratorType.VelocityRange] = 0x7F00;
+            gs[(int)GeneratorType.KeyNumber] = -1;
+            gs[(int)GeneratorType.Velocity] = -1;
+            gs[(int)GeneratorType.ScaleTuning] = 100;
+            gs[(int)GeneratorType.OverridingRootKey] = -1;
 
             if (global != null)
             {
@@ -59,7 +59,7 @@ namespace MeltySynth
 
             if (samples != null)
             {
-                var id = gps[(int)GeneratorParameterType.SampleID];
+                var id = gs[(int)GeneratorType.SampleID];
                 if (!(0 <= id && id < samples.Length))
                 {
                     throw new InvalidDataException($"The instrument '{instrument.Name}' contains an invalid sample ID '{id}'.");
@@ -77,7 +77,7 @@ namespace MeltySynth
             Zone global = null;
 
             // Is the first one the global zone?
-            if (zones[0].GeneratorParameters.Length == 0 || zones[0].GeneratorParameters.Last().Type != GeneratorParameterType.SampleID)
+            if (zones[0].Generators.Length == 0 || zones[0].Generators.Last().Type != GeneratorType.SampleID)
             {
                 // The first one is the global zone.
                 global = zones[0];
@@ -89,7 +89,7 @@ namespace MeltySynth
                 var regions = new InstrumentRegion[zones.Length - 1];
                 for (var i = 0; i < regions.Length; i++)
                 {
-                    regions[i] = new InstrumentRegion(instrument, global.GeneratorParameters, zones[i + 1].GeneratorParameters, samples);
+                    regions[i] = new InstrumentRegion(instrument, global.Generators, zones[i + 1].Generators, samples);
                 }
                 return regions;
             }
@@ -99,15 +99,15 @@ namespace MeltySynth
                 var regions = new InstrumentRegion[zones.Length];
                 for (var i = 0; i < regions.Length; i++)
                 {
-                    regions[i] = new InstrumentRegion(instrument, null, zones[i].GeneratorParameters, samples);
+                    regions[i] = new InstrumentRegion(instrument, null, zones[i].Generators, samples);
                 }
                 return regions;
             }
         }
 
-        private void SetParameter(GeneratorParameter parameter)
+        private void SetParameter(Generator parameter)
         {
-            gps[(int)parameter.Type] = (short)parameter.Value;
+            gs[(int)parameter.Type] = (short)parameter.Value;
         }
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace MeltySynth
             return $"{sample.Name} (Key: {KeyRangeStart}-{KeyRangeEnd}, Velocity: {VelocityRangeStart}-{VelocityRangeEnd})";
         }
 
-        internal short this[GeneratorParameterType generatortType] => gps[(int)generatortType];
+        internal short this[GeneratorType generatortType] => gs[(int)generatortType];
 
         /// <summary>
         /// The sample corresponding to the region.
@@ -150,60 +150,60 @@ namespace MeltySynth
         public int SampleStartLoop => sample.StartLoop + StartLoopAddressOffset;
         public int SampleEndLoop => sample.EndLoop + EndLoopAddressOffset;
 
-        public int StartAddressOffset => 32768 * this[GeneratorParameterType.StartAddressCoarseOffset] + this[GeneratorParameterType.StartAddressOffset];
-        public int EndAddressOffset => 32768 * this[GeneratorParameterType.EndAddressCoarseOffset] + this[GeneratorParameterType.EndAddressOffset];
-        public int StartLoopAddressOffset => 32768 * this[GeneratorParameterType.StartLoopAddressCoarseOffset] + this[GeneratorParameterType.StartLoopAddressOffset];
-        public int EndLoopAddressOffset => 32768 * this[GeneratorParameterType.EndLoopAddressCoarseOffset] + this[GeneratorParameterType.EndLoopAddressOffset];
+        public int StartAddressOffset => 32768 * this[GeneratorType.StartAddressCoarseOffset] + this[GeneratorType.StartAddressOffset];
+        public int EndAddressOffset => 32768 * this[GeneratorType.EndAddressCoarseOffset] + this[GeneratorType.EndAddressOffset];
+        public int StartLoopAddressOffset => 32768 * this[GeneratorType.StartLoopAddressCoarseOffset] + this[GeneratorType.StartLoopAddressOffset];
+        public int EndLoopAddressOffset => 32768 * this[GeneratorType.EndLoopAddressCoarseOffset] + this[GeneratorType.EndLoopAddressOffset];
 
-        public int ModulationLfoToPitch => this[GeneratorParameterType.ModulationLfoToPitch];
-        public int VibratoLfoToPitch => this[GeneratorParameterType.VibratoLfoToPitch];
-        public int ModulationEnvelopeToPitch => this[GeneratorParameterType.ModulationEnvelopeToPitch];
-        public float InitialFilterCutoffFrequency => SoundFontMath.CentsToHertz(this[GeneratorParameterType.InitialFilterCutoffFrequency]);
-        public float InitialFilterQ => 0.1F * this[GeneratorParameterType.InitialFilterQ];
-        public int ModulationLfoToFilterCutoffFrequency => this[GeneratorParameterType.ModulationLfoToFilterCutoffFrequency];
-        public int ModulationEnvelopeToFilterCutoffFrequency => this[GeneratorParameterType.ModulationEnvelopeToFilterCutoffFrequency];
+        public int ModulationLfoToPitch => this[GeneratorType.ModulationLfoToPitch];
+        public int VibratoLfoToPitch => this[GeneratorType.VibratoLfoToPitch];
+        public int ModulationEnvelopeToPitch => this[GeneratorType.ModulationEnvelopeToPitch];
+        public float InitialFilterCutoffFrequency => SoundFontMath.CentsToHertz(this[GeneratorType.InitialFilterCutoffFrequency]);
+        public float InitialFilterQ => 0.1F * this[GeneratorType.InitialFilterQ];
+        public int ModulationLfoToFilterCutoffFrequency => this[GeneratorType.ModulationLfoToFilterCutoffFrequency];
+        public int ModulationEnvelopeToFilterCutoffFrequency => this[GeneratorType.ModulationEnvelopeToFilterCutoffFrequency];
 
-        public float ModulationLfoToVolume => 0.1F * this[GeneratorParameterType.ModulationLfoToVolume];
+        public float ModulationLfoToVolume => 0.1F * this[GeneratorType.ModulationLfoToVolume];
 
-        public float ChorusEffectsSend => 0.1F * this[GeneratorParameterType.ChorusEffectsSend];
-        public float ReverbEffectsSend => 0.1F * this[GeneratorParameterType.ReverbEffectsSend];
-        public float Pan => 0.1F * this[GeneratorParameterType.Pan];
+        public float ChorusEffectsSend => 0.1F * this[GeneratorType.ChorusEffectsSend];
+        public float ReverbEffectsSend => 0.1F * this[GeneratorType.ReverbEffectsSend];
+        public float Pan => 0.1F * this[GeneratorType.Pan];
 
-        public float DelayModulationLfo => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.DelayModulationLfo]);
-        public float FrequencyModulationLfo => SoundFontMath.CentsToHertz(this[GeneratorParameterType.FrequencyModulationLfo]);
-        public float DelayVibratoLfo => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.DelayVibratoLfo]);
-        public float FrequencyVibratoLfo => SoundFontMath.CentsToHertz(this[GeneratorParameterType.FrequencyVibratoLfo]);
-        public float DelayModulationEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.DelayModulationEnvelope]);
-        public float AttackModulationEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.AttackModulationEnvelope]);
-        public float HoldModulationEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.HoldModulationEnvelope]);
-        public float DecayModulationEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.DecayModulationEnvelope]);
-        public float SustainModulationEnvelope => 0.1F * this[GeneratorParameterType.SustainModulationEnvelope];
-        public float ReleaseModulationEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.ReleaseModulationEnvelope]);
-        public int KeyNumberToModulationEnvelopeHold => this[GeneratorParameterType.KeyNumberToModulationEnvelopeHold];
-        public int KeyNumberToModulationEnvelopeDecay => this[GeneratorParameterType.KeyNumberToModulationEnvelopeDecay];
-        public float DelayVolumeEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.DelayVolumeEnvelope]);
-        public float AttackVolumeEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.AttackVolumeEnvelope]);
-        public float HoldVolumeEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.HoldVolumeEnvelope]);
-        public float DecayVolumeEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.DecayVolumeEnvelope]);
-        public float SustainVolumeEnvelope => 0.1F * this[GeneratorParameterType.SustainVolumeEnvelope];
-        public float ReleaseVolumeEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorParameterType.ReleaseVolumeEnvelope]);
-        public int KeyNumberToVolumeEnvelopeHold => this[GeneratorParameterType.KeyNumberToVolumeEnvelopeHold];
-        public int KeyNumberToVolumeEnvelopeDecay => this[GeneratorParameterType.KeyNumberToVolumeEnvelopeDecay];
+        public float DelayModulationLfo => SoundFontMath.TimecentsToSeconds(this[GeneratorType.DelayModulationLfo]);
+        public float FrequencyModulationLfo => SoundFontMath.CentsToHertz(this[GeneratorType.FrequencyModulationLfo]);
+        public float DelayVibratoLfo => SoundFontMath.TimecentsToSeconds(this[GeneratorType.DelayVibratoLfo]);
+        public float FrequencyVibratoLfo => SoundFontMath.CentsToHertz(this[GeneratorType.FrequencyVibratoLfo]);
+        public float DelayModulationEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorType.DelayModulationEnvelope]);
+        public float AttackModulationEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorType.AttackModulationEnvelope]);
+        public float HoldModulationEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorType.HoldModulationEnvelope]);
+        public float DecayModulationEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorType.DecayModulationEnvelope]);
+        public float SustainModulationEnvelope => 0.1F * this[GeneratorType.SustainModulationEnvelope];
+        public float ReleaseModulationEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorType.ReleaseModulationEnvelope]);
+        public int KeyNumberToModulationEnvelopeHold => this[GeneratorType.KeyNumberToModulationEnvelopeHold];
+        public int KeyNumberToModulationEnvelopeDecay => this[GeneratorType.KeyNumberToModulationEnvelopeDecay];
+        public float DelayVolumeEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorType.DelayVolumeEnvelope]);
+        public float AttackVolumeEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorType.AttackVolumeEnvelope]);
+        public float HoldVolumeEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorType.HoldVolumeEnvelope]);
+        public float DecayVolumeEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorType.DecayVolumeEnvelope]);
+        public float SustainVolumeEnvelope => 0.1F * this[GeneratorType.SustainVolumeEnvelope];
+        public float ReleaseVolumeEnvelope => SoundFontMath.TimecentsToSeconds(this[GeneratorType.ReleaseVolumeEnvelope]);
+        public int KeyNumberToVolumeEnvelopeHold => this[GeneratorType.KeyNumberToVolumeEnvelopeHold];
+        public int KeyNumberToVolumeEnvelopeDecay => this[GeneratorType.KeyNumberToVolumeEnvelopeDecay];
 
-        public int KeyRangeStart => this[GeneratorParameterType.KeyRange] & 0xFF;
-        public int KeyRangeEnd => (this[GeneratorParameterType.KeyRange] >> 8) & 0xFF;
-        public int VelocityRangeStart => this[GeneratorParameterType.VelocityRange] & 0xFF;
-        public int VelocityRangeEnd => (this[GeneratorParameterType.VelocityRange] >> 8) & 0xFF;
+        public int KeyRangeStart => this[GeneratorType.KeyRange] & 0xFF;
+        public int KeyRangeEnd => (this[GeneratorType.KeyRange] >> 8) & 0xFF;
+        public int VelocityRangeStart => this[GeneratorType.VelocityRange] & 0xFF;
+        public int VelocityRangeEnd => (this[GeneratorType.VelocityRange] >> 8) & 0xFF;
 
-        public float InitialAttenuation => 0.1F * this[GeneratorParameterType.InitialAttenuation];
+        public float InitialAttenuation => 0.1F * this[GeneratorType.InitialAttenuation];
 
-        public int CoarseTune => this[GeneratorParameterType.CoarseTune];
-        public int FineTune => this[GeneratorParameterType.FineTune] + sample.PitchCorrection;
-        public LoopMode SampleModes => this[GeneratorParameterType.SampleModes] != 2 ? (LoopMode)this[GeneratorParameterType.SampleModes] : LoopMode.NoLoop;
+        public int CoarseTune => this[GeneratorType.CoarseTune];
+        public int FineTune => this[GeneratorType.FineTune] + sample.PitchCorrection;
+        public LoopMode SampleModes => this[GeneratorType.SampleModes] != 2 ? (LoopMode)this[GeneratorType.SampleModes] : LoopMode.NoLoop;
 
-        public int ScaleTuning => this[GeneratorParameterType.ScaleTuning];
-        public int ExclusiveClass => this[GeneratorParameterType.ExclusiveClass];
-        public int RootKey => this[GeneratorParameterType.OverridingRootKey] != -1 ? this[GeneratorParameterType.OverridingRootKey] : sample.OriginalPitch;
+        public int ScaleTuning => this[GeneratorType.ScaleTuning];
+        public int ExclusiveClass => this[GeneratorType.ExclusiveClass];
+        public int RootKey => this[GeneratorType.OverridingRootKey] != -1 ? this[GeneratorType.OverridingRootKey] : sample.OriginalPitch;
 
 #pragma warning restore CS1591
     }

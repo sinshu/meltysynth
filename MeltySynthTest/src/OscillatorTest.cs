@@ -6,7 +6,7 @@ using MeltySynth;
 
 namespace MeltySynthTest
 {
-    public class GeneratorTest
+    public class OscillatorTest
     {
         [TestCaseSource(typeof(TestSettings), nameof(TestSettings.LightSoundFontNames))]
         public void NoLoop_PitchRatio100(string soundFontName)
@@ -30,17 +30,17 @@ namespace MeltySynthTest
             Console.WriteLine(instrument.Name + ", " + region.Sample.Name);
 
             var synthesizer = new Synthesizer(soundFont, 44100);
-            var generator = new Generator(synthesizer);
+            var oscillator = new Oscillator(synthesizer);
 
             var block = new float[synthesizer.BlockSize];
 
-            generator.Start(synthesizer.SoundFont.WaveDataArray, region);
+            oscillator.Start(synthesizer.SoundFont.WaveDataArray, region);
 
             var actual = new List<float>();
 
             while (true)
             {
-                if (generator.FillBlock(block, 1))
+                if (oscillator.FillBlock(block, 1))
                 {
                     actual.AddRange(block);
                 }
@@ -104,17 +104,17 @@ namespace MeltySynthTest
             Console.WriteLine(instrument.Name + ", " + region.Sample.Name);
 
             var synthesizer = new Synthesizer(soundFont, 44100);
-            var generator = new Generator(synthesizer);
+            var oscillator = new Oscillator(synthesizer);
 
             var block = new float[synthesizer.BlockSize];
 
-            generator.Start(synthesizer.SoundFont.WaveDataArray, region);
+            oscillator.Start(synthesizer.SoundFont.WaveDataArray, region);
 
             var actual = new List<float>();
 
             while (true)
             {
-                if (generator.FillBlock(block, 0.5))
+                if (oscillator.FillBlock(block, 0.5))
                 {
                     actual.AddRange(block);
                 }
@@ -180,17 +180,17 @@ namespace MeltySynthTest
             Console.WriteLine(instrument.Name + ", " + region.Sample.Name);
 
             var synthesizer = new Synthesizer(soundFont, 44100);
-            var generator = new Generator(synthesizer);
+            var oscillator = new Oscillator(synthesizer);
 
             var block = new float[synthesizer.BlockSize];
 
-            generator.Start(synthesizer.SoundFont.WaveDataArray, region);
+            oscillator.Start(synthesizer.SoundFont.WaveDataArray, region);
 
             var actual = new List<float>();
 
             for (var i = 0; i < 500; i++)
             {
-                var result = generator.FillBlock(block, 1);
+                var result = oscillator.FillBlock(block, 1);
 
                 Assert.IsTrue(result);
 
@@ -245,17 +245,17 @@ namespace MeltySynthTest
             Console.WriteLine(instrument.Name + ", " + region.Sample.Name);
 
             var synthesizer = new Synthesizer(soundFont, 44100);
-            var generator = new Generator(synthesizer);
+            var oscillator = new Oscillator(synthesizer);
 
             var block = new float[synthesizer.BlockSize];
 
-            generator.Start(synthesizer.SoundFont.WaveDataArray, region);
+            oscillator.Start(synthesizer.SoundFont.WaveDataArray, region);
 
             var actual = new List<float>();
 
             for (var i = 0; i < 500; i++)
             {
-                var result = generator.FillBlock(block, 0.5);
+                var result = oscillator.FillBlock(block, 0.5);
 
                 Assert.IsTrue(result);
 

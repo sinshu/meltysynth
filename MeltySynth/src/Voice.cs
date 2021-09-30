@@ -12,7 +12,7 @@ namespace MeltySynth
         private readonly Lfo vibLfo;
         private readonly Lfo modLfo;
 
-        private readonly Generator generator;
+        private readonly Oscillator oscillator;
         private readonly BiQuadFilter filter;
 
         private readonly float[] block;
@@ -75,7 +75,7 @@ namespace MeltySynth
             vibLfo = new Lfo(synthesizer);
             modLfo = new Lfo(synthesizer);
 
-            generator = new Generator(synthesizer);
+            oscillator = new Oscillator(synthesizer);
             filter = new BiQuadFilter(synthesizer);
 
             block = new float[synthesizer.BlockSize];
@@ -124,7 +124,7 @@ namespace MeltySynth
             modEnv.Start(region, key, velocity);
             vibLfo.StartVibrato(region, key, velocity);
             modLfo.StartModulation(region, key, velocity);
-            generator.Start(synthesizer.SoundFont.WaveDataArray, region);
+            oscillator.Start(synthesizer.SoundFont.WaveDataArray, region);
             filter.ClearBuffer();
             filter.SetLowPassFilter(cutoff, resonance);
 
@@ -171,7 +171,7 @@ namespace MeltySynth
             var modPitchChange = modLfoToPitch * modLfo.Value + modEnvToPitch * modEnv.Value;
             var channelPitchChange = channelInfo.Tune + channelInfo.PitchBend;
             var pitch = key + vibPitchChange + modPitchChange + channelPitchChange;
-            if (!generator.Process(block, pitch))
+            if (!oscillator.Process(block, pitch))
             {
                 return false;
             }
@@ -262,7 +262,7 @@ namespace MeltySynth
             {
                 volEnv.Release();
                 modEnv.Release();
-                generator.Release();
+                oscillator.Release();
 
                 voiceState = VoiceState.Released;
             }

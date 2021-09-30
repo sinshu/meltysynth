@@ -2,7 +2,7 @@
 
 namespace MeltySynth
 {
-    internal enum GeneratorParameterType : ushort
+    internal enum GeneratorType : ushort
     {
         StartAddressOffset = 0,
         EndAddressOffset = 1,
