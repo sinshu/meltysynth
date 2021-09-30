@@ -9,13 +9,8 @@ public class MidiPlayer : IDisposable
     private Synthesizer synthesizer;
     private MidiFileSequencer sequencer;
 
-    private float[] left;
-    private float[] right;
-
     private SoundStream stream;
-
     private object mutex;
-
     private bool started;
 
     public MidiPlayer(AL al, string soundFontPath)
@@ -25,13 +20,8 @@ public class MidiPlayer : IDisposable
         synthesizer = new Synthesizer(soundFontPath, settings);
         sequencer = new MidiFileSequencer(synthesizer);
 
-        left = new float[bufferLength];
-        right = new float[bufferLength];
-
         stream = new SoundStream(al, settings.SampleRate, 2, bufferLength, FillBuffer);
-
         mutex = new object();
-
         started = false;
     }
 
@@ -39,35 +29,7 @@ public class MidiPlayer : IDisposable
     {
         lock (mutex)
         {
-            sequencer.Render(left, right);
-
-            var pos = 0;
-
-            for (var t = 0; t < bufferLength; t++)
-            {
-                var sampleLeft = (int)(32768 * left[t]);
-                if (sampleLeft < short.MinValue)
-                {
-                    sampleLeft = short.MinValue;
-                }
-                else if (sampleLeft > short.MaxValue)
-                {
-                    sampleLeft = short.MaxValue;
-                }
-
-                var sampleRight = (int)(32768 * right[t]);
-                if (sampleRight < short.MinValue)
-                {
-                    sampleRight = short.MinValue;
-                }
-                else if (sampleRight > short.MaxValue)
-                {
-                    sampleRight = short.MaxValue;
-                }
-
-                data[pos++] = (short)sampleLeft;
-                data[pos++] = (short)sampleRight;
-            }
+            sequencer.RenderInterleavedInt16(data);
         }
     }
 
@@ -82,6 +44,14 @@ public class MidiPlayer : IDisposable
         {
             stream.Start();
             started = true;
+        }
+    }
+
+    public void Stop()
+    {
+        lock (mutex)
+        {
+            sequencer.Stop();
         }
     }
 

@@ -11,9 +11,6 @@ public class MidiSampleProvider : ISampleProvider
 
     private object mutex;
 
-    private float[] left;
-    private float[] right;
-
     public MidiSampleProvider(string soundFontPath)
     {
         synthesizer = new Synthesizer(soundFontPath, format.SampleRate);
@@ -30,32 +27,19 @@ public class MidiSampleProvider : ISampleProvider
         }
     }
 
+    public void Stop()
+    {
+        lock (mutex)
+        {
+            sequencer.Stop();
+        }
+    }
+
     public int Read(float[] buffer, int offset, int count)
     {
         lock (mutex)
         {
-            var dstLength = count / 2;
-
-            if (left == null)
-            {
-                left = new float[dstLength];
-                right = new float[dstLength];
-            }
-
-            if (dstLength > left.Length)
-            {
-                Array.Resize(ref left, dstLength);
-                Array.Resize(ref right, dstLength);
-            }
-
-            sequencer.Render(left, right);
-
-            var pos = offset;
-            for (var t = 0; t < dstLength; t++)
-            {
-                buffer[pos++] = left[t];
-                buffer[pos++] = right[t];
-            }
+            sequencer.RenderInterleaved(buffer.AsSpan(offset, count));
         }
 
         return count;

@@ -14,7 +14,12 @@ public class MidiPlayer : IDisposable
 
     public void Play(MidiFile midiFile, bool loop)
     {
-        stream.SetMidiFile(midiFile, loop);
+        stream.PlayMidi(midiFile, loop);
+    }
+
+    public void Stop()
+    {
+        stream.StopMidi();
     }
 
     public void Dispose()
@@ -33,9 +38,6 @@ public class MidiPlayer : IDisposable
         private Synthesizer synthesizer;
         private MidiFileSequencer sequencer;
 
-        private int batchLength;
-        private float[] left;
-        private float[] right;
         private short[] batch;
 
         private object mutex;
@@ -45,17 +47,14 @@ public class MidiPlayer : IDisposable
             synthesizer = new Synthesizer(soundFontPath, sampleRate);
             sequencer = new MidiFileSequencer(synthesizer);
 
-            batchLength = (int)Math.Round(0.05 * sampleRate);
-            left = new float[batchLength];
-            right = new float[batchLength];
-            batch = new short[2 * batchLength];
+            batch = new short[2 * (int)Math.Round(0.05 * sampleRate)];
 
             mutex = new object();
 
             Initialize(2, (uint)sampleRate);
         }
 
-        public void SetMidiFile(MidiFile midiFile, bool loop)
+        public void PlayMidi(MidiFile midiFile, bool loop)
         {
             lock (mutex)
             {
@@ -68,42 +67,22 @@ public class MidiPlayer : IDisposable
             }
         }
 
+        public void StopMidi()
+        {
+            lock (mutex)
+            {
+                sequencer.Stop();
+            }
+        }
+
         protected override bool OnGetData(out short[] samples)
         {
             lock (mutex)
             {
-                sequencer.Render(left, right);
-
-                var pos = 0;
-
-                for (var t = 0; t < batchLength; t++)
-                {
-                    var sampleLeft = (int)(32768 * left[t]);
-                    if (sampleLeft < short.MinValue)
-                    {
-                        sampleLeft = short.MinValue;
-                    }
-                    else if (sampleLeft > short.MaxValue)
-                    {
-                        sampleLeft = short.MaxValue;
-                    }
-
-                    var sampleRight = (int)(32768 * right[t]);
-                    if (sampleRight < short.MinValue)
-                    {
-                        sampleRight = short.MinValue;
-                    }
-                    else if (sampleRight > short.MaxValue)
-                    {
-                        sampleRight = short.MaxValue;
-                    }
-
-                    batch[pos++] = (short)sampleLeft;
-                    batch[pos++] = (short)sampleRight;
-                }
-
-                samples = batch;
+                sequencer.RenderInterleavedInt16(batch);
             }
+
+            samples = batch;
 
             return true;
         }
