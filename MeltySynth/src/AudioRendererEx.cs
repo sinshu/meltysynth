@@ -68,6 +68,9 @@ namespace MeltySynth
         /// </summary>
         /// <param name="renderer">The audio renderer.</param>
         /// <param name="destination">The destination buffer.</param>
+        /// <remarks>
+        /// Out of range samples will be clipped.
+        /// </remarks>
         public static void RenderInterleavedInt16(this IAudioRenderer renderer, Span<short> destination)
         {
             if (destination.Length % 2 != 0)
@@ -119,6 +122,9 @@ namespace MeltySynth
         /// </summary>
         /// <param name="renderer">The audio renderer.</param>
         /// <param name="destination">The destination buffer.</param>
+        /// <remarks>
+        /// Out of range samples will be clipped.
+        /// </remarks>
         public static void RenderMonoInt16(this IAudioRenderer renderer, Span<short> destination)
         {
             var sampleCount = destination.Length;
