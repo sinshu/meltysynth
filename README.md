@@ -67,11 +67,11 @@ If you don't like DLLs, copy [all the .cs files](https://github.com/sinshu/melty
 
 ## Demo
 
-Here is an audio sample of [flourish.mid](https://midis.fandom.com/wiki/Flourish) generated with [Arachno SoundFont](http://www.arachnosoft.com/main/soundfont.php).
+Here is a demo song generated with [Arachno SoundFont](http://www.arachnosoft.com/main/soundfont.php).
 
-https://www.youtube.com/watch?v=gT81QPjWSd8  
+https://www.youtube.com/watch?v=xNgsIJKxPkI  
 
-[![Demo video](https://img.youtube.com/vi/gT81QPjWSd8/0.jpg)](https://www.youtube.com/watch?v=gT81QPjWSd8)
+[![Demo video](https://img.youtube.com/vi/xNgsIJKxPkI/0.jpg)](https://www.youtube.com/watch?v=xNgsIJKxPkI)
 
 
 ## Examples
