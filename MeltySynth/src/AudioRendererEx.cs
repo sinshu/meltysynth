@@ -16,7 +16,8 @@ namespace MeltySynth
         /// <remarks>
         /// This utility method internally uses <see cref="ArrayPool{T}"/>,
         /// which may result in memory allocation on the first call.
-        /// To completely avoid memory allocation, use your own buffer.
+        /// To completely avoid memory allocation,
+        /// use <see cref="IAudioRenderer.Render(Span{float}, Span{float})"/>.
         /// </remarks>
         public static void RenderInterleaved(this IAudioRenderer renderer, Span<float> destination)
         {
@@ -52,7 +53,8 @@ namespace MeltySynth
         /// <remarks>
         /// This utility method internally uses <see cref="ArrayPool{T}"/>,
         /// which may result in memory allocation on the first call.
-        /// To completely avoid memory allocation, use your own buffer.
+        /// To completely avoid memory allocation,
+        /// use <see cref="IAudioRenderer.Render(Span{float}, Span{float})"/>.
         /// </remarks>
         public static void RenderMono(this IAudioRenderer renderer, Span<float> destination)
         {
@@ -82,7 +84,8 @@ namespace MeltySynth
         /// Out of range samples will be clipped.
         /// This utility method internally uses <see cref="ArrayPool{T}"/>,
         /// which may result in memory allocation on the first call.
-        /// To completely avoid memory allocation, use your own buffer.
+        /// To completely avoid memory allocation,
+        /// use <see cref="IAudioRenderer.Render(Span{float}, Span{float})"/>.
         /// </remarks>
         public static void RenderInterleavedInt16(this IAudioRenderer renderer, Span<short> destination)
         {
@@ -139,7 +142,8 @@ namespace MeltySynth
         /// Out of range samples will be clipped.
         /// This utility method internally uses <see cref="ArrayPool{T}"/>,
         /// which may result in memory allocation on the first call.
-        /// To completely avoid memory allocation, use your own buffer.
+        /// To completely avoid memory allocation,
+        /// use <see cref="IAudioRenderer.Render(Span{float}, Span{float})"/>.
         /// </remarks>
         public static void RenderMonoInt16(this IAudioRenderer renderer, Span<short> destination)
         {
