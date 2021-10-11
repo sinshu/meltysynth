@@ -32,6 +32,8 @@ namespace MeltySynth
 
         public static void Start(this VolumeEnvelope envelope, RegionPair region, int key, int velocity)
         {
+            // If the release time is shorter than 10 ms, it will be clamped to 10 ms to avoid pop noise.
+
             var delay = region.DelayVolumeEnvelope;
             var attack = region.AttackVolumeEnvelope;
             var hold = region.HoldVolumeEnvelope * SoundFontMath.KeyNumberToMultiplyingFactor(region.KeyNumberToVolumeEnvelopeHold, key);
@@ -49,6 +51,8 @@ namespace MeltySynth
 
         public static void Start(this ModulationEnvelope envelope, RegionPair region, int key, int velocity)
         {
+            // According to the implementation of TinySoundFont, the attack time should be adjusted by the velocity.
+
             var delay = region.DelayModulationEnvelope;
             var attack = region.AttackModulationEnvelope * ((145 - velocity) / 144F);
             var hold = region.HoldModulationEnvelope * SoundFontMath.KeyNumberToMultiplyingFactor(region.KeyNumberToModulationEnvelopeHold, key);

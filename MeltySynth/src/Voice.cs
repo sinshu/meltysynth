@@ -17,11 +17,10 @@ namespace MeltySynth
 
         private readonly float[] block;
 
-        // In the past, a mix gain never changed in a single block,
-        // so instruments with a short release time could make click noise.
-        // To avoid noise, now the mix gain can be a slope in a block
-        // if the gain changes dramatically from the previous block.
-        // The previous gains are saved for this.
+        // A sudden change in the mix gain will cause pop noise.
+        // To avoid this, we save the mix gain of the previous block,
+        // and smooth out the gain if the gap between the current and previous gain is too large.
+        // The actual smoothing process is done in the WriteBlock method of the Synthesizer class.
 
         private float previousMixGainLeft;
         private float previousMixGainRight;
@@ -58,8 +57,8 @@ namespace MeltySynth
         private float instrumentReverb;
         private float instrumentChorus;
 
-        // Some instruments require fast cutoff change, which can make click noise.
-        // This is used to smooth the cutoff frequency to reduce noise.
+        // Some instruments require fast cutoff change, which can cause pop noise.
+        // This is used to smooth out the cutoff frequency.
         private float smoothedCutoff;
 
         private VoiceState voiceState;
@@ -182,7 +181,7 @@ namespace MeltySynth
                 var factor = SoundFontMath.CentsToMultiplyingFactor(cents);
                 var newCutoff = factor * cutoff;
 
-                // The cutoff change is limited within x0.5 and x2 to reduce click noise.
+                // The cutoff change is limited within x0.5 and x2 to reduce pop noise.
                 var lowerLimit = 0.5F * smoothedCutoff;
                 var upperLimit = 2F * smoothedCutoff;
                 if (newCutoff < lowerLimit)

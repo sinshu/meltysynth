@@ -5,6 +5,11 @@ namespace MeltySynth
     /// <summary>
     /// An instance of the MIDI file sequencer.
     /// </summary>
+    /// <remarks>
+    /// Note that this class does not provide thread safety.
+    /// If you want to do playback control and render the waveform in separate threads,
+    /// you must ensure that the methods will not be called simultaneously.
+    /// </remarks>
     public sealed class MidiFileSequencer : IAudioRenderer
     {
         private readonly Synthesizer synthesizer;

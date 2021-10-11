@@ -13,6 +13,11 @@ namespace MeltySynth
         /// </summary>
         /// <param name="renderer">The audio renderer.</param>
         /// <param name="destination">The destination buffer.</param>
+        /// <remarks>
+        /// This utility method internally uses <see cref="ArrayPool{T}"/>,
+        /// which may result in memory allocation on the first call.
+        /// To completely avoid memory allocation, use your own buffer.
+        /// </remarks>
         public static void RenderInterleaved(this IAudioRenderer renderer, Span<float> destination)
         {
             if (destination.Length % 2 != 0)
@@ -44,6 +49,11 @@ namespace MeltySynth
         /// </summary>
         /// <param name="renderer">The audio renderer.</param>
         /// <param name="destination">The destination buffer.</param>
+        /// <remarks>
+        /// This utility method internally uses <see cref="ArrayPool{T}"/>,
+        /// which may result in memory allocation on the first call.
+        /// To completely avoid memory allocation, use your own buffer.
+        /// </remarks>
         public static void RenderMono(this IAudioRenderer renderer, Span<float> destination)
         {
             var sampleCount = destination.Length;
@@ -70,6 +80,9 @@ namespace MeltySynth
         /// <param name="destination">The destination buffer.</param>
         /// <remarks>
         /// Out of range samples will be clipped.
+        /// This utility method internally uses <see cref="ArrayPool{T}"/>,
+        /// which may result in memory allocation on the first call.
+        /// To completely avoid memory allocation, use your own buffer.
         /// </remarks>
         public static void RenderInterleavedInt16(this IAudioRenderer renderer, Span<short> destination)
         {
@@ -124,6 +137,9 @@ namespace MeltySynth
         /// <param name="destination">The destination buffer.</param>
         /// <remarks>
         /// Out of range samples will be clipped.
+        /// This utility method internally uses <see cref="ArrayPool{T}"/>,
+        /// which may result in memory allocation on the first call.
+        /// To completely avoid memory allocation, use your own buffer.
         /// </remarks>
         public static void RenderMonoInt16(this IAudioRenderer renderer, Span<short> destination)
         {
