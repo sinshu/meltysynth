@@ -1,4 +1,4 @@
-## Silk.NET Example
+## Silk.NET Example (OpenAL)
 
 This is an example implementation of a MIDI player backed by Silk.NET.
 
