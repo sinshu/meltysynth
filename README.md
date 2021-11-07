@@ -6,7 +6,7 @@ The codebase is lightweight and can be applied to any audio drivers which suppor
 
 The entire code is heavily inspired by the following projects:
 
-* [C# Synth](https://archive.codeplex.com/?p=csharpsynthproject) by Alex Veltsistas
+* [C# Synth](https://github.com/sinshu/CSharpSynthProject) by Alex Veltsistas
 * [TinySoundFont](https://github.com/schellingb/TinySoundFont) by Bernhard Schelling
 
 An example code to synthesize a simple chord:
