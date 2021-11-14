@@ -8,7 +8,7 @@ using System;
 using OpenTK.Audio.OpenAL;
 using MeltySynth;
 
-static class Program
+class Program
 {
     unsafe static void Main(string[] args)
     {

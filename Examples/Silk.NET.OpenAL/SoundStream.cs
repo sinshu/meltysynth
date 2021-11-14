@@ -4,17 +4,22 @@ using System.Threading;
 using System.Threading.Tasks;
 using Silk.NET.OpenAL;
 
+/// <summary>
+/// Provides a sound stream for playing a long audio signal as a sequence of short blocks.
+/// </summary>
 public class SoundStream : IDisposable
 {
+    // This value indicates the desired latency of audio processing in milliseconds.
+    // Reducing the latency will improve responsiveness, but stability will be lost.
     private static readonly int latency = 200;
 
     private bool disposed = false;
 
-    private AL al;
-    private int sampleRate;
-    private int channelCount;
-    private int bufferLength;
-    private Action<short[]> fillBuffer;
+    private readonly AL al;
+    private readonly int sampleRate;
+    private readonly int channelCount;
+    private readonly int blockLength;
+    private readonly Action<short[]> fillBlock;
 
     private uint source;
     private uint[] buffers;
@@ -26,13 +31,46 @@ public class SoundStream : IDisposable
     private bool stopRequested;
     private Task task;
 
-    public SoundStream(AL al, int sampleRate, int channelCount, int bufferLength, Action<short[]> fillBuffer)
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SoundStream"/> class.
+    /// </summary>
+    /// <param name="al">The <see cref="AL"/> object.</param>
+    /// <param name="sampleRate">The sample rate for the audio processing.</param>
+    /// <param name="channelCount">The number of channels.</param>
+    /// <param name="blockLength">The desired block length.</param>
+    /// <param name="fillBlock">The callback function to fill a block.</param>
+    public SoundStream(AL al, int sampleRate, int channelCount, int blockLength, Action<short[]> fillBlock)
     {
+        if (al == null)
+        {
+            throw new ArgumentNullException(nameof(al));
+        }
+
+        if (sampleRate <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(sampleRate), "The sample rate must be a positive value.");
+        }
+
+        if (!(channelCount == 1 || channelCount == 2))
+        {
+            throw new ArgumentOutOfRangeException(nameof(channelCount), "The number of channels must be 1 or 2.");
+        }
+
+        if (blockLength < 8)
+        {
+            throw new ArgumentOutOfRangeException(nameof(blockLength), "The block length must be greater than or equal to 8.");
+        }
+
+        if (fillBlock == null)
+        {
+            throw new ArgumentNullException(nameof(fillBlock));
+        }
+
         this.al = al;
         this.sampleRate = sampleRate;
         this.channelCount = channelCount;
-        this.bufferLength = bufferLength;
-        this.fillBuffer = fillBuffer;
+        this.blockLength = blockLength;
+        this.fillBlock = fillBlock;
 
         try
         {
@@ -47,7 +85,7 @@ public class SoundStream : IDisposable
 
     private void Initialize()
     {
-        var bufferCount = (int)Math.Ceiling((double)(sampleRate * latency) / (1000 * bufferLength));
+        var bufferCount = (int)Math.Ceiling((double)(sampleRate * latency) / (1000 * blockLength));
         if (bufferCount < 2)
         {
             bufferCount = 2;
@@ -81,10 +119,13 @@ public class SoundStream : IDisposable
                 throw new Exception("The number of channels must be 1 or 2.");
         }
 
-        bufferData = new short[channelCount * bufferLength];
+        bufferData = new short[channelCount * blockLength];
         bufferQueue = new uint[1];
     }
 
+    /// <summary>
+    /// Starts playing the sound stream.
+    /// </summary>
     public void Start()
     {
         if (task != null)
@@ -94,7 +135,7 @@ public class SoundStream : IDisposable
 
         for (var i = 0; i < buffers.Length; i++)
         {
-            fillBuffer(bufferData);
+            fillBlock(bufferData);
             al.BufferData(buffers[i], format, bufferData, sampleRate);
             bufferQueue[0] = buffers[i];
             al.SourceQueueBuffers(source, bufferQueue);
@@ -115,7 +156,7 @@ public class SoundStream : IDisposable
 
             for (var i = 0; i < processedCount; i++)
             {
-                fillBuffer(bufferData);
+                fillBlock(bufferData);
                 al.SourceUnqueueBuffers(source, bufferQueue);
                 al.BufferData(bufferQueue[0], format, bufferData, sampleRate);
                 al.SourceQueueBuffers(source, bufferQueue);
@@ -170,6 +211,9 @@ public class SoundStream : IDisposable
         disposed = true;
     }
 
+    /// <summary>
+    /// Stops the sound stream and disposes internal resources.
+    /// </summary>
     public void Dispose()
     {
         Dispose(true);
