@@ -58,5 +58,7 @@ namespace MonoGameExample
                 dynamicSound = null;
             }
         }
+
+        public SoundState State => dynamicSound.State;
     }
 }
