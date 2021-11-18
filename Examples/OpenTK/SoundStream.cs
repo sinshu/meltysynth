@@ -27,8 +27,7 @@ public class SoundStream : IDisposable
     private short[] bufferData;
     private int[] bufferQueue;
 
-    private bool stopRequested;
-    private Task task;
+    private Task pollingTask;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SoundStream"/> class.
@@ -120,7 +119,7 @@ public class SoundStream : IDisposable
     /// </summary>
     public void Start()
     {
-        if (task != null)
+        if (pollingTask != null)
         {
             return;
         }
@@ -135,13 +134,12 @@ public class SoundStream : IDisposable
 
         AL.SourcePlay(source);
 
-        stopRequested = false;
-        task = Task.Run(ProcessBuffers);
+        pollingTask = Task.Run(ProcessBuffers);
     }
 
     private void ProcessBuffers()
     {
-        while (!stopRequested)
+        while (!disposed)
         {
             int processedCount;
             AL.GetSource(source, ALGetSourcei.BuffersProcessed, out processedCount);
@@ -173,13 +171,13 @@ public class SoundStream : IDisposable
             return;
         }
 
-        stopRequested = true;
+        disposed = true;
 
         if (disposing)
         {
-            if (task != null)
+            if (pollingTask != null)
             {
-                task.Wait();
+                pollingTask.Wait();
             }
         }
 
@@ -199,8 +197,6 @@ public class SoundStream : IDisposable
                 }
             }
         }
-
-        disposed = true;
     }
 
     /// <summary>
