@@ -31,6 +31,8 @@ class Program
 
         sequencer.Play(midiFile, true);
 
+        Raylib.SetTargetFPS(60);
+
         while (!Raylib.WindowShouldClose())
         {
             if (Raylib.IsAudioStreamProcessed(stream))
