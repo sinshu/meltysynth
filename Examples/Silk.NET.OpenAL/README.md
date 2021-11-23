@@ -12,29 +12,29 @@ class Program
 {
     unsafe static void Main()
     {
-        var alc = ALContext.GetApi();
-        var al = AL.GetApi();
-        var device = alc.OpenDevice("");
-        var context = alc.CreateContext(device, null);
-        alc.MakeContextCurrent(context);
-        al.GetError();
-
-        using (var player = new MidiPlayer(al, "TimGM6mb.sf2"))
+        using (var alc = ALContext.GetApi())
+        using (var al = AL.GetApi())
         {
-            // Load the MIDI file.
-            var midiFile = new MidiFile(@"C:\Windows\Media\flourish.mid");
+            var device = alc.OpenDevice("");
+            var context = alc.CreateContext(device, null);
+            alc.MakeContextCurrent(context);
+            al.GetError();
 
-            // Play the MIDI file.
-            player.Play(midiFile, true);
+            using (var player = new MidiPlayer(al, "TimGM6mb.sf2"))
+            {
+                // Load the MIDI file.
+                var midiFile = new MidiFile(@"C:\Windows\Media\flourish.mid");
 
-            // Wait until any key is pressed.
-            Console.ReadKey();
+                // Play the MIDI file.
+                player.Play(midiFile, true);
+
+                // Wait until any key is pressed.
+                Console.ReadKey();
+            }
+
+            alc.DestroyContext(context);
+            alc.CloseDevice(device);
         }
-
-        alc.DestroyContext(context);
-        alc.CloseDevice(device);
-        al.Dispose();
-        alc.Dispose();
     }
 }
 ```
