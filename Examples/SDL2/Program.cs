@@ -20,7 +20,7 @@ class Program
         var obtained = new SDL.SDL_AudioSpec();
 
         var name = SDL.SDL_GetAudioDeviceName(0, 0);
-        var device = SDL.SDL_OpenAudioDevice(name, 0, ref desired, out obtained, 0);
+        var device = SDL.SDL_OpenAudioDevice(name, 0, ref desired, out obtained, (int)SDL.SDL_AUDIO_ALLOW_ANY_CHANGE);
         if (device == 0)
         {
             throw new Exception("Failed to open the audio device.");
