@@ -4,7 +4,7 @@ using MeltySynth;
 
 class Program
 {
-    unsafe static void Main()
+    static void Main()
     {
         var player = new MidiPlayer("TimGM6mb.sf2");
 
