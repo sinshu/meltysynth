@@ -7,7 +7,7 @@ class Program
     static int sampleRate = 44100;
     static int bufferSize = 4096;
 
-    unsafe static void Main(string[] args)
+    unsafe static void Main()
     {
         Raylib.InitWindow(800, 450, "MIDI Player");
 

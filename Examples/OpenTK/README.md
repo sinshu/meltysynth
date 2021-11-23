@@ -10,7 +10,7 @@ using MeltySynth;
 
 class Program
 {
-    unsafe static void Main(string[] args)
+    unsafe static void Main()
     {
         var device = ALC.OpenDevice(null);
         var context = ALC.CreateContext(device, (int*)null);
