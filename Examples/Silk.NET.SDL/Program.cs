@@ -10,6 +10,8 @@ class Program
 
         using (var sdl = Sdl.GetApi())
         {
+            sdl.InitSubSystem(Sdl.InitAudio);
+
             var desired = new AudioSpec();
             desired.Freq = 44100;
             desired.Format = Sdl.AudioF32;
@@ -17,19 +19,13 @@ class Program
             desired.Samples = 4096;
             desired.Callback = new PfnAudioCallback(new AudioCallback(player.ProcessAudio));
 
-            var obtained = new AudioSpec();
-
-            if (sdl.AudioInit((byte*)null) < 0)
+            var device = sdl.OpenAudioDevice((string)null, 0, ref desired, null, (int)Sdl.AudioAllowAnyChange);
+            if (device == 0)
             {
-                throw new Exception("Failed to initialize audio.");
+                throw sdl.GetErrorAsException();
             }
 
-            if (sdl.OpenAudio(ref desired, ref obtained) < 0)
-            {
-                throw new Exception("Failed to open audio.");
-            }
-
-            sdl.PauseAudio(0);
+            sdl.PauseAudioDevice(device, 0);
 
             // Load the MIDI file.
             var midiFile = new MidiFile(@"C:\Windows\Media\flourish.mid");
@@ -40,7 +36,9 @@ class Program
             // Wait until any key is pressed.
             Console.ReadKey();
 
-            sdl.PauseAudio(1);
+            sdl.CloseAudioDevice(device);
+
+            sdl.QuitSubSystem(Sdl.InitAudio);
         }
     }
 }
