@@ -9,49 +9,44 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using MeltySynth;
 
-namespace MonoGameExample
+public class Game1 : Game
 {
-    public class Game1 : Game
+    private GraphicsDeviceManager graphics;
+
+    private MidiPlayer midiPlayer;
+    private MidiFile midiFile;
+
+    public Game1()
     {
-        private GraphicsDeviceManager graphics;
+        graphics = new GraphicsDeviceManager(this);
+    }
 
-        private MidiPlayer midiPlayer;
-        private MidiFile midiFile;
+    protected override void LoadContent()
+    {
+        midiPlayer = new MidiPlayer("TimGM6mb.sf2");
+        midiFile = new MidiFile(@"C:\Windows\Media\flourish.mid");
+    }
 
-        public Game1()
+    protected override void UnloadContent()
+    {
+        midiPlayer.Dispose();
+    }
+
+    protected override void Update(GameTime gameTime)
+    {
+        if (midiPlayer.State == SoundState.Stopped)
         {
-            graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
-            IsMouseVisible = true;
+            midiPlayer.Play(midiFile, true);
         }
 
-        protected override void LoadContent()
-        {
-            midiPlayer = new MidiPlayer("TimGM6mb.sf2");
-            midiFile = new MidiFile(@"C:\Windows\Media\flourish.mid");
-        }
+        base.Update(gameTime);
+    }
 
-        protected override void UnloadContent()
-        {
-            midiPlayer.Dispose();
-        }
+    protected override void Draw(GameTime gameTime)
+    {
+        GraphicsDevice.Clear(Color.CornflowerBlue);
 
-        protected override void Update(GameTime gameTime)
-        {
-            if (midiPlayer.State == SoundState.Stopped)
-            {
-                midiPlayer.Play(midiFile, true);
-            }
-
-            base.Update(gameTime);
-        }
-
-        protected override void Draw(GameTime gameTime)
-        {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            base.Draw(gameTime);
-        }
+        base.Draw(gameTime);
     }
 }
 ```
