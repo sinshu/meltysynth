@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31919.166
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31911.196
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Raylib_CsLoExample", "Raylib_CsLoExample.csproj", "{01A68169-5E98-4381-843F-26FF41F1B48E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raylib_CsLoExample", "Raylib_CsLoExample.csproj", "{734184C1-2DFA-4EB9-892C-4A0AEA89F38E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{01A68169-5E98-4381-843F-26FF41F1B48E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{01A68169-5E98-4381-843F-26FF41F1B48E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{01A68169-5E98-4381-843F-26FF41F1B48E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{01A68169-5E98-4381-843F-26FF41F1B48E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{734184C1-2DFA-4EB9-892C-4A0AEA89F38E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{734184C1-2DFA-4EB9-892C-4A0AEA89F38E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{734184C1-2DFA-4EB9-892C-4A0AEA89F38E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{734184C1-2DFA-4EB9-892C-4A0AEA89F38E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {3678E958-F87E-4540-A108-716EED6E2224}
+		SolutionGuid = {A7D3DC45-D39D-4F3F-8D9A-2A0CD057A6A8}
 	EndGlobalSection
 EndGlobal
