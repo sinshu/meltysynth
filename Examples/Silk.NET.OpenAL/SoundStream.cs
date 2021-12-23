@@ -13,7 +13,7 @@ public class SoundStream : IDisposable
     // Reducing the latency will improve responsiveness, but stability will be lost.
     private static readonly int latency = 200;
 
-    private bool disposed = false;
+    private volatile bool disposed = false;
 
     private readonly AL al;
     private readonly int sampleRate;
