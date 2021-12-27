@@ -212,4 +212,9 @@ public class SoundStream : IDisposable
     {
         Dispose(false);
     }
+
+    /// <summary>
+    /// Gets a value that indicates whether the sound is playing.
+    /// </summary>
+    public bool IsPlaying => pollingTask != null;
 }

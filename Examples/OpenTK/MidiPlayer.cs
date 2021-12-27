@@ -11,7 +11,6 @@ public class MidiPlayer : IDisposable
 
     private SoundStream stream;
     private object mutex;
-    private bool started;
 
     public MidiPlayer(string soundFontPath)
     {
@@ -22,7 +21,6 @@ public class MidiPlayer : IDisposable
 
         stream = new SoundStream(settings.SampleRate, 2, bufferLength, FillBuffer);
         mutex = new object();
-        started = false;
     }
 
     private void FillBuffer(short[] data)
@@ -40,10 +38,9 @@ public class MidiPlayer : IDisposable
             sequencer.Play(midiFile, loop);
         }
 
-        if (!started)
+        if (!stream.IsPlaying)
         {
             stream.Start();
-            started = true;
         }
     }
 
