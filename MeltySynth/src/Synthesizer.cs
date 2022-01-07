@@ -103,7 +103,7 @@ namespace MeltySynth
             minimumVoiceDuration = sampleRate / 500;
 
             presetLookup = new Dictionary<int, Preset>();
-            foreach (var preset in soundFont.Presets)
+            foreach (var preset in soundFont.PresetArray)
             {
                 var presetId = (preset.BankNumber << 16) | preset.PatchNumber;
                 presetLookup.TryAdd(presetId, preset);
@@ -316,11 +316,11 @@ namespace MeltySynth
                 return;
             }
 
-            foreach (var presetRegion in preset.Regions)
+            foreach (var presetRegion in preset.RegionArray)
             {
                 if (presetRegion.Contains(key, velocity))
                 {
-                    foreach (var instrumentRegion in presetRegion.Instrument.Regions)
+                    foreach (var instrumentRegion in presetRegion.Instrument.RegionArray)
                     {
                         if (instrumentRegion.Contains(key, velocity))
                         {

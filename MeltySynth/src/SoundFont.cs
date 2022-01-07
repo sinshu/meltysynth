@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Immutable;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -13,9 +13,9 @@ namespace MeltySynth
         private SoundFontInfo info;
         private int bitsPerSample;
         private short[] waveData;
-        private ImmutableArray<SampleHeader> sampleHeaders;
-        private ImmutableArray<Preset> presets;
-        private ImmutableArray<Instrument> instruments;
+        private SampleHeader[] sampleHeaders;
+        private Preset[] presets;
+        private Instrument[] instruments;
 
         /// <summary>
         /// Loads a SoundFont from the stream.
@@ -77,9 +77,9 @@ namespace MeltySynth
                 waveData = sampleData.Samples;
 
                 var parameters = new SoundFontParameters(reader);
-                sampleHeaders = ImmutableArray.Create(parameters.SampleHeaders);
-                presets = ImmutableArray.Create(parameters.Presets);
-                instruments = ImmutableArray.Create(parameters.Instruments);
+                sampleHeaders = parameters.SampleHeaders;
+                presets = parameters.Presets;
+                instruments = parameters.Instruments;
             }
 
             CheckSamples();
@@ -128,7 +128,7 @@ namespace MeltySynth
 
             foreach (var instrument in instruments)
             {
-                foreach (var region in instrument.Regions)
+                foreach (var region in instrument.RegionArray)
                 {
                     if (!(0 <= region.SampleStart && region.SampleStart < sampleCount))
                     {
@@ -185,18 +185,22 @@ namespace MeltySynth
         /// <summary>
         /// The samples of the SoundFont.
         /// </summary>
-        public ImmutableArray<SampleHeader> SampleHeaders => sampleHeaders;
+        public IReadOnlyList<SampleHeader> SampleHeaders => sampleHeaders;
 
         /// <summary>
         /// The presets of the SoundFont.
         /// </summary>
-        public ImmutableArray<Preset> Presets => presets;
+        public IReadOnlyList<Preset> Presets => presets;
 
         /// <summary>
         /// The instruments of the SoundFont.
         /// </summary>
-        public ImmutableArray<Instrument> Instruments => instruments;
+        public IReadOnlyList<Instrument> Instruments => instruments;
 
+        // Internally exposes the raw arrays for fast enumeration.
         internal short[] WaveDataArray => waveData;
+        internal SampleHeader[] SampleHeaderArray => sampleHeaders;
+        internal Preset[] PresetArray => presets;
+        internal Instrument[] InstrumentArray => instruments;
     }
 }
