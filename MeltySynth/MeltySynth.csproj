@@ -12,11 +12,8 @@
     <RepositoryUrl>https://github.com/sinshu/meltysynth/</RepositoryUrl>
     <PackageTags>audio soundfont synthesizer midi</PackageTags>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>- Added support for MIDI file loop extension.
-- Added utility methods to convert sample format.
-- Fixed pop noise in certain instruments.
-- Improved performance by using Vector&lt;T&gt;.</PackageReleaseNotes>
-    <Version>2.1.0</Version>
+    <PackageReleaseNotes>This version supports .NET Standard 2.1.</PackageReleaseNotes>
+    <Version>2.2.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

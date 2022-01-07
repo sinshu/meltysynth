@@ -50,7 +50,7 @@ sequencer.Render(left, right);
 
 ## Features
 
-* No dependencies other than .NET Core 3.1.
+* No dependencies other than .NET Standard 2.1.
 * No memory allocation in the rendering process.
 * No unsafe code.
 
