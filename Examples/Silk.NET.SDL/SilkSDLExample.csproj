@@ -14,7 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MeltySynth" Version="2.1.0" />
+    <PackageReference Include="MeltySynth" Version="2.2.0" />
     <PackageReference Include="Silk.NET.SDL" Version="2.11.0" />
   </ItemGroup>
 
