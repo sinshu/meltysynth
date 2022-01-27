@@ -67,12 +67,17 @@ If you don't like DLLs, copy [all the .cs files](https://github.com/sinshu/melty
 
 ## Demo
 
-Here is a demo song generated with [Arachno SoundFont](http://www.arachnosoft.com/main/soundfont.php).
+### A demo song generated with [Arachno SoundFont](http://www.arachnosoft.com/main/soundfont.php)
 
 https://www.youtube.com/watch?v=xNgsIJKxPkI  
 
-[![Demo video](https://img.youtube.com/vi/xNgsIJKxPkI/0.jpg)](https://www.youtube.com/watch?v=xNgsIJKxPkI)
+[![Youtube video](https://img.youtube.com/vi/xNgsIJKxPkI/0.jpg)](https://www.youtube.com/watch?v=xNgsIJKxPkI)
 
+### [A Doom port written in C#](https://github.com/sinshu/managed-doom) with MIDI music playback
+
+https://www.youtube.com/watch?v=_j1izHgIT4U
+
+[![Youtube video](https://img.youtube.com/vi/_j1izHgIT4U/0.jpg)](https://www.youtube.com/watch?v=_j1izHgIT4U)
 
 ## Examples
 
