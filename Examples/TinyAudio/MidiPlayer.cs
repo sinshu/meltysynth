@@ -18,14 +18,14 @@ public class MidiPlayer
         mutex = new object();
     }
 
-    public void ProcessAudio(Span<short> buffer, out uint samplesWritten)
+    public void ProcessAudio(Span<short> buffer, out int samplesWritten)
     {
         lock (mutex)
         {
             sequencer.RenderInterleavedInt16(buffer);
         }
 
-        samplesWritten = (uint)buffer.Length;
+        samplesWritten = buffer.Length;
     }
 
     public void Play(MidiFile midiFile, bool loop)
