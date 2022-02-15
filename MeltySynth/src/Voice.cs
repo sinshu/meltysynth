@@ -115,7 +115,7 @@ namespace MeltySynth
             modLfoToVolume = region.ModulationLfoToVolume;
             dynamicVolume = modLfoToVolume > 0.05F;
 
-            instrumentPan = Math.Clamp(region.Pan, -50F, 50F);
+            instrumentPan = SoundFontMath.Clamp(region.Pan, -50F, 50F);
             instrumentReverb = 0.01F * region.ReverbEffectsSend;
             instrumentChorus = 0.01F * region.ChorusEffectsSend;
 
@@ -234,8 +234,8 @@ namespace MeltySynth
                 currentMixGainRight = mixGain * MathF.Sin(angle);
             }
 
-            currentReverbSend = Math.Clamp(channelInfo.ReverbSend + instrumentReverb, 0F, 1F);
-            currentChorusSend = Math.Clamp(channelInfo.ChorusSend + instrumentChorus, 0F, 1F);
+            currentReverbSend = SoundFontMath.Clamp(channelInfo.ReverbSend + instrumentReverb, 0F, 1F);
+            currentChorusSend = SoundFontMath.Clamp(channelInfo.ChorusSend + instrumentChorus, 0F, 1F);
 
             if (voiceLength == 0)
             {

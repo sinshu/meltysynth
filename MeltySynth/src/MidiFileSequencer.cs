@@ -90,7 +90,7 @@ namespace MeltySynth
                 {
                     ProcessEvents();
                     blockWrote = 0;
-                    currentTime += TimeSpan.FromSeconds((double)speed * synthesizer.BlockSize / synthesizer.SampleRate);
+                    currentTime += MidiFile.GetTimeSpanFromSeconds((double)speed * synthesizer.BlockSize / synthesizer.SampleRate);
                 }
 
                 var srcRem = synthesizer.BlockSize - blockWrote;

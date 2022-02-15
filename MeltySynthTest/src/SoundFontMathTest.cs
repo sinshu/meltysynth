@@ -87,5 +87,30 @@ namespace MeltySynthTest
             var actual = SoundFontMath.ExpCutoff(x);
             Assert.AreEqual(expected, actual, delta);
         }
+
+        [TestCase(3.0F, 4.0F, 5.0F)]
+        [TestCase(3.9F, 4.0F, 5.0F)]
+        [TestCase(4.0F, 4.0F, 5.0F)]
+        [TestCase(4.1F, 4.0F, 5.0F)]
+        [TestCase(4.5F, 4.0F, 5.0F)]
+        [TestCase(4.9F, 4.0F, 5.0F)]
+        [TestCase(5.0F, 4.0F, 5.0F)]
+        [TestCase(5.1F, 4.0F, 5.0F)]
+        [TestCase(6.0F, 4.0F, 5.0F)]
+        [TestCase(-1.0F, 0.0F, 1.0F)]
+        [TestCase(-0.1F, 0.0F, 1.0F)]
+        [TestCase(0.0F, 0.0F, 1.0F)]
+        [TestCase(0.1F, 0.0F, 1.0F)]
+        [TestCase(0.5F, 0.0F, 1.0F)]
+        [TestCase(0.9F, 0.0F, 1.0F)]
+        [TestCase(1.0F, 0.0F, 1.0F)]
+        [TestCase(1.1F, 0.0F, 1.0F)]
+        [TestCase(2.0F, 0.0F, 1.0F)]
+        public void ClampTest(float value, float min, float max)
+        {
+            var actual = SoundFontMath.Clamp(value, min, max);
+            var expected = Math.Clamp(value, min, max);
+            Assert.AreEqual(actual, expected);
+        }
     }
 }

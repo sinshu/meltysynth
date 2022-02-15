@@ -124,6 +124,14 @@ namespace MeltySynth
             }
         }
 
+        // Some .NET implementations round the time span to the nearest millisecond,
+        // which can cause timing errors.
+        // This method makes a time span without rounding.
+        internal static TimeSpan GetTimeSpanFromSeconds(double value)
+        {
+            return new TimeSpan((long)(TimeSpan.TicksPerSecond * value));
+        }
+
         private void Load(Stream stream, int loopPoint, MidiFileLoopType loopType)
         {
             using (var reader = new BinaryReader(stream, Encoding.ASCII, true))
@@ -323,7 +331,7 @@ namespace MeltySynth
 
                 var nextTick = tickLists[minIndex][indices[minIndex]];
                 var deltaTick = nextTick - currentTick;
-                var deltaTime = TimeSpan.FromSeconds(60.0 / (resolution * tempo) * deltaTick);
+                var deltaTime = GetTimeSpanFromSeconds(60.0 / (resolution * tempo) * deltaTick);
 
                 currentTick += deltaTick;
                 currentTime += deltaTime;
