@@ -20,7 +20,7 @@ class Program
         Raylib.InitAudioDevice();
         Raylib.SetAudioStreamBufferSizeDefault(bufferSize);
 
-        var stream = Raylib.InitAudioStream((uint)sampleRate, 16, 2);
+        var stream = Raylib.LoadAudioStream((uint)sampleRate, 16, 2);
         var buffer = new short[2 * bufferSize];
 
         Raylib.PlayAudioStream(stream);
@@ -40,7 +40,7 @@ class Program
                 sequencer.RenderInterleavedInt16(buffer);
                 fixed (short* p = buffer)
                 {
-                    Raylib.UpdateAudioStream(stream, (IntPtr)p, buffer.Length);
+                    Raylib.UpdateAudioStream(stream, p, bufferSize);
                 }
             }
 
