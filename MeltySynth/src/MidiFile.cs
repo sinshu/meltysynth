@@ -124,9 +124,9 @@ namespace MeltySynth
             }
         }
 
-        // Some .NET implementations round the time span to the nearest millisecond,
-        // which can cause timing errors.
-        // This method makes a time span without rounding.
+        // Some .NET implementations round TimeSpan to the nearest millisecond,
+        // and the timing of MIDI messages will be wrong.
+        // This method makes TimeSpan without rounding.
         internal static TimeSpan GetTimeSpanFromSeconds(double value)
         {
             return new TimeSpan((long)(TimeSpan.TicksPerSecond * value));

@@ -52,6 +52,7 @@ namespace MeltySynth
             }
         }
 
+        // This is for .NET Framework, which does not have the Math.Clamp method.
         public static float Clamp(float value, float min, float max)
         {
             if (value < min)
