@@ -21,6 +21,11 @@ namespace MeltySynth
         /// </remarks>
         public static void RenderInterleaved(this IAudioRenderer renderer, Span<float> destination)
         {
+            if (renderer == null)
+            {
+                throw new ArgumentNullException(nameof(renderer));
+            }
+
             if (destination.Length % 2 != 0)
             {
                 throw new ArgumentException("The length of the destination buffer must be even.", nameof(destination));
@@ -58,6 +63,11 @@ namespace MeltySynth
         /// </remarks>
         public static void RenderMono(this IAudioRenderer renderer, Span<float> destination)
         {
+            if (renderer == null)
+            {
+                throw new ArgumentNullException(nameof(renderer));
+            }
+
             var sampleCount = destination.Length;
             var bufferLength = 2 * destination.Length;
 
@@ -89,6 +99,11 @@ namespace MeltySynth
         /// </remarks>
         public static void RenderInterleavedInt16(this IAudioRenderer renderer, Span<short> destination)
         {
+            if (renderer == null)
+            {
+                throw new ArgumentNullException(nameof(renderer));
+            }
+
             if (destination.Length % 2 != 0)
             {
                 throw new ArgumentException("The length of the destination buffer must be even.", nameof(destination));
@@ -147,6 +162,11 @@ namespace MeltySynth
         /// </remarks>
         public static void RenderMonoInt16(this IAudioRenderer renderer, Span<short> destination)
         {
+            if (renderer == null)
+            {
+                throw new ArgumentNullException(nameof(renderer));
+            }
+
             var sampleCount = destination.Length;
             var bufferLength = 2 * destination.Length;
 
