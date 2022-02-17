@@ -30,6 +30,7 @@ synthesizer.Render(left, right);
 ```
 
 Another example code to synthesize a MIDI file:
+
 ```cs
 // Create the synthesizer.
 var sampleRate = 44100;
@@ -48,6 +49,8 @@ var right = new float[(int)(sampleRate * midiFile.Length.TotalSeconds)];
 sequencer.Render(left, right);
 ```
 
+
+
 ## Features
 
 * No dependencies other than .NET Standard 2.1.
@@ -55,7 +58,8 @@ sequencer.Render(left, right);
 * No unsafe code.
 
 
-## Installation
+
+## Installation (.NET Standard 2.1)
 
 [The NuGet package](https://www.nuget.org/packages/MeltySynth/) is available:
 
@@ -64,6 +68,18 @@ Install-Package MeltySynth
 ```
 
 If you don't like DLLs, copy [all the .cs files](https://github.com/sinshu/meltysynth/tree/main/MeltySynth/src) to your project.
+
+
+
+## Installation (.NET Framework)
+
+.NET Framework is not recommended, but you can use MeltySynth by following the steps below.
+
+1. Install the [System.Memory](https://www.nuget.org/packages/System.Memory/) package to your project.  
+2. Copy [NetFrameworkSupport.cs](https://github.com/sinshu/meltysynth/blob/main/Examples/NAudio_NetFramework/NetFrameworkSupport.cs) to your project.
+3. Copy [all the .cs files](https://github.com/sinshu/meltysynth/tree/main/MeltySynth/src) of MeltySynth to your project.
+
+
 
 ## Demo
 
@@ -79,6 +95,8 @@ https://www.youtube.com/watch?v=_j1izHgIT4U
 
 [![Youtube video](https://img.youtube.com/vi/_j1izHgIT4U/0.jpg)](https://www.youtube.com/watch?v=_j1izHgIT4U)
 
+
+
 ## Examples
 
 * [MIDI file player for SFML.Net](https://github.com/sinshu/meltysynth/tree/main/Examples/SFML.Net)
@@ -92,8 +110,10 @@ https://www.youtube.com/watch?v=_j1izHgIT4U
 * [MIDI file player for Raylib-cs](https://github.com/sinshu/meltysynth/tree/main/Examples/Raylib_cs)
 * [MIDI file player for Raylib-CsLo](https://github.com/sinshu/meltysynth/tree/main/Examples/Raylib_CsLo)
 * [MIDI file player for NAudio](https://github.com/sinshu/meltysynth/tree/main/Examples/NAudio)
+* [MIDI file player for NAudio (.NET Framework)](https://github.com/sinshu/meltysynth/tree/main/Examples/NAudio_NetFramework)
 * [MIDI file player for CSCore](https://github.com/sinshu/meltysynth/tree/main/Examples/CSCore)
 * [MIDI file player for TinyAudio](https://github.com/sinshu/meltysynth/tree/main/Examples/TinyAudio)
+
 
 
 ## Todo
@@ -125,9 +145,11 @@ https://www.youtube.com/watch?v=_j1izHgIT4U
     - [x] Performace optimization
 
 
+
 ## License
 
 MeltySynth is available under [the MIT license](LICENSE.txt).
+
 
 
 ## References
