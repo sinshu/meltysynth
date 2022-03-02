@@ -71,7 +71,7 @@ If you don't like DLLs, copy [all the .cs files](https://github.com/sinshu/melty
 
 
 
-## Installation (.NET Framework)
+## Installation (.NET Framework 4.6.1 or higher)
 
 .NET Framework is not recommended, but you can use MeltySynth by following the steps below.
 
