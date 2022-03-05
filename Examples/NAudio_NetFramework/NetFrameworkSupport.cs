@@ -21,13 +21,22 @@ namespace MeltySynth
         public static int Read(this BinaryReader reader, Span<byte> buffer)
         {
             var array = ArrayPool<byte>.Shared.Rent(buffer.Length);
-            var read = reader.Read(array, 0, buffer.Length);
-            for (var i = 0; i < buffer.Length; i++)
+
+            try
             {
-                buffer[i] = array[i];
+                var read = reader.Read(array, 0, buffer.Length);
+
+                for (var i = 0; i < buffer.Length; i++)
+                {
+                    buffer[i] = array[i];
+                }
+
+                return read;
             }
-            ArrayPool<byte>.Shared.Return(array);
-            return read;
+            finally
+            {
+                ArrayPool<byte>.Shared.Return(array);
+            }
         }
 
         public static void TryAdd<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key, TValue value)
