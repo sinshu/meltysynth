@@ -59,7 +59,9 @@ sequencer.Render(left, right);
 
 
 
-## Installation (.NET Standard 2.1)
+## Installation
+
+### .NET Standard 2.1 or higher
 
 [The NuGet package](https://www.nuget.org/packages/MeltySynth/) is available:
 
@@ -69,9 +71,7 @@ Install-Package MeltySynth
 
 If you don't like DLLs, copy [all the .cs files](https://github.com/sinshu/meltysynth/tree/main/MeltySynth/src) to your project.
 
-
-
-## Installation (.NET Framework 4.6.1 or higher)
+### .NET Framework 4.6.1 or higher
 
 .NET Framework is not recommended, but you can use MeltySynth by following the steps below.
 
@@ -83,13 +83,13 @@ If you don't like DLLs, copy [all the .cs files](https://github.com/sinshu/melty
 
 ## Demo
 
-__A demo song generated with [Arachno SoundFont](http://www.arachnosoft.com/main/soundfont.php)__
+### A demo song generated with [Arachno SoundFont](http://www.arachnosoft.com/main/soundfont.php)
 
 https://www.youtube.com/watch?v=xNgsIJKxPkI  
 
 [![Youtube video](https://img.youtube.com/vi/xNgsIJKxPkI/0.jpg)](https://www.youtube.com/watch?v=xNgsIJKxPkI)
 
-__[A Doom port written in C#](https://github.com/sinshu/managed-doom) with MIDI music playback__
+### [A Doom port written in C#](https://github.com/sinshu/managed-doom) with MIDI music playback
 
 https://www.youtube.com/watch?v=_j1izHgIT4U
 
@@ -98,6 +98,8 @@ https://www.youtube.com/watch?v=_j1izHgIT4U
 
 
 ## Examples
+
+### MIDI file player for various audio drivers
 
 * [MIDI file player for SFML.Net](https://github.com/sinshu/meltysynth/tree/main/Examples/SFML.Net)
 * [MIDI file player for Silk.NET (OpenAL)](https://github.com/sinshu/meltysynth/tree/main/Examples/Silk.NET.OpenAL)
@@ -113,6 +115,111 @@ https://www.youtube.com/watch?v=_j1izHgIT4U
 * [MIDI file player for NAudio (.NET Framework)](https://github.com/sinshu/meltysynth/tree/main/Examples/NAudio_NetFramework)
 * [MIDI file player for CSCore](https://github.com/sinshu/meltysynth/tree/main/Examples/CSCore)
 * [MIDI file player for TinyAudio](https://github.com/sinshu/meltysynth/tree/main/Examples/TinyAudio)
+
+### Handling SoundFont
+
+To enumerate samples in the SoundFont:
+
+```cs
+var soundFont = new SoundFont("TimGM6mb.sf2");
+
+foreach (var sample in soundFont.SampleHeaders)
+{
+    Console.WriteLine(sample.Name);
+}
+```
+
+To enumerate instruments in the SoundFont:
+
+```cs
+var soundFont = new SoundFont("TimGM6mb.sf2");
+
+foreach (var instrument in soundFont.Instruments)
+{
+    Console.WriteLine(instrument.Name);
+}
+```
+
+To enumerate presets in the SoundFont:
+
+```cs
+var soundFont = new SoundFont("TimGM6mb.sf2");
+
+foreach (var preset in soundFont.Presets)
+{
+    var bankNumber = preset.BankNumber.ToString("000");
+    var patchNumber = preset.PatchNumber.ToString("000");
+
+    Console.WriteLine($"{bankNumber}:{patchNumber} {preset.Name}");
+}
+```
+
+### Handling synthesizer
+
+To change the instrument to play, send a [program change command](https://en.wikipedia.org/wiki/General_MIDI#Program_change_events) (0xC0) to the synthesizer:
+
+```cs
+// Create the synthesizer.
+var sampleRate = 44100;
+var synthesizer = new Synthesizer("TimGM6mb.sf2", sampleRate);
+
+// Change the instrument to electric guitar (#30).
+synthesizer.ProcessMidiMessage(0, 0xC0, 30, 0);
+
+// Play some notes (middle C, E, G).
+synthesizer.NoteOn(0, 60, 100);
+synthesizer.NoteOn(0, 64, 100);
+synthesizer.NoteOn(0, 67, 100);
+
+// The output buffer (3 seconds).
+var left = new float[3 * sampleRate];
+var right = new float[3 * sampleRate];
+
+// Render the waveform.
+synthesizer.Render(left, right);
+```
+
+To play a melody, render the sound as a sequence of short blocks:
+
+```cs
+// Create the synthesizer.
+var sampleRate = 44100;
+var synthesizer = new Synthesizer("TimGM6mb.sf2", sampleRate);
+
+// The length of a block is 0.1 sec.
+var blockSize = sampleRate / 10;
+
+// The entire output is 3 sec.
+var blockCount = 30;
+
+// Define the melody.
+// A single row indicates the start timing, end timing, and pitch.
+var data = new int[][]
+{
+    new int[] {  5, 10, 60 },
+    new int[] { 10, 15, 64 },
+    new int[] { 15, 25, 67 }
+};
+
+// The output buffer.
+var left = new float[blockSize * blockCount];
+var right = new float[blockSize * blockCount];
+
+for (var t = 0; t < blockCount; t++)
+{
+    // Process the melody.
+    foreach (var row in data)
+    {
+        if (t == row[0]) synthesizer.NoteOn(0, row[2], 100);
+        if (t == row[1]) synthesizer.NoteOff(0, row[2]);
+    }
+
+    // Render the block.
+    var blockLeft = left.AsSpan(blockSize * t, blockSize);
+    var blockRight = right.AsSpan(blockSize * t, blockSize);
+    synthesizer.Render(blockLeft, blockRight);
+}
+```
 
 
 
