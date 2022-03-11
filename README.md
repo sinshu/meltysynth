@@ -59,7 +59,9 @@ sequencer.Render(left, right);
 
 
 
-## Installation (.NET Standard 2.1)
+## Installation
+
+### .NET Standard 2.1 or higher
 
 [The NuGet package](https://www.nuget.org/packages/MeltySynth/) is available:
 
@@ -69,9 +71,7 @@ Install-Package MeltySynth
 
 If you don't like DLLs, copy [all the .cs files](https://github.com/sinshu/meltysynth/tree/main/MeltySynth/src) to your project.
 
-
-
-## Installation (.NET Framework 4.6.1 or higher)
+### .NET Framework 4.6.1 or higher
 
 .NET Framework is not recommended, but you can use MeltySynth by following the steps below.
 
@@ -83,13 +83,13 @@ If you don't like DLLs, copy [all the .cs files](https://github.com/sinshu/melty
 
 ## Demo
 
-__A demo song generated with [Arachno SoundFont](http://www.arachnosoft.com/main/soundfont.php)__
+### A demo song generated with [Arachno SoundFont](http://www.arachnosoft.com/main/soundfont.php)
 
 https://www.youtube.com/watch?v=xNgsIJKxPkI  
 
 [![Youtube video](https://img.youtube.com/vi/xNgsIJKxPkI/0.jpg)](https://www.youtube.com/watch?v=xNgsIJKxPkI)
 
-__[A Doom port written in C#](https://github.com/sinshu/managed-doom) with MIDI music playback__
+### [A Doom port written in C#](https://github.com/sinshu/managed-doom) with MIDI music playback
 
 https://www.youtube.com/watch?v=_j1izHgIT4U
 
