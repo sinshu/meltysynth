@@ -116,7 +116,7 @@ https://www.youtube.com/watch?v=_j1izHgIT4U
 * [MIDI file player for CSCore](https://github.com/sinshu/meltysynth/tree/main/Examples/CSCore)
 * [MIDI file player for TinyAudio](https://github.com/sinshu/meltysynth/tree/main/Examples/TinyAudio)
 
-### Handling SoundFont and synthesizer
+### Handling SoundFont
 
 To enumerate samples in the SoundFont:
 
@@ -153,6 +153,8 @@ foreach (var preset in soundFont.Presets)
     Console.WriteLine($"{bankNumber}:{patchNumber} {preset.Name}");
 }
 ```
+
+### Handling synthesizer
 
 To change the instrument to play, send a [program change command](https://en.wikipedia.org/wiki/General_MIDI#Program_change_events) (0xC0) to the synthesizer:
 
