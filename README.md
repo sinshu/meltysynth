@@ -69,6 +69,12 @@ sequencer.Render(left, right);
 Install-Package MeltySynth
 ```
 
+All the classes are in the `MeltySynth` namespace:
+
+```cs
+using MeltySynth;
+```
+
 If you don't like DLLs, copy [all the .cs files](https://github.com/sinshu/meltysynth/tree/main/MeltySynth/src) to your project.
 
 ### .NET Framework 4.6.1 or higher
