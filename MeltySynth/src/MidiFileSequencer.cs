@@ -151,6 +151,28 @@ namespace MeltySynth
         }
 
         /// <summary>
+        /// Gets a value that indicates whether the current playback position is at the end of the sequence.
+        /// </summary>
+        /// <remarks>
+        /// If the <see cref="Play(MidiFile, bool)">Play</see> method has not yet been called, this value is true.
+        /// This value will never be <c>true</c> if loop playback is enabled.
+        /// </remarks>
+        public bool EndOfSequence
+        {
+            get
+            {
+                if (midiFile == null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return msgIndex == midiFile.Messages.Length;
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the playback speed.
         /// </summary>
         /// <remarks>
