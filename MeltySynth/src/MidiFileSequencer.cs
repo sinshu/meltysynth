@@ -151,6 +151,11 @@ namespace MeltySynth
         }
 
         /// <summary>
+        /// Gets the current playback position.
+        /// </summary>
+        public TimeSpan Position => currentTime;
+
+        /// <summary>
         /// Gets a value that indicates whether the current playback position is at the end of the sequence.
         /// </summary>
         /// <remarks>
