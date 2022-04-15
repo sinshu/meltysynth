@@ -6,14 +6,14 @@
     <Authors>Nobuaki Tanaka</Authors>
     <Company />
     <Product />
-    <Description>A SoundFont synthesizer for .NET</Description>
+    <Description>A SoundFont MIDI synthesizer for .NET</Description>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/sinshu/meltysynth/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/sinshu/meltysynth/</RepositoryUrl>
     <PackageTags>audio soundfont synthesizer midi</PackageTags>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>This version supports .NET Standard 2.1.</PackageReleaseNotes>
-    <Version>2.2.0</Version>
+    <PackageReleaseNotes>This update adds some minor improvements.</PackageReleaseNotes>
+    <Version>2.2.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
