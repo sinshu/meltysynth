@@ -65,7 +65,7 @@ namespace MeltySynthTest
 
             foreach (var polyphoneRegion in polyphoneRegions)
             {
-                var meltyRegion = meltyRegions.MinBy(x => GetError(polyphoneRegion, x)).First();
+                var meltyRegion = meltyRegions.MinBy(x => GetError(polyphoneRegion, x));
                 AreEqual(polyphoneRegion, meltyRegion);
             }
         }
