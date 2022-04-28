@@ -101,6 +101,12 @@ https://www.youtube.com/watch?v=_j1izHgIT4U
 
 [![Youtube video](https://img.youtube.com/vi/_j1izHgIT4U/0.jpg)](https://www.youtube.com/watch?v=_j1izHgIT4U)
 
+### A virtual keyboard made with [Raylib-CsLo](https://github.com/NotNotTech/Raylib-CsLo)
+
+https://www.youtube.com/watch?v=a8vuIq4JKhs
+
+[![Youtube video](https://img.youtube.com/vi/a8vuIq4JKhs/0.jpg)](https://www.youtube.com/watch?v=a8vuIq4JKhs)
+
 
 
 ## Examples
