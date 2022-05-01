@@ -115,7 +115,7 @@ namespace MeltySynth
                 {
                     throw new InvalidDataException($"The end position of the sample '{sample.Name}' is out of range.");
                 }
-                if (!(0 < sample.EndLoop && sample.EndLoop <= sampleCount))
+                if (!(0 <= sample.EndLoop && sample.EndLoop <= sampleCount))
                 {
                     throw new InvalidDataException($"The loop end position of the sample '{sample.Name}' is out of range.");
                 }
@@ -142,7 +142,7 @@ namespace MeltySynth
                     {
                         throw new InvalidDataException($"The end position of the sample '{region.Sample.Name}' in the instrument '{instrument.Name}' is out of range.");
                     }
-                    if (!(0 < region.SampleEndLoop && region.SampleEndLoop <= sampleCount))
+                    if (!(0 <= region.SampleEndLoop && region.SampleEndLoop <= sampleCount))
                     {
                         throw new InvalidDataException($"The loop end position of the sample '{region.Sample.Name}' in the instrument '{instrument.Name}' is out of range.");
                     }
