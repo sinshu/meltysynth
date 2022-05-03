@@ -187,7 +187,7 @@ namespace MeltySynth
                             break;
 
                         case 0x21: // Modulation Fine
-                            channelInfo.SetModulationCoarse(data2);
+                            channelInfo.SetModulationFine(data2);
                             break;
 
                         case 0x06: // Data Entry Coarse
