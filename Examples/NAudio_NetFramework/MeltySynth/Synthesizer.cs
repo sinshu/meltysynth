@@ -25,6 +25,7 @@ namespace MeltySynth
         private readonly int minimumVoiceDuration;
 
         private readonly Dictionary<int, Preset> presetLookup;
+        private readonly Preset defaultPreset;
 
         private readonly Channel[] channels;
 
@@ -103,10 +104,20 @@ namespace MeltySynth
             minimumVoiceDuration = sampleRate / 500;
 
             presetLookup = new Dictionary<int, Preset>();
+
+            var minPresetId = int.MaxValue;
             foreach (var preset in soundFont.PresetArray)
             {
                 var presetId = (preset.BankNumber << 16) | preset.PatchNumber;
                 presetLookup.TryAdd(presetId, preset);
+
+                // The preset with the minimum ID number will be default.
+                // If the SoundFont is GM compatible, the piano will be chosen.
+                if (presetId < minPresetId)
+                {
+                    defaultPreset = preset;
+                    minPresetId = presetId;
+                }
             }
 
             channels = new Channel[channelCount];
@@ -187,7 +198,7 @@ namespace MeltySynth
                             break;
 
                         case 0x21: // Modulation Fine
-                            channelInfo.SetModulationCoarse(data2);
+                            channelInfo.SetModulationFine(data2);
                             break;
 
                         case 0x06: // Data Entry Coarse
@@ -313,7 +324,12 @@ namespace MeltySynth
             Preset preset;
             if (!presetLookup.TryGetValue(presetId, out preset))
             {
-                return;
+                // Try fallback to the GM sound set.
+                if (!presetLookup.TryGetValue(channelInfo.PatchNumber, out preset))
+                {
+                    // No corresponding preset was found. Use the default one...
+                    preset = defaultPreset;
+                }
             }
 
             foreach (var presetRegion in preset.RegionArray)
