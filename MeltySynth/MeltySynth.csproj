@@ -12,8 +12,8 @@
     <RepositoryUrl>https://github.com/sinshu/meltysynth/</RepositoryUrl>
     <PackageTags>audio soundfont synthesizer midi</PackageTags>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>This update adds some minor improvements.</PackageReleaseNotes>
-    <Version>2.2.1</Version>
+    <PackageReleaseNotes>https://github.com/sinshu/meltysynth/blob/main/CHANGELOG.md</PackageReleaseNotes>
+    <Version>2.2.2</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

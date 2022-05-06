@@ -1,3 +1,9 @@
+# v2.2.2
+
+- Added Fallback when no corresponding preset was found.
+- Fixed wrong MIDI message handling.
+- Improved error check to allow some non-standard SoundFonts.
+
 # v2.2.1
 
 - Added the EndOfSequence property to MidiFileSequencer.
