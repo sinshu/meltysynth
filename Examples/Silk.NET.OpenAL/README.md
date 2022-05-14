@@ -12,8 +12,8 @@ class Program
 {
     unsafe static void Main()
     {
-        using (var alc = ALContext.GetApi())
-        using (var al = AL.GetApi())
+        using (var alc = ALContext.GetApi(true))
+        using (var al = AL.GetApi(true))
         {
             var device = alc.OpenDevice("");
             var context = alc.CreateContext(device, null);
