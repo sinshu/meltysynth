@@ -4,12 +4,10 @@ using MeltySynth;
 
 public class MidiPlayer : IDisposable
 {
-    private static readonly int bufferLength = 2048;
-
     private Synthesizer synthesizer;
     private MidiFileSequencer sequencer;
 
-    private SoundStream stream;
+    private AudioStream stream;
     private object mutex;
 
     public MidiPlayer(string soundFontPath)
@@ -19,11 +17,11 @@ public class MidiPlayer : IDisposable
         synthesizer = new Synthesizer(soundFontPath, settings);
         sequencer = new MidiFileSequencer(synthesizer);
 
-        stream = new SoundStream(settings.SampleRate, 2, bufferLength, FillBuffer);
+        stream = new AudioStream(settings.SampleRate, 2);
         mutex = new object();
     }
 
-    private void FillBuffer(short[] data)
+    private void FillBlock(short[] data)
     {
         lock (mutex)
         {
@@ -38,9 +36,9 @@ public class MidiPlayer : IDisposable
             sequencer.Play(midiFile, loop);
         }
 
-        if (!stream.IsPlaying)
+        if (stream.State != PlaybackState.Playing)
         {
-            stream.Start();
+            stream.Play(FillBlock);
         }
     }
 
