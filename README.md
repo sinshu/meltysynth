@@ -127,6 +127,7 @@ https://www.youtube.com/watch?v=a8vuIq4JKhs
 * [MIDI file player for NAudio (.NET Framework)](https://github.com/sinshu/meltysynth/tree/main/Examples/NAudio_NetFramework)
 * [MIDI file player for CSCore](https://github.com/sinshu/meltysynth/tree/main/Examples/CSCore)
 * [MIDI file player for TinyAudio](https://github.com/sinshu/meltysynth/tree/main/Examples/TinyAudio)
+* [MIDI file player for DrippyAL](https://github.com/sinshu/meltysynth/tree/main/Examples/DrippyAL)
 
 ### Handling SoundFont
 
