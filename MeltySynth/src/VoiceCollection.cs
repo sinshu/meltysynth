@@ -27,8 +27,8 @@ namespace MeltySynth
 
         public Voice RequestNew(InstrumentRegion region, int channel)
         {
-            // If the voice is an exclusive class, reuse the existing one so that only one note
-            // will be played at a time.
+            // If an exclusive class is assigned to the region, find a voice with the same class.
+            // If found, reuse it to avoid playing multiple voices with the same class at a time.
             var exclusiveClass = region.ExclusiveClass;
             if (exclusiveClass != 0)
             {
@@ -42,7 +42,7 @@ namespace MeltySynth
                 }
             }
 
-            // If active voices are less than the limit, a new one can be used without problem.
+            // If the number of active voices is less than the limit, use a free one.
             if (activeVoiceCount < voices.Length)
             {
                 var free = voices[activeVoiceCount];
@@ -52,7 +52,7 @@ namespace MeltySynth
 
             // Too many active voices...
             // Find one which has the lowest priority.
-            Voice low = null;
+            Voice candidate = null;
             var lowestPriority = float.MaxValue;
             for (var i = 0; i < activeVoiceCount; i++)
             {
@@ -61,19 +61,19 @@ namespace MeltySynth
                 if (priority < lowestPriority)
                 {
                     lowestPriority = priority;
-                    low = voice;
+                    candidate = voice;
                 }
                 else if (priority == lowestPriority)
                 {
                     // Same priority...
                     // The older one should be more suitable for reuse.
-                    if (voice.VoiceLength > low.VoiceLength)
+                    if (voice.VoiceLength > candidate.VoiceLength)
                     {
-                        low = voice;
+                        candidate = voice;
                     }
                 }
             }
-            return low;
+            return candidate;
         }
 
         public void Process()
