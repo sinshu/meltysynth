@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DrippyAL" Version="1.1.1" />
+    <PackageReference Include="DrippyAL" Version="1.1.2" />
     <PackageReference Include="MeltySynth" Version="2.2.2" />
   </ItemGroup>
 
