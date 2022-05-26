@@ -97,7 +97,7 @@ MeltySynth can only generate PCM waveforms; MeltySynth itself does not have the 
 
 ### A demo song generated with [Arachno SoundFont](http://www.arachnosoft.com/main/soundfont.php)
 
-https://www.youtube.com/watch?v=xNgsIJKxPkI  
+https://www.youtube.com/watch?v=xNgsIJKxPkI
 
 [![Youtube video](https://img.youtube.com/vi/xNgsIJKxPkI/0.jpg)](https://www.youtube.com/watch?v=xNgsIJKxPkI)
 
