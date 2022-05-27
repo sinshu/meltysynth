@@ -113,6 +113,12 @@ https://www.youtube.com/watch?v=a8vuIq4JKhs
 
 [![Youtube video](https://img.youtube.com/vi/a8vuIq4JKhs/0.jpg)](https://www.youtube.com/watch?v=a8vuIq4JKhs)
 
+### Use MeltySynth as a MIDI device
+
+https://www.youtube.com/watch?v=BiFxvzs0jUI
+
+[![Youtube video](https://img.youtube.com/vi/BiFxvzs0jUI/0.jpg)](https://www.youtube.com/watch?v=BiFxvzs0jUI)
+
 
 
 ## Examples
