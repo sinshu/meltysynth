@@ -108,6 +108,10 @@ namespace MeltySynth
             var minPresetId = int.MaxValue;
             foreach (var preset in soundFont.PresetArray)
             {
+                // The preset ID is Int32, where the upper 16 bits represent the bank number
+                // and the lower 16 bits represent the patch number.
+                // This ID is used to search for presets by the combination of bank number
+                // and patch number.
                 var presetId = (preset.BankNumber << 16) | preset.PatchNumber;
                 presetLookup.TryAdd(presetId, preset);
 
@@ -325,7 +329,11 @@ namespace MeltySynth
             if (!presetLookup.TryGetValue(presetId, out preset))
             {
                 // Try fallback to the GM sound set.
-                if (!presetLookup.TryGetValue(channelInfo.PatchNumber, out preset))
+                // Normally, the given patch number + the bank number 0 will work.
+                // For drums (bank number >= 128), it seems to be better to select the standard set (128:0).
+                var gmPresetId = channelInfo.BankNumber < 128 ? channelInfo.PatchNumber : (128 << 16);
+
+                if (!presetLookup.TryGetValue(gmPresetId, out preset))
                 {
                     // No corresponding preset was found. Use the default one...
                     preset = defaultPreset;
