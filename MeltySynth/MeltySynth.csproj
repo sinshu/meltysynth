@@ -10,10 +10,10 @@
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/sinshu/meltysynth/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/sinshu/meltysynth/</RepositoryUrl>
-    <PackageTags>audio soundfont synthesizer midi</PackageTags>
+    <PackageTags>audio;soundfont;synthesizer;midi</PackageTags>
     <RepositoryType>git</RepositoryType>
     <PackageReleaseNotes>https://github.com/sinshu/meltysynth/blob/main/CHANGELOG.md</PackageReleaseNotes>
-    <Version>2.2.2</Version>
+    <Version>2.2.3</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

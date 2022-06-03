@@ -1,3 +1,9 @@
+# v2.2.3
+
+- Improved voice prioritization.
+- Improved fallback when no corresponding preset was found.
+- Now unknown generators are ignored.
+
 # v2.2.2
 
 - Added fallback when no corresponding preset was found.
