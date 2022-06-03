@@ -27,56 +27,53 @@ namespace MeltySynth
 
         public Voice RequestNew(InstrumentRegion region, int channel)
         {
-            Voice free = null;
-            Voice low = null;
-            var lowestPriority = float.MaxValue;
-
+            // If an exclusive class is assigned to the region, find a voice with the same class.
+            // If found, reuse it to avoid playing multiple voices with the same class at a time.
             var exclusiveClass = region.ExclusiveClass;
-            if (exclusiveClass == 0)
-            {
-                for (var i = 0; i < activeVoiceCount; i++)
-                {
-                    var voice = voices[i];
-                    if (voice.Priority < lowestPriority)
-                    {
-                        lowestPriority = voice.Priority;
-                        low = voice;
-                    }
-                }
-            }
-            else
+            if (exclusiveClass != 0)
             {
                 for (var i = 0; i < activeVoiceCount; i++)
                 {
                     var voice = voices[i];
                     if (voice.ExclusiveClass == exclusiveClass && voice.Channel == channel)
                     {
-                        voice.Kill();
-                        free = voice;
-                    }
-                    if (voice.Priority < lowestPriority)
-                    {
-                        lowestPriority = voice.Priority;
-                        low = voice;
+                        return voice;
                     }
                 }
             }
 
-            if (free != null)
-            {
-                return free;
-            }
-
+            // If the number of active voices is less than the limit, use a free one.
             if (activeVoiceCount < voices.Length)
             {
-                free = voices[activeVoiceCount];
+                var free = voices[activeVoiceCount];
                 activeVoiceCount++;
                 return free;
             }
-            else
+
+            // Too many active voices...
+            // Find one which has the lowest priority.
+            Voice candidate = null;
+            var lowestPriority = float.MaxValue;
+            for (var i = 0; i < activeVoiceCount; i++)
             {
-                return low;
+                var voice = voices[i];
+                var priority = voice.Priority;
+                if (priority < lowestPriority)
+                {
+                    lowestPriority = priority;
+                    candidate = voice;
+                }
+                else if (priority == lowestPriority)
+                {
+                    // Same priority...
+                    // The older one should be more suitable for reuse.
+                    if (voice.VoiceLength > candidate.VoiceLength)
+                    {
+                        candidate = voice;
+                    }
+                }
             }
+            return candidate;
         }
 
         public void Process()

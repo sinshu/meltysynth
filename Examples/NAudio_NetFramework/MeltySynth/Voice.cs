@@ -299,6 +299,8 @@ namespace MeltySynth
         public int Key => key;
         public int Velocity => velocity;
 
+        public int VoiceLength => voiceLength;
+
 
 
         private enum VoiceState

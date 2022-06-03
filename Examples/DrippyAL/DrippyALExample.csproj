@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="DrippyAL" Version="1.1.2" />
-    <PackageReference Include="MeltySynth" Version="2.2.2" />
+    <PackageReference Include="MeltySynth" Version="2.2.3" />
   </ItemGroup>
 
 </Project>

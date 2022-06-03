@@ -90,7 +90,13 @@ namespace MeltySynth
 
         private void SetParameter(Generator parameter)
         {
-            gs[(int)parameter.Type] = (short)parameter.Value;
+            var index = (int)parameter.Type;
+
+            // Unknown generators should be ignored.
+            if (0 <= index && index < gs.Length)
+            {
+                gs[index] = (short)parameter.Value;
+            }
         }
 
         /// <summary>
