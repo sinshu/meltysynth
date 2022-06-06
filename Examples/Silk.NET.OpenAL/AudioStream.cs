@@ -144,8 +144,10 @@ public sealed class AudioStream : IDisposable
         {
             pollingCts.Cancel();
             pollingTask.Wait();
-            pollingCts = null;
+            pollingTask.Dispose();
             pollingTask = null;
+            pollingCts.Dispose();
+            pollingCts = null;
         }
 
         if (alSource != 0)
@@ -189,6 +191,8 @@ public sealed class AudioStream : IDisposable
         {
             pollingCts.Cancel();
             pollingTask.Wait();
+            pollingTask.Dispose();
+            pollingCts.Dispose();
         }
 
         this.fillBlock = fillBlock;
