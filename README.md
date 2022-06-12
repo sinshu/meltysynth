@@ -51,7 +51,7 @@ sequencer.Render(left, right);
 
 
 
-## Features
+# Features
 
 * No dependencies other than .NET Standard 2.1.
 * No memory allocation in the rendering process.
@@ -59,9 +59,9 @@ sequencer.Render(left, right);
 
 
 
-## Installation
+# Installation
 
-### .NET Standard 2.1 or higher
+## .NET Standard 2.1 or higher
 
 [The NuGet package](https://www.nuget.org/packages/MeltySynth/) is available:
 
@@ -77,7 +77,7 @@ using MeltySynth;
 
 If you don't like DLLs, copy [all the .cs files](https://github.com/sinshu/meltysynth/tree/main/MeltySynth/src) to your project.
 
-### .NET Framework 4.6.1 or higher
+## .NET Framework 4.6.1 or higher
 
 .NET Framework is not recommended, but you can use MeltySynth by following the steps below.
 
@@ -87,7 +87,7 @@ If you don't like DLLs, copy [all the .cs files](https://github.com/sinshu/melty
 
 
 
-## Playing sound
+# Playing sound
 
 MeltySynth can only generate PCM waveforms; MeltySynth itself does not have the ability to play sound from speakers. To make the sound audible, export the generated waveform as an audio file (e.g., WAV file) or pass it to some audio driver (e.g., NAudio). If you are not very familiar with how to handle PCM audio, [NAudio's tutorials](https://github.com/naudio/NAudio#tutorials) should be helpful.
 
@@ -95,27 +95,27 @@ Note that MeltySynth does not provide thread safety. If you want to send notes a
 
 
 
-## Demo
+# Demo
 
-### A demo song generated with [Arachno SoundFont](http://www.arachnosoft.com/main/soundfont.php)
+## A demo song generated with [Arachno SoundFont](http://www.arachnosoft.com/main/soundfont.php)
 
 https://www.youtube.com/watch?v=xNgsIJKxPkI
 
 [![Youtube video](https://img.youtube.com/vi/xNgsIJKxPkI/0.jpg)](https://www.youtube.com/watch?v=xNgsIJKxPkI)
 
-### [A Doom port written in C#](https://github.com/sinshu/managed-doom) with MIDI music playback
+## [A Doom port written in C#](https://github.com/sinshu/managed-doom) with MIDI music playback
 
 https://www.youtube.com/watch?v=_j1izHgIT4U
 
 [![Youtube video](https://img.youtube.com/vi/_j1izHgIT4U/0.jpg)](https://www.youtube.com/watch?v=_j1izHgIT4U)
 
-### A virtual keyboard made with [Raylib-CsLo](https://github.com/NotNotTech/Raylib-CsLo)
+## A virtual keyboard made with [Raylib-CsLo](https://github.com/NotNotTech/Raylib-CsLo)
 
 https://www.youtube.com/watch?v=a8vuIq4JKhs
 
 [![Youtube video](https://img.youtube.com/vi/a8vuIq4JKhs/0.jpg)](https://www.youtube.com/watch?v=a8vuIq4JKhs)
 
-### Use MeltySynth as a MIDI device
+## Use MeltySynth as a MIDI device
 
 https://www.youtube.com/watch?v=BiFxvzs0jUI
 
@@ -123,9 +123,9 @@ https://www.youtube.com/watch?v=BiFxvzs0jUI
 
 
 
-## Examples
+# Examples
 
-### MIDI file player for various audio drivers
+## MIDI file player for various audio drivers
 
 * [MIDI file player for SFML.Net](https://github.com/sinshu/meltysynth/tree/main/Examples/SFML.Net)
 * [MIDI file player for Silk.NET (OpenAL)](https://github.com/sinshu/meltysynth/tree/main/Examples/Silk.NET.OpenAL)
@@ -143,7 +143,7 @@ https://www.youtube.com/watch?v=BiFxvzs0jUI
 * [MIDI file player for TinyAudio](https://github.com/sinshu/meltysynth/tree/main/Examples/TinyAudio)
 * [MIDI file player for DrippyAL](https://github.com/sinshu/meltysynth/tree/main/Examples/DrippyAL)
 
-### Handling SoundFont
+## Handling SoundFont
 
 To enumerate samples in the SoundFont:
 
@@ -181,7 +181,7 @@ foreach (var preset in soundFont.Presets)
 }
 ```
 
-### Handling synthesizer
+## Handling synthesizer
 
 To change the instrument to play, send a [program change command](https://en.wikipedia.org/wiki/General_MIDI#Program_change_events) (0xC0) to the synthesizer:
 
@@ -250,7 +250,7 @@ for (var t = 0; t < blockCount; t++)
 
 
 
-## Todo
+# Todo
 
 * __Wave synthesis__
     - [x] SoundFont reader
@@ -280,13 +280,13 @@ for (var t = 0; t < blockCount; t++)
 
 
 
-## License
+# License
 
 MeltySynth is available under [the MIT license](LICENSE.txt).
 
 
 
-## References
+# References
 
 * __SoundFont&reg; Technical Specification__  
 http://www.synthfont.com/SFSPEC21.PDF
