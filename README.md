@@ -137,6 +137,7 @@ https://www.youtube.com/watch?v=BiFxvzs0jUI
 * [MIDI file player for FNA.NET](https://github.com/sinshu/meltysynth/tree/main/Examples/FNA.NET)
 * [MIDI file player for Raylib-cs](https://github.com/sinshu/meltysynth/tree/main/Examples/Raylib_cs)
 * [MIDI file player for Raylib-CsLo](https://github.com/sinshu/meltysynth/tree/main/Examples/Raylib_CsLo)
+* [MIDI file player for DotFeather](https://github.com/sinshu/meltysynth/tree/main/Examples/DotFeather)
 * [MIDI file player for NAudio](https://github.com/sinshu/meltysynth/tree/main/Examples/NAudio)
 * [MIDI file player for NAudio (.NET Framework)](https://github.com/sinshu/meltysynth/tree/main/Examples/NAudio_NetFramework)
 * [MIDI file player for CSCore](https://github.com/sinshu/meltysynth/tree/main/Examples/CSCore)

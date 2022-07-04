@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32616.157
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotFeatherExample", "DotFeatherExample.csproj", "{62114DB1-2592-4C0E-90E9-C771DF1ED344}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{62114DB1-2592-4C0E-90E9-C771DF1ED344}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62114DB1-2592-4C0E-90E9-C771DF1ED344}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62114DB1-2592-4C0E-90E9-C771DF1ED344}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62114DB1-2592-4C0E-90E9-C771DF1ED344}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {567B090E-8E29-4EF3-BB35-30AD00ED9C4D}
+	EndGlobalSection
+EndGlobal
