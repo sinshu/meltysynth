@@ -18,8 +18,8 @@ public class MidiAudioStream : IAudioSource
         synthesizer = new Synthesizer(soundFontPath, SampleRate);
         sequencer = new MidiFileSequencer(synthesizer);
 
-        bufferLeft = new float[synthesizer.BlockSize];
-        bufferRight = new float[synthesizer.BlockSize];
+        bufferLeft = new float[SampleRate / 20];
+        bufferRight = new float[SampleRate / 20];
 
         mutex = new object();
     }
