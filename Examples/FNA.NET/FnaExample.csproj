@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FNA.NET" Version="1.0.0.71-develop" />
+    <PackageReference Include="FNA.NET" Version="1.0.0.77-develop" />
     <PackageReference Include="MeltySynth" Version="2.2.3" />
   </ItemGroup>
 
