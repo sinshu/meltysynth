@@ -6,6 +6,7 @@ namespace MeltySynth
     {
         private const int fracBits = 24;
         private const long fracUnit = 1L << fracBits;
+        private const float fpToSample = 1F / (32768 * fracUnit);
 
         private readonly Synthesizer synthesizer;
 
@@ -108,8 +109,8 @@ namespace MeltySynth
 
                 var x1 = data[index];
                 var x2 = data[index + 1];
-                var a = position_fp & (1 - fracUnit);
-                block[t] = (((long)x1 << fracBits) + a * (x2 - x1)) / (float)(32768 * fracUnit);
+                var a = position_fp & (fracUnit - 1);
+                block[t] = fpToSample * (((long)x1 << fracBits) + a * (x2 - x1));
 
                 position_fp += pitchRatio_fp;
             }
@@ -141,8 +142,8 @@ namespace MeltySynth
 
                 var x1 = data[index1];
                 var x2 = data[index2];
-                var a = position_fp & (1 - fracUnit);
-                block[t] = (((long)x1 << fracBits) + a * (x2 - x1)) / (float)(32768 * fracUnit);
+                var a = position_fp & (fracUnit - 1);
+                block[t] = fpToSample * (((long)x1 << fracBits) + a * (x2 - x1));
 
                 position_fp += pitchRatio_fp;
             }
