@@ -108,7 +108,7 @@ namespace MeltySynth
 
                 var x1 = data[index];
                 var x2 = data[index + 1];
-                var a = position_fp - (index << fracBits);
+                var a = position_fp & (1 - fracUnit);
                 block[t] = (((long)x1 << fracBits) + a * (x2 - x1)) / (float)(32768 * fracUnit);
 
                 position_fp += pitchRatio_fp;
@@ -141,7 +141,7 @@ namespace MeltySynth
 
                 var x1 = data[index1];
                 var x2 = data[index2];
-                var a = position_fp - (index1 << fracBits);
+                var a = position_fp & (1 - fracUnit);
                 block[t] = (((long)x1 << fracBits) + a * (x2 - x1)) / (float)(32768 * fracUnit);
 
                 position_fp += pitchRatio_fp;
