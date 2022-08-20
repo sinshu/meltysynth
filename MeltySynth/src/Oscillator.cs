@@ -4,6 +4,11 @@ namespace MeltySynth
 {
     internal sealed class Oscillator
     {
+        // In this class, fixed-point numbers are used for speed-up.
+        // A fixed-point number is expressed by Int64, whose lower 24 bits represent the fraction part,
+        // and the rest represent the integer part.
+        // For clarity, fixed-point number variables have a suffix "_fp".
+
         private const int fracBits = 24;
         private const long fracUnit = 1L << fracBits;
         private const float fpToSample = 1F / (32768 * fracUnit);
