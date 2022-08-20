@@ -4,6 +4,9 @@ namespace MeltySynth
 {
     internal sealed class Oscillator
     {
+        private const int fracBits = 24;
+        private const long fracUnit = 1L << fracBits;
+
         private readonly Synthesizer synthesizer;
 
         private short[] data;
@@ -21,7 +24,7 @@ namespace MeltySynth
 
         private bool looping;
 
-        private double position;
+        private long position_fp;
 
         internal Oscillator(Synthesizer synthesizer)
         {
@@ -52,7 +55,7 @@ namespace MeltySynth
                 looping = true;
             }
 
-            position = start;
+            position_fp = (long)start << fracBits;
         }
 
         public void Release()
@@ -72,21 +75,23 @@ namespace MeltySynth
 
         internal bool FillBlock(float[] block, double pitchRatio)
         {
+            var pitchRatio_fp = (long)(fracUnit * pitchRatio);
+
             if (looping)
             {
-                return FillBlock_Continuous(block, pitchRatio);
+                return FillBlock_Continuous(block, pitchRatio_fp);
             }
             else
             {
-                return FillBlock_NoLoop(block, pitchRatio);
+                return FillBlock_NoLoop(block, pitchRatio_fp);
             }
         }
 
-        private bool FillBlock_NoLoop(float[] block, double pitchRatio)
+        private bool FillBlock_NoLoop(float[] block, long pitchRatio_fp)
         {
             for (var t = 0; t < block.Length; t++)
             {
-                var index = (int)position;
+                var index = position_fp >> fracBits;
 
                 if (index >= end)
                 {
@@ -103,29 +108,30 @@ namespace MeltySynth
 
                 var x1 = data[index];
                 var x2 = data[index + 1];
-                var a = (float)(position - index);
-                block[t] = (x1 + a * (x2 - x1)) / 32768;
+                var a = position_fp - (index << fracBits);
+                block[t] = (((long)x1 << fracBits) + a * (x2 - x1)) / (float)(32768 * fracUnit);
 
-                position += pitchRatio;
+                position_fp += pitchRatio_fp;
             }
 
             return true;
         }
 
-        private bool FillBlock_Continuous(float[] block, double pitchRatio)
+        private bool FillBlock_Continuous(float[] block, long pitchRatio_fp)
         {
-            var endLoopPosition = (double)endLoop;
+            var endLoop_fp = (long)endLoop << fracBits;
 
-            var loopLength = endLoop - startLoop;
+            var loopLength = (long)(endLoop - startLoop);
+            var loopLength_fp = loopLength << fracBits;
 
             for (var t = 0; t < block.Length; t++)
             {
-                if (position >= endLoopPosition)
+                if (position_fp >= endLoop_fp)
                 {
-                    position -= loopLength;
+                    position_fp -= loopLength_fp;
                 }
 
-                var index1 = (int)position;
+                var index1 = position_fp >> fracBits;
                 var index2 = index1 + 1;
 
                 if (index2 >= endLoop)
@@ -135,10 +141,10 @@ namespace MeltySynth
 
                 var x1 = data[index1];
                 var x2 = data[index2];
-                var a = position - index1;
-                block[t] = (float)((x1 + a * (x2 - x1)) / 32768);
+                var a = position_fp - (index1 << fracBits);
+                block[t] = (((long)x1 << fracBits) + a * (x2 - x1)) / (float)(32768 * fracUnit);
 
-                position += pitchRatio;
+                position_fp += pitchRatio_fp;
             }
 
             return true;
