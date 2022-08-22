@@ -192,7 +192,7 @@ var sampleRate = 44100;
 var synthesizer = new Synthesizer("TimGM6mb.sf2", sampleRate);
 
 // Change the instrument to electric guitar (#30).
-synthesizer.ProcessMidiMessage(0, 0xC0, 30, 0);
+synthesizer.ProcessMidiMessage(0, MidiCommand.PROGRAM_CHANGE, 30, 0);
 
 // Play some notes (middle C, E, G).
 synthesizer.NoteOn(0, 60, 100);
