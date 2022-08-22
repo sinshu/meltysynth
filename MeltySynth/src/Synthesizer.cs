@@ -182,100 +182,100 @@ namespace MeltySynth
 
             switch (command)
             {
-                case 0x80: // Note Off
+                case MidiCommand.NOTE_OFF:
                     NoteOff(channel, data1);
                     break;
 
-                case 0x90: // Note On
+                case MidiCommand.NOTE_ON:
                     NoteOn(channel, data1, data2);
                     break;
 
-                case 0xB0: // Controller
+                case MidiCommand.CONTROLLER:
                     switch (data1)
                     {
-                        case 0x00: // Bank Selection
+                        case MidiCommand.BANK_SELECTION:
                             channelInfo.SetBank(data2);
                             break;
 
-                        case 0x01: // Modulation Coarse
+                        case MidiCommand.MODULATION_COARSE:
                             channelInfo.SetModulationCoarse(data2);
                             break;
 
-                        case 0x21: // Modulation Fine
+                        case MidiCommand.MODULATION_FINE:
                             channelInfo.SetModulationFine(data2);
                             break;
 
-                        case 0x06: // Data Entry Coarse
+                        case MidiCommand.DATA_ENTRY_COARSE:
                             channelInfo.DataEntryCoarse(data2);
                             break;
 
-                        case 0x26: // Data Entry Fine
+                        case MidiCommand.DATA_ENTRY_FINE:
                             channelInfo.DataEntryFine(data2);
                             break;
 
-                        case 0x07: // Channel Volume Coarse
+                        case MidiCommand.CHANNEL_VOLUME_COARSE:
                             channelInfo.SetVolumeCoarse(data2);
                             break;
 
-                        case 0x27: // Channel Volume Fine
+                        case MidiCommand.CHANNEL_VOLUME_FINE:
                             channelInfo.SetVolumeFine(data2);
                             break;
 
-                        case 0x0A: // Pan Coarse
+                        case MidiCommand.PAN_COARSE:
                             channelInfo.SetPanCoarse(data2);
                             break;
 
-                        case 0x2A: // Pan Fine
+                        case MidiCommand.PAN_FINE:
                             channelInfo.SetPanFine(data2);
                             break;
 
-                        case 0x0B: // Expression Coarse
+                        case MidiCommand.EXPRESSION_COARSE:
                             channelInfo.SetExpressionCoarse(data2);
                             break;
 
-                        case 0x2B: // Expression Fine
+                        case MidiCommand.EXPRESSION_FINE:
                             channelInfo.SetExpressionFine(data2);
                             break;
 
-                        case 0x40: // Hold Pedal
+                        case MidiCommand.HOLD_PEDAL:
                             channelInfo.SetHoldPedal(data2);
                             break;
 
-                        case 0x5B: // Reverb Send
+                        case MidiCommand.REVERB_SEND:
                             channelInfo.SetReverbSend(data2);
                             break;
 
-                        case 0x5D: // Chorus Send
+                        case MidiCommand.CHORUS_SEND:
                             channelInfo.SetChorusSend(data2);
                             break;
 
-                        case 0x65: // RPN Coarse
+                        case MidiCommand.RPN_COARSE:
                             channelInfo.SetRpnCoarse(data2);
                             break;
 
-                        case 0x64: // RPN Fine
+                        case MidiCommand.RPN_FINE:
                             channelInfo.SetRpnFine(data2);
                             break;
 
-                        case 0x78: // All Sound Off
+                        case MidiCommand.ALL_SOUND_OFF:
                             NoteOffAll(channel, true);
                             break;
 
-                        case 0x79: // Reset All Controllers
+                        case MidiCommand.RESET_ALL_CONTROLLERS:
                             ResetAllControllers(channel);
                             break;
 
-                        case 0x7B: // All Note Off
+                        case MidiCommand.ALL_NOTE_OFF:
                             NoteOffAll(channel, false);
                             break;
                     }
                     break;
 
-                case 0xC0: // Program Change
+                case MidiCommand.PROGRAM_CHANGE:
                     channelInfo.SetPatch(data1);
                     break;
 
-                case 0xE0: // Pitch Bend
+                case MidiCommand.PITCH_BEND:
                     channelInfo.SetPitchBend(data1, data2);
                     break;
             }
@@ -592,8 +592,7 @@ namespace MeltySynth
         /// <summary>
         /// Gets or sets the master volume.
         /// </summary>
-        public float MasterVolume
-        {
+        public float MasterVolume {
             get => masterVolume;
             set => masterVolume = value;
         }
