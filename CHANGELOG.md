@@ -1,3 +1,9 @@
+# v2.3.0
+
+- Using fixed-point numbers in the oscillator has improved rendering speed by 10%.
+- Added RenderInt16 method to IAudioRenderer for audio drivers which use non-interleaved buffers of Int16.
+- Deleted some unused code for memory efficiency.
+
 # v2.2.3
 
 - Improved voice prioritization.
