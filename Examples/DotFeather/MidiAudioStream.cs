@@ -8,8 +8,8 @@ public class MidiAudioStream : IAudioSource
     private Synthesizer synthesizer;
     private MidiFileSequencer sequencer;
 
-    private float[] bufferLeft;
-    private float[] bufferRight;
+    private short[] bufferLeft;
+    private short[] bufferRight;
 
     private object mutex;
 
@@ -18,8 +18,8 @@ public class MidiAudioStream : IAudioSource
         synthesizer = new Synthesizer(soundFontPath, SampleRate);
         sequencer = new MidiFileSequencer(synthesizer);
 
-        bufferLeft = new float[SampleRate / 20];
-        bufferRight = new float[SampleRate / 20];
+        bufferLeft = new short[SampleRate / 20];
+        bufferRight = new short[SampleRate / 20];
 
         mutex = new object();
     }
@@ -30,15 +30,12 @@ public class MidiAudioStream : IAudioSource
         {
             lock (mutex)
             {
-                sequencer.Render(bufferLeft, bufferRight);
+                sequencer.RenderInt16(bufferLeft, bufferRight);
             }
 
             for (var t = 0; t < bufferLeft.Length; t++)
             {
-                var sampleLeft = Math.Clamp((int)(32768 * bufferLeft[t]), short.MinValue, short.MaxValue);
-                var sampleRight = Math.Clamp((int)(32768 * bufferRight[t]), short.MinValue, short.MaxValue);
-
-                yield return ((short)sampleLeft, (short)sampleRight);
+                yield return (bufferLeft[t], bufferRight[t]);
             }
         }
     }

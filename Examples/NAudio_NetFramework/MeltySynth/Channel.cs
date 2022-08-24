@@ -7,9 +7,6 @@ namespace MeltySynth
         private readonly Synthesizer synthesizer;
         private readonly bool isPercussionChannel;
 
-        private readonly float[] blockLeft;
-        private readonly float[] blockRight;
-
         private int bankNumber;
         private int patchNumber;
 
@@ -33,9 +30,6 @@ namespace MeltySynth
         {
             this.synthesizer = synthesizer;
             this.isPercussionChannel = isPercussionChannel;
-
-            blockLeft = new float[synthesizer.BlockSize];
-            blockRight = new float[synthesizer.BlockSize];
 
             Reset();
         }

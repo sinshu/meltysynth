@@ -14,7 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MeltySynth" Version="2.2.3" />
+    <PackageReference Include="MeltySynth" Version="2.3.0" />
     <PackageReference Include="sokol_csharp.unofficial" Version="0.0.1" />
   </ItemGroup>
 

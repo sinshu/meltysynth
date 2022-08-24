@@ -460,7 +460,7 @@ namespace MeltySynth
         {
             if (left.Length != right.Length)
             {
-                throw new ArgumentException("The output buffers must be the same length.");
+                throw new ArgumentException("The output buffers for the left and right must be the same length.");
             }
 
             var wrote = 0;
