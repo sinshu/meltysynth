@@ -96,6 +96,79 @@ namespace MeltySynth
         }
 
         /// <summary>
+        /// Renders the waveform with 16-bit quantization.
+        /// </summary>
+        /// <param name="renderer">The audio renderer.</param>
+        /// <param name="left">The buffer of the left channel to store the rendered waveform.</param>
+        /// <param name="right">The buffer of the right channel to store the rendered waveform.</param>
+        /// <remarks>
+        /// Out of range samples will be clipped.
+        /// This utility method internally uses <see cref="ArrayPool{T}"/>,
+        /// which may result in memory allocation on the first call.
+        /// To completely avoid memory allocation,
+        /// use <see cref="IAudioRenderer.Render(Span{float}, Span{float})"/>.
+        /// The output buffers for the left and right must be the same length.
+        /// </remarks>
+        public static void RenderInt16(this IAudioRenderer renderer, Span<short> left, Span<short> right)
+        {
+            if (renderer == null)
+            {
+                throw new ArgumentNullException(nameof(renderer));
+            }
+
+            if (left.Length != right.Length)
+            {
+                throw new ArgumentException("The output buffers for the left and right must be the same length.");
+            }
+
+            var sampleCount = left.Length;
+            var bufferLength = 2 * left.Length;
+
+            var buffer = ArrayPool<float>.Shared.Rent(bufferLength);
+
+            try
+            {
+                var bufLeft = buffer.AsSpan(0, sampleCount);
+                var bufRight = buffer.AsSpan(sampleCount, sampleCount);
+                renderer.Render(bufLeft, bufRight);
+
+                for (var t = 0; t < sampleCount; t++)
+                {
+                    var sample = 32768 * bufLeft[t];
+                    if (sample < short.MinValue)
+                    {
+                        sample = short.MinValue;
+                    }
+                    else if (sample > short.MaxValue)
+                    {
+                        sample = short.MaxValue;
+                    }
+
+                    left[t] = (short)sample;
+                }
+
+                for (var t = 0; t < sampleCount; t++)
+                {
+                    var sample = 32768 * bufRight[t];
+                    if (sample < short.MinValue)
+                    {
+                        sample = short.MinValue;
+                    }
+                    else if (sample > short.MaxValue)
+                    {
+                        sample = short.MaxValue;
+                    }
+
+                    right[t] = (short)sample;
+                }
+            }
+            finally
+            {
+                ArrayPool<float>.Shared.Return(buffer);
+            }
+        }
+
+        /// <summary>
         /// Renders the waveform as a stereo interleaved signal with 16-bit quantization.
         /// </summary>
         /// <param name="renderer">The audio renderer.</param>

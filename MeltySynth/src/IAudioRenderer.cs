@@ -13,7 +13,7 @@ namespace MeltySynth
         /// <param name="left">The buffer of the left channel to store the rendered waveform.</param>
         /// <param name="right">The buffer of the right channel to store the rendered waveform.</param>
         /// <remarks>
-        /// The buffers must be the same length.
+        /// The output buffers for the left and right must be the same length.
         /// </remarks>
         void Render(Span<float> left, Span<float> right);
     }

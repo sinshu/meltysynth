@@ -67,6 +67,35 @@ namespace MeltySynthTest
         [TestCase(57)]
         [TestCase(278)]
         [TestCase(314)]
+        public void RenderInt16Test(int length)
+        {
+            var random = new Random(31415);
+
+            var srcLeft = Enumerable.Range(0, length).Select(i => (float)(4 * (random.NextDouble() - 0.5))).ToArray();
+            var srcRight = Enumerable.Range(0, length).Select(i => (float)(4 * (random.NextDouble() - 0.5))).ToArray();
+            var renderer = new DummyRenderer(srcLeft, srcRight);
+
+            var expectedLeft = srcLeft.Select(x => ToShort(x)).ToArray();
+            var expectedRight = srcRight.Select(x => ToShort(x)).ToArray();
+
+            var actualLeft = new short[length];
+            var actualRight = new short[length];
+            renderer.RenderInt16(actualLeft, actualRight);
+
+            for (var i = 0; i < length; i++)
+            {
+                Assert.AreEqual(expectedLeft[i], actualLeft[i]);
+                Assert.AreEqual(expectedRight[i], actualRight[i]);
+            }
+        }
+
+        [TestCase(64)]
+        [TestCase(63)]
+        [TestCase(65)]
+        [TestCase(41)]
+        [TestCase(57)]
+        [TestCase(278)]
+        [TestCase(314)]
         public void RenderInterleavedInt16Test(int length)
         {
             var random = new Random(31415);
