@@ -12,13 +12,13 @@ namespace MeltySynth
     /// </remarks>
     public sealed class InstrumentRegion
     {
-        internal static readonly InstrumentRegion Default = new InstrumentRegion(Instrument.Default, null, null, null);
-
-        private readonly SampleHeader sample;
+        internal static readonly InstrumentRegion Default = new InstrumentRegion();
 
         private readonly short[] gs;
 
-        private InstrumentRegion(Instrument instrument, Generator[] global, Generator[] local, SampleHeader[] samples)
+        private readonly SampleHeader sample;
+
+        private InstrumentRegion()
         {
             gs = new short[61];
             gs[(int)GeneratorType.InitialFilterCutoffFrequency] = 13500;
@@ -41,35 +41,28 @@ namespace MeltySynth
             gs[(int)GeneratorType.ScaleTuning] = 100;
             gs[(int)GeneratorType.OverridingRootKey] = -1;
 
-            if (global != null)
+            sample = SampleHeader.Default;
+        }
+
+        private InstrumentRegion(Instrument instrument, ArraySegment<Generator> global, ArraySegment<Generator> local, SampleHeader[] samples) : this()
+        {
+            foreach (var parameter in global)
             {
-                foreach (var parameter in global)
-                {
-                    SetParameter(parameter);
-                }
+                SetParameter(parameter);
             }
 
-            if (local != null)
+            foreach (var parameter in local)
             {
-                foreach (var parameter in local)
-                {
-                    SetParameter(parameter);
-                }
+                SetParameter(parameter);
             }
 
-            if (samples != null)
+            var id = gs[(int)GeneratorType.SampleID];
+            if (!(0 <= id && id < samples.Length))
             {
-                var id = gs[(int)GeneratorType.SampleID];
-                if (!(0 <= id && id < samples.Length))
-                {
-                    throw new InvalidDataException($"The instrument '{instrument.Name}' contains an invalid sample ID '{id}'.");
-                }
-                sample = samples[id];
+                throw new InvalidDataException($"The instrument '{instrument.Name}' contains an invalid sample ID '{id}'.");
             }
-            else
-            {
-                sample = SampleHeader.Default;
-            }
+
+            sample = samples[id];
         }
 
         internal static InstrumentRegion[] Create(Instrument instrument, Span<Zone> zones, SampleHeader[] samples)
@@ -77,7 +70,7 @@ namespace MeltySynth
             Zone global = null;
 
             // Is the first one the global zone?
-            if (zones[0].Generators.Length == 0 || zones[0].Generators.Last().Type != GeneratorType.SampleID)
+            if (zones[0].Generators.Count == 0 || zones[0].Generators.Last().Type != GeneratorType.SampleID)
             {
                 // The first one is the global zone.
                 global = zones[0];
@@ -99,7 +92,7 @@ namespace MeltySynth
                 var regions = new InstrumentRegion[zones.Length];
                 for (var i = 0; i < regions.Length; i++)
                 {
-                    regions[i] = new InstrumentRegion(instrument, null, zones[i].Generators, samples);
+                    regions[i] = new InstrumentRegion(instrument, ArraySegment<Generator>.Empty, zones[i].Generators, samples);
                 }
                 return regions;
             }
