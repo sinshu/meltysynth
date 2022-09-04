@@ -29,14 +29,14 @@ namespace MeltySynth
 
         private PresetRegion(Preset preset, Zone global, Zone local, Instrument[] instruments) : this()
         {
-            foreach (var parameter in global.Generators)
+            foreach (var generator in global.Generators)
             {
-                SetParameter(parameter);
+                SetParameter(generator);
             }
 
-            foreach (var parameter in local.Generators)
+            foreach (var generator in local.Generators)
             {
-                SetParameter(parameter);
+                SetParameter(generator);
             }
 
             var id = gs[(int)GeneratorType.Instrument];
@@ -76,14 +76,14 @@ namespace MeltySynth
             }
         }
 
-        private void SetParameter(Generator parameter)
+        private void SetParameter(Generator generator)
         {
-            var index = (int)parameter.Type;
+            var index = (int)generator.Type;
 
             // Unknown generators should be ignored.
             if (0 <= index && index < gs.Length)
             {
-                gs[index] = (short)parameter.Value;
+                gs[index] = (short)generator.Value;
             }
         }
 

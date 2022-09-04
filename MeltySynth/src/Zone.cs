@@ -9,7 +9,7 @@ namespace MeltySynth
 
         private Zone(ArraySegment<Generator> generators)
         {
-            this.generators = ArraySegment<Generator>.Empty;
+            this.generators = generators;
         }
 
         private Zone(ZoneInfo info, Generator[] generators)
