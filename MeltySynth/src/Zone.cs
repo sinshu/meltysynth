@@ -3,7 +3,7 @@ using System.IO;
 
 namespace MeltySynth
 {
-    internal sealed class Zone
+    internal struct Zone
     {
         private ArraySegment<Generator> generators;
 
