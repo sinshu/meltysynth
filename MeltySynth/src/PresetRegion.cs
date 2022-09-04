@@ -27,14 +27,14 @@ namespace MeltySynth
             instrument = Instrument.Default;
         }
 
-        private PresetRegion(Preset preset, ArraySegment<Generator> global, ArraySegment<Generator> local, Instrument[] instruments) : this()
+        private PresetRegion(Preset preset, Zone global, Zone local, Instrument[] instruments) : this()
         {
-            foreach (var parameter in global)
+            foreach (var parameter in global.Generators)
             {
                 SetParameter(parameter);
             }
 
-            foreach (var parameter in local)
+            foreach (var parameter in local.Generators)
             {
                 SetParameter(parameter);
             }
@@ -60,7 +60,7 @@ namespace MeltySynth
                 var regions = new PresetRegion[zones.Length - 1];
                 for (var i = 0; i < regions.Length; i++)
                 {
-                    regions[i] = new PresetRegion(preset, global.Generators, zones[i + 1].Generators, instruments);
+                    regions[i] = new PresetRegion(preset, global, zones[i + 1], instruments);
                 }
                 return regions;
             }
@@ -70,7 +70,7 @@ namespace MeltySynth
                 var regions = new PresetRegion[zones.Length];
                 for (var i = 0; i < regions.Length; i++)
                 {
-                    regions[i] = new PresetRegion(preset, ArraySegment<Generator>.Empty, zones[i].Generators, instruments);
+                    regions[i] = new PresetRegion(preset, Zone.Empty, zones[i], instruments);
                 }
                 return regions;
             }

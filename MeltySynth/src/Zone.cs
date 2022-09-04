@@ -7,6 +7,11 @@ namespace MeltySynth
     {
         private ArraySegment<Generator> generators;
 
+        private Zone(ArraySegment<Generator> generators)
+        {
+            this.generators = ArraySegment<Generator>.Empty;
+        }
+
         private Zone(ZoneInfo info, Generator[] generators)
         {
             this.generators = new ArraySegment<Generator>(generators, info.GeneratorIndex, info.GeneratorCount);
@@ -29,6 +34,8 @@ namespace MeltySynth
 
             return zones;
         }
+
+        public static Zone Empty => new Zone(ArraySegment<Generator>.Empty);
 
         public ArraySegment<Generator> Generators => generators;
     }
