@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -29,6 +30,10 @@ namespace MeltySynth
             }
 
             Load(stream, 0, MidiFileLoopType.None);
+
+            // Workaround for nullable warnings in .NET Standard 2.1.
+            Debug.Assert(messages != null);
+            Debug.Assert(times != null);
         }
 
         /// <summary>
@@ -49,6 +54,10 @@ namespace MeltySynth
             }
 
             Load(stream, loopPoint, MidiFileLoopType.None);
+
+            // Workaround for nullable warnings in .NET Standard 2.1.
+            Debug.Assert(messages != null);
+            Debug.Assert(times != null);
         }
 
         /// <summary>
@@ -64,6 +73,10 @@ namespace MeltySynth
             }
 
             Load(stream, 0, loopType);
+
+            // Workaround for nullable warnings in .NET Standard 2.1.
+            Debug.Assert(messages != null);
+            Debug.Assert(times != null);
         }
 
         /// <summary>
@@ -81,6 +94,10 @@ namespace MeltySynth
             {
                 Load(stream, 0, MidiFileLoopType.None);
             }
+
+            // Workaround for nullable warnings in .NET Standard 2.1.
+            Debug.Assert(messages != null);
+            Debug.Assert(times != null);
         }
 
         /// <summary>
@@ -104,6 +121,10 @@ namespace MeltySynth
             {
                 Load(stream, loopPoint, MidiFileLoopType.None);
             }
+
+            // Workaround for nullable warnings in .NET Standard 2.1.
+            Debug.Assert(messages != null);
+            Debug.Assert(times != null);
         }
 
         /// <summary>
@@ -122,6 +143,10 @@ namespace MeltySynth
             {
                 Load(stream, 0, loopType);
             }
+
+            // Workaround for nullable warnings in .NET Standard 2.1.
+            Debug.Assert(messages != null);
+            Debug.Assert(times != null);
         }
 
         // Some .NET implementations round TimeSpan to the nearest millisecond,

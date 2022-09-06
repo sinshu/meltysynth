@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 
@@ -31,6 +32,13 @@ namespace MeltySynth
             }
 
             Load(stream);
+
+            // Workaround for nullable warnings in .NET Standard 2.1.
+            Debug.Assert(info != null);
+            Debug.Assert(waveData != null);
+            Debug.Assert(sampleHeaders != null);
+            Debug.Assert(presets != null);
+            Debug.Assert(instruments != null);
         }
 
         /// <summary>
@@ -50,6 +58,13 @@ namespace MeltySynth
             {
                 Load(stream);
             }
+
+            // Workaround for nullable warnings in .NET Standard 2.1.
+            Debug.Assert(info != null);
+            Debug.Assert(waveData != null);
+            Debug.Assert(sampleHeaders != null);
+            Debug.Assert(presets != null);
+            Debug.Assert(instruments != null);
         }
 
         private void Load(Stream stream)

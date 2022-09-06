@@ -9,8 +9,10 @@ namespace MeltySynth
         private int zoneStartIndex;
         private int zoneEndIndex;
 
-        private InstrumentInfo()
+        private InstrumentInfo(BinaryReader reader)
         {
+            name = reader.ReadFixedLengthString(20);
+            zoneStartIndex = reader.ReadUInt16();
         }
 
         internal static InstrumentInfo[] ReadFromChunk(BinaryReader reader, int size)
@@ -26,11 +28,7 @@ namespace MeltySynth
 
             for (var i = 0; i < count; i++)
             {
-                var instrument = new InstrumentInfo();
-                instrument.name = reader.ReadFixedLengthString(20);
-                instrument.zoneStartIndex = reader.ReadUInt16();
-
-                instruments[i] = instrument;
+                instruments[i] = new InstrumentInfo(reader);
             }
 
             for (var i = 0; i < count - 1; i++)
