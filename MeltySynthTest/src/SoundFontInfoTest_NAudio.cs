@@ -7,11 +7,11 @@ namespace MeltySynthTest
 {
     public class SoundFontInfoTest_NAudio
     {
-        [TestCaseSource(typeof(TestSettings), nameof(TestSettings.SoundFontNames))]
-        public void ReadTest(string soundFontName)
+        [TestCaseSource(typeof(TestSettings), nameof(TestSettings.SoundFonts))]
+        public void ReadTest(string soundFontName, MeltySynth.SoundFont soundFont)
         {
             var expected = new NAudio.SoundFont.SoundFont(soundFontName + ".sf2").FileInfo;
-            var actual = new MeltySynth.SoundFont(soundFontName + ".sf2").Info;
+            var actual = soundFont.Info;
 
             AreEqual(expected.SoundFontVersion, actual.Version);
             AreEqual(expected.WaveTableSoundEngine, actual.TargetSoundEngine);

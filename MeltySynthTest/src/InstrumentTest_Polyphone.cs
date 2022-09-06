@@ -9,14 +9,14 @@ namespace MeltySynthTest
 {
     public class InstrumentTest_Polyphone
     {
-        [TestCaseSource(typeof(TestSettings), nameof(TestSettings.SoundFontNames))]
-        public void ParameterCheck(string soundFontName)
+        [TestCaseSource(typeof(TestSettings), nameof(TestSettings.SoundFonts))]
+        public void ParameterCheck(string soundFontName, SoundFont soundFont)
         {
             var referenceDataDirectory = Path.Combine("ReferenceData", "Polyphone", soundFontName, "Instruments");
 
             if (Directory.Exists(referenceDataDirectory))
             {
-                Run(soundFontName, referenceDataDirectory);
+                Run(soundFont, referenceDataDirectory);
             }
             else
             {
@@ -24,10 +24,8 @@ namespace MeltySynthTest
             }
         }
 
-        private void Run(string soundFontName, string referenceDataDirectory)
+        private void Run(SoundFont soundFont, string referenceDataDirectory)
         {
-            var soundFont = new SoundFont(soundFontName + ".sf2");
-
             var executed = 0;
             var ignored = 0;
 

@@ -7,11 +7,11 @@ namespace MeltySynthTest
 {
     public class InstrumentTest_NAudio
     {
-        [TestCaseSource(typeof(TestSettings), nameof(TestSettings.SoundFontNames))]
-        public void ReadTest(string soundFontName)
+        [TestCaseSource(typeof(TestSettings), nameof(TestSettings.SoundFonts))]
+        public void ReadTest(string soundFontName, MeltySynth.SoundFont soundFont)
         {
             var expected = new NAudio.SoundFont.SoundFont(soundFontName + ".sf2").Instruments;
-            var actual = new MeltySynth.SoundFont(soundFontName + ".sf2").Instruments;
+            var actual = soundFont.Instruments;
 
             Assert.AreEqual(expected.Length, actual.Count);
             for (var i = 0; i < expected.Length; i++)

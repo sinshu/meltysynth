@@ -16,7 +16,7 @@ namespace MeltySynthTest
             var expected = File.ReadLines(path).Select(line => float.Parse(line.Split(',')[1])).ToArray();
             Assert.IsTrue(expected.Length == 1000);
 
-            var synthesizer = new Synthesizer(44100);
+            var synthesizer = new Synthesizer(TestSettings.DefaultSoundFont, 44100);
             var lfo = new Lfo(synthesizer);
 
             lfo.Start(0.3F, 5.0F);
@@ -39,7 +39,7 @@ namespace MeltySynthTest
             var expected = File.ReadLines(path).Select(line => float.Parse(line.Split(',')[1])).ToArray();
             Assert.IsTrue(expected.Length == 1000);
 
-            var synthesizer = new Synthesizer(44100);
+            var synthesizer = new Synthesizer(TestSettings.DefaultSoundFont, 44100);
             var lfo = new Lfo(synthesizer);
 
             lfo.Start(0.0F, 7.0F);

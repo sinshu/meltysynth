@@ -8,11 +8,9 @@ namespace MeltySynthTest
 {
     public class OscillatorTest
     {
-        [TestCaseSource(typeof(TestSettings), nameof(TestSettings.LightSoundFontNames))]
-        public void NoLoop_PitchRatio100(string soundFontName)
+        [TestCaseSource(typeof(TestSettings), nameof(TestSettings.LightSoundFonts))]
+        public void NoLoop_PitchRatio100(string soundFontName, SoundFont soundFont)
         {
-            var soundFont = new SoundFont(soundFontName + ".sf2");
-
             foreach (var instrument in soundFont.Instruments)
             {
                 foreach (var region in instrument.Regions.Take(3))
@@ -82,11 +80,9 @@ namespace MeltySynthTest
             }
         }
 
-        [TestCaseSource(typeof(TestSettings), nameof(TestSettings.LightSoundFontNames))]
-        public void NoLoop_PitchRatio050(string soundFontName)
+        [TestCaseSource(typeof(TestSettings), nameof(TestSettings.LightSoundFonts))]
+        public void NoLoop_PitchRatio050(string soundFontName, SoundFont soundFont)
         {
-            var soundFont = new SoundFont(soundFontName + ".sf2");
-
             foreach (var instrument in soundFont.Instruments)
             {
                 foreach (var region in instrument.Regions.Take(3))
@@ -158,11 +154,9 @@ namespace MeltySynthTest
             }
         }
 
-        [TestCaseSource(typeof(TestSettings), nameof(TestSettings.LightSoundFontNames))]
-        public void Continuous_PitchRatio100(string soundFontName)
+        [TestCaseSource(typeof(TestSettings), nameof(TestSettings.LightSoundFonts))]
+        public void Continuous_PitchRatio100(string soundFontName, SoundFont soundFont)
         {
-            var soundFont = new SoundFont(soundFontName + ".sf2");
-
             foreach (var instrument in soundFont.Instruments.Take(30))
             {
                 foreach (var region in instrument.Regions.Take(3))
@@ -223,11 +217,9 @@ namespace MeltySynthTest
             }
         }
 
-        [TestCaseSource(typeof(TestSettings), nameof(TestSettings.LightSoundFontNames))]
-        public void Continuous_PitchRatio050(string soundFontName)
+        [TestCaseSource(typeof(TestSettings), nameof(TestSettings.LightSoundFonts))]
+        public void Continuous_PitchRatio050(string soundFontName, SoundFont soundFont)
         {
-            var soundFont = new SoundFont(soundFontName + ".sf2");
-
             foreach (var instrument in soundFont.Instruments.Take(30))
             {
                 foreach (var region in instrument.Regions.Take(3))

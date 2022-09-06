@@ -156,14 +156,6 @@ namespace MeltySynth
             }
         }
 
-        internal Synthesizer(int sampleRate)
-        {
-            this.sampleRate = sampleRate;
-            this.blockSize = SynthesizerSettings.DefaultBlockSize;
-            this.maximumPolyphony = SynthesizerSettings.DefaultMaximumPolyphony;
-            this.enableReverbAndChorus = SynthesizerSettings.DefaultEnableReverbAndChorus;
-        }
-
         /// <summary>
         /// Processes a MIDI message.
         /// </summary>

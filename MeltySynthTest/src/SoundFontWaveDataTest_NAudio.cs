@@ -8,11 +8,11 @@ namespace MeltySynthTest
 {
     public class SoundFontWaveDataTest_NAudio
     {
-        [TestCaseSource(typeof(TestSettings), nameof(TestSettings.SoundFontNames))]
-        public void ReadTest(string soundFontName)
+        [TestCaseSource(typeof(TestSettings), nameof(TestSettings.SoundFonts))]
+        public void ReadTest(string soundFontName, MeltySynth.SoundFont soundFont)
         {
             var expected = new NAudio.SoundFont.SoundFont(soundFontName + ".sf2").SampleData;
-            var actual = new MeltySynth.SoundFont(soundFontName + ".sf2").WaveDataArray;
+            var actual = soundFont.WaveDataArray;
 
             // Since NAudio's sample data contains extra 12 bytes of the header,
             // the first 6 samples should be skipped.
