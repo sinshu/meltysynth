@@ -114,8 +114,8 @@ namespace MeltySynth
 
                 var x1 = data![index];
                 var x2 = data![index + 1];
-                var a = position_fp & (fracUnit - 1);
-                block[t] = fpToSample * (((long)x1 << fracBits) + a * (x2 - x1));
+                var a_fp = position_fp & (fracUnit - 1);
+                block[t] = fpToSample * (((long)x1 << fracBits) + a_fp * (x2 - x1));
 
                 position_fp += pitchRatio_fp;
             }
@@ -147,8 +147,8 @@ namespace MeltySynth
 
                 var x1 = data![index1];
                 var x2 = data![index2];
-                var a = position_fp & (fracUnit - 1);
-                block[t] = fpToSample * (((long)x1 << fracBits) + a * (x2 - x1));
+                var a_fp = position_fp & (fracUnit - 1);
+                block[t] = fpToSample * (((long)x1 << fracBits) + a_fp * (x2 - x1));
 
                 position_fp += pitchRatio_fp;
             }

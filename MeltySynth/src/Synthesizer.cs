@@ -124,6 +124,8 @@ namespace MeltySynth
                     minPresetId = presetId;
                 }
             }
+            // Default preset will never be null.
+            // This assertion suppresses the nullable warning.
             Debug.Assert(defaultPreset != null);
 
             channels = new Channel[channelCount];
@@ -543,7 +545,7 @@ namespace MeltySynth
         }
 
         /// <summary>
-        /// The block size for waveform rendering.
+        /// The block size for rendering waveform.
         /// </summary>
         public int BlockSize => blockSize;
 
@@ -579,7 +581,7 @@ namespace MeltySynth
         public int SampleRate => sampleRate;
 
         /// <summary>
-        /// The number of voices currently played.
+        /// The number of voices currently being played.
         /// </summary>
         public int ActiveVoiceCount => voices.ActiveVoiceCount;
 

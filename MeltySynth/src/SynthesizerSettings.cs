@@ -69,7 +69,7 @@ namespace MeltySynth
         }
 
         /// <summary>
-        /// Gets or sets the block size of waveform rendering.
+        /// Gets or sets the block size for rendering waveform.
         /// </summary>
         public int BlockSize
         {

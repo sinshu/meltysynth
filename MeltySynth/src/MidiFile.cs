@@ -12,9 +12,6 @@ namespace MeltySynth
     /// </summary>
     public sealed class MidiFile
     {
-        private int trackCount;
-        private int resolution;
-
         private Message[] messages;
         private TimeSpan[] times;
 
@@ -179,8 +176,8 @@ namespace MeltySynth
                     throw new NotSupportedException($"The format {format} is not supported.");
                 }
 
-                trackCount = reader.ReadInt16BigEndian();
-                resolution = reader.ReadInt16BigEndian();
+                var trackCount = reader.ReadInt16BigEndian();
+                var resolution = reader.ReadInt16BigEndian();
 
                 var messageLists = new List<Message>[trackCount];
                 var tickLists = new List<int>[trackCount];
@@ -404,8 +401,6 @@ namespace MeltySynth
         /// </summary>
         public TimeSpan Length => times.Last();
 
-        internal int TrackCount => trackCount;
-        internal int Resolution => resolution;
         internal Message[] Messages => messages;
         internal TimeSpan[] Times => times;
 
