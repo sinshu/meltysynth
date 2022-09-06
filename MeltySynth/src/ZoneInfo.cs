@@ -10,8 +10,10 @@ namespace MeltySynth
         private int generatorCount;
         private int modulatorCount;
 
-        private ZoneInfo()
+        private ZoneInfo(BinaryReader reader)
         {
+            generatorIndex = reader.ReadUInt16();
+            modulatorIndex = reader.ReadUInt16();
         }
 
         internal static ZoneInfo[] ReadFromChunk(BinaryReader reader, int size)
@@ -27,11 +29,7 @@ namespace MeltySynth
 
             for (var i = 0; i < count; i++)
             {
-                var zone = new ZoneInfo();
-                zone.generatorIndex = reader.ReadUInt16();
-                zone.modulatorIndex = reader.ReadUInt16();
-
-                zones[i] = zone;
+                zones[i] = new ZoneInfo(reader);
             }
 
             for (var i = 0; i < count - 1; i++)
