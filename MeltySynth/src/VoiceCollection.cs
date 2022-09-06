@@ -25,7 +25,7 @@ namespace MeltySynth
             activeVoiceCount = 0;
         }
 
-        public Voice RequestNew(InstrumentRegion region, int channel)
+        public Voice? RequestNew(InstrumentRegion region, int channel)
         {
             // If an exclusive class is assigned to the region, find a voice with the same class.
             // If found, reuse it to avoid playing multiple voices with the same class at a time.
@@ -52,7 +52,7 @@ namespace MeltySynth
 
             // Too many active voices...
             // Find one which has the lowest priority.
-            Voice candidate = null;
+            Voice? candidate = null;
             var lowestPriority = float.MaxValue;
             for (var i = 0; i < activeVoiceCount; i++)
             {
@@ -67,7 +67,7 @@ namespace MeltySynth
                 {
                     // Same priority...
                     // The older one should be more suitable for reuse.
-                    if (voice.VoiceLength > candidate.VoiceLength)
+                    if (voice.VoiceLength > candidate!.VoiceLength)
                     {
                         candidate = voice;
                     }
@@ -121,7 +121,7 @@ namespace MeltySynth
             private VoiceCollection collection;
 
             private int index;
-            private Voice current;
+            private Voice? current;
 
             internal Enumerator(VoiceCollection collection)
             {
@@ -155,7 +155,7 @@ namespace MeltySynth
                 current = null;
             }
 
-            public Voice Current => current;
+            public Voice Current => current!;
 
             object IEnumerator.Current => throw new NotSupportedException();
         }

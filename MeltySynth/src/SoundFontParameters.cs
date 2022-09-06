@@ -25,12 +25,12 @@ namespace MeltySynth
                 throw new InvalidDataException($"The type of the LIST chunk must be 'pdta', but was '{listType}'.");
             }
 
-            PresetInfo[] presetInfos = null;
-            ZoneInfo[] presetBag = null;
-            Generator[] presetGenerators = null;
-            InstrumentInfo[] instrumentInfos = null;
-            ZoneInfo[] instrumentBag = null;
-            Generator[] instrumentGenerators = null;
+            PresetInfo[]? presetInfos = null;
+            ZoneInfo[]? presetBag = null;
+            Generator[]? presetGenerators = null;
+            InstrumentInfo[]? instrumentInfos = null;
+            ZoneInfo[]? instrumentBag = null;
+            Generator[]? instrumentGenerators = null;
 
             while (reader.BaseStream.Position < end)
             {

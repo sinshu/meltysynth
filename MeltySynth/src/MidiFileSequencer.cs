@@ -16,7 +16,7 @@ namespace MeltySynth
 
         private float speed;
 
-        private MidiFile midiFile;
+        private MidiFile? midiFile;
         private bool loop;
 
         private int blockWrote;
