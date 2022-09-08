@@ -183,11 +183,7 @@ namespace MeltySynth
                 var tickLists = new List<int>[trackCount];
                 for (var i = 0; i < trackCount; i++)
                 {
-                    List<Message> messageList;
-                    List<int> tickList;
-                    ReadTrack(reader, loopType, out messageList, out tickList);
-                    messageLists[i] = messageList;
-                    tickLists[i] = tickList;
+                    (messageLists[i], tickLists[i]) = ReadTrack(reader, loopType);
                 }
 
                 if (loopPoint != 0)
@@ -213,11 +209,11 @@ namespace MeltySynth
                     }
                 }
 
-                MergeTracks(messageLists, tickLists, resolution, out messages, out times);
+                (messages, times) = MergeTracks(messageLists, tickLists, resolution);
             }
         }
 
-        private static void ReadTrack(BinaryReader reader, MidiFileLoopType loopType, out List<Message> messages, out List<int> ticks)
+        private static (List<Message>, List<int>) ReadTrack(BinaryReader reader, MidiFileLoopType loopType)
         {
             var chunkType = reader.ReadFourCC();
             if (chunkType != "MTrk")
@@ -227,8 +223,8 @@ namespace MeltySynth
 
             reader.ReadInt32BigEndian();
 
-            messages = new List<Message>();
-            ticks = new List<int>();
+            var messages = new List<Message>();
+            var ticks = new List<int>();
 
             int tick = 0;
             byte lastStatus = 0;
@@ -282,7 +278,7 @@ namespace MeltySynth
                                 reader.ReadByte();
                                 messages.Add(Message.EndOfTrack());
                                 ticks.Add(tick);
-                                return;
+                                return (messages, ticks);
 
                             case 0x51: // Tempo
                                 messages.Add(Message.TempoChange(ReadTempo(reader)));
@@ -317,7 +313,7 @@ namespace MeltySynth
             }
         }
 
-        private static void MergeTracks(List<Message>[] messageLists, List<int>[] tickLists, int resolution, out Message[] messages, out TimeSpan[] times)
+        private static (Message[], TimeSpan[]) MergeTracks(List<Message>[] messageLists, List<int>[] tickLists, int resolution)
         {
             var mergedMessages = new List<Message>();
             var mergedTimes = new List<TimeSpan>();
@@ -372,8 +368,7 @@ namespace MeltySynth
                 indices[minIndex]++;
             }
 
-            messages = mergedMessages.ToArray();
-            times = mergedTimes.ToArray();
+            return (mergedMessages.ToArray(), mergedTimes.ToArray());
         }
 
         private static int ReadTempo(BinaryReader reader)
