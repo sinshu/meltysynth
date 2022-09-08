@@ -61,8 +61,6 @@ sequencer.Render(left, right);
 
 ## Installation
 
-### .NET Standard 2.1 or higher
-
 [The NuGet package](https://www.nuget.org/packages/MeltySynth/) is available:
 
 ```ps1
@@ -76,14 +74,6 @@ using MeltySynth;
 ```
 
 If you don't like DLLs, copy [all the .cs files](https://github.com/sinshu/meltysynth/tree/main/MeltySynth/src) to your project.
-
-### .NET Framework 4.6.1 or higher
-
-.NET Framework is not recommended, but you can use MeltySynth by following the steps below.
-
-1. Install the [System.Memory](https://www.nuget.org/packages/System.Memory/) package to your project.  
-2. Copy [NetFrameworkSupport.cs](https://github.com/sinshu/meltysynth/blob/main/Examples/NAudio_NetFramework/NetFrameworkSupport.cs) to your project.
-3. Copy [all the .cs files](https://github.com/sinshu/meltysynth/tree/main/MeltySynth/src) of MeltySynth to your project.
 
 
 
@@ -139,7 +129,6 @@ https://www.youtube.com/watch?v=BiFxvzs0jUI
 * [MIDI file player for Raylib-CsLo](https://github.com/sinshu/meltysynth/tree/main/Examples/Raylib_CsLo)
 * [MIDI file player for DotFeather](https://github.com/sinshu/meltysynth/tree/main/Examples/DotFeather)
 * [MIDI file player for NAudio](https://github.com/sinshu/meltysynth/tree/main/Examples/NAudio)
-* [MIDI file player for NAudio (.NET Framework)](https://github.com/sinshu/meltysynth/tree/main/Examples/NAudio_NetFramework)
 * [MIDI file player for CSCore](https://github.com/sinshu/meltysynth/tree/main/Examples/CSCore)
 * [MIDI file player for TinyAudio](https://github.com/sinshu/meltysynth/tree/main/Examples/TinyAudio)
 * [MIDI file player for DrippyAL](https://github.com/sinshu/meltysynth/tree/main/Examples/DrippyAL)
