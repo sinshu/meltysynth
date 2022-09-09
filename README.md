@@ -113,9 +113,9 @@ https://www.youtube.com/watch?v=BiFxvzs0jUI
 
 ### Use MeltySynth as a VST plugin ([VST.NET](https://github.com/obiwanjacobi/vst.net))
 
-https://www.youtube.com/watch?v=njbyw9TyiUs
+https://www.youtube.com/watch?v=IUKIEWvw6Ik
 
-[![Youtube video](https://img.youtube.com/vi/njbyw9TyiUs/0.jpg)](https://www.youtube.com/watch?v=njbyw9TyiUs)
+[![Youtube video](https://img.youtube.com/vi/IUKIEWvw6Ik/0.jpg)](https://www.youtube.com/watch?v=IUKIEWvw6Ik)
 
 
 
