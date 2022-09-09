@@ -105,7 +105,7 @@ https://www.youtube.com/watch?v=a8vuIq4JKhs
 
 [![Youtube video](https://img.youtube.com/vi/a8vuIq4JKhs/0.jpg)](https://www.youtube.com/watch?v=a8vuIq4JKhs)
 
-### Use MeltySynth as a MIDI device
+### Use MeltySynth as a MIDI device ([NAudio](https://github.com/naudio/NAudio) + [loopMIDI](https://www.tobias-erichsen.de/software/loopmidi.html))
 
 https://www.youtube.com/watch?v=BiFxvzs0jUI
 
