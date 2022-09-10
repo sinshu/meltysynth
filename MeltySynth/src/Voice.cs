@@ -115,7 +115,7 @@ namespace MeltySynth
             modLfoToVolume = region.ModulationLfoToVolume;
             dynamicVolume = modLfoToVolume > 0.05F;
 
-            instrumentPan = SoundFontMath.Clamp(region.Pan, -50F, 50F);
+            instrumentPan = Math.Clamp(region.Pan, -50F, 50F);
             instrumentReverb = 0.01F * region.ReverbEffectsSend;
             instrumentChorus = 0.01F * region.ChorusEffectsSend;
 
@@ -184,18 +184,7 @@ namespace MeltySynth
                 // The cutoff change is limited within x0.5 and x2 to reduce pop noise.
                 var lowerLimit = 0.5F * smoothedCutoff;
                 var upperLimit = 2F * smoothedCutoff;
-                if (newCutoff < lowerLimit)
-                {
-                    smoothedCutoff = lowerLimit;
-                }
-                else if (newCutoff > upperLimit)
-                {
-                    smoothedCutoff = upperLimit;
-                }
-                else
-                {
-                    smoothedCutoff = newCutoff;
-                }
+                smoothedCutoff = Math.Clamp(newCutoff, lowerLimit, upperLimit);
 
                 filter.SetLowPassFilter(smoothedCutoff, resonance);
             }
@@ -234,8 +223,8 @@ namespace MeltySynth
                 currentMixGainRight = mixGain * MathF.Sin(angle);
             }
 
-            currentReverbSend = SoundFontMath.Clamp(channelInfo.ReverbSend + instrumentReverb, 0F, 1F);
-            currentChorusSend = SoundFontMath.Clamp(channelInfo.ChorusSend + instrumentChorus, 0F, 1F);
+            currentReverbSend = Math.Clamp(channelInfo.ReverbSend + instrumentReverb, 0F, 1F);
+            currentChorusSend = Math.Clamp(channelInfo.ChorusSend + instrumentChorus, 0F, 1F);
 
             if (voiceLength == 0)
             {

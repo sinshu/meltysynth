@@ -40,7 +40,7 @@ namespace MeltySynth
             decayStartTime = holdStartTime + hold;
             releaseStartTime = 0;
 
-            sustainLevel = SoundFontMath.Clamp(sustain, 0F, 1F);
+            sustainLevel = Math.Clamp(sustain, 0F, 1F);
             releaseLevel = 0;
 
             processedSampleCount = 0;
