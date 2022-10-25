@@ -25,6 +25,8 @@ namespace MeltySynth
         private int msgIndex;
         private int loopIndex;
 
+        private MessageHook? onSendMessage;
+
         /// <summary>
         /// Initializes a new instance of the sequencer.
         /// </summary>
@@ -119,7 +121,14 @@ namespace MeltySynth
                 {
                     if (msg.Type == MidiFile.MessageType.Normal)
                     {
-                        synthesizer.ProcessMidiMessage(msg.Channel, msg.Command, msg.Data1, msg.Data2);
+                        if (onSendMessage == null)
+                        {
+                            synthesizer.ProcessMidiMessage(msg.Channel, msg.Command, msg.Data1, msg.Data2);
+                        }
+                        else
+                        {
+                            onSendMessage(synthesizer, msg.Channel, msg.Command, msg.Data1, msg.Data2);
+                        }
                     }
                     else if (loop)
                     {
@@ -149,6 +158,11 @@ namespace MeltySynth
                 synthesizer.NoteOffAll(false);
             }
         }
+
+        /// <summary>
+        /// Gets the synthesizer handled by the sequencer.
+        /// </summary>
+        public Synthesizer Synthesizer => synthesizer;
 
         /// <summary>
         /// Gets the current playback position.
@@ -200,5 +214,27 @@ namespace MeltySynth
                 }
             }
         }
+
+        /// <summary>
+        /// Gets or sets the method to alter MIDI messages during playback.
+        /// If null, MIDI messages will be sent to the synthesizer without any change.
+        /// </summary>
+        public MessageHook? OnSendMessage
+        {
+            get => onSendMessage;
+            set => onSendMessage = value;
+        }
+
+
+
+        /// <summary>
+        /// Represents the method that is called each time a MIDI message is processed during playback.
+        /// </summary>
+        /// <param name="synthesizer">The synthesizer handled by the sequencer.</param>
+        /// <param name="channel">The channel to which the message will be sent.</param>
+        /// <param name="command">The type of the message.</param>
+        /// <param name="data1">The first data part of the message.</param>
+        /// <param name="data2">The second data part of the message.</param>
+        public delegate void MessageHook(Synthesizer synthesizer, int channel, int command, int data1, int data2);
     }
 }
