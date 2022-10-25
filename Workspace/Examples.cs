@@ -126,7 +126,7 @@ public static class Examples
         var midiFile = new MidiFile(@"C:\Windows\Media\flourish.mid");
         var sequencer = new MidiFileSequencer(synthesizer);
 
-        // Turn all the instrument into the electric guitar.
+        // Turn all the instruments into electric guitars.
         sequencer.OnSendMessage = (synthesizer, channel, command, data1, data2) =>
         {
             if (command == 0xC0)
