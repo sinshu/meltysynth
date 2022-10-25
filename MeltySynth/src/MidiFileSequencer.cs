@@ -25,6 +25,8 @@ namespace MeltySynth
         private int msgIndex;
         private int loopIndex;
 
+        private MessagesHook? onSendMessage;
+
         /// <summary>
         /// Initializes a new instance of the sequencer.
         /// </summary>
@@ -119,7 +121,14 @@ namespace MeltySynth
                 {
                     if (msg.Type == MidiFile.MessageType.Normal)
                     {
-                        synthesizer.ProcessMidiMessage(msg.Channel, msg.Command, msg.Data1, msg.Data2);
+                        if (onSendMessage == null)
+                        {
+                            synthesizer.ProcessMidiMessage(msg.Channel, msg.Command, msg.Data1, msg.Data2);
+                        }
+                        else
+                        {
+                            onSendMessage(synthesizer, msg.Channel, msg.Command, msg.Data1, msg.Data2);
+                        }
                     }
                     else if (loop)
                     {
@@ -200,5 +209,15 @@ namespace MeltySynth
                 }
             }
         }
+
+        public MessagesHook? OnSendMessage
+        {
+            get => onSendMessage;
+            set => onSendMessage = value;
+        }
+
+
+
+        public delegate void MessagesHook(Synthesizer synthesizer, int channel, int command, int data1, int data2);
     }
 }
