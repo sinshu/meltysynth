@@ -244,6 +244,99 @@ for (var t = 0; t < blockCount; t++)
 }
 ```
 
+### Handling MIDI file sequencer
+
+To change the playback speed:
+
+```cs
+// Create the synthesizer.
+var sampleRate = 44100;
+var synthesizer = new Synthesizer("TimGM6mb.sf2", sampleRate);
+
+// Read the MIDI file.
+var midiFile = new MidiFile(@"C:\Windows\Media\flourish.mid");
+var sequencer = new MidiFileSequencer(synthesizer);
+
+// Play the MIDI file.
+sequencer.Play(midiFile, false);
+
+// Change the playback speed.
+sequencer.Speed = 1.5F;
+
+// The output buffer.
+var left = new float[(int)(sampleRate * midiFile.Length.TotalSeconds / sequencer.Speed)];
+var right = new float[(int)(sampleRate * midiFile.Length.TotalSeconds / sequencer.Speed)];
+
+// Render the waveform.
+sequencer.Render(left, right);
+```
+
+To mute a certain track:
+
+```cs
+// Create the synthesizer.
+var sampleRate = 44100;
+var synthesizer = new Synthesizer("TimGM6mb.sf2", sampleRate);
+
+// Read the MIDI file.
+var midiFile = new MidiFile(@"C:\Windows\Media\flourish.mid");
+var sequencer = new MidiFileSequencer(synthesizer);
+
+// Discard MIDI messages if its channel is the percussion channel.
+sequencer.OnSendMessage = (synthesizer, channel, command, data1, data2) =>
+{
+    if (channel == 9)
+    {
+        return;
+    }
+
+    synthesizer.ProcessMidiMessage(channel, command, data1, data2);
+};
+
+// Play the MIDI file.
+sequencer.Play(midiFile, false);
+
+// The output buffer.
+var left = new float[(int)(sampleRate * midiFile.Length.TotalSeconds)];
+var right = new float[(int)(sampleRate * midiFile.Length.TotalSeconds)];
+
+// Render the waveform.
+sequencer.Render(left, right);
+```
+
+To change the instruments used in the MIDI file:
+
+```cs
+// Create the synthesizer.
+var sampleRate = 44100;
+var synthesizer = new Synthesizer("TimGM6mb.sf2", sampleRate);
+
+// Read the MIDI file.
+var midiFile = new MidiFile(@"C:\Windows\Media\flourish.mid");
+var sequencer = new MidiFileSequencer(synthesizer);
+
+// Turn all the instruments into electric guitars.
+sequencer.OnSendMessage = (synthesizer, channel, command, data1, data2) =>
+{
+    if (command == 0xC0)
+    {
+        data1 = 30;
+    }
+
+    synthesizer.ProcessMidiMessage(channel, command, data1, data2);
+};
+
+// Play the MIDI file.
+sequencer.Play(midiFile, false);
+
+// The output buffer.
+var left = new float[(int)(sampleRate * midiFile.Length.TotalSeconds)];
+var right = new float[(int)(sampleRate * midiFile.Length.TotalSeconds)];
+
+// Render the waveform.
+sequencer.Render(left, right);
+```
+
 
 
 ## Todo

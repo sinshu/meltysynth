@@ -92,7 +92,7 @@ public static class Examples
         var midiFile = new MidiFile(@"C:\Windows\Media\flourish.mid");
         var sequencer = new MidiFileSequencer(synthesizer);
 
-        // Discard MIDI messages if the channel is the percussion channel.
+        // Discard MIDI messages if its channel is the percussion channel.
         sequencer.OnSendMessage = (synthesizer, channel, command, data1, data2) =>
         {
             if (channel == 9)

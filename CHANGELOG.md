@@ -1,3 +1,10 @@
+# v2.4.0
+
+- Reduced memory allocation on loading SoundFont.
+- Enabled nullable analysis.
+- Dropped the .NET Framework support.
+- Added the ability to hook MIDI sequencer event processing.
+
 # v2.3.0
 
 - Using fixed-point numbers in the oscillator has improved rendering speed by 10%.
