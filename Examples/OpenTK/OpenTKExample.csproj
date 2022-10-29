@@ -14,8 +14,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MeltySynth" Version="2.3.0" />
-    <PackageReference Include="OpenTK" Version="4.7.4" />
+    <PackageReference Include="MeltySynth" Version="2.4.0" />
+    <PackageReference Include="OpenTK" Version="4.7.5" />
   </ItemGroup>
 
 </Project>

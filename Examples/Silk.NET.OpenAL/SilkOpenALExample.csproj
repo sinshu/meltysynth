@@ -14,7 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MeltySynth" Version="2.3.0" />
+    <PackageReference Include="MeltySynth" Version="2.4.0" />
     <PackageReference Include="Silk.NET.OpenAL" Version="2.16.0" />
     <PackageReference Include="Silk.NET.OpenAL.Soft.Native" Version="1.21.1.1" />
   </ItemGroup>

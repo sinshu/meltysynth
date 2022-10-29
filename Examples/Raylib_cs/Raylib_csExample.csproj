@@ -14,8 +14,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MeltySynth" Version="2.3.0" />
-    <PackageReference Include="Raylib-cs" Version="4.0.0.1" />
+    <PackageReference Include="MeltySynth" Version="2.4.0" />
+    <PackageReference Include="Raylib-cs" Version="4.2.0.1" />
   </ItemGroup>
 
 </Project>

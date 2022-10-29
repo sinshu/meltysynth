@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="CSCore" Version="1.2.1.2" />
-    <PackageReference Include="MeltySynth" Version="2.3.0" />
+    <PackageReference Include="MeltySynth" Version="2.4.0" />
   </ItemGroup>
 
 </Project>
