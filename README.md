@@ -53,9 +53,9 @@ sequencer.Render(left, right);
 
 ## Features
 
+* Useful for both real-time and offline synthesis.
+* Support for standard MIDI files with additional functionalities like dynamic tempo change.
 * No dependencies other than .NET Standard 2.1.
-* No memory allocation in the rendering process.
-* No unsafe code.
 
 
 
