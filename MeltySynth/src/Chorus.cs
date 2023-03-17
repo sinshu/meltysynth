@@ -9,8 +9,7 @@ namespace MeltySynth
 
         private readonly float[] delayTable;
 
-        private int bufferIndexL;
-        private int bufferIndexR;
+        private int bufferIndex;
 
         private int delayTableIndexL;
         private int delayTableIndexR;
@@ -27,8 +26,7 @@ namespace MeltySynth
                 delayTable[t] = (float)(sampleRate * (delay + depth * Math.Sin(phase)));
             }
 
-            bufferIndexL = 0;
-            bufferIndexR = 0;
+            bufferIndex = 0;
 
             delayTableIndexL = 0;
             delayTableIndexR = delayTable.Length / 4;
@@ -38,71 +36,66 @@ namespace MeltySynth
         {
             for (var t = 0; t < outputLeft.Length; t++)
             {
-                var position = bufferIndexL - (double)delayTable[delayTableIndexL];
-                if (position < 0.0)
                 {
-                    position += bufferL.Length;
+                    var position = bufferIndex - (double)delayTable[delayTableIndexL];
+                    if (position < 0.0)
+                    {
+                        position += bufferL.Length;
+                    }
+
+                    var index1 = (int)position;
+                    var index2 = index1 + 1;
+
+                    if (index2 == bufferL.Length)
+                    {
+                        index2 = 0;
+                    }
+
+                    var x1 = (double)bufferL[index1];
+                    var x2 = (double)bufferL[index2];
+                    var a = position - index1;
+                    outputLeft[t] = (float)(x1 + a * (x2 - x1));
+
+                    delayTableIndexL++;
+                    if (delayTableIndexL == delayTable.Length)
+                    {
+                        delayTableIndexL = 0;
+                    }
                 }
 
-                var index1 = (int)position;
-                var index2 = index1 + 1;
-
-                if (index2 == bufferL.Length)
                 {
-                    index2 = 0;
+                    var position = bufferIndex - (double)delayTable[delayTableIndexR];
+                    if (position < 0.0)
+                    {
+                        position += bufferR.Length;
+                    }
+
+                    var index1 = (int)position;
+                    var index2 = index1 + 1;
+
+                    if (index2 == bufferR.Length)
+                    {
+                        index2 = 0;
+                    }
+
+                    var x1 = (double)bufferR[index1];
+                    var x2 = (double)bufferR[index2];
+                    var a = position - index1;
+                    outputRight[t] = (float)(x1 + a * (x2 - x1));
+
+                    delayTableIndexR++;
+                    if (delayTableIndexR == delayTable.Length)
+                    {
+                        delayTableIndexR = 0;
+                    }
                 }
 
-                var x1 = (double)bufferL[index1];
-                var x2 = (double)bufferL[index2];
-                var a = position - index1;
-                outputLeft[t] = (float)(x1 + a * (x2 - x1));
-
-                bufferL[bufferIndexL] = inputLeft[t];
-                bufferIndexL++;
-                if (bufferIndexL == bufferL.Length)
+                bufferL[bufferIndex] = inputLeft[t];
+                bufferR[bufferIndex] = inputRight[t];
+                bufferIndex++;
+                if (bufferIndex == bufferL.Length)
                 {
-                    bufferIndexL = 0;
-                }
-
-                delayTableIndexL++;
-                if (delayTableIndexL == delayTable.Length)
-                {
-                    delayTableIndexL = 0;
-                }
-            }
-
-            for (var t = 0; t < outputRight.Length; t++)
-            {
-                var position = bufferIndexR - (double)delayTable[delayTableIndexR];
-                if (position < 0.0)
-                {
-                    position += bufferR.Length;
-                }
-
-                var index1 = (int)position;
-                var index2 = index1 + 1;
-
-                if (index2 == bufferR.Length)
-                {
-                    index2 = 0;
-                }
-
-                var x1 = (double)bufferR[index1];
-                var x2 = (double)bufferR[index2];
-                var a = position - index1;
-                outputRight[t] = (float)(x1 + a * (x2 - x1));
-
-                bufferR[bufferIndexR] = inputRight[t];
-                bufferIndexR++;
-                if (bufferIndexR == bufferR.Length)
-                {
-                    bufferIndexR = 0;
-                }
-
-                delayTableIndexR++;
-                if (delayTableIndexR == delayTable.Length)
-                {
-                    delayTableIndexR = 0;
+                    bufferIndex = 0;
                 }
             }
         }
