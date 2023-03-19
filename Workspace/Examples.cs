@@ -51,7 +51,10 @@ public static class Examples
         var right = new float[(int)(sampleRate * midiFile.Length.TotalSeconds)];
 
         // Render the waveform.
+        var start = DateTime.Now;
         sequencer.Render(left, right);
+        var end = DateTime.Now;
+        Console.WriteLine((end - start).TotalSeconds);
 
         WriteWaveFile(left, right, sampleRate, "Flourish.wav");
     }

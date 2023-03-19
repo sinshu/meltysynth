@@ -46,8 +46,8 @@ namespace MeltySynth
 
         private readonly CombFilter4[] cfsL;
         private readonly CombFilter4[] cfsR;
-        private readonly AllPassFilter[] apfsL;
-        private readonly AllPassFilter[] apfsR;
+        private readonly AllPassFilter4 apfsL;
+        private readonly AllPassFilter4 apfsR;
 
         private float gain;
         private float roomSize, roomSize1;
@@ -85,31 +85,20 @@ namespace MeltySynth
                     ScaleTuning(sampleRate, cfTuningR8))
             };
 
-            apfsL = new AllPassFilter[]
-            {
-                new AllPassFilter(ScaleTuning(sampleRate, apfTuningL1)),
-                new AllPassFilter(ScaleTuning(sampleRate, apfTuningL2)),
-                new AllPassFilter(ScaleTuning(sampleRate, apfTuningL3)),
-                new AllPassFilter(ScaleTuning(sampleRate, apfTuningL4))
-            };
+            apfsL = new AllPassFilter4(
+                ScaleTuning(sampleRate, apfTuningL1),
+                ScaleTuning(sampleRate, apfTuningL2),
+                ScaleTuning(sampleRate, apfTuningL3),
+                ScaleTuning(sampleRate, apfTuningL4));
 
-            apfsR = new AllPassFilter[]
-            {
-                new AllPassFilter(ScaleTuning(sampleRate, apfTuningR1)),
-                new AllPassFilter(ScaleTuning(sampleRate, apfTuningR2)),
-                new AllPassFilter(ScaleTuning(sampleRate, apfTuningR3)),
-                new AllPassFilter(ScaleTuning(sampleRate, apfTuningR4))
-            };
+            apfsR = new AllPassFilter4(
+                ScaleTuning(sampleRate, apfTuningR1),
+                ScaleTuning(sampleRate, apfTuningR2),
+                ScaleTuning(sampleRate, apfTuningR3),
+                ScaleTuning(sampleRate, apfTuningR4));
 
-            foreach (var apf in apfsL)
-            {
-                apf.Feedback = 0.5F;
-            }
-
-            foreach (var apf in apfsR)
-            {
-                apf.Feedback = 0.5F;
-            }
+            apfsL.Feedback = 0.5F;
+            apfsR.Feedback = 0.5F;
 
             Wet = initialWet;
             RoomSize = initialRoom;
@@ -132,20 +121,14 @@ namespace MeltySynth
                 cf.Process(input, outputLeft);
             }
 
-            foreach (var apf in apfsL)
-            {
-                apf.Process(outputLeft);
-            }
+            apfsL.Process(outputLeft);
 
             foreach (var cf in cfsR)
             {
                 cf.Process(input, outputRight);
             }
 
-            foreach (var apf in apfsR)
-            {
-                apf.Process(outputRight);
-            }
+            apfsR.Process(outputRight);
 
             // With the default settings, we can skip this part.
             if (1F - wet1 > 1.0E-3 || wet2 > 1.0E-3)
@@ -172,15 +155,8 @@ namespace MeltySynth
                 cf.Mute();
             }
 
-            foreach (var apf in apfsL)
-            {
-                apf.Mute();
-            }
-
-            foreach (var apf in apfsR)
-            {
-                apf.Mute();
-            }
+            apfsL.Mute();
+            apfsR.Mute();
         }
 
         private void Update()
@@ -370,61 +346,96 @@ namespace MeltySynth
 
 
 
-        internal sealed class AllPassFilter
+        internal sealed class AllPassFilter4
         {
-            private readonly float[] buffer;
+            private readonly float[] buffer1;
+            private readonly float[] buffer2;
+            private readonly float[] buffer3;
+            private readonly float[] buffer4;
 
-            private int bufferIndex;
+            private int bufferIndex1;
+            private int bufferIndex2;
+            private int bufferIndex3;
+            private int bufferIndex4;
 
             private float feedback;
 
-            public AllPassFilter(int bufferSize)
+            public AllPassFilter4(int bufferSize1, int bufferSize2, int bufferSize3, int bufferSize4)
             {
-                buffer = new float[bufferSize];
+                buffer1 = new float[bufferSize1];
+                buffer2 = new float[bufferSize2];
+                buffer3 = new float[bufferSize3];
+                buffer4 = new float[bufferSize4];
 
-                bufferIndex = 0;
+                bufferIndex1 = 0;
+                bufferIndex2 = 0;
+                bufferIndex3 = 0;
+                bufferIndex4 = 0;
 
                 feedback = 0F;
             }
 
             public void Mute()
             {
-                Array.Clear(buffer, 0, buffer.Length);
+                Array.Clear(buffer1, 0, buffer1.Length);
+                Array.Clear(buffer2, 0, buffer2.Length);
+                Array.Clear(buffer3, 0, buffer3.Length);
+                Array.Clear(buffer4, 0, buffer4.Length);
             }
 
             public void Process(float[] block)
             {
-                var blockIndex = 0;
-                while (blockIndex < block.Length)
+                for (var t = 0; t < block.Length; t++)
                 {
-                    if (bufferIndex == buffer.Length)
+                    float input1 = block[t];
+                    float output1;
                     {
-                        bufferIndex = 0;
+                        var bufout = buffer1[bufferIndex1];
+                        if (MathF.Abs(bufout) < 1.0E-6) bufout = 0;
+
+                        output1 = -input1 + bufout;
+                        buffer1[bufferIndex1] = input1 + (bufout * feedback);
+
+                        if (++bufferIndex1 >= buffer1.Length) bufferIndex1 = 0;
                     }
 
-                    var srcRem = buffer.Length - bufferIndex;
-                    var dstRem = block.Length - blockIndex;
-                    var rem = Math.Min(srcRem, dstRem);
-
-                    for (var t = 0; t < rem; t++)
+                    float input2 = output1;
+                    float output2;
                     {
-                        var blockPos = blockIndex + t;
-                        var bufferPos = bufferIndex + t;
+                        var bufout = buffer2[bufferIndex2];
+                        if (MathF.Abs(bufout) < 1.0E-6) bufout = 0;
 
-                        var input = block[blockPos];
+                        output2 = -input2 + bufout;
+                        buffer2[bufferIndex2] = input2 + (bufout * feedback);
 
-                        var bufout = buffer[bufferPos];
-                        if (MathF.Abs(bufout) < 1.0E-6F)
-                        {
-                            bufout = 0F;
-                        }
-
-                        block[blockPos] = bufout - input;
-                        buffer[bufferPos] = input + (bufout * feedback);
+                        if (++bufferIndex2 >= buffer2.Length) bufferIndex2 = 0;
                     }
 
-                    bufferIndex += rem;
-                    blockIndex += rem;
+                    float input3 = output2;
+                    float output3;
+                    {
+                        var bufout = buffer3[bufferIndex3];
+                        if (MathF.Abs(bufout) < 1.0E-6) bufout = 0;
+
+                        output3 = -input3 + bufout;
+                        buffer3[bufferIndex3] = input3 + (bufout * feedback);
+
+                        if (++bufferIndex3 >= buffer3.Length) bufferIndex3 = 0;
+                    }
+
+                    float input4 = output3;
+                    float output4;
+                    {
+                        var bufout = buffer4[bufferIndex4];
+                        if (MathF.Abs(bufout) < 1.0E-6) bufout = 0;
+
+                        output4 = -input4 + bufout;
+                        buffer4[bufferIndex4] = input4 + (bufout * feedback);
+
+                        if (++bufferIndex4 >= buffer4.Length) bufferIndex4 = 0;
+                    }
+
+                    block[t] = output4;
                 }
             }
 

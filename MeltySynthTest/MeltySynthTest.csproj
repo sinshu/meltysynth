@@ -19,18 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="ReferenceData\Freeverb\apf_bs16_fb05.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="ReferenceData\Freeverb\apf_bs23_fb07.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="ReferenceData\Freeverb\cf_bs16_fb08_da01.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="ReferenceData\Freeverb\cf_bs23_fb07_da03.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="ReferenceData\Freeverb\freeverb_default_ir.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
