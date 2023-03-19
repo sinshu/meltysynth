@@ -2,6 +2,7 @@
 // implementation by Jezar at Dreampoint.
 
 using System;
+using System.Numerics;
 
 namespace MeltySynth
 {
@@ -43,8 +44,8 @@ namespace MeltySynth
         private const int apfTuningL4 = 225;
         private const int apfTuningR4 = 225 + stereoSpread;
 
-        private readonly CombFilter[] cfsL;
-        private readonly CombFilter[] cfsR;
+        private readonly CombFilter4[] cfsL;
+        private readonly CombFilter4[] cfsR;
         private readonly AllPassFilter[] apfsL;
         private readonly AllPassFilter[] apfsR;
 
@@ -56,28 +57,32 @@ namespace MeltySynth
 
         internal Reverb(int sampleRate)
         {
-            cfsL = new CombFilter[]
+            cfsL = new CombFilter4[]
             {
-                new CombFilter(ScaleTuning(sampleRate, cfTuningL1)),
-                new CombFilter(ScaleTuning(sampleRate, cfTuningL2)),
-                new CombFilter(ScaleTuning(sampleRate, cfTuningL3)),
-                new CombFilter(ScaleTuning(sampleRate, cfTuningL4)),
-                new CombFilter(ScaleTuning(sampleRate, cfTuningL5)),
-                new CombFilter(ScaleTuning(sampleRate, cfTuningL6)),
-                new CombFilter(ScaleTuning(sampleRate, cfTuningL7)),
-                new CombFilter(ScaleTuning(sampleRate, cfTuningL8))
+                new CombFilter4(
+                    ScaleTuning(sampleRate, cfTuningL1),
+                    ScaleTuning(sampleRate, cfTuningL2),
+                    ScaleTuning(sampleRate, cfTuningL3),
+                    ScaleTuning(sampleRate, cfTuningL4)),
+                new CombFilter4(
+                    ScaleTuning(sampleRate, cfTuningL5),
+                    ScaleTuning(sampleRate, cfTuningL6),
+                    ScaleTuning(sampleRate, cfTuningL7),
+                    ScaleTuning(sampleRate, cfTuningL8))
             };
 
-            cfsR = new CombFilter[]
+            cfsR = new CombFilter4[]
             {
-                new CombFilter(ScaleTuning(sampleRate, cfTuningR1)),
-                new CombFilter(ScaleTuning(sampleRate, cfTuningR2)),
-                new CombFilter(ScaleTuning(sampleRate, cfTuningR3)),
-                new CombFilter(ScaleTuning(sampleRate, cfTuningR4)),
-                new CombFilter(ScaleTuning(sampleRate, cfTuningR5)),
-                new CombFilter(ScaleTuning(sampleRate, cfTuningR6)),
-                new CombFilter(ScaleTuning(sampleRate, cfTuningR7)),
-                new CombFilter(ScaleTuning(sampleRate, cfTuningR8))
+                new CombFilter4(
+                    ScaleTuning(sampleRate, cfTuningR1),
+                    ScaleTuning(sampleRate, cfTuningR2),
+                    ScaleTuning(sampleRate, cfTuningR3),
+                    ScaleTuning(sampleRate, cfTuningR4)),
+                new CombFilter4(
+                    ScaleTuning(sampleRate, cfTuningR5),
+                    ScaleTuning(sampleRate, cfTuningR6),
+                    ScaleTuning(sampleRate, cfTuningR7),
+                    ScaleTuning(sampleRate, cfTuningR8))
             };
 
             apfsL = new AllPassFilter[]
@@ -260,23 +265,35 @@ namespace MeltySynth
 
 
 
-        internal sealed class CombFilter
+        internal sealed class CombFilter4
         {
-            private readonly float[] buffer;
+            private readonly float[] buffer1;
+            private readonly float[] buffer2;
+            private readonly float[] buffer3;
+            private readonly float[] buffer4;
 
-            private int bufferIndex;
-            private float filterStore;
+            private int bufferIndex1;
+            private int bufferIndex2;
+            private int bufferIndex3;
+            private int bufferIndex4;
+            private Vector4 filterStore;
 
             private float feedback;
             private float damp1;
             private float damp2;
 
-            public CombFilter(int bufferSize)
+            public CombFilter4(int bufferSize1, int bufferSize2, int bufferSize3, int bufferSize4)
             {
-                buffer = new float[bufferSize];
+                buffer1 = new float[bufferSize1];
+                buffer2 = new float[bufferSize2];
+                buffer3 = new float[bufferSize3];
+                buffer4 = new float[bufferSize4];
 
-                bufferIndex = 0;
-                filterStore = 0F;
+                bufferIndex1 = 0;
+                bufferIndex2 = 0;
+                bufferIndex3 = 0;
+                bufferIndex4 = 0;
+                filterStore = Vector4.Zero;
 
                 feedback = 0F;
                 damp1 = 0F;
@@ -285,54 +302,51 @@ namespace MeltySynth
 
             public void Mute()
             {
-                Array.Clear(buffer, 0, buffer.Length);
-                filterStore = 0F;
+                Array.Clear(buffer1, 0, buffer1.Length);
+                Array.Clear(buffer2, 0, buffer2.Length);
+                Array.Clear(buffer3, 0, buffer3.Length);
+                Array.Clear(buffer4, 0, buffer4.Length);
+                filterStore = Vector4.Zero;
             }
 
             public void Process(float[] inputBlock, float[] outputBlock)
             {
-                var blockIndex = 0;
-                while (blockIndex < outputBlock.Length)
+                for (var t = 0; t < outputBlock.Length; t++)
                 {
-                    if (bufferIndex == buffer.Length)
-                    {
-                        bufferIndex = 0;
-                    }
+                    var input = new Vector4(inputBlock[t]);
 
-                    var srcRem = buffer.Length - bufferIndex;
-                    var dstRem = outputBlock.Length - blockIndex;
-                    var rem = Math.Min(srcRem, dstRem);
+                    var output = new Vector4(
+                        buffer1[bufferIndex1],
+                        buffer2[bufferIndex2],
+                        buffer3[bufferIndex3],
+                        buffer4[bufferIndex4]);
 
-                    for (var t = 0; t < rem; t++)
-                    {
-                        var blockPos = blockIndex + t;
-                        var bufferPos = bufferIndex + t;
+                    var absOutput = Vector4.Abs(output);
+                    if (absOutput.X < 1.0E-6F) output.X = 0;
+                    if (absOutput.Y < 1.0E-6F) output.Y = 0;
+                    if (absOutput.Z < 1.0E-6F) output.Z = 0;
+                    if (absOutput.W < 1.0E-6F) output.W = 0;
 
-                        var input = inputBlock[blockPos];
+                    filterStore = (output * damp2) + (filterStore * damp1);
 
-                        // The following ifs are to avoid performance problem due to denormalized number.
-                        // The original implementation uses unsafe cast to detect denormalized number.
-                        // I tried to reproduce the original implementation using Unsafe.As,
-                        // but the simple Math.Abs version was faster according to some benchmarks.
+                    var absFilterStore = Vector4.Abs(filterStore);
+                    if (absFilterStore.X < 1.0E-6F) filterStore.X = 0;
+                    if (absFilterStore.Y < 1.0E-6F) filterStore.Y = 0;
+                    if (absFilterStore.Z < 1.0E-6F) filterStore.Z = 0;
+                    if (absFilterStore.W < 1.0E-6F) filterStore.W = 0;
 
-                        var output = buffer[bufferPos];
-                        if (MathF.Abs(output) < 1.0E-6F)
-                        {
-                            output = 0F;
-                        }
+                    var bufout = input + (filterStore * feedback);
+                    buffer1[bufferIndex1] = bufout.X;
+                    buffer2[bufferIndex2] = bufout.Y;
+                    buffer3[bufferIndex3] = bufout.Z;
+                    buffer4[bufferIndex4] = bufout.W;
 
-                        filterStore = (output * damp2) + (filterStore * damp1);
-                        if (MathF.Abs(filterStore) < 1.0E-6F)
-                        {
-                            filterStore = 0F;
-                        }
+                    if (++bufferIndex1 >= buffer1.Length) bufferIndex1 = 0;
+                    if (++bufferIndex2 >= buffer2.Length) bufferIndex2 = 0;
+                    if (++bufferIndex3 >= buffer3.Length) bufferIndex3 = 0;
+                    if (++bufferIndex4 >= buffer4.Length) bufferIndex4 = 0;
 
-                        buffer[bufferPos] = input + (filterStore * feedback);
-                        outputBlock[blockPos] += output;
-                    }
-
-                    bufferIndex += rem;
-                    blockIndex += rem;
+                    outputBlock[t] += output.X + output.Y + output.Z + output.W;
                 }
             }
 
