@@ -38,8 +38,9 @@ public static class Examples
     public static void Flourish()
     {
         // Create the synthesizer.
-        var sampleRate = 44100;
-        var synthesizer = new Synthesizer("TimGM6mb.sf2", sampleRate);
+        var settings = new SynthesizerSettings(44100);
+        settings.EnableReverbAndChorus = false;
+        var synthesizer = new Synthesizer("TimGM6mb.sf2", settings);
 
         // Read the MIDI file.
         var midiFile = new MidiFile(@"C:\Windows\Media\flourish.mid");
@@ -47,13 +48,16 @@ public static class Examples
         sequencer.Play(midiFile, false);
 
         // The output buffer.
-        var left = new float[(int)(sampleRate * midiFile.Length.TotalSeconds)];
-        var right = new float[(int)(sampleRate * midiFile.Length.TotalSeconds)];
+        var left = new float[(int)(settings.SampleRate * midiFile.Length.TotalSeconds)];
+        var right = new float[(int)(settings.SampleRate * midiFile.Length.TotalSeconds)];
 
         // Render the waveform.
+        var start = DateTime.Now;
         sequencer.Render(left, right);
+        var end = DateTime.Now;
+        Console.WriteLine((end - start).TotalSeconds);
 
-        WriteWaveFile(left, right, sampleRate, "Flourish.wav");
+        WriteWaveFile(left, right, settings.SampleRate, "Flourish.wav");
     }
 
     public static void ChangePlaybackSpeed()
