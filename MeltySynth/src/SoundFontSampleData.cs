@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace MeltySynth
 {
@@ -49,6 +50,11 @@ namespace MeltySynth
             if (samples == null)
             {
                 throw new InvalidDataException("No valid sample data was found.");
+            }
+
+            if (Encoding.ASCII.GetString(MemoryMarshal.Cast<short, byte>(samples).Slice(0, 4)) == "OggS")
+            {
+                throw new NotSupportedException("SoundFont3 is not yet supported.");
             }
 
             if (!BitConverter.IsLittleEndian)
