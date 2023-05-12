@@ -1,3 +1,9 @@
+# v2.4.1
+
+- Fixed potential issue where loading a file could fail.
+- Now loading SoundFont3 fails with an explicit error.
+- Optimized chorus for better performance.
+
 # v2.4.0
 
 - Reduced memory allocation on loading SoundFont.
