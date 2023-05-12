@@ -21,5 +21,15 @@ namespace MeltySynthTest
             var expected = TimeSpan.FromSeconds(value);
             Assert.AreEqual(actual.Ticks, expected.Ticks);
         }
+
+        [TestCase("flourish.mid", 87.5)]
+        [TestCase("onestop.mid", 247.4)]
+        [TestCase("town.mid", 79.0)]
+        public void ReadTest(string path, double length)
+        {
+            var actual = new MidiFile(path).Length.TotalSeconds;
+            var expected = length;
+            Assert.AreEqual(actual, expected, 0.1);
+        }
     }
 }
