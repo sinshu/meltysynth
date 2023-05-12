@@ -221,7 +221,8 @@ namespace MeltySynth
                 throw new InvalidDataException($"The chunk type must be 'MTrk', but was '{chunkType}'.");
             }
 
-            reader.ReadInt32BigEndian();
+            var end = (long)reader.ReadInt32BigEndian();
+            end += reader.BaseStream.Position;
 
             var messages = new List<Message>();
             var ticks = new List<int>();
@@ -278,6 +279,14 @@ namespace MeltySynth
                                 reader.ReadByte();
                                 messages.Add(Message.EndOfTrack());
                                 ticks.Add(tick);
+
+                                // Some MIDI files may have events inserted after the EOT.
+                                // Such events should be ignored.
+                                if (reader.BaseStream.Position < end)
+                                {
+                                    reader.BaseStream.Position = end;
+                                }
+
                                 return (messages, ticks);
 
                             case 0x51: // Tempo
