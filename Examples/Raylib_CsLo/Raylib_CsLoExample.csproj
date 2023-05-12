@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="MeltySynth" Version="2.4.1" />
-    <PackageReference Include="Raylib-CsLo" Version="4.2.0.4" />
+    <PackageReference Include="Raylib-CsLo" Version="4.2.0.9" />
   </ItemGroup>
 
 </Project>

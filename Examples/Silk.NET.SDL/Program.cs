@@ -19,7 +19,7 @@ class Program
             desired.Samples = 4096;
             desired.Callback = new PfnAudioCallback(new AudioCallback(player.ProcessAudio));
 
-            var device = sdl.OpenAudioDevice((string)null, 0, ref desired, null, (int)Sdl.AudioAllowAnyChange);
+            var device = sdl.OpenAudioDevice((string)null, 0, &desired, null, (int)Sdl.AudioAllowAnyChange);
             if (device == 0)
             {
                 throw sdl.GetErrorAsException();
