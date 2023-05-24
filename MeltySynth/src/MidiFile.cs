@@ -61,7 +61,7 @@ namespace MeltySynth
         /// Loads a MIDI file from the stream.
         /// </summary>
         /// <param name="stream">The data stream used to load the MIDI file.</param>
-        /// <param name="loopType">The type of the loop extension to be used.</param>
+        /// <param name="loopType">The type of loop extension to use.</param>
         public MidiFile(Stream stream, MidiFileLoopType loopType)
         {
             if (stream == null)
@@ -128,7 +128,7 @@ namespace MeltySynth
         /// Loads a MIDI file from the file.
         /// </summary>
         /// <param name="path">The MIDI file name and path.</param>
-        /// <param name="loopType">The type of the loop extension to be used.</param>
+        /// <param name="loopType">The type of loop extension to use.</param>
         public MidiFile(string path, MidiFileLoopType loopType)
         {
             if (path == null)

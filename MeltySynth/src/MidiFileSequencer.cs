@@ -7,8 +7,8 @@ namespace MeltySynth
     /// </summary>
     /// <remarks>
     /// Note that this class does not provide thread safety.
-    /// If you want to do playback control and render the waveform in separate threads,
-    /// you must ensure that the methods will not be called simultaneously.
+    /// If you want to control playback and render the waveform in separate threads,
+    /// you must make sure that the methods are not called at the same time.
     /// </remarks>
     public sealed class MidiFileSequencer : IAudioRenderer
     {
@@ -30,7 +30,7 @@ namespace MeltySynth
         /// <summary>
         /// Initializes a new instance of the sequencer.
         /// </summary>
-        /// <param name="synthesizer">The synthesizer to be handled by the sequencer.</param>
+        /// <param name="synthesizer">The synthesizer to be used by the sequencer.</param>
         public MidiFileSequencer(Synthesizer synthesizer)
         {
             if (synthesizer == null)
@@ -68,7 +68,7 @@ namespace MeltySynth
         }
 
         /// <summary>
-        /// Stop playing.
+        /// Stops playing.
         /// </summary>
         public void Stop()
         {
@@ -160,9 +160,14 @@ namespace MeltySynth
         }
 
         /// <summary>
-        /// Gets the synthesizer handled by the sequencer.
+        /// Gets the synthesizer used by the sequencer.
         /// </summary>
         public Synthesizer Synthesizer => synthesizer;
+
+        /// <summary>
+        /// Gets the currently playing MIDI file.
+        /// </summary>
+        public MidiFile? MidiFile => midiFile;
 
         /// <summary>
         /// Gets the current playback position.
@@ -174,7 +179,7 @@ namespace MeltySynth
         /// </summary>
         /// <remarks>
         /// If the <see cref="Play(MidiFile, bool)">Play</see> method has not yet been called, this value is true.
-        /// This value will never be <c>true</c> if loop playback is enabled.
+        /// This value will never be <c>true</c> when loop playback is enabled.
         /// </remarks>
         public bool EndOfSequence
         {
@@ -204,20 +209,20 @@ namespace MeltySynth
 
             set
             {
-                if (value > 0)
+                if (value >= 0)
                 {
                     speed = value;
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException("The playback speed must be a positive value.");
+                    throw new ArgumentOutOfRangeException("The playback speed must be a non-negative value.");
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets the method to alter MIDI messages during playback.
-        /// If null, MIDI messages will be sent to the synthesizer without any change.
+        /// Gets or sets the method for modifying MIDI messages during playback.
+        /// If <c>null</c>, MIDI messages are sent to the synthesizer without any changes.
         /// </summary>
         public MessageHook? OnSendMessage
         {
@@ -230,7 +235,7 @@ namespace MeltySynth
         /// <summary>
         /// Represents the method that is called each time a MIDI message is processed during playback.
         /// </summary>
-        /// <param name="synthesizer">The synthesizer handled by the sequencer.</param>
+        /// <param name="synthesizer">The synthesizer used by the sequencer.</param>
         /// <param name="channel">The channel to which the message will be sent.</param>
         /// <param name="command">The type of the message.</param>
         /// <param name="data1">The first data part of the message.</param>

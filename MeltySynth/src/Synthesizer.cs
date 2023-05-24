@@ -10,7 +10,7 @@ namespace MeltySynth
     /// <remarks>
     /// Note that this class does not provide thread safety.
     /// If you want to send notes and render the waveform in separate threads,
-    /// you must ensure that the methods will not be called simultaneously.
+    /// you must make sure that the methods are not called at the same time.
     /// </remarks>
     public sealed class Synthesizer : IAudioRenderer
     {
@@ -163,7 +163,7 @@ namespace MeltySynth
         /// <summary>
         /// Processes a MIDI message.
         /// </summary>
-        /// <param name="channel">The channel to which the message will be sent.</param>
+        /// <param name="channel">The channel to which the message is sent.</param>
         /// <param name="command">The type of the message.</param>
         /// <param name="data1">The first data part of the message.</param>
         /// <param name="data2">The second data part of the message.</param>
@@ -581,7 +581,7 @@ namespace MeltySynth
         public int SampleRate => sampleRate;
 
         /// <summary>
-        /// The number of voices currently being played.
+        /// The number of voices currently playing.
         /// </summary>
         public int ActiveVoiceCount => voices.ActiveVoiceCount;
 
