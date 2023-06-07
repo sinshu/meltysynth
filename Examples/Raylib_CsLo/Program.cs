@@ -7,7 +7,7 @@ class Program
     static int sampleRate = 44100;
     static int bufferSize = 4096;
 
-    unsafe static void Main()
+    static void Main()
     {
         Raylib.InitWindow(800, 450, "MIDI Player");
 
@@ -32,10 +32,7 @@ class Program
             if (Raylib.IsAudioStreamProcessed(stream))
             {
                 sequencer.RenderInterleavedInt16(buffer);
-                fixed (void* p = buffer)
-                {
-                    Raylib.UpdateAudioStream(stream, p, bufferSize);
-                }
+                Raylib.UpdateAudioStream(stream, buffer.AsSpan(), bufferSize);
             }
 
             Raylib.BeginDrawing();
