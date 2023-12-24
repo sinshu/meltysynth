@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="MeltySynth" Version="2.4.1" />
-    <PackageReference Include="NAudio" Version="2.1.0" />
+    <PackageReference Include="NAudio" Version="2.2.1" />
   </ItemGroup>
 
 </Project>
