@@ -8,21 +8,21 @@ namespace MeltySynthTest
     public class InstrumentTest_NAudio
     {
         [TestCaseSource(typeof(TestSettings), nameof(TestSettings.SoundFonts))]
-        public void ReadTest(string soundFontName, MeltySynth.SoundFont soundFont)
+        public static void ReadTest(string soundFontName, MeltySynth.SoundFont soundFont)
         {
             var expected = new NAudio.SoundFont.SoundFont(soundFontName + ".sf2").Instruments;
             var actual = soundFont.Instruments;
 
-            Assert.AreEqual(expected.Length, actual.Count);
+            Assert.That(expected.Length, Is.EqualTo(actual.Count));
             for (var i = 0; i < expected.Length; i++)
             {
                 AreEqual(expected[i], actual[i]);
             }
         }
 
-        private void AreEqual(NAudio.SoundFont.Instrument expected, MeltySynth.Instrument actual)
+        private static void AreEqual(NAudio.SoundFont.Instrument expected, MeltySynth.Instrument actual)
         {
-            Assert.AreEqual(expected.Name, actual.Name);
+            Assert.That(expected.Name, Is.EqualTo(actual.Name));
         }
     }
 }

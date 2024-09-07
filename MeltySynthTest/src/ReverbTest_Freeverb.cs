@@ -22,7 +22,7 @@ namespace MeltySynthTest
             var path = @"ReferenceData\Freeverb\cf_bs16_fb08_da01.csv";
 
             var data = File.ReadLines(path).Select(line => float.Parse(line)).ToArray();
-            Assert.IsTrue(data.Length == 500);
+            Assert.That(data.Length, Is.EqualTo(500));
 
             var expected = new float[delay].Concat(data).ToArray();
 
@@ -39,7 +39,7 @@ namespace MeltySynthTest
             for (var t = 0; t < expected.Length; t++)
             {
                 var error = actual[t] - expected[t];
-                Assert.IsTrue(Math.Abs(error) < 1.0E-3);
+                Assert.That(Math.Abs(error) < 1.0E-3);
             }
         }
 
@@ -55,7 +55,7 @@ namespace MeltySynthTest
             var path = @"ReferenceData\Freeverb\cf_bs23_fb07_da03.csv";
 
             var data = File.ReadLines(path).Select(line => float.Parse(line)).ToArray();
-            Assert.IsTrue(data.Length == 500);
+            Assert.That(data.Length, Is.EqualTo(500));
 
             var expected = new float[delay].Concat(data).ToArray();
 
@@ -72,7 +72,7 @@ namespace MeltySynthTest
             for (var t = 0; t < expected.Length; t++)
             {
                 var error = actual[t] - expected[t];
-                Assert.IsTrue(Math.Abs(error) < 1.0E-3);
+                Assert.That(Math.Abs(error) < 1.0E-3);
             }
         }
 
@@ -88,7 +88,7 @@ namespace MeltySynthTest
             var path = @"ReferenceData\Freeverb\apf_bs16_fb05.csv";
 
             var data = File.ReadLines(path).Select(line => float.Parse(line)).ToArray();
-            Assert.IsTrue(data.Length == 500);
+            Assert.That(data.Length, Is.EqualTo(500));
 
             var expected = new float[delay].Concat(data).ToArray();
 
@@ -102,7 +102,7 @@ namespace MeltySynthTest
             for (var t = 0; t < expected.Length; t++)
             {
                 var error = actual[t] - expected[t];
-                Assert.IsTrue(Math.Abs(error) < 1.0E-3);
+                Assert.That(Math.Abs(error) < 1.0E-3);
             }
         }
 
@@ -118,7 +118,7 @@ namespace MeltySynthTest
             var path = @"ReferenceData\Freeverb\apf_bs23_fb07.csv";
 
             var data = File.ReadLines(path).Select(line => float.Parse(line)).ToArray();
-            Assert.IsTrue(data.Length == 500);
+            Assert.That(data.Length, Is.EqualTo(500));
 
             var expected = new float[delay].Concat(data).ToArray();
 
@@ -132,7 +132,7 @@ namespace MeltySynthTest
             for (var t = 0; t < expected.Length; t++)
             {
                 var error = actual[t] - expected[t];
-                Assert.IsTrue(Math.Abs(error) < 1.0E-3);
+                Assert.That(Math.Abs(error) < 1.0E-3);
             }
         }
 

@@ -30,11 +30,11 @@ namespace MeltySynthTest
         {
             if (expected == null)
             {
-                Assert.AreEqual(string.Empty, actual);
+                Assert.That(string.Empty, Is.EqualTo(actual));
             }
             else
             {
-                Assert.AreEqual(expected, actual);
+                Assert.That(expected, Is.EqualTo(actual));
             }
         }
 
@@ -42,13 +42,13 @@ namespace MeltySynthTest
         {
             if (expected == null)
             {
-                Assert.AreEqual(0, actual.Major);
-                Assert.AreEqual(0, actual.Minor);
+                Assert.That(0, Is.EqualTo(actual.Major));
+                Assert.That(0, Is.EqualTo(actual.Minor));
             }
             else
             {
-                Assert.AreEqual(expected.Major, actual.Major);
-                Assert.AreEqual(expected.Minor, actual.Minor);
+                Assert.That(expected.Major, Is.EqualTo(actual.Major));
+                Assert.That(expected.Minor, Is.EqualTo(actual.Minor));
             }
         }
     }

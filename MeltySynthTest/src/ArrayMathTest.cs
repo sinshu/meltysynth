@@ -50,7 +50,7 @@ namespace MeltySynthTest
 
             for (var i = 0; i < length; i++)
             {
-                Assert.AreEqual(expected[i], actual[i], 1.0E-3F);
+                Assert.That(expected[i], Is.EqualTo(actual[i]).Within(1.0E-3F));
             }
         }
     }

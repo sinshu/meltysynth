@@ -13,7 +13,7 @@ namespace MeltySynthTest
             var expected = new NAudio.SoundFont.SoundFont(soundFontName + ".sf2").SampleHeaders;
             var actual = soundFont.SampleHeaders;
 
-            Assert.AreEqual(expected.Length, actual.Count);
+            Assert.That(expected.Length, Is.EqualTo(actual.Count));
             for (var i = 0; i < expected.Length; i++)
             {
                 AreEqual(expected[i], actual[i]);
@@ -22,14 +22,14 @@ namespace MeltySynthTest
 
         private void AreEqual(NAudio.SoundFont.SampleHeader expected, MeltySynth.SampleHeader actual)
         {
-            Assert.AreEqual(expected.SampleName, actual.Name);
-            Assert.AreEqual(expected.Start, actual.Start);
-            Assert.AreEqual(expected.End, actual.End);
-            Assert.AreEqual(expected.StartLoop, actual.StartLoop);
-            Assert.AreEqual(expected.EndLoop, actual.EndLoop);
-            Assert.AreEqual(expected.SampleRate, actual.SampleRate);
-            Assert.AreEqual(expected.OriginalPitch, actual.OriginalPitch);
-            Assert.AreEqual(expected.PitchCorrection, actual.PitchCorrection);
+            Assert.That(expected.SampleName, Is.EqualTo(actual.Name));
+            Assert.That(expected.Start, Is.EqualTo(actual.Start));
+            Assert.That(expected.End, Is.EqualTo(actual.End));
+            Assert.That(expected.StartLoop, Is.EqualTo(actual.StartLoop));
+            Assert.That(expected.EndLoop, Is.EqualTo(actual.EndLoop));
+            Assert.That(expected.SampleRate, Is.EqualTo(actual.SampleRate));
+            Assert.That(expected.OriginalPitch, Is.EqualTo(actual.OriginalPitch));
+            Assert.That(expected.PitchCorrection, Is.EqualTo(actual.PitchCorrection));
         }
     }
 }

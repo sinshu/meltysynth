@@ -13,7 +13,7 @@ namespace MeltySynthTest
             var expected = new NAudio.SoundFont.SoundFont(soundFontName + ".sf2").Presets;
             var actual = soundFont.Presets;
 
-            Assert.AreEqual(expected.Length, actual.Count);
+            Assert.That(expected.Length, Is.EqualTo(actual.Count));
             for (var i = 0; i < expected.Length; i++)
             {
                 AreEqual(expected[i], actual[i]);
@@ -22,9 +22,9 @@ namespace MeltySynthTest
 
         private void AreEqual(NAudio.SoundFont.Preset expected, MeltySynth.Preset actual)
         {
-            Assert.AreEqual(expected.Name, actual.Name);
-            Assert.AreEqual(expected.PatchNumber, actual.PatchNumber);
-            Assert.AreEqual(expected.Bank, actual.BankNumber);
+            Assert.That(expected.Name, Is.EqualTo(actual.Name));
+            Assert.That(expected.PatchNumber, Is.EqualTo(actual.PatchNumber));
+            Assert.That(expected.Bank, Is.EqualTo(actual.BankNumber));
         }
     }
 }

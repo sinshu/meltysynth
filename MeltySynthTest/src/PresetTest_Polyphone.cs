@@ -59,7 +59,7 @@ namespace MeltySynthTest
             var polyphoneRegions = PolyphoneRegion.Read(referenceTsvPath);
             var meltyRegions = preset.Regions.ToArray();
 
-            Assert.AreEqual(polyphoneRegions.Length, meltyRegions.Length);
+            Assert.That(polyphoneRegions.Length, Is.EqualTo(meltyRegions.Length));
 
             foreach (var polyphoneRegion in polyphoneRegions)
             {
@@ -122,43 +122,43 @@ namespace MeltySynthTest
 
         private static void AreEqual(PolyphoneRegion polyphoneRegion, PresetRegion meltyRegion)
         {
-            Assert.AreEqual(polyphoneRegion.KeyRange, meltyRegion.KeyRangeStart + "-" + meltyRegion.KeyRangeEnd);
-            Assert.AreEqual(polyphoneRegion.VelocityRange, meltyRegion.VelocityRangeStart + "-" + meltyRegion.VelocityRangeEnd);
-            Assert.AreEqual(polyphoneRegion.Attenuation, 0.4 * meltyRegion.InitialAttenuation, 0.01);
-            Assert.AreEqual(polyphoneRegion.Pan, meltyRegion.Pan, 0.1);
-            Assert.AreEqual(polyphoneRegion.TuningSemiTones, meltyRegion.CoarseTune, 0);
-            Assert.AreEqual(polyphoneRegion.TuningCents, meltyRegion.FineTune, 0);
-            Assert.AreEqual(polyphoneRegion.ScaleTuning, meltyRegion.ScaleTuning, 0);
-            Assert.AreEqual(polyphoneRegion.FilterCutoffX, meltyRegion.InitialFilterCutoffFrequency, 0.001);
-            Assert.AreEqual(polyphoneRegion.FilterResonanceX, meltyRegion.InitialFilterQ, 0.1);
-            Assert.AreEqual(polyphoneRegion.VolEnvDelayX, meltyRegion.DelayVolumeEnvelope, 0.001);
-            Assert.AreEqual(polyphoneRegion.VolEnvAttackX, meltyRegion.AttackVolumeEnvelope, 0.001);
-            Assert.AreEqual(polyphoneRegion.VolEnvHoldX, meltyRegion.HoldVolumeEnvelope, 0.001);
-            Assert.AreEqual(polyphoneRegion.VolEnvDecayX, meltyRegion.DecayVolumeEnvelope, 0.001);
-            Assert.AreEqual(polyphoneRegion.VolEnvSustainDb, meltyRegion.SustainVolumeEnvelope, 0.1);
-            Assert.AreEqual(polyphoneRegion.VolEnvReleaseX, meltyRegion.ReleaseVolumeEnvelope, 0.001);
-            Assert.AreEqual(polyphoneRegion.KeyToVolEnvHoldC, meltyRegion.KeyNumberToVolumeEnvelopeHold, 0);
-            Assert.AreEqual(polyphoneRegion.KeyToVolEnvDecayC, meltyRegion.KeyNumberToVolumeEnvelopeDecay, 0);
-            Assert.AreEqual(polyphoneRegion.ModEnvDelayX, meltyRegion.DelayModulationEnvelope, 0.001);
-            Assert.AreEqual(polyphoneRegion.ModEnvAttackX, meltyRegion.AttackModulationEnvelope, 0.001);
-            Assert.AreEqual(polyphoneRegion.ModEnvHoldX, meltyRegion.HoldModulationEnvelope, 0.001);
-            Assert.AreEqual(polyphoneRegion.ModEnvDecayX, meltyRegion.DecayModulationEnvelope, 0.001);
-            Assert.AreEqual(polyphoneRegion.ModEnvSustainP, meltyRegion.SustainModulationEnvelope, 0.1);
-            Assert.AreEqual(polyphoneRegion.ModEnvReleaseX, meltyRegion.ReleaseModulationEnvelope, 0.001);
-            Assert.AreEqual(polyphoneRegion.ModEnvToPitchC, meltyRegion.ModulationEnvelopeToPitch, 0);
-            Assert.AreEqual(polyphoneRegion.ModEnvToFilterC, meltyRegion.ModulationEnvelopeToFilterCutoffFrequency, 0);
-            Assert.AreEqual(polyphoneRegion.KeyToModEnvHoldC, meltyRegion.KeyNumberToModulationEnvelopeHold, 0);
-            Assert.AreEqual(polyphoneRegion.KeyToModEnvDecayC, meltyRegion.KeyNumberToModulationEnvelopeDecay, 0);
-            Assert.AreEqual(polyphoneRegion.ModLfoDelayX, meltyRegion.DelayModulationLfo, 0.001);
-            Assert.AreEqual(polyphoneRegion.ModLfoFreqX, meltyRegion.FrequencyModulationLfo, 0.001);
-            Assert.AreEqual(polyphoneRegion.ModLfoToPitchC, meltyRegion.ModulationLfoToPitch, 0);
-            Assert.AreEqual(polyphoneRegion.ModLftToFilterC, meltyRegion.ModulationLfoToFilterCutoffFrequency, 0);
-            Assert.AreEqual(polyphoneRegion.ModLftToVolumeDb, meltyRegion.ModulationLfoToVolume, 0.1);
-            Assert.AreEqual(polyphoneRegion.VibLfoDelayX, meltyRegion.DelayVibratoLfo, 0.001);
-            Assert.AreEqual(polyphoneRegion.VibLfoFreqX, meltyRegion.FrequencyVibratoLfo, 0.001);
-            Assert.AreEqual(polyphoneRegion.VibLfoPitchC, meltyRegion.VibratoLfoToPitch, 0);
-            Assert.AreEqual(polyphoneRegion.ChorusP, meltyRegion.ChorusEffectsSend, 0.1);
-            Assert.AreEqual(polyphoneRegion.ReverbP, meltyRegion.ReverbEffectsSend, 0.1);
+            Assert.That(polyphoneRegion.KeyRange, Is.EqualTo(meltyRegion.KeyRangeStart + "-" + meltyRegion.KeyRangeEnd));
+            Assert.That(polyphoneRegion.VelocityRange, Is.EqualTo(meltyRegion.VelocityRangeStart + "-" + meltyRegion.VelocityRangeEnd));
+            Assert.That(polyphoneRegion.Attenuation, Is.EqualTo(0.4 * meltyRegion.InitialAttenuation).Within(0.01));
+            Assert.That(polyphoneRegion.Pan, Is.EqualTo(meltyRegion.Pan).Within(0.1));
+            Assert.That(polyphoneRegion.TuningSemiTones, Is.EqualTo(meltyRegion.CoarseTune));
+            Assert.That(polyphoneRegion.TuningCents, Is.EqualTo(meltyRegion.FineTune));
+            Assert.That(polyphoneRegion.ScaleTuning, Is.EqualTo(meltyRegion.ScaleTuning));
+            Assert.That(polyphoneRegion.FilterCutoffX, Is.EqualTo(meltyRegion.InitialFilterCutoffFrequency).Within(0.001));
+            Assert.That(polyphoneRegion.FilterResonanceX, Is.EqualTo(meltyRegion.InitialFilterQ).Within(0.1));
+            Assert.That(polyphoneRegion.VolEnvDelayX, Is.EqualTo(meltyRegion.DelayVolumeEnvelope).Within(0.001));
+            Assert.That(polyphoneRegion.VolEnvAttackX, Is.EqualTo(meltyRegion.AttackVolumeEnvelope).Within(0.001));
+            Assert.That(polyphoneRegion.VolEnvHoldX, Is.EqualTo(meltyRegion.HoldVolumeEnvelope).Within(0.001));
+            Assert.That(polyphoneRegion.VolEnvDecayX, Is.EqualTo(meltyRegion.DecayVolumeEnvelope).Within(0.001));
+            Assert.That(polyphoneRegion.VolEnvSustainDb, Is.EqualTo(meltyRegion.SustainVolumeEnvelope).Within(0.1));
+            Assert.That(polyphoneRegion.VolEnvReleaseX, Is.EqualTo(meltyRegion.ReleaseVolumeEnvelope).Within(0.001));
+            Assert.That(polyphoneRegion.KeyToVolEnvHoldC, Is.EqualTo(meltyRegion.KeyNumberToVolumeEnvelopeHold));
+            Assert.That(polyphoneRegion.KeyToVolEnvDecayC, Is.EqualTo(meltyRegion.KeyNumberToVolumeEnvelopeDecay));
+            Assert.That(polyphoneRegion.ModEnvDelayX, Is.EqualTo(meltyRegion.DelayModulationEnvelope).Within(0.001));
+            Assert.That(polyphoneRegion.ModEnvAttackX, Is.EqualTo(meltyRegion.AttackModulationEnvelope).Within(0.001));
+            Assert.That(polyphoneRegion.ModEnvHoldX, Is.EqualTo(meltyRegion.HoldModulationEnvelope).Within(0.001));
+            Assert.That(polyphoneRegion.ModEnvDecayX, Is.EqualTo(meltyRegion.DecayModulationEnvelope).Within(0.001));
+            Assert.That(polyphoneRegion.ModEnvSustainP, Is.EqualTo(meltyRegion.SustainModulationEnvelope).Within(0.1));
+            Assert.That(polyphoneRegion.ModEnvReleaseX, Is.EqualTo(meltyRegion.ReleaseModulationEnvelope).Within(0.001));
+            Assert.That(polyphoneRegion.ModEnvToPitchC, Is.EqualTo(meltyRegion.ModulationEnvelopeToPitch));
+            Assert.That(polyphoneRegion.ModEnvToFilterC, Is.EqualTo(meltyRegion.ModulationEnvelopeToFilterCutoffFrequency));
+            Assert.That(polyphoneRegion.KeyToModEnvHoldC, Is.EqualTo(meltyRegion.KeyNumberToModulationEnvelopeHold));
+            Assert.That(polyphoneRegion.KeyToModEnvDecayC, Is.EqualTo(meltyRegion.KeyNumberToModulationEnvelopeDecay));
+            Assert.That(polyphoneRegion.ModLfoDelayX, Is.EqualTo(meltyRegion.DelayModulationLfo).Within(0.001));
+            Assert.That(polyphoneRegion.ModLfoFreqX, Is.EqualTo(meltyRegion.FrequencyModulationLfo).Within(0.001));
+            Assert.That(polyphoneRegion.ModLfoToPitchC, Is.EqualTo(meltyRegion.ModulationLfoToPitch));
+            Assert.That(polyphoneRegion.ModLftToFilterC, Is.EqualTo(meltyRegion.ModulationLfoToFilterCutoffFrequency));
+            Assert.That(polyphoneRegion.ModLftToVolumeDb, Is.EqualTo(meltyRegion.ModulationLfoToVolume).Within(0.1));
+            Assert.That(polyphoneRegion.VibLfoDelayX, Is.EqualTo(meltyRegion.DelayVibratoLfo).Within(0.001));
+            Assert.That(polyphoneRegion.VibLfoFreqX, Is.EqualTo(meltyRegion.FrequencyVibratoLfo).Within(0.001));
+            Assert.That(polyphoneRegion.VibLfoPitchC, Is.EqualTo(meltyRegion.VibratoLfoToPitch));
+            Assert.That(polyphoneRegion.ChorusP, Is.EqualTo(meltyRegion.ChorusEffectsSend).Within(0.1));
+            Assert.That(polyphoneRegion.ReverbP, Is.EqualTo(meltyRegion.ReverbEffectsSend).Within(0.1));
         }
 
 

@@ -60,8 +60,8 @@ namespace MeltySynthTest
                 expected[i] = x;
             }
 
-            Assert.IsTrue(actual.Count - length >= 0);
-            Assert.IsTrue(actual.Count - length <= synthesizer.BlockSize);
+            Assert.That(actual.Count - length >= 0);
+            Assert.That(actual.Count - length <= synthesizer.BlockSize);
 
             for (var t = 0; t < expected.Length; t++)
             {
@@ -134,8 +134,8 @@ namespace MeltySynthTest
                 expected[2 * i + 1] = (x1 + x2) / 2;
             }
 
-            Assert.IsTrue(actual.Count - 2 * length >= 0);
-            Assert.IsTrue(actual.Count - 2 * length <= synthesizer.BlockSize);
+            Assert.That(actual.Count - 2 * length >= 0);
+            Assert.That(actual.Count - 2 * length <= synthesizer.BlockSize);
 
             for (var t = 0; t < expected.Length; t++)
             {
@@ -186,7 +186,7 @@ namespace MeltySynthTest
             {
                 var result = oscillator.FillBlock(block, 1);
 
-                Assert.IsTrue(result);
+                Assert.That(result);
 
                 actual.AddRange(block);
             }
@@ -249,7 +249,7 @@ namespace MeltySynthTest
             {
                 var result = oscillator.FillBlock(block, 0.5);
 
-                Assert.IsTrue(result);
+                Assert.That(result);
 
                 actual.AddRange(block);
             }

@@ -18,7 +18,7 @@ namespace MeltySynthTest
             // the first 6 samples should be skipped.
             var p = MemoryMarshal.Cast<byte, short>(expected).Slice(6);
 
-            Assert.AreEqual(p.Length, actual.Length);
+            Assert.That(p.Length, Is.EqualTo(actual.Length));
 
             for (var i = 0; i < p.Length; i++)
             {

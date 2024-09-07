@@ -30,7 +30,7 @@ namespace MeltySynthTest
 
             for (var i = 0; i < length; i++)
             {
-                Assert.AreEqual(expected[i], actual[i], 1.0E-6F);
+                Assert.That(expected[i], Is.EqualTo(actual[i]).Within(1.0E-6F));
             }
         }
 
@@ -56,7 +56,7 @@ namespace MeltySynthTest
 
             for (var i = 0; i < length; i++)
             {
-                Assert.AreEqual(expected[i], actual[i], 1.0E-6F);
+                Assert.That(expected[i], Is.EqualTo(actual[i]).Within(1.0E-6F));
             }
         }
 
@@ -84,8 +84,8 @@ namespace MeltySynthTest
 
             for (var i = 0; i < length; i++)
             {
-                Assert.AreEqual(expectedLeft[i], actualLeft[i]);
-                Assert.AreEqual(expectedRight[i], actualRight[i]);
+                Assert.That(expectedLeft[i], Is.EqualTo(actualLeft[i]));
+                Assert.That(expectedRight[i], Is.EqualTo(actualRight[i]));
             }
         }
 
@@ -111,7 +111,7 @@ namespace MeltySynthTest
 
             for (var i = 0; i < length; i++)
             {
-                Assert.AreEqual(expected[i], actual[i]);
+                Assert.That(expected[i], Is.EqualTo(actual[i]));
             }
         }
 
@@ -137,7 +137,7 @@ namespace MeltySynthTest
 
             for (var i = 0; i < length; i++)
             {
-                Assert.AreEqual(expected[i], actual[i]);
+                Assert.That(expected[i], Is.EqualTo(actual[i]));
             }
         }
 

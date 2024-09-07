@@ -14,7 +14,7 @@ namespace MeltySynthTest
         {
             var path = Path.Combine("ReferenceData", "TinySoundFont", "Lfo", "D03_F50.csv");
             var expected = File.ReadLines(path).Select(line => float.Parse(line.Split(',')[1])).ToArray();
-            Assert.IsTrue(expected.Length == 1000);
+            Assert.That(expected.Length, Is.EqualTo(1000));
 
             var synthesizer = new Synthesizer(TestSettings.DefaultSoundFont, 44100);
             var lfo = new Lfo(synthesizer);
@@ -37,7 +37,7 @@ namespace MeltySynthTest
         {
             var path = Path.Combine("ReferenceData", "TinySoundFont", "Lfo", "D00_F70.csv");
             var expected = File.ReadLines(path).Select(line => float.Parse(line.Split(',')[1])).ToArray();
-            Assert.IsTrue(expected.Length == 1000);
+            Assert.That(expected.Length, Is.EqualTo(1000));
 
             var synthesizer = new Synthesizer(TestSettings.DefaultSoundFont, 44100);
             var lfo = new Lfo(synthesizer);

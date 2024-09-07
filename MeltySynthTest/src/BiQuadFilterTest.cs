@@ -42,17 +42,17 @@ namespace MeltySynthTest
 
                 if (frequency < cutoffFrequency - 1)
                 {
-                    Assert.True(spectrum[i] > 1 / Math.Sqrt(2));
+                    Assert.That(spectrum[i] > 1 / Math.Sqrt(2));
                 }
 
                 if (frequency > cutoffFrequency + 1)
                 {
-                    Assert.True(spectrum[i] < 1 / Math.Sqrt(2));
+                    Assert.That(spectrum[i] < 1 / Math.Sqrt(2));
                 }
 
                 if (frequency < cutoffFrequency / 10)
                 {
-                    Assert.AreEqual(spectrum[i], 1.0, 0.1);
+                    Assert.That(spectrum[i], Is.EqualTo(1.0).Within(0.1));
                 }
             }
         }
@@ -85,11 +85,11 @@ namespace MeltySynthTest
 
                 if (frequency < cutoffFrequency / 10)
                 {
-                    Assert.AreEqual(spectrum[i], 1.0, 0.1);
+                    Assert.That(spectrum[i], Is.EqualTo(1.0).Within(0.1));
                 }
             }
 
-            Assert.AreEqual(resonance, spectrum.Max(), 0.03);
+            Assert.That(resonance, Is.EqualTo(spectrum.Max()).Within(0.03));
         }
     }
 }

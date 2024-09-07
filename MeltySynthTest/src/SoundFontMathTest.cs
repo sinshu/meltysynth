@@ -15,7 +15,7 @@ namespace MeltySynthTest
         public void TimecentsToSecondsTest(float x, float expected, double delta)
         {
             var actual = SoundFontMath.TimecentsToSeconds(x);
-            Assert.AreEqual(expected, actual, delta);
+            Assert.That(expected, Is.EqualTo(actual).Within(delta));
         }
 
         [TestCase(0F, 1F * 8.176F, 1.0E-6)]
@@ -25,7 +25,7 @@ namespace MeltySynthTest
         public void CentsToHertzTest(float x, float expected, double delta)
         {
             var actual = SoundFontMath.CentsToHertz(x);
-            Assert.AreEqual(expected, actual, delta);
+            Assert.That(expected, Is.EqualTo(actual).Within(delta));
         }
 
         [TestCase(0F, 1F, 1.0E-6)]
@@ -35,7 +35,7 @@ namespace MeltySynthTest
         public void CentsToMultiplyingFactorTest(float x, float expected, double delta)
         {
             var actual = SoundFontMath.CentsToMultiplyingFactor(x);
-            Assert.AreEqual(expected, actual, delta);
+            Assert.That(expected, Is.EqualTo(actual).Within(delta));
         }
 
         [TestCase(0F, 1F, 1.0E-5)]
@@ -46,7 +46,7 @@ namespace MeltySynthTest
         public void DecibelsToLinearTest(float x, float expected, double delta)
         {
             var actual = SoundFontMath.DecibelsToLinear(x);
-            Assert.AreEqual(expected, actual, delta);
+            Assert.That(expected, Is.EqualTo(actual).Within(delta));
         }
 
         [TestCase(1F, 0F, 1.0E-4)]
@@ -57,7 +57,7 @@ namespace MeltySynthTest
         public void LinearToDecibelsTest(float x, float expected, double delta)
         {
             var actual = SoundFontMath.LinearToDecibels(x);
-            Assert.AreEqual(expected, actual, delta);
+            Assert.That(expected, Is.EqualTo(actual).Within(delta));
         }
 
         [TestCase(0, 60, 1F, 1.0E-4)]
@@ -70,7 +70,7 @@ namespace MeltySynthTest
         public void KeyNumberToMultiplyingFactorTest(int cents, int key, float expected, double delta)
         {
             var actual = SoundFontMath.KeyNumberToMultiplyingFactor(cents, key);
-            Assert.AreEqual(expected, actual, delta);
+            Assert.That(expected, Is.EqualTo(actual).Within(delta));
         }
 
         [TestCase(1.0, Math.E, 1.0E-5)]
@@ -85,7 +85,7 @@ namespace MeltySynthTest
         public void ExpCutoffTest(double x, double expected, double delta)
         {
             var actual = SoundFontMath.ExpCutoff(x);
-            Assert.AreEqual(expected, actual, delta);
+            Assert.That(expected, Is.EqualTo(actual).Within(delta));
         }
     }
 }

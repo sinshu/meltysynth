@@ -39,108 +39,108 @@ namespace MeltySynthTest
 
         private static void AreEqual(InstrumentRegion expected, RegionPair actual)
         {
-            Assert.AreEqual(expected.StartAddressOffset, actual.StartAddressOffset);
-            Assert.AreEqual(expected.EndAddressOffset, actual.EndAddressOffset);
-            Assert.AreEqual(expected.StartLoopAddressOffset, actual.StartLoopAddressOffset);
-            Assert.AreEqual(expected.EndLoopAddressOffset, actual.EndLoopAddressOffset);
+            Assert.That(expected.StartAddressOffset, Is.EqualTo(actual.StartAddressOffset));
+            Assert.That(expected.EndAddressOffset, Is.EqualTo(actual.EndAddressOffset));
+            Assert.That(expected.StartLoopAddressOffset, Is.EqualTo(actual.StartLoopAddressOffset));
+            Assert.That(expected.EndLoopAddressOffset, Is.EqualTo(actual.EndLoopAddressOffset));
 
-            Assert.AreEqual(expected.ModulationLfoToPitch, actual.ModulationLfoToPitch);
-            Assert.AreEqual(expected.VibratoLfoToPitch, actual.VibratoLfoToPitch);
-            Assert.AreEqual(expected.ModulationEnvelopeToPitch, actual.ModulationEnvelopeToPitch);
-            Assert.AreEqual(expected.InitialFilterCutoffFrequency, actual.InitialFilterCutoffFrequency, 1.0E-6);
-            Assert.AreEqual(expected.InitialFilterQ, actual.InitialFilterQ, 1.0E-6);
-            Assert.AreEqual(expected.ModulationLfoToFilterCutoffFrequency, actual.ModulationLfoToFilterCutoffFrequency);
-            Assert.AreEqual(expected.ModulationEnvelopeToFilterCutoffFrequency, actual.ModulationEnvelopeToFilterCutoffFrequency);
+            Assert.That(expected.ModulationLfoToPitch, Is.EqualTo(actual.ModulationLfoToPitch));
+            Assert.That(expected.VibratoLfoToPitch, Is.EqualTo(actual.VibratoLfoToPitch));
+            Assert.That(expected.ModulationEnvelopeToPitch, Is.EqualTo(actual.ModulationEnvelopeToPitch));
+            Assert.That(expected.InitialFilterCutoffFrequency, Is.EqualTo(actual.InitialFilterCutoffFrequency).Within(1.0E-6));
+            Assert.That(expected.InitialFilterQ, Is.EqualTo(actual.InitialFilterQ).Within(1.0E-6));
+            Assert.That(expected.ModulationLfoToFilterCutoffFrequency, Is.EqualTo(actual.ModulationLfoToFilterCutoffFrequency));
+            Assert.That(expected.ModulationEnvelopeToFilterCutoffFrequency, Is.EqualTo(actual.ModulationEnvelopeToFilterCutoffFrequency));
 
-            Assert.AreEqual(expected.ModulationLfoToVolume, actual.ModulationLfoToVolume, 1.0E-6);
+            Assert.That(expected.ModulationLfoToVolume, Is.EqualTo(actual.ModulationLfoToVolume).Within(1.0E-6));
 
-            Assert.AreEqual(expected.ChorusEffectsSend, actual.ChorusEffectsSend, 1.0E-6);
-            Assert.AreEqual(expected.ReverbEffectsSend, actual.ReverbEffectsSend, 1.0E-6);
-            Assert.AreEqual(expected.Pan, actual.Pan, 1.0E-6);
+            Assert.That(expected.ChorusEffectsSend, Is.EqualTo(actual.ChorusEffectsSend).Within(1.0E-6));
+            Assert.That(expected.ReverbEffectsSend, Is.EqualTo(actual.ReverbEffectsSend).Within(1.0E-6));
+            Assert.That(expected.Pan, Is.EqualTo(actual.Pan).Within(1.0E-6));
 
-            Assert.AreEqual(expected.DelayModulationLfo, actual.DelayModulationLfo, 1.0E-6);
-            Assert.AreEqual(expected.FrequencyModulationLfo, actual.FrequencyModulationLfo, 1.0E-6);
-            Assert.AreEqual(expected.DelayVibratoLfo, actual.DelayVibratoLfo, 1.0E-6);
-            Assert.AreEqual(expected.FrequencyVibratoLfo, actual.FrequencyVibratoLfo, 1.0E-6);
-            Assert.AreEqual(expected.DelayModulationEnvelope, actual.DelayModulationEnvelope, 1.0E-6);
-            Assert.AreEqual(expected.AttackModulationEnvelope, actual.AttackModulationEnvelope, 1.0E-6);
-            Assert.AreEqual(expected.HoldModulationEnvelope, actual.HoldModulationEnvelope, 1.0E-6);
-            Assert.AreEqual(expected.DecayModulationEnvelope, actual.DecayModulationEnvelope, 1.0E-6);
-            Assert.AreEqual(expected.SustainModulationEnvelope, actual.SustainModulationEnvelope, 1.0E-6);
-            Assert.AreEqual(expected.ReleaseModulationEnvelope, actual.ReleaseModulationEnvelope, 1.0E-6);
-            Assert.AreEqual(expected.KeyNumberToModulationEnvelopeHold, actual.KeyNumberToModulationEnvelopeHold);
-            Assert.AreEqual(expected.KeyNumberToModulationEnvelopeDecay, actual.KeyNumberToModulationEnvelopeDecay);
-            Assert.AreEqual(expected.DelayVolumeEnvelope, actual.DelayVolumeEnvelope, 1.0E-6);
-            Assert.AreEqual(expected.AttackVolumeEnvelope, actual.AttackVolumeEnvelope, 1.0E-6);
-            Assert.AreEqual(expected.HoldVolumeEnvelope, actual.HoldVolumeEnvelope, 1.0E-6);
-            Assert.AreEqual(expected.DecayVolumeEnvelope, actual.DecayVolumeEnvelope, 1.0E-6);
-            Assert.AreEqual(expected.SustainVolumeEnvelope, actual.SustainVolumeEnvelope, 1.0E-6);
-            Assert.AreEqual(expected.ReleaseVolumeEnvelope, actual.ReleaseVolumeEnvelope, 1.0E-6);
-            Assert.AreEqual(expected.KeyNumberToVolumeEnvelopeHold, actual.KeyNumberToVolumeEnvelopeHold);
-            Assert.AreEqual(expected.KeyNumberToVolumeEnvelopeDecay, actual.KeyNumberToVolumeEnvelopeDecay);
+            Assert.That(expected.DelayModulationLfo, Is.EqualTo(actual.DelayModulationLfo).Within(1.0E-6));
+            Assert.That(expected.FrequencyModulationLfo, Is.EqualTo(actual.FrequencyModulationLfo).Within(1.0E-6));
+            Assert.That(expected.DelayVibratoLfo, Is.EqualTo(actual.DelayVibratoLfo).Within(1.0E-6));
+            Assert.That(expected.FrequencyVibratoLfo, Is.EqualTo(actual.FrequencyVibratoLfo).Within(1.0E-6));
+            Assert.That(expected.DelayModulationEnvelope, Is.EqualTo(actual.DelayModulationEnvelope).Within(1.0E-6));
+            Assert.That(expected.AttackModulationEnvelope, Is.EqualTo(actual.AttackModulationEnvelope).Within(1.0E-6));
+            Assert.That(expected.HoldModulationEnvelope, Is.EqualTo(actual.HoldModulationEnvelope).Within(1.0E-6));
+            Assert.That(expected.DecayModulationEnvelope, Is.EqualTo(actual.DecayModulationEnvelope).Within(1.0E-6));
+            Assert.That(expected.SustainModulationEnvelope, Is.EqualTo(actual.SustainModulationEnvelope).Within(1.0E-6));
+            Assert.That(expected.ReleaseModulationEnvelope, Is.EqualTo(actual.ReleaseModulationEnvelope).Within(1.0E-6));
+            Assert.That(expected.KeyNumberToModulationEnvelopeHold, Is.EqualTo(actual.KeyNumberToModulationEnvelopeHold));
+            Assert.That(expected.KeyNumberToModulationEnvelopeDecay, Is.EqualTo(actual.KeyNumberToModulationEnvelopeDecay));
+            Assert.That(expected.DelayVolumeEnvelope, Is.EqualTo(actual.DelayVolumeEnvelope).Within(1.0E-6));
+            Assert.That(expected.AttackVolumeEnvelope, Is.EqualTo(actual.AttackVolumeEnvelope).Within(1.0E-6));
+            Assert.That(expected.HoldVolumeEnvelope, Is.EqualTo(actual.HoldVolumeEnvelope).Within(1.0E-6));
+            Assert.That(expected.DecayVolumeEnvelope, Is.EqualTo(actual.DecayVolumeEnvelope).Within(1.0E-6));
+            Assert.That(expected.SustainVolumeEnvelope, Is.EqualTo(actual.SustainVolumeEnvelope).Within(1.0E-6));
+            Assert.That(expected.ReleaseVolumeEnvelope, Is.EqualTo(actual.ReleaseVolumeEnvelope).Within(1.0E-6));
+            Assert.That(expected.KeyNumberToVolumeEnvelopeHold, Is.EqualTo(actual.KeyNumberToVolumeEnvelopeHold));
+            Assert.That(expected.KeyNumberToVolumeEnvelopeDecay, Is.EqualTo(actual.KeyNumberToVolumeEnvelopeDecay));
 
-            Assert.AreEqual(expected.InitialAttenuation, actual.InitialAttenuation, 1.0E-6);
+            Assert.That(expected.InitialAttenuation, Is.EqualTo(actual.InitialAttenuation).Within(1.0E-6));
 
-            Assert.AreEqual(expected.CoarseTune, actual.CoarseTune);
-            Assert.AreEqual(expected.FineTune, actual.FineTune);
-            Assert.AreEqual(expected.SampleModes, actual.SampleModes);
+            Assert.That(expected.CoarseTune, Is.EqualTo(actual.CoarseTune));
+            Assert.That(expected.FineTune, Is.EqualTo(actual.FineTune));
+            Assert.That(expected.SampleModes, Is.EqualTo(actual.SampleModes));
 
-            Assert.AreEqual(expected.ScaleTuning, actual.ScaleTuning);
-            Assert.AreEqual(expected.ExclusiveClass, actual.ExclusiveClass);
-            Assert.AreEqual(expected.RootKey, actual.RootKey);
+            Assert.That(expected.ScaleTuning, Is.EqualTo(actual.ScaleTuning));
+            Assert.That(expected.ExclusiveClass, Is.EqualTo(actual.ExclusiveClass));
+            Assert.That(expected.RootKey, Is.EqualTo(actual.RootKey));
         }
 
         private static void Check(PresetRegion preset, InstrumentRegion instrument, RegionPair pair)
         {
-            Assert.AreEqual(instrument.StartAddressOffset, pair.StartAddressOffset);
-            Assert.AreEqual(instrument.EndAddressOffset, pair.EndAddressOffset);
-            Assert.AreEqual(instrument.StartLoopAddressOffset, pair.StartLoopAddressOffset);
-            Assert.AreEqual(instrument.EndLoopAddressOffset, pair.EndLoopAddressOffset);
+            Assert.That(instrument.StartAddressOffset, Is.EqualTo(pair.StartAddressOffset));
+            Assert.That(instrument.EndAddressOffset, Is.EqualTo(pair.EndAddressOffset));
+            Assert.That(instrument.StartLoopAddressOffset, Is.EqualTo(pair.StartLoopAddressOffset));
+            Assert.That(instrument.EndLoopAddressOffset, Is.EqualTo(pair.EndLoopAddressOffset));
 
-            Assert.AreEqual(instrument.ModulationLfoToPitch + preset.ModulationLfoToPitch, pair.ModulationLfoToPitch);
-            Assert.AreEqual(instrument.VibratoLfoToPitch + preset.VibratoLfoToPitch, pair.VibratoLfoToPitch);
-            Assert.AreEqual(instrument.ModulationEnvelopeToPitch + preset.ModulationEnvelopeToPitch, pair.ModulationEnvelopeToPitch);
-            Assert.AreEqual(instrument.InitialFilterCutoffFrequency * preset.InitialFilterCutoffFrequency, pair.InitialFilterCutoffFrequency, 1.0);
-            Assert.AreEqual(instrument.InitialFilterQ + preset.InitialFilterQ, pair.InitialFilterQ, 1.0E-3);
-            Assert.AreEqual(instrument.ModulationLfoToFilterCutoffFrequency + preset.ModulationLfoToFilterCutoffFrequency, pair.ModulationLfoToFilterCutoffFrequency);
-            Assert.AreEqual(instrument.ModulationEnvelopeToFilterCutoffFrequency + preset.ModulationEnvelopeToFilterCutoffFrequency, pair.ModulationEnvelopeToFilterCutoffFrequency);
+            Assert.That(instrument.ModulationLfoToPitch + preset.ModulationLfoToPitch, Is.EqualTo(pair.ModulationLfoToPitch));
+            Assert.That(instrument.VibratoLfoToPitch + preset.VibratoLfoToPitch, Is.EqualTo(pair.VibratoLfoToPitch));
+            Assert.That(instrument.ModulationEnvelopeToPitch + preset.ModulationEnvelopeToPitch, Is.EqualTo(pair.ModulationEnvelopeToPitch));
+            Assert.That(instrument.InitialFilterCutoffFrequency * preset.InitialFilterCutoffFrequency, Is.EqualTo(pair.InitialFilterCutoffFrequency).Within(1.0));
+            Assert.That(instrument.InitialFilterQ + preset.InitialFilterQ, Is.EqualTo(pair.InitialFilterQ).Within(1.0E-3));
+            Assert.That(instrument.ModulationLfoToFilterCutoffFrequency + preset.ModulationLfoToFilterCutoffFrequency, Is.EqualTo(pair.ModulationLfoToFilterCutoffFrequency));
+            Assert.That(instrument.ModulationEnvelopeToFilterCutoffFrequency + preset.ModulationEnvelopeToFilterCutoffFrequency, Is.EqualTo(pair.ModulationEnvelopeToFilterCutoffFrequency));
 
-            Assert.AreEqual(instrument.ModulationLfoToVolume + preset.ModulationLfoToVolume, pair.ModulationLfoToVolume, 1.0E-3);
+            Assert.That(instrument.ModulationLfoToVolume + preset.ModulationLfoToVolume, Is.EqualTo(pair.ModulationLfoToVolume).Within(1.0E-3));
 
-            Assert.AreEqual(instrument.ChorusEffectsSend + preset.ChorusEffectsSend, pair.ChorusEffectsSend, 1.0E-3);
-            Assert.AreEqual(instrument.ReverbEffectsSend + preset.ReverbEffectsSend, pair.ReverbEffectsSend, 1.0E-3);
-            Assert.AreEqual(instrument.Pan + preset.Pan, pair.Pan, 1.0E-3);
+            Assert.That(instrument.ChorusEffectsSend + preset.ChorusEffectsSend, Is.EqualTo(pair.ChorusEffectsSend).Within(1.0E-3));
+            Assert.That(instrument.ReverbEffectsSend + preset.ReverbEffectsSend, Is.EqualTo(pair.ReverbEffectsSend).Within(1.0E-3));
+            Assert.That(instrument.Pan + preset.Pan, Is.EqualTo(pair.Pan).Within(1.0E-3));
 
-            Assert.AreEqual(instrument.DelayModulationLfo * preset.DelayModulationLfo, pair.DelayModulationLfo, 1.0E-3);
-            Assert.AreEqual(instrument.FrequencyModulationLfo * preset.FrequencyModulationLfo, pair.FrequencyModulationLfo, 1.0E-3);
-            Assert.AreEqual(instrument.DelayVibratoLfo * preset.DelayVibratoLfo, pair.DelayVibratoLfo, 1.0E-3);
-            Assert.AreEqual(instrument.FrequencyVibratoLfo * preset.FrequencyVibratoLfo, pair.FrequencyVibratoLfo, 1.0E-3);
-            Assert.AreEqual(instrument.DelayModulationEnvelope * preset.DelayModulationEnvelope, pair.DelayModulationEnvelope, 1.0E-3);
-            Assert.AreEqual(instrument.AttackModulationEnvelope * preset.AttackModulationEnvelope, pair.AttackModulationEnvelope, 1.0E-3);
-            Assert.AreEqual(instrument.HoldModulationEnvelope * preset.HoldModulationEnvelope, pair.HoldModulationEnvelope, 1.0E-3);
-            Assert.AreEqual(instrument.DecayModulationEnvelope * preset.DecayModulationEnvelope, pair.DecayModulationEnvelope, 1.0E-3);
-            Assert.AreEqual(instrument.SustainModulationEnvelope + preset.SustainModulationEnvelope, pair.SustainModulationEnvelope, 1.0E-2);
-            Assert.AreEqual(instrument.ReleaseModulationEnvelope * preset.ReleaseModulationEnvelope, pair.ReleaseModulationEnvelope, 1.0E-2);
-            Assert.AreEqual(instrument.KeyNumberToModulationEnvelopeHold + preset.KeyNumberToModulationEnvelopeHold, pair.KeyNumberToModulationEnvelopeHold);
-            Assert.AreEqual(instrument.KeyNumberToModulationEnvelopeDecay + preset.KeyNumberToModulationEnvelopeDecay, pair.KeyNumberToModulationEnvelopeDecay);
-            Assert.AreEqual(instrument.DelayVolumeEnvelope * preset.DelayVolumeEnvelope, pair.DelayVolumeEnvelope, 1.0E-3);
-            Assert.AreEqual(instrument.AttackVolumeEnvelope * preset.AttackVolumeEnvelope, pair.AttackVolumeEnvelope, 1.0E-3);
-            Assert.AreEqual(instrument.HoldVolumeEnvelope * preset.HoldVolumeEnvelope, pair.HoldVolumeEnvelope, 1.0E-3);
-            Assert.AreEqual(instrument.DecayVolumeEnvelope * preset.DecayVolumeEnvelope, pair.DecayVolumeEnvelope, 1.0E-3);
-            Assert.AreEqual(instrument.SustainVolumeEnvelope + preset.SustainVolumeEnvelope, pair.SustainVolumeEnvelope, 1.0E-3);
-            Assert.AreEqual(instrument.ReleaseVolumeEnvelope * preset.ReleaseVolumeEnvelope, pair.ReleaseVolumeEnvelope, 1.0E-3);
-            Assert.AreEqual(instrument.KeyNumberToVolumeEnvelopeHold + preset.KeyNumberToVolumeEnvelopeHold, pair.KeyNumberToVolumeEnvelopeHold);
-            Assert.AreEqual(instrument.KeyNumberToVolumeEnvelopeDecay + preset.KeyNumberToVolumeEnvelopeDecay, pair.KeyNumberToVolumeEnvelopeDecay);
+            Assert.That(instrument.DelayModulationLfo * preset.DelayModulationLfo, Is.EqualTo(pair.DelayModulationLfo).Within(1.0E-3));
+            Assert.That(instrument.FrequencyModulationLfo * preset.FrequencyModulationLfo, Is.EqualTo(pair.FrequencyModulationLfo).Within(1.0E-3));
+            Assert.That(instrument.DelayVibratoLfo * preset.DelayVibratoLfo, Is.EqualTo(pair.DelayVibratoLfo).Within(1.0E-3));
+            Assert.That(instrument.FrequencyVibratoLfo * preset.FrequencyVibratoLfo, Is.EqualTo(pair.FrequencyVibratoLfo).Within(1.0E-3));
+            Assert.That(instrument.DelayModulationEnvelope * preset.DelayModulationEnvelope, Is.EqualTo(pair.DelayModulationEnvelope).Within(1.0E-3));
+            Assert.That(instrument.AttackModulationEnvelope * preset.AttackModulationEnvelope, Is.EqualTo(pair.AttackModulationEnvelope).Within(1.0E-3));
+            Assert.That(instrument.HoldModulationEnvelope * preset.HoldModulationEnvelope, Is.EqualTo(pair.HoldModulationEnvelope).Within(1.0E-3));
+            Assert.That(instrument.DecayModulationEnvelope * preset.DecayModulationEnvelope, Is.EqualTo(pair.DecayModulationEnvelope).Within(1.0E-3));
+            Assert.That(instrument.SustainModulationEnvelope + preset.SustainModulationEnvelope, Is.EqualTo(pair.SustainModulationEnvelope).Within(1.0E-2));
+            Assert.That(instrument.ReleaseModulationEnvelope * preset.ReleaseModulationEnvelope, Is.EqualTo(pair.ReleaseModulationEnvelope).Within(1.0E-2));
+            Assert.That(instrument.KeyNumberToModulationEnvelopeHold + preset.KeyNumberToModulationEnvelopeHold, Is.EqualTo(pair.KeyNumberToModulationEnvelopeHold));
+            Assert.That(instrument.KeyNumberToModulationEnvelopeDecay + preset.KeyNumberToModulationEnvelopeDecay, Is.EqualTo(pair.KeyNumberToModulationEnvelopeDecay));
+            Assert.That(instrument.DelayVolumeEnvelope * preset.DelayVolumeEnvelope, Is.EqualTo(pair.DelayVolumeEnvelope).Within(1.0E-3));
+            Assert.That(instrument.AttackVolumeEnvelope * preset.AttackVolumeEnvelope, Is.EqualTo(pair.AttackVolumeEnvelope).Within(1.0E-3));
+            Assert.That(instrument.HoldVolumeEnvelope * preset.HoldVolumeEnvelope, Is.EqualTo(pair.HoldVolumeEnvelope).Within(1.0E-3));
+            Assert.That(instrument.DecayVolumeEnvelope * preset.DecayVolumeEnvelope, Is.EqualTo(pair.DecayVolumeEnvelope).Within(1.0E-3));
+            Assert.That(instrument.SustainVolumeEnvelope + preset.SustainVolumeEnvelope, Is.EqualTo(pair.SustainVolumeEnvelope).Within(1.0E-3));
+            Assert.That(instrument.ReleaseVolumeEnvelope * preset.ReleaseVolumeEnvelope, Is.EqualTo(pair.ReleaseVolumeEnvelope).Within(1.0E-3));
+            Assert.That(instrument.KeyNumberToVolumeEnvelopeHold + preset.KeyNumberToVolumeEnvelopeHold, Is.EqualTo(pair.KeyNumberToVolumeEnvelopeHold));
+            Assert.That(instrument.KeyNumberToVolumeEnvelopeDecay + preset.KeyNumberToVolumeEnvelopeDecay, Is.EqualTo(pair.KeyNumberToVolumeEnvelopeDecay));
 
-            Assert.AreEqual(instrument.InitialAttenuation + preset.InitialAttenuation, pair.InitialAttenuation, 1.0E-3);
+            Assert.That(instrument.InitialAttenuation + preset.InitialAttenuation, Is.EqualTo(pair.InitialAttenuation).Within(1.0E-3));
 
-            Assert.AreEqual(instrument.CoarseTune + preset.CoarseTune, pair.CoarseTune);
-            Assert.AreEqual(instrument.FineTune + preset.FineTune, pair.FineTune);
-            Assert.AreEqual(instrument.SampleModes, pair.SampleModes);
+            Assert.That(instrument.CoarseTune + preset.CoarseTune, Is.EqualTo(pair.CoarseTune));
+            Assert.That(instrument.FineTune + preset.FineTune, Is.EqualTo(pair.FineTune));
+            Assert.That(instrument.SampleModes, Is.EqualTo(pair.SampleModes));
 
-            Assert.AreEqual(instrument.ScaleTuning + preset.ScaleTuning, pair.ScaleTuning);
-            Assert.AreEqual(instrument.ExclusiveClass, pair.ExclusiveClass);
-            Assert.AreEqual(instrument.RootKey, pair.RootKey);
+            Assert.That(instrument.ScaleTuning + preset.ScaleTuning, Is.EqualTo(pair.ScaleTuning));
+            Assert.That(instrument.ExclusiveClass, Is.EqualTo(pair.ExclusiveClass));
+            Assert.That(instrument.RootKey, Is.EqualTo(pair.RootKey));
         }
     }
 }

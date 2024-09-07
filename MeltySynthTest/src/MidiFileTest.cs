@@ -19,7 +19,7 @@ namespace MeltySynthTest
         {
             var actual = MidiFile.GetTimeSpanFromSeconds(value);
             var expected = TimeSpan.FromSeconds(value);
-            Assert.AreEqual(actual.Ticks, expected.Ticks);
+            Assert.That(actual.Ticks, Is.EqualTo(expected.Ticks));
         }
 
         [TestCase("flourish.mid", 87.5)]
@@ -29,7 +29,7 @@ namespace MeltySynthTest
         {
             var actual = new MidiFile(path).Length.TotalSeconds;
             var expected = length;
-            Assert.AreEqual(actual, expected, 0.1);
+            Assert.That(actual, Is.EqualTo(expected).Within(0.1));
         }
     }
 }

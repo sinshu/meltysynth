@@ -14,7 +14,7 @@ namespace MeltySynthTest
         {
             var dir = Path.Combine("ReferenceData", "TinySoundFont", "VolumeEnvelope", "D03_A05_H07_D11_S02_R13");
             var expected = File.ReadLines(Path.Combine(dir, "Continuous.csv")).Select(line => float.Parse(line.Split(',')[1])).ToArray();
-            Assert.IsTrue(expected.Length == 3000);
+            Assert.That(expected.Length, Is.EqualTo(3000));
 
             var synthesizer = new Synthesizer(TestSettings.DefaultSoundFont, 44100);
             var envelope = new VolumeEnvelope(synthesizer);
@@ -44,7 +44,7 @@ namespace MeltySynthTest
             {
                 var name = "NoteOff" + noteOffBlock.ToString("0000") + ".csv";
                 var expected = File.ReadLines(Path.Combine(dir, name)).Select(line => float.Parse(line.Split(',')[1])).ToArray();
-                Assert.IsTrue(expected.Length == 3000);
+                Assert.That(expected.Length, Is.EqualTo(3000));
 
                 envelope.Start(0.3F, 0.5F, 0.7F, 1.1F, 0.2F, 1.3F);
 
@@ -70,7 +70,7 @@ namespace MeltySynthTest
         {
             var dir = Path.Combine("ReferenceData", "TinySoundFont", "VolumeEnvelope", "D00_A00_H00_D23_S01_R57");
             var expected = File.ReadLines(Path.Combine(dir, "Continuous.csv")).Select(line => float.Parse(line.Split(',')[1])).ToArray();
-            Assert.IsTrue(expected.Length == 3000);
+            Assert.That(expected.Length, Is.EqualTo(3000));
 
             var synthesizer = new Synthesizer(TestSettings.DefaultSoundFont, 44100);
             var envelope = new VolumeEnvelope(synthesizer);
@@ -100,7 +100,7 @@ namespace MeltySynthTest
             {
                 var name = "NoteOff" + noteOffBlock.ToString("0000") + ".csv";
                 var expected = File.ReadLines(Path.Combine(dir, name)).Select(line => float.Parse(line.Split(',')[1])).ToArray();
-                Assert.IsTrue(expected.Length == 3000);
+                Assert.That(expected.Length, Is.EqualTo(3000));
 
                 envelope.Start(0.0F, 0.0F, 0.0F, 2.3F, 0.1F, 5.7F);
 
