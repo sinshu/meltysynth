@@ -223,7 +223,7 @@ public sealed class AudioStream : IDisposable
 
         if (pollingTask != null)
         {
-            pollingCts.Cancel();
+            pollingCts!.Cancel();
         }
     }
 

@@ -7,8 +7,8 @@ public class Game1 : Game
 {
     private GraphicsDeviceManager graphics;
 
-    private MidiPlayer midiPlayer;
-    private MidiFile midiFile;
+    private MidiFile? midiFile;
+    private MidiPlayer? midiPlayer;
 
     public Game1()
     {
@@ -17,20 +17,24 @@ public class Game1 : Game
 
     protected override void LoadContent()
     {
-        midiPlayer = new MidiPlayer("TimGM6mb.sf2");
         midiFile = new MidiFile(@"C:\Windows\Media\flourish.mid");
+        midiPlayer = new MidiPlayer("TimGM6mb.sf2");
     }
 
     protected override void UnloadContent()
     {
-        midiPlayer.Dispose();
+        if (midiPlayer != null)
+        {
+            midiPlayer.Dispose();
+            midiPlayer = null;
+        }
     }
 
     protected override void Update(GameTime gameTime)
     {
-        if (midiPlayer.State == SoundState.Stopped)
+        if (midiPlayer!.State == SoundState.Stopped)
         {
-            midiPlayer.Play(midiFile, true);
+            midiPlayer.Play(midiFile!, true);
         }
 
         base.Update(gameTime);
