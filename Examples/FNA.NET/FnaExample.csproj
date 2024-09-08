@@ -2,11 +2,12 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FNA.NET" Version="1.0.0.77-develop" />
+    <PackageReference Include="FNA.NET" Version="1.0.15.2403" />
     <PackageReference Include="MeltySynth" Version="2.4.1" />
   </ItemGroup>
 

@@ -7,8 +7,8 @@ public class MidiPlayer : IDisposable
     private Synthesizer synthesizer;
     private MidiFileSequencer sequencer;
 
-    private AudioStream stream;
     private object mutex;
+    private AudioStream? stream;
 
     public MidiPlayer(AL al, string soundFontPath)
     {
@@ -17,8 +17,8 @@ public class MidiPlayer : IDisposable
         synthesizer = new Synthesizer(soundFontPath, settings);
         sequencer = new MidiFileSequencer(synthesizer);
 
-        stream = new AudioStream(al, settings.SampleRate, 2);
         mutex = new object();
+        stream = new AudioStream(al, settings.SampleRate, 2);
     }
 
     private void FillBlock(short[] data)
@@ -31,6 +31,11 @@ public class MidiPlayer : IDisposable
 
     public void Play(MidiFile midiFile, bool loop)
     {
+        if (stream == null)
+        {
+            throw new ObjectDisposedException(nameof(MidiPlayer));
+        }
+
         lock (mutex)
         {
             sequencer.Play(midiFile, loop);
@@ -44,6 +49,11 @@ public class MidiPlayer : IDisposable
 
     public void Stop()
     {
+        if (stream == null)
+        {
+            throw new ObjectDisposedException(nameof(MidiPlayer));
+        }
+
         lock (mutex)
         {
             sequencer.Stop();

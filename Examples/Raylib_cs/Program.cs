@@ -39,8 +39,8 @@ class Program
             }
 
             Raylib.BeginDrawing();
-            Raylib.ClearBackground(Color.LIGHTGRAY);
-            Raylib.DrawText("MUSIC SHOULD BE PLAYING!", 255, 200, 20, Color.DARKGRAY);
+            Raylib.ClearBackground(Color.LightGray);
+            Raylib.DrawText("MUSIC SHOULD BE PLAYING!", 255, 200, 20, Color.DarkGray);
             Raylib.EndDrawing();
         }
 

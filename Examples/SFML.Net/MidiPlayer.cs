@@ -5,7 +5,7 @@ using MeltySynth;
 
 public class MidiPlayer : IDisposable
 {
-    private MidiSoundStream stream;
+    private MidiSoundStream? stream;
 
     public MidiPlayer(string soundFontPath)
     {
@@ -14,11 +14,21 @@ public class MidiPlayer : IDisposable
 
     public void Play(MidiFile midiFile, bool loop)
     {
+        if (stream == null)
+        {
+            throw new ObjectDisposedException(nameof(MidiPlayer));
+        }
+
         stream.PlayMidi(midiFile, loop);
     }
 
     public void Stop()
     {
+        if (stream == null)
+        {
+            throw new ObjectDisposedException(nameof(MidiPlayer));
+        }
+
         stream.StopMidi();
     }
 
@@ -89,7 +99,6 @@ public class MidiPlayer : IDisposable
 
         protected override void OnSeek(Time timeOffset)
         {
-            throw new NotSupportedException();
         }
     }
 }

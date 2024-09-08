@@ -11,8 +11,8 @@ public class MidiPlayer : IDisposable
     private Synthesizer synthesizer;
     private MidiFileSequencer sequencer;
 
-    private DynamicSoundEffectInstance dynamicSound;
     private byte[] buffer;
+    private DynamicSoundEffectInstance? dynamicSound;
 
     public MidiPlayer(string soundFontPath)
     {
@@ -27,6 +27,11 @@ public class MidiPlayer : IDisposable
 
     public void Play(MidiFile midiFile, bool loop)
     {
+        if (dynamicSound == null)
+        {
+            throw new ObjectDisposedException(nameof(MidiPlayer));
+        }
+
         sequencer.Play(midiFile, loop);
 
         if (dynamicSound.State != SoundState.Playing)
@@ -38,13 +43,18 @@ public class MidiPlayer : IDisposable
 
     public void Stop()
     {
+        if (dynamicSound == null)
+        {
+            throw new ObjectDisposedException(nameof(MidiPlayer));
+        }
+
         sequencer.Stop();
     }
 
     private void SubmitBuffer()
     {
         sequencer.RenderInterleavedInt16(MemoryMarshal.Cast<byte, short>(buffer));
-        dynamicSound.SubmitBuffer(buffer, 0, buffer.Length);
+        dynamicSound!.SubmitBuffer(buffer, 0, buffer.Length);
     }
 
     public void Dispose()
@@ -56,5 +66,16 @@ public class MidiPlayer : IDisposable
         }
     }
 
-    public SoundState State => dynamicSound.State;
+    public SoundState State
+    {
+        get
+        {
+            if (dynamicSound == null)
+            {
+                throw new ObjectDisposedException(nameof(MidiPlayer));
+            }
+
+            return dynamicSound.State;
+        }
+    }
 }

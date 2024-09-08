@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using OpenTK.Audio.OpenAL;
 
 /// <summary>
-/// Provides the functionalities for streaming audio.
+/// Provides functionalities for streaming audio.
 /// </summary>
 public sealed class AudioStream : IDisposable
 {
@@ -27,9 +27,9 @@ public sealed class AudioStream : IDisposable
     private short[] blockData;
     private int[] alBufferQueue;
 
-    private Action<short[]> fillBlock;
-    private CancellationTokenSource pollingCts;
-    private Task pollingTask;
+    private Action<short[]>? fillBlock;
+    private CancellationTokenSource? pollingCts;
+    private Task? pollingTask;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="AudioStream"/> class.
@@ -134,7 +134,7 @@ public sealed class AudioStream : IDisposable
 
         if (pollingTask != null)
         {
-            pollingCts.Cancel();
+            pollingCts!.Cancel();
             pollingTask.Wait();
             pollingTask.Dispose();
             pollingTask = null;
@@ -183,7 +183,7 @@ public sealed class AudioStream : IDisposable
         // If the previous playback is still ongoing, we have to stop it.
         if (pollingTask != null)
         {
-            pollingCts.Cancel();
+            pollingCts!.Cancel();
             pollingTask.Wait();
             pollingTask.Dispose();
             pollingCts.Dispose();
@@ -217,7 +217,7 @@ public sealed class AudioStream : IDisposable
 
         if (pollingTask != null)
         {
-            pollingCts.Cancel();
+            pollingCts!.Cancel();
         }
     }
 
@@ -229,7 +229,7 @@ public sealed class AudioStream : IDisposable
             AL.GetSource(alSource, ALGetSourcei.BuffersProcessed, out processedCount);
             for (var i = 0; i < processedCount; i++)
             {
-                fillBlock(blockData);
+                fillBlock!(blockData);
                 AL.SourceUnqueueBuffers(alSource, alBufferQueue);
                 AL.BufferData(alBufferQueue[0], format, blockData, sampleRate);
                 AL.SourceQueueBuffers(alSource, alBufferQueue);
