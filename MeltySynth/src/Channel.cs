@@ -15,6 +15,7 @@ namespace MeltySynth
         private short pan;
         private short expression;
         private bool holdPedal;
+        private bool sostenuto;
 
         private byte reverbSend;
         private byte chorusSend;
@@ -44,6 +45,7 @@ namespace MeltySynth
             pan = 64 << 7;
             expression = 127 << 7;
             holdPedal = false;
+            sostenuto = false;
 
             reverbSend = 40;
             chorusSend = 0;
@@ -61,6 +63,7 @@ namespace MeltySynth
             modulation = 0;
             expression = 127 << 7;
             holdPedal = false;
+            sostenuto = false;
 
             rpn = -1;
 
@@ -125,6 +128,11 @@ namespace MeltySynth
         public void SetHoldPedal(int value)
         {
             holdPedal = value >= 64;
+        }
+
+        public void SetSostenuto(int value)
+        {
+            sostenuto = value >= 64;
         }
 
         public void SetReverbSend(int value)
@@ -194,6 +202,7 @@ namespace MeltySynth
         public float Pan => (100F / 16383F) * pan - 50F;
         public float Expression => (1F / 16383F) * expression;
         public bool HoldPedal => holdPedal;
+        public bool Sostenuto => sostenuto;
 
         public float ReverbSend => (1F / 127F) * reverbSend;
         public float ChorusSend => (1F / 127F) * chorusSend;

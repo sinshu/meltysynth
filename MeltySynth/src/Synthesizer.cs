@@ -237,6 +237,17 @@ namespace MeltySynth
                             channelInfo.SetHoldPedal(data2);
                             break;
 
+                        case 0x42: // Sostenuto
+                            channelInfo.SetSostenuto(data2);
+                            foreach (var voice in voices)
+                            {
+                                if (voice.Channel == channel)
+                                {
+                                    voice.StartSostenuto();
+                                }
+                            }
+                            break;
+
                         case 0x5B: // Reverb Send
                             channelInfo.SetReverbSend(data2);
                             break;

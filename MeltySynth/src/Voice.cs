@@ -64,6 +64,8 @@ namespace MeltySynth
         private VoiceState voiceState;
         private int voiceLength;
 
+        private bool isSostenutoTarget;
+
         internal Voice(Synthesizer synthesizer)
         {
             this.synthesizer = synthesizer;
@@ -131,6 +133,13 @@ namespace MeltySynth
 
             voiceState = VoiceState.Playing;
             voiceLength = 0;
+
+            isSostenutoTarget = false;
+        }
+
+        public void StartSostenuto()
+        {
+            isSostenutoTarget = true;
         }
 
         public void End()
@@ -246,7 +255,17 @@ namespace MeltySynth
                 return;
             }
 
-            if (voiceState == VoiceState.ReleaseRequested && !channelInfo.HoldPedal)
+            if (channelInfo.HoldPedal)
+            {
+                return;
+            }
+
+            if (channelInfo.Sostenuto && isSostenutoTarget)
+            {
+                return;
+            }
+
+            if (voiceState == VoiceState.ReleaseRequested)
             {
                 volEnv.Release();
                 modEnv.Release();
