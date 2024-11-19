@@ -239,11 +239,14 @@ namespace MeltySynth
 
                         case 0x42: // Sostenuto
                             channelInfo.SetSostenuto(data2);
-                            foreach (var voice in voices)
+                            if (channelInfo.Sostenuto)
                             {
-                                if (voice.Channel == channel)
+                                foreach (var voice in voices)
                                 {
-                                    voice.StartSostenuto();
+                                    if (voice.Channel == channel)
+                                    {
+                                        voice.StartSostenuto();
+                                    }
                                 }
                             }
                             break;
