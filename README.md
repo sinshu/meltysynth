@@ -81,7 +81,8 @@ If you don't like DLLs, copy [all the .cs files](https://github.com/sinshu/melty
 
 MeltySynth can only generate PCM waveforms; MeltySynth itself does not have the ability to play sound from speakers. To make the sound audible, export the generated waveform as an audio file (e.g., WAV file) or pass it to some audio driver (e.g., NAudio). If you are not very familiar with how to handle PCM audio, [NAudio's tutorials](https://github.com/naudio/NAudio#tutorials) should be helpful.
 
-Note that MeltySynth does not provide thread safety. If you want to send notes and render the waveform in separate threads, you must ensure that the related methods will not be called simultaneously.
+> [!CAUTION]
+> Note that MeltySynth does not provide thread safety. If you want to send notes and render the waveform in separate threads, you must ensure that the related methods will not be called simultaneously.
 
 
 
