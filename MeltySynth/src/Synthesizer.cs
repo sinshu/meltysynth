@@ -245,6 +245,14 @@ namespace MeltySynth
                             channelInfo.SetChorusSend(data2);
                             break;
 
+                        case 0x63: // NRPN Coarse
+                            channelInfo.SetNrpnCoarse(data2);
+                            break;
+
+                        case 0x62: // NRPN Fine
+                            channelInfo.SetNrpnFine(data2);
+                            break;
+
                         case 0x65: // RPN Coarse
                             channelInfo.SetRpnCoarse(data2);
                             break;
