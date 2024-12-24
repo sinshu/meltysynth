@@ -26,6 +26,8 @@ namespace MeltySynth
 
         private float pitchBend;
 
+        private DataType lastDataType;
+
         internal Channel(Synthesizer synthesizer, bool isPercussionChannel)
         {
             this.synthesizer = synthesizer;
@@ -54,6 +56,8 @@ namespace MeltySynth
             fineTune = 8192;
 
             pitchBend = 0F;
+
+            lastDataType = DataType.None;
         }
 
         public void ResetAllControllers()
@@ -140,15 +144,32 @@ namespace MeltySynth
         public void SetRpnCoarse(int value)
         {
             rpn = (short)((rpn & 0x7F) | (value << 7));
+            lastDataType = DataType.Rpn;
         }
 
         public void SetRpnFine(int value)
         {
             rpn = (short)((rpn & 0xFF80) | value);
+            lastDataType = DataType.Rpn;
+        }
+
+        public void SetNrpnCoarse(int value)
+        {
+            lastDataType = DataType.Nrpn;
+        }
+
+        public void SetNrpnFine(int value)
+        {
+            lastDataType = DataType.Nrpn;
         }
 
         public void DataEntryCoarse(int value)
         {
+            if (lastDataType != DataType.Rpn)
+            {
+                return;
+            }
+
             switch (rpn)
             {
                 case 0:
@@ -167,6 +188,11 @@ namespace MeltySynth
 
         public void DataEntryFine(int value)
         {
+            if (lastDataType != DataType.Rpn)
+            {
+                return;
+            }
+
             switch (rpn)
             {
                 case 0:
@@ -202,5 +228,14 @@ namespace MeltySynth
         public float Tune => coarseTune + (1F / 8192F) * (fineTune - 8192);
 
         public float PitchBend => PitchBendRange * pitchBend;
+
+
+
+        private enum DataType
+        {
+            None,
+            Rpn,
+            Nrpn
+        }
     }
 }
