@@ -17,7 +17,7 @@ namespace MeltySynth
 
         internal static InstrumentInfo[] ReadFromChunk(BinaryReader reader, int size)
         {
-            if (size % 22 != 0)
+            if (size == 0 || size % 22 != 0)
             {
                 throw new InvalidDataException("The instrument list is invalid.");
             }

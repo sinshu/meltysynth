@@ -27,7 +27,7 @@ namespace MeltySynth
 
         internal static PresetInfo[] ReadFromChunk(BinaryReader reader, int size)
         {
-            if (size % 38 != 0)
+            if (size == 0 || size % 38 != 0)
             {
                 throw new InvalidDataException("The preset list is invalid.");
             }
