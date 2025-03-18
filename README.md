@@ -139,6 +139,7 @@ https://www.youtube.com/watch?v=IUKIEWvw6Ik
 * [MIDI file player for CSCore](https://github.com/sinshu/meltysynth/tree/main/Examples/CSCore)
 * [MIDI file player for TinyAudio](https://github.com/sinshu/meltysynth/tree/main/Examples/TinyAudio)
 * [MIDI file player for DrippyAL](https://github.com/sinshu/meltysynth/tree/main/Examples/DrippyAL)
+* [MIDI file player for SoundFlow](https://github.com/sinshu/meltysynth/tree/main/Examples/Sound_Flow)
 
 ### Handling SoundFont
 
