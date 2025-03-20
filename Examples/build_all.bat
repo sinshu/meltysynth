@@ -69,6 +69,11 @@ dotnet build -c Release
 cd ..
 copy TimGM6mb.sf2 Sokol\bin\Release\net8.0\TimGM6mb.sf2
 
+cd SoundFlow
+dotnet build -c Release
+cd ..
+copy TimGM6mb.sf2 SoundFlow\bin\Release\net8.0\TimGM6mb.sf2
+
 cd TinyAudio
 dotnet build -c Release
 cd ..

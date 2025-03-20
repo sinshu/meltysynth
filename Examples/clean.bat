@@ -26,6 +26,8 @@ rmdir /s /q "Silk.NET.SDL\bin"
 rmdir /s /q "Silk.NET.SDL\obj"
 rmdir /s /q "Sokol\bin"
 rmdir /s /q "Sokol\obj"
+rmdir /s /q "SoundFlow\bin"
+rmdir /s /q "SoundFlow\obj"
 rmdir /s /q "TinyAudio\bin"
 rmdir /s /q "TinyAudio\obj"
 pause
