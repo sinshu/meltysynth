@@ -42,7 +42,7 @@ namespace MeltySynth
 
         internal static SampleHeader[] ReadFromChunk(BinaryReader reader, int size)
         {
-            if (size % 46 != 0)
+            if (size == 0 || size % 46 != 0)
             {
                 throw new InvalidDataException("The sample header list is invalid.");
             }

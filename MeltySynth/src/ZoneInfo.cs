@@ -18,7 +18,7 @@ namespace MeltySynth
 
         internal static ZoneInfo[] ReadFromChunk(BinaryReader reader, int size)
         {
-            if (size % 4 != 0)
+            if (size == 0 || size % 4 != 0)
             {
                 throw new InvalidDataException("The zone list is invalid.");
             }

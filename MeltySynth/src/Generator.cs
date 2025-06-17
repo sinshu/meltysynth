@@ -16,7 +16,7 @@ namespace MeltySynth
 
         internal static Generator[] ReadFromChunk(BinaryReader reader, int size)
         {
-            if (size % 4 != 0)
+            if (size == 0 || size % 4 != 0)
             {
                 throw new InvalidDataException("The generator list is invalid.");
             }
