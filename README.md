@@ -388,4 +388,4 @@ https://www.polyphone-soundfonts.com/
 
 * __Freeverb by Jezar at Dreampoint__  
 The implementation of the reverb effect is based on Freeverb.  
-https://music.columbia.edu/pipermail/music-dsp/2001-October/045433.html
+https://github.com/sinshu/freeverb
