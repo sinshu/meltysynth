@@ -1,5 +1,14 @@
 # Unreleased
 
+- Complete nullable flow in external-bank comparison helpers and enable nullable
+  checks in both test modes and Workspace. Require initialized region ranges and
+  explicitly fail missing numerical matches instead of suppressing warnings.
+- Make Workspace's existing examples and benchmark runnable with configurable
+  assets and filenames. Keep WAV/JSON output in named bin/workspace runs and direct
+  test receipts in bin/TestResults; remove Windows Media/current-directory paths.
+  Share WAV writing, bound offline durations and verify original-fixture stereo,
+  PCM accuracy, silence, invalid inputs and released file handles.
+
 - Target the dependency-free core, tests and Workspace at .NET 10 with explicit
   C# 14. Pin stable SDK 10.0.404 and provide an optional SHA-512-verified local SDK
   installer. Resolve preset lookup nullable flow without suppression, added copies

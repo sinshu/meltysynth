@@ -361,12 +361,21 @@ budget violations throw `InvalidDataException`; physical sample EOF throws
 
 Run `python3 tools/regression_baseline.py` from a fresh checkout. It verifies the
 checked-in reference corpus and runs the complete suite in normal and .NET 10/C# 14
-source-integration modes. The baseline has **299 self-contained passes** per mode;
+source-integration modes. The baseline has **308 self-contained passes** per mode;
 **48 external comparisons** are explicitly unavailable without their real assets.
 See [RegressionBaselines.md](docs/RegressionBaselines.md) for fixture paths,
 provenance/hash pinning, numerical tolerances, strict external acceptance and
 silence/loop/stream-ownership contracts. No downloaded bank or game project is
 needed for the self-contained baseline.
+
+### Portable Workspace commands
+
+The offline Workspace now supports `chord`, `examples` and `benchmark`, configurable
+asset directories/filenames, and named output runs under ignored `bin/workspace`.
+It no longer uses Windows Media paths or the current directory for generated audio.
+See [WorkspaceTools.md](docs/WorkspaceTools.md) for commands, limits, timing scope
+and the original-fixture numerical/ownership checks. Ordinary test results also
+stay under `MeltySynthTest/bin/TestResults`.
 
 ### .NET 10 / C# 14 source integration
 
@@ -384,9 +393,9 @@ exact loaded PCM, sample-loop validation and MIDI-loop playback without external
 Omit `-p:SourceIntegration=true` to test the existing project-reference path.
 The two write boundaries use explicit mutable spans to avoid C# 14 selecting
 read-only array-to-span overloads. `.AsSpan()` creates a view without copying data.
-Core nullable warnings are resolved using flow-aware preset lookup. Six existing
-nullable warnings in external-bank test helpers remain separate cleanup work;
-the upstream tests requiring external SoundFonts are not included in this filter.
+Core and test-helper nullable warnings are resolved without suppression; both
+compilation modes enable nullable checking and the full runner treats warnings as
+errors. The upstream tests requiring external SoundFonts are not included in this filter.
 
 ### Handling MIDI file sequencer
 

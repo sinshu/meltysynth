@@ -8,7 +8,7 @@ Subsequent fixture/path baseline work is recorded in
 self-contained passes, with named external-bank comparisons reported separately.
 
 Subsequent upgrade acceptance: the core, tests and Workspace now target .NET 10 /
-C# 14 with SDK 10.0.404 pinned. Both compilation paths pass 299 self-contained cases;
+C# 14 with SDK 10.0.404 pinned. Both compilation paths now pass 308 self-contained cases after test/tool cleanup;
 the historical inventory below records the original toolchain and target state.
 See the migration acceptance in RegressionBaselines.md.
 

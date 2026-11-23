@@ -192,3 +192,34 @@ Receipts: `bin/validation/net10-upgrade/summary.json` and `regression/summary.js
 ./bin/dotnet/dotnet build MeltySynth/MeltySynth.csproj -c Release -warnaserror
 python3 tools/regression_baseline.py --output-dir bin/validation/net10-upgrade/regression
 ```
+
+## Test and Workspace completion
+
+The subsequent item-4 cleanup resolves the six historical helper warnings described
+above and enables nullable checks for normal tests and Workspace too. Both full
+lanes now compile with warnings as errors and report **308 passed / 48 unavailable /
+0 failed**, 356 discovered each. Nine new original-fixture Workspace cases add WAV
+numerical, silence, command/path and file-lifetime coverage; frozen synthesis values
+and thresholds are unchanged. Test SDK/adapter/analysis versions stay unchanged.
+Direct test receipts default to `MeltySynthTest/bin/TestResults`; Workspace WAVs and
+JSON stay under root `bin/workspace`, regardless of process working directory.
+See [WorkspaceTools.md](WorkspaceTools.md) and local
+`bin/validation/net10-tooling/summary.json` for commands and evidence.
+
+## Audio-loop closure revalidation
+
+Item 6 was rechecked on 2026-11-23 after the framework/tool upgrade; the production
+loop fixes already exist and required no new source change. Project-reference and
+source-inclusive configurations each passed **55 focused cases**, zero failures or
+skips, warnings as errors, with a 60-second process deadline per mode. This covers
+MIDI loop termination/timing, rejected replacement ownership, independent oscillator
+numerics and release, sample-loop load validation and frozen synthesis/fragmented
+rendering/silence. Prior performance and real-music receipts remain historical;
+this is a correctness rerun, not new timing or hardware playback acceptance.
+
+```sh
+./bin/dotnet/dotnet test MeltySynthTest/MeltySynthTest.csproj -c Release -warnaserror --filter 'FullyQualifiedName~MidiFileSequencerLoopTest|FullyQualifiedName~OscillatorLoopRegressionTest|FullyQualifiedName~SampleLoopValidationTest|FullyQualifiedName~SynthesisBaselineTest'
+# Repeat with -p:SourceIntegration=true for source inclusion.
+```
+
+Local logs/TRX/summary: `bin/validation/audio-loop-reacceptance/`.
