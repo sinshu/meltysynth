@@ -363,3 +363,6 @@ FodyWeavers.xsd
 
 # Local Codex notes and working files
 /codex/
+
+# Optional third-party regression assets; provide provenance separately.
+/MeltySynthTest/ExternalAssets/

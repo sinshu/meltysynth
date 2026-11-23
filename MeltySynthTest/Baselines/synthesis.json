@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 1,
+  "sampleRate": 32000,
+  "blockSize": 64,
+  "polyphony": 8,
+  "masterVolume": 0.5,
+  "frames": 32768,
+  "soundFontSha256": "64f4058105390c2efd924797a4228027e49dd2f9fac768abd6957cf0376573ce",
+  "midiSha256": "95b6f4572d44ecb8235461219a9aee4e324effb51bf909d5d77e0a22db493502",
+  "scenarios": [
+    {
+      "effects": false,
+      "metrics": [
+        30.853125772069035,
+        50.98724136714981,
+        0.07623803615570068,
+        0.09752504527568817
+      ],
+      "checkpoints": [
+        {
+          "frame": 0,
+          "left": 0,
+          "right": 0
+        },
+        {
+          "frame": 1,
+          "left": 0.011738442,
+          "right": 0.0062747807
+        },
+        {
+          "frame": 63,
+          "left": -0.011738442,
+          "right": -0.0062747807
+        },
+        {
+          "frame": 64,
+          "left": 0,
+          "right": 0
+        },
+        {
+          "frame": 511,
+          "left": -0.011738442,
+          "right": -0.0062747807
+        },
+        {
+          "frame": 1023,
+          "left": -0.013467532,
+          "right": -0.025199983
+        },
+        {
+          "frame": 4095,
+          "left": -0.013296755,
+          "right": -0.024614325
+        },
+        {
+          "frame": 8191,
+          "left": -0.01809201,
+          "right": -0.033853147
+        },
+        {
+          "frame": 16383,
+          "left": -0.015090169,
+          "right": -0.008062002
+        },
+        {
+          "frame": 32767,
+          "left": -0.013158581,
+          "right": -0.0070339157
+        }
+      ]
+    },
+    {
+      "effects": true,
+      "metrics": [
+        36.655962676774166,
+        46.40423819051446,
+        0.07692033052444458,
+        0.10175031423568726
+      ],
+      "checkpoints": [
+        {
+          "frame": 0,
+          "left": 0,
+          "right": 0
+        },
+        {
+          "frame": 1,
+          "left": 0.011738442,
+          "right": 0.0062747807
+        },
+        {
+          "frame": 63,
+          "left": -0.011738442,
+          "right": -0.0062747807
+        },
+        {
+          "frame": 64,
+          "left": 0,
+          "right": 0
+        },
+        {
+          "frame": 511,
+          "left": -0.011738442,
+          "right": -0.0062747807
+        },
+        {
+          "frame": 1023,
+          "left": -0.013150354,
+          "right": -0.025155196
+        },
+        {
+          "frame": 4095,
+          "left": -0.014805077,
+          "right": -0.030389655
+        },
+        {
+          "frame": 8191,
+          "left": -0.016267113,
+          "right": -0.04095007
+        },
+        {
+          "frame": 16383,
+          "left": -0.023197358,
+          "right": -0.014359264
+        },
+        {
+          "frame": 32767,
+          "left": -0.018859483,
+          "right": -0.015448526
+        }
+      ]
+    }
+  ],
+  "frozenAt": "2026-11-23",
+  "productionCommit": "2af12ffb4588a89ddf74fce8e1fde7d9da0c4b55",
+  "captureRuntime": ".NET 10.0.7 ARM64 / SDK 10.0.203",
+  "sampleAbsoluteTolerance": 1e-06,
+  "metricAbsoluteTolerance": 1e-06,
+  "metricRelativeTolerance": 1e-06
+}

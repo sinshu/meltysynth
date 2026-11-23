@@ -1,0 +1,44 @@
+{
+  "assets": [
+    {
+      "name": "TimGM6mb.sf2",
+      "sha256": null,
+      "provenance": null
+    },
+    {
+      "name": "Arachno SoundFont - Version 1.0.sf2",
+      "sha256": null,
+      "provenance": null
+    },
+    {
+      "name": "GeneralUser GS MuseScore v1.442.sf2",
+      "sha256": null,
+      "provenance": null
+    },
+    {
+      "name": "SGM-V2.01.sf2",
+      "sha256": null,
+      "provenance": null
+    },
+    {
+      "name": "MuseScore_General.sf3",
+      "sha256": null,
+      "provenance": null
+    },
+    {
+      "name": "flourish.mid",
+      "sha256": null,
+      "provenance": null
+    },
+    {
+      "name": "onestop.mid",
+      "sha256": null,
+      "provenance": null
+    },
+    {
+      "name": "town.mid",
+      "sha256": null,
+      "provenance": null
+    }
+  ]
+}

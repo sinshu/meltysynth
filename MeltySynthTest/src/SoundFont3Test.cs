@@ -11,10 +11,12 @@ namespace MeltySynthTest
 {
     public class SoundFont3Test
     {
+        [Category("ExternalAssets")]
         [TestCase]
         public void SoundFont3FailTest()
         {
-            Assert.Throws<NotSupportedException>(() => new SoundFont("MuseScore_General.sf3"));
+            var path = TestAssets.RequireExternal("MuseScore_General.sf3");
+            Assert.Throws<NotSupportedException>(() => new SoundFont(path));
         }
     }
 }

@@ -1,25 +1,43 @@
-﻿using System;
-using System.Linq;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using MeltySynth;
+using NUnit.Framework;
 
 namespace MeltySynthTest
 {
-    public class TestSettings
+    public static class TestSettings
     {
-        public static object[] SoundFonts =
+        private static readonly string[] Names =
         {
-            new object[] { "TimGM6mb", new SoundFont("TimGM6mb.sf2") },
-            new object[] { "Arachno SoundFont - Version 1.0", new SoundFont("Arachno SoundFont - Version 1.0.sf2") },
-            new object[] { "GeneralUser GS MuseScore v1.442", new SoundFont("GeneralUser GS MuseScore v1.442.sf2") },
-            new object[] { "SGM-V2.01", new SoundFont("SGM-V2.01.sf2") }
+            "TimGM6mb", "Arachno SoundFont - Version 1.0",
+            "GeneralUser GS MuseScore v1.442", "SGM-V2.01"
         };
+        // Four named immutable external banks at most; never load them during discovery.
+        private static readonly Dictionary<string, Lazy<SoundFont>> Banks = CreateBanks();
+        private static readonly Lazy<SoundFont> Synthetic = new Lazy<SoundFont>(MidiLoopTestAssets.SoundFont);
+        public static SoundFont SyntheticSoundFont => Synthetic.Value;
 
-        public static object[] LightSoundFonts =
+        private static Dictionary<string, Lazy<SoundFont>> CreateBanks()
         {
-            new object[] { "TimGM6mb", new SoundFont("TimGM6mb.sf2") },
-            new object[] { "GeneralUser GS MuseScore v1.442", new SoundFont("GeneralUser GS MuseScore v1.442.sf2") }
-        };
+            var result = new Dictionary<string, Lazy<SoundFont>>();
+            foreach (var name in Names)
+                result.Add(name, new Lazy<SoundFont>(() => new SoundFont(TestAssets.RequireExternal(name + ".sf2"))));
+            return result;
+        }
 
-        public static SoundFont DefaultSoundFont => (SoundFont)((object[])SoundFonts[0])[1];
+        public static SoundFont LoadExternalSoundFont(string name) => Banks[name].Value;
+        public static IEnumerable<TestCaseData> SoundFonts => Cases(Names);
+        public static IEnumerable<TestCaseData> LightSoundFonts => Cases(new[] { Names[0], Names[2] });
+        private static IEnumerable<TestCaseData> Cases(IEnumerable<string> names)
+        {
+            foreach (var name in names)
+            {
+                var test = new TestCaseData(name).SetCategory("ExternalAssets");
+                if (!File.Exists(TestAssets.ExternalPath(name + ".sf2")))
+                    test.Ignore("Unavailable external SoundFont: " + name + ".sf2; configure MELTYSYNTH_TEST_ASSETS.");
+                yield return test;
+            }
+        }
     }
 }

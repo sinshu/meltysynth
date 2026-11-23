@@ -28,7 +28,7 @@ namespace MeltySynthTest
             var actual = new float[2 * length];
             renderer.RenderInterleaved(actual);
 
-            for (var i = 0; i < length; i++)
+            for (var i = 0; i < actual.Length; i++)
             {
                 Assert.That(expected[i], Is.EqualTo(actual[i]).Within(1.0E-6F));
             }
@@ -54,7 +54,7 @@ namespace MeltySynthTest
             var actual = new float[length];
             renderer.RenderMono(actual);
 
-            for (var i = 0; i < length; i++)
+            for (var i = 0; i < actual.Length; i++)
             {
                 Assert.That(expected[i], Is.EqualTo(actual[i]).Within(1.0E-6F));
             }
@@ -109,7 +109,7 @@ namespace MeltySynthTest
             var actual = new short[2 * length];
             renderer.RenderInterleavedInt16(actual);
 
-            for (var i = 0; i < length; i++)
+            for (var i = 0; i < actual.Length; i++)
             {
                 Assert.That(expected[i], Is.EqualTo(actual[i]));
             }
@@ -135,7 +135,7 @@ namespace MeltySynthTest
             var actual = new short[length];
             renderer.RenderMonoInt16(actual);
 
-            for (var i = 0; i < length; i++)
+            for (var i = 0; i < actual.Length; i++)
             {
                 Assert.That(expected[i], Is.EqualTo(actual[i]));
             }

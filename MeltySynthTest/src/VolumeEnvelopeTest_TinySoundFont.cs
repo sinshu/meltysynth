@@ -12,11 +12,11 @@ namespace MeltySynthTest
         [Test]
         public void VolumeEnvelope_D03_A05_H07_D11_S02_R13_Continuous()
         {
-            var dir = Path.Combine("ReferenceData", "TinySoundFont", "VolumeEnvelope", "D03_A05_H07_D11_S02_R13");
-            var expected = File.ReadLines(Path.Combine(dir, "Continuous.csv")).Select(line => float.Parse(line.Split(',')[1])).ToArray();
+            var dir = TestAssets.Reference("TinySoundFont", "VolumeEnvelope", "D03_A05_H07_D11_S02_R13");
+            var expected = File.ReadLines(Path.Combine(dir, "Continuous.csv")).Select(line => float.Parse(line.Split(',')[1], System.Globalization.CultureInfo.InvariantCulture)).ToArray();
             Assert.That(expected.Length, Is.EqualTo(3000));
 
-            var synthesizer = new Synthesizer(TestSettings.DefaultSoundFont, 44100);
+            var synthesizer = new Synthesizer(TestSettings.SyntheticSoundFont, 44100);
             var envelope = new VolumeEnvelope(synthesizer);
 
             envelope.Start(0.3F, 0.5F, 0.7F, 1.1F, 0.2F, 1.3F);
@@ -35,15 +35,15 @@ namespace MeltySynthTest
         [Test]
         public void VolumeEnvelope_D03_A05_H07_D11_S02_R13_NoteOff()
         {
-            var dir = Path.Combine("ReferenceData", "TinySoundFont", "VolumeEnvelope", "D03_A05_H07_D11_S02_R13");
+            var dir = TestAssets.Reference("TinySoundFont", "VolumeEnvelope", "D03_A05_H07_D11_S02_R13");
 
-            var synthesizer = new Synthesizer(TestSettings.DefaultSoundFont, 44100);
+            var synthesizer = new Synthesizer(TestSettings.SyntheticSoundFont, 44100);
             var envelope = new VolumeEnvelope(synthesizer);
 
             for (var noteOffBlock = 0; noteOffBlock <= 2000; noteOffBlock += 50)
             {
                 var name = "NoteOff" + noteOffBlock.ToString("0000") + ".csv";
-                var expected = File.ReadLines(Path.Combine(dir, name)).Select(line => float.Parse(line.Split(',')[1])).ToArray();
+                var expected = File.ReadLines(Path.Combine(dir, name)).Select(line => float.Parse(line.Split(',')[1], System.Globalization.CultureInfo.InvariantCulture)).ToArray();
                 Assert.That(expected.Length, Is.EqualTo(3000));
 
                 envelope.Start(0.3F, 0.5F, 0.7F, 1.1F, 0.2F, 1.3F);
@@ -68,11 +68,11 @@ namespace MeltySynthTest
         [Test]
         public void VolumeEnvelope_D00_A00_H00_D23_S01_R57_Continuous()
         {
-            var dir = Path.Combine("ReferenceData", "TinySoundFont", "VolumeEnvelope", "D00_A00_H00_D23_S01_R57");
-            var expected = File.ReadLines(Path.Combine(dir, "Continuous.csv")).Select(line => float.Parse(line.Split(',')[1])).ToArray();
+            var dir = TestAssets.Reference("TinySoundFont", "VolumeEnvelope", "D00_A00_H00_D23_S01_R57");
+            var expected = File.ReadLines(Path.Combine(dir, "Continuous.csv")).Select(line => float.Parse(line.Split(',')[1], System.Globalization.CultureInfo.InvariantCulture)).ToArray();
             Assert.That(expected.Length, Is.EqualTo(3000));
 
-            var synthesizer = new Synthesizer(TestSettings.DefaultSoundFont, 44100);
+            var synthesizer = new Synthesizer(TestSettings.SyntheticSoundFont, 44100);
             var envelope = new VolumeEnvelope(synthesizer);
 
             envelope.Start(0.0F, 0.0F, 0.0F, 2.3F, 0.1F, 5.7F);
@@ -91,15 +91,15 @@ namespace MeltySynthTest
         [Test]
         public void VolumeEnvelope_D00_A00_H00_D23_S01_R57_NoteOff()
         {
-            var dir = Path.Combine("ReferenceData", "TinySoundFont", "VolumeEnvelope", "D00_A00_H00_D23_S01_R57");
+            var dir = TestAssets.Reference("TinySoundFont", "VolumeEnvelope", "D00_A00_H00_D23_S01_R57");
 
-            var synthesizer = new Synthesizer(TestSettings.DefaultSoundFont, 44100);
+            var synthesizer = new Synthesizer(TestSettings.SyntheticSoundFont, 44100);
             var envelope = new VolumeEnvelope(synthesizer);
 
             for (var noteOffBlock = 0; noteOffBlock <= 2000; noteOffBlock += 50)
             {
                 var name = "NoteOff" + noteOffBlock.ToString("0000") + ".csv";
-                var expected = File.ReadLines(Path.Combine(dir, name)).Select(line => float.Parse(line.Split(',')[1])).ToArray();
+                var expected = File.ReadLines(Path.Combine(dir, name)).Select(line => float.Parse(line.Split(',')[1], System.Globalization.CultureInfo.InvariantCulture)).ToArray();
                 Assert.That(expected.Length, Is.EqualTo(3000));
 
                 envelope.Start(0.0F, 0.0F, 0.0F, 2.3F, 0.1F, 5.7F);

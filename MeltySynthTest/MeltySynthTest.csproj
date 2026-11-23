@@ -14,6 +14,10 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.3.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Baselines/*.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
   <!-- Compile the actual library sources against .NET 10/C# 14 for source consumers. -->
   <PropertyGroup Condition="'$(SourceIntegration)' == 'true'">
     <TargetFramework>net10.0</TargetFramework>

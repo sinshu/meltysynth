@@ -21,7 +21,7 @@ namespace MeltySynthTest
         [TestCase(48000, 24000)]
         public void LowPassFilterTest(int sampleRate, int cutoffFrequency)
         {
-            var synthesizer = new Synthesizer(TestSettings.DefaultSoundFont, sampleRate);
+            var synthesizer = new Synthesizer(TestSettings.SyntheticSoundFont, sampleRate);
 
             var lpf = new BiQuadFilter(synthesizer);
             lpf.SetLowPassFilter(cutoffFrequency, 1);
@@ -64,7 +64,7 @@ namespace MeltySynthTest
         [TestCase(48000, 500, 2.7F)]
         public void ResonanceTest(int sampleRate, int cutoffFrequency, float resonance)
         {
-            var synthesizer = new Synthesizer(TestSettings.DefaultSoundFont, sampleRate);
+            var synthesizer = new Synthesizer(TestSettings.SyntheticSoundFont, sampleRate);
 
             var lpf = new BiQuadFilter(synthesizer);
             lpf.SetLowPassFilter(cutoffFrequency, resonance);

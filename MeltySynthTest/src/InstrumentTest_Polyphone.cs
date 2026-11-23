@@ -10,9 +10,10 @@ namespace MeltySynthTest
     public class InstrumentTest_Polyphone
     {
         [TestCaseSource(typeof(TestSettings), nameof(TestSettings.SoundFonts))]
-        public void ParameterCheck(string soundFontName, SoundFont soundFont)
+        public void ParameterCheck(string soundFontName)
         {
-            var referenceDataDirectory = Path.Combine("ReferenceData", "Polyphone", soundFontName, "Instruments");
+            var soundFont = TestSettings.LoadExternalSoundFont(soundFontName);
+            var referenceDataDirectory = TestAssets.Reference("Polyphone", soundFontName, "Instruments");
 
             if (Directory.Exists(referenceDataDirectory))
             {
@@ -329,12 +330,12 @@ namespace MeltySynthTest
                     }
                     else
                     {
-                        return double.Parse(global);
+                        return double.Parse(global, System.Globalization.CultureInfo.InvariantCulture);
                     }
                 }
                 else
                 {
-                    return double.Parse(local);
+                    return double.Parse(local, System.Globalization.CultureInfo.InvariantCulture);
                 }
             }
         }

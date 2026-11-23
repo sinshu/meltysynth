@@ -22,12 +22,13 @@ namespace MeltySynthTest
             Assert.That(actual.Ticks, Is.EqualTo(expected.Ticks));
         }
 
+        [Category("ExternalAssets")]
         [TestCase("flourish.mid", 87.5)]
         [TestCase("onestop.mid", 247.4)]
         [TestCase("town.mid", 79.0)]
         public void ReadTest(string path, double length)
         {
-            var actual = new MidiFile(path).Length.TotalSeconds;
+            var actual = new MidiFile(TestAssets.RequireExternal(path)).Length.TotalSeconds;
             var expected = length;
             Assert.That(actual, Is.EqualTo(expected).Within(0.1));
         }

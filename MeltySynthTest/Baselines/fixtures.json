@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "minimumSelfContainedCases": 295,
+  "referenceGroups": [
+    {
+      "folder": "Freeverb",
+      "files": 5,
+      "bytes": 194446,
+      "sha256": "282db03e29cab5559d7cb78e28f0f867dc0f9ba8651476d77503fdab2dc986a3"
+    },
+    {
+      "folder": "Polyphone",
+      "files": 2083,
+      "bytes": 2056151,
+      "sha256": "b5d4fcab4c0da54b205bb56fbe20dcc3dba4ae92ce40d66606fb3c842dce7edf"
+    },
+    {
+      "folder": "TinySoundFont",
+      "files": 170,
+      "bytes": 9108874,
+      "sha256": "91140190558ad6052676c430073015a05e3684849cf3bfcfbca515a1c06b383c"
+    }
+  ],
+  "externalAssets": [
+    "TimGM6mb.sf2",
+    "Arachno SoundFont - Version 1.0.sf2",
+    "GeneralUser GS MuseScore v1.442.sf2",
+    "SGM-V2.01.sf2",
+    "MuseScore_General.sf3",
+    "flourish.mid",
+    "onestop.mid",
+    "town.mid"
+  ],
+  "externalClasses": [
+    "SoundFontInfoTest_NAudio",
+    "SoundFontWaveDataTest_NAudio",
+    "SampleHeaderTest_NAudio",
+    "InstrumentTest_NAudio",
+    "PresetTest_NAudio",
+    "InstrumentTest_Polyphone",
+    "PresetTest_Polyphone",
+    "RegionPairTest",
+    "OscillatorTest",
+    "SoundFont3Test"
+  ]
+}

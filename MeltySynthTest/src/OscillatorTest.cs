@@ -9,8 +9,10 @@ namespace MeltySynthTest
     public class OscillatorTest
     {
         [TestCaseSource(typeof(TestSettings), nameof(TestSettings.LightSoundFonts))]
-        public void NoLoop_PitchRatio100(string soundFontName, SoundFont soundFont)
+        public void NoLoop_PitchRatio100(string soundFontName)
         {
+            var soundFont = TestSettings.LoadExternalSoundFont(soundFontName);
+            var executed = 0;
             foreach (var instrument in soundFont.Instruments)
             {
                 foreach (var region in instrument.Regions.Take(3))
@@ -18,9 +20,11 @@ namespace MeltySynthTest
                     if (region.SampleModes == LoopMode.NoLoop)
                     {
                         NoLoop_PitchRatio100_Run(soundFont, instrument, region);
+                        executed++;
                     }
                 }
             }
+            Assert.That(executed, Is.GreaterThan(0), "No matching oscillator region was exercised.");
         }
 
         private void NoLoop_PitchRatio100_Run(SoundFont soundFont, Instrument instrument, InstrumentRegion region)
@@ -81,8 +85,10 @@ namespace MeltySynthTest
         }
 
         [TestCaseSource(typeof(TestSettings), nameof(TestSettings.LightSoundFonts))]
-        public void NoLoop_PitchRatio050(string soundFontName, SoundFont soundFont)
+        public void NoLoop_PitchRatio050(string soundFontName)
         {
+            var soundFont = TestSettings.LoadExternalSoundFont(soundFontName);
+            var executed = 0;
             foreach (var instrument in soundFont.Instruments)
             {
                 foreach (var region in instrument.Regions.Take(3))
@@ -90,9 +96,11 @@ namespace MeltySynthTest
                     if (region.SampleModes == LoopMode.NoLoop)
                     {
                         NoLoop_PitchRatio050_Run(soundFont, instrument, region);
+                        executed++;
                     }
                 }
             }
+            Assert.That(executed, Is.GreaterThan(0), "No matching oscillator region was exercised.");
         }
 
         private void NoLoop_PitchRatio050_Run(SoundFont soundFont, Instrument instrument, InstrumentRegion region)
@@ -155,8 +163,10 @@ namespace MeltySynthTest
         }
 
         [TestCaseSource(typeof(TestSettings), nameof(TestSettings.LightSoundFonts))]
-        public void Continuous_PitchRatio100(string soundFontName, SoundFont soundFont)
+        public void Continuous_PitchRatio100(string soundFontName)
         {
+            var soundFont = TestSettings.LoadExternalSoundFont(soundFontName);
+            var executed = 0;
             foreach (var instrument in soundFont.Instruments.Take(30))
             {
                 foreach (var region in instrument.Regions.Take(3))
@@ -164,9 +174,11 @@ namespace MeltySynthTest
                     if (region.SampleModes == LoopMode.Continuous)
                     {
                         Continuous_PitchRatio100_Run(soundFont, instrument, region);
+                        executed++;
                     }
                 }
             }
+            Assert.That(executed, Is.GreaterThan(0), "No matching oscillator region was exercised.");
         }
 
         private void Continuous_PitchRatio100_Run(SoundFont soundFont, Instrument instrument, InstrumentRegion region)
@@ -218,8 +230,10 @@ namespace MeltySynthTest
         }
 
         [TestCaseSource(typeof(TestSettings), nameof(TestSettings.LightSoundFonts))]
-        public void Continuous_PitchRatio050(string soundFontName, SoundFont soundFont)
+        public void Continuous_PitchRatio050(string soundFontName)
         {
+            var soundFont = TestSettings.LoadExternalSoundFont(soundFontName);
+            var executed = 0;
             foreach (var instrument in soundFont.Instruments.Take(30))
             {
                 foreach (var region in instrument.Regions.Take(3))
@@ -227,9 +241,11 @@ namespace MeltySynthTest
                     if (region.SampleModes == LoopMode.Continuous)
                     {
                         Continuous_PitchRatio050_Run(soundFont, instrument, region);
+                        executed++;
                     }
                 }
             }
+            Assert.That(executed, Is.GreaterThan(0), "No matching oscillator region was exercised.");
         }
 
         private void Continuous_PitchRatio050_Run(SoundFont soundFont, Instrument instrument, InstrumentRegion region)

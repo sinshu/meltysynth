@@ -8,9 +8,10 @@ namespace MeltySynthTest
     public class InstrumentTest_NAudio
     {
         [TestCaseSource(typeof(TestSettings), nameof(TestSettings.SoundFonts))]
-        public static void ReadTest(string soundFontName, MeltySynth.SoundFont soundFont)
+        public static void ReadTest(string soundFontName)
         {
-            var expected = new NAudio.SoundFont.SoundFont(soundFontName + ".sf2").Instruments;
+            var soundFont = TestSettings.LoadExternalSoundFont(soundFontName);
+            var expected = new NAudio.SoundFont.SoundFont(TestAssets.RequireExternal(soundFontName + ".sf2")).Instruments;
             var actual = soundFont.Instruments;
 
             Assert.That(expected.Length, Is.EqualTo(actual.Count));

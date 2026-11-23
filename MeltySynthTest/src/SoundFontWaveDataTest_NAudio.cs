@@ -9,9 +9,10 @@ namespace MeltySynthTest
     public class SoundFontWaveDataTest_NAudio
     {
         [TestCaseSource(typeof(TestSettings), nameof(TestSettings.SoundFonts))]
-        public void ReadTest(string soundFontName, MeltySynth.SoundFont soundFont)
+        public void ReadTest(string soundFontName)
         {
-            var expected = new NAudio.SoundFont.SoundFont(soundFontName + ".sf2").SampleData;
+            var soundFont = TestSettings.LoadExternalSoundFont(soundFontName);
+            var expected = new NAudio.SoundFont.SoundFont(TestAssets.RequireExternal(soundFontName + ".sf2")).SampleData;
             var actual = soundFont.WaveDataArray;
 
             // Since NAudio's sample data contains extra 12 bytes of the header,

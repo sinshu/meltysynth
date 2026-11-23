@@ -9,8 +9,9 @@ namespace MeltySynthTest
     public class RegionPairTest
     {
         [TestCaseSource(typeof(TestSettings), nameof(TestSettings.SoundFonts))]
-        public void DefaultPresetRegionDoesNotAffect(string soundFontName, SoundFont soundFont)
+        public void DefaultPresetRegionDoesNotAffect(string soundFontName)
         {
+            var soundFont = TestSettings.LoadExternalSoundFont(soundFontName);
             foreach (var instrument in soundFont.Instruments)
             {
                 foreach (var region in instrument.Regions)
@@ -22,8 +23,9 @@ namespace MeltySynthTest
         }
 
         [TestCaseSource(typeof(TestSettings), nameof(TestSettings.SoundFonts))]
-        public void ParameterCheck(string soundFontName, SoundFont soundFont)
+        public void ParameterCheck(string soundFontName)
         {
+            var soundFont = TestSettings.LoadExternalSoundFont(soundFontName);
             foreach (var preset in soundFont.Presets)
             {
                 foreach (var presetRegion in preset.Regions)

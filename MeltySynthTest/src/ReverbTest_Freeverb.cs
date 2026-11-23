@@ -19,9 +19,9 @@ namespace MeltySynthTest
         [TestCase(100)]
         public void CombFilter_BufferSize16_Feedback08_Damp01(int delay)
         {
-            var path = @"ReferenceData\Freeverb\cf_bs16_fb08_da01.csv";
+            var path = TestAssets.Reference("Freeverb", "cf_bs16_fb08_da01.csv");
 
-            var data = File.ReadLines(path).Select(line => float.Parse(line)).ToArray();
+            var data = File.ReadLines(path).Select(line => float.Parse(line, System.Globalization.CultureInfo.InvariantCulture)).ToArray();
             Assert.That(data.Length, Is.EqualTo(500));
 
             var expected = new float[delay].Concat(data).ToArray();
@@ -52,9 +52,9 @@ namespace MeltySynthTest
         [TestCase(100)]
         public void CombFilter_BufferSize23_Feedback07_Damp03(int delay)
         {
-            var path = @"ReferenceData\Freeverb\cf_bs23_fb07_da03.csv";
+            var path = TestAssets.Reference("Freeverb", "cf_bs23_fb07_da03.csv");
 
-            var data = File.ReadLines(path).Select(line => float.Parse(line)).ToArray();
+            var data = File.ReadLines(path).Select(line => float.Parse(line, System.Globalization.CultureInfo.InvariantCulture)).ToArray();
             Assert.That(data.Length, Is.EqualTo(500));
 
             var expected = new float[delay].Concat(data).ToArray();
@@ -85,9 +85,9 @@ namespace MeltySynthTest
         [TestCase(100)]
         public void AllPassFilter_BufferSize16_Feedback05(int delay)
         {
-            var path = @"ReferenceData\Freeverb\apf_bs16_fb05.csv";
+            var path = TestAssets.Reference("Freeverb", "apf_bs16_fb05.csv");
 
-            var data = File.ReadLines(path).Select(line => float.Parse(line)).ToArray();
+            var data = File.ReadLines(path).Select(line => float.Parse(line, System.Globalization.CultureInfo.InvariantCulture)).ToArray();
             Assert.That(data.Length, Is.EqualTo(500));
 
             var expected = new float[delay].Concat(data).ToArray();
@@ -115,9 +115,9 @@ namespace MeltySynthTest
         [TestCase(100)]
         public void AllPassFilter_BufferSize23_Feedback07(int delay)
         {
-            var path = @"ReferenceData\Freeverb\apf_bs23_fb07.csv";
+            var path = TestAssets.Reference("Freeverb", "apf_bs23_fb07.csv");
 
-            var data = File.ReadLines(path).Select(line => float.Parse(line)).ToArray();
+            var data = File.ReadLines(path).Select(line => float.Parse(line, System.Globalization.CultureInfo.InvariantCulture)).ToArray();
             Assert.That(data.Length, Is.EqualTo(500));
 
             var expected = new float[delay].Concat(data).ToArray();
@@ -144,7 +144,7 @@ namespace MeltySynthTest
             var expectedLeft = new float[length];
             var expectedRight = new float[length];
 
-            using (var reader = new WaveFileReader(@"ReferenceData\Freeverb\freeverb_default_ir.wav"))
+            using (var reader = new WaveFileReader(TestAssets.Reference("Freeverb", "freeverb_default_ir.wav")))
             {
                 for (var t = 0; t < length; t++)
                 {

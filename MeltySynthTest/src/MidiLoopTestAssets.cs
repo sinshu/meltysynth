@@ -28,6 +28,12 @@ namespace MeltySynthTest
 
         internal static MeltySynth.MidiFile Midi(MeltySynth.MidiFileLoopType type, params byte[][] tracks)
         {
+            using var stream = new MemoryStream(MidiBytes(tracks), false);
+            return new MeltySynth.MidiFile(stream, type);
+        }
+
+        internal static byte[] MidiBytes(params byte[][] tracks)
+        {
             using var stream = new MemoryStream();
             using (var writer = new BinaryWriter(stream, Encoding.ASCII, true))
             {
@@ -40,14 +46,13 @@ namespace MeltySynthTest
                     writer.Write(track);
                 }
             }
-            stream.Position = 0;
-            return new MeltySynth.MidiFile(stream, type);
+            return stream.ToArray();
         }
 
         internal static MeltySynth.SoundFont SoundFont() =>
             new MeltySynth.SoundFont(new MemoryStream(SoundFontBytes(), false));
 
-        internal static byte[] SoundFontBytes()
+        internal static byte[] SoundFontBytes(bool completeInfo = false)
         {
             byte[] Data(Action<BinaryWriter> write)
             {
@@ -65,7 +70,11 @@ namespace MeltySynthTest
                 w.Write(Encoding.ASCII.GetBytes(id)); foreach (var chunk in chunks) w.Write(chunk);
             }));
             void Name(BinaryWriter w, string name) { var bytes = new byte[20]; Encoding.ASCII.GetBytes(name).CopyTo(bytes, 0); w.Write(bytes); }
-            var info = List("INFO", Chunk("ifil", new byte[] { 2, 0, 1, 0 }));
+            var info = completeInfo
+                ? List("INFO", Chunk("ifil", new byte[] { 2, 0, 1, 0 }),
+                    Chunk("isng", Encoding.ASCII.GetBytes("EMU8000\0")),
+                    Chunk("INAM", Encoding.ASCII.GetBytes("Original test tone\0\0")))
+                : List("INFO", Chunk("ifil", new byte[] { 2, 0, 1, 0 }));
             var samples = List("sdta", Chunk("smpl", Data(w =>
             {
                 for (var i = 0; i < 128; i++) w.Write((short)(12000 * Math.Sin(i * Math.PI / 16)));

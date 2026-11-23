@@ -8,9 +8,10 @@ namespace MeltySynthTest
     public class SoundFontInfoTest_NAudio
     {
         [TestCaseSource(typeof(TestSettings), nameof(TestSettings.SoundFonts))]
-        public void ReadTest(string soundFontName, MeltySynth.SoundFont soundFont)
+        public void ReadTest(string soundFontName)
         {
-            var expected = new NAudio.SoundFont.SoundFont(soundFontName + ".sf2").FileInfo;
+            var soundFont = TestSettings.LoadExternalSoundFont(soundFontName);
+            var expected = new NAudio.SoundFont.SoundFont(TestAssets.RequireExternal(soundFontName + ".sf2")).FileInfo;
             var actual = soundFont.Info;
 
             AreEqual(expected.SoundFontVersion, actual.Version);

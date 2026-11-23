@@ -12,11 +12,11 @@ namespace MeltySynthTest
         [Test]
         public void Lfo_D03_F50()
         {
-            var path = Path.Combine("ReferenceData", "TinySoundFont", "Lfo", "D03_F50.csv");
-            var expected = File.ReadLines(path).Select(line => float.Parse(line.Split(',')[1])).ToArray();
+            var path = TestAssets.Reference("TinySoundFont", "Lfo", "D03_F50.csv");
+            var expected = File.ReadLines(path).Select(line => float.Parse(line.Split(',')[1], System.Globalization.CultureInfo.InvariantCulture)).ToArray();
             Assert.That(expected.Length, Is.EqualTo(1000));
 
-            var synthesizer = new Synthesizer(TestSettings.DefaultSoundFont, 44100);
+            var synthesizer = new Synthesizer(TestSettings.SyntheticSoundFont, 44100);
             var lfo = new Lfo(synthesizer);
 
             lfo.Start(0.3F, 5.0F);
@@ -35,11 +35,11 @@ namespace MeltySynthTest
         [Test]
         public void Lfo_D00_F70()
         {
-            var path = Path.Combine("ReferenceData", "TinySoundFont", "Lfo", "D00_F70.csv");
-            var expected = File.ReadLines(path).Select(line => float.Parse(line.Split(',')[1])).ToArray();
+            var path = TestAssets.Reference("TinySoundFont", "Lfo", "D00_F70.csv");
+            var expected = File.ReadLines(path).Select(line => float.Parse(line.Split(',')[1], System.Globalization.CultureInfo.InvariantCulture)).ToArray();
             Assert.That(expected.Length, Is.EqualTo(1000));
 
-            var synthesizer = new Synthesizer(TestSettings.DefaultSoundFont, 44100);
+            var synthesizer = new Synthesizer(TestSettings.SyntheticSoundFont, 44100);
             var lfo = new Lfo(synthesizer);
 
             lfo.Start(0.0F, 7.0F);
