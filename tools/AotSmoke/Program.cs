@@ -1,5 +1,7 @@
 using System;
 using System.IO;
+using System.Collections;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text.Json;
 using MeltySynth;
@@ -22,8 +24,10 @@ internal static class Program
         if (root.GetProperty("frames").GetInt32() != Frames) throw new InvalidDataException("Unexpected baseline profile.");
         CheckHash(Path.Combine(assets, "Original.sf2"), root.GetProperty("soundFontSha256").GetString());
         CheckHash(Path.Combine(assets, "Original.mid"), root.GetProperty("midiSha256").GetString());
+        VerifyAssetViews(new SoundFont(Path.Combine(assets, "Original.sf2")));
         using var json = new Utf8JsonWriter(Console.OpenStandardOutput());
         json.WriteStartObject(); json.WriteBoolean("dynamicCodeSupported", System.Runtime.CompilerServices.RuntimeFeature.IsDynamicCodeSupported);
+        json.WriteBoolean("assetCollectionsReadOnly", true);
         json.WriteString("architecture", System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture.ToString());
         json.WriteStartArray("scenarios");
 #if FIXED_EFFECTS_OFF
@@ -40,6 +44,23 @@ internal static class Program
 #endif
     }
 #if !PREPARE_FIXTURES
+    private static void VerifyAssetViews(SoundFont font)
+    {
+        CheckView(() => font.SampleHeaders); CheckView(() => font.Instruments); CheckView(() => font.Presets);
+        foreach (var instrument in font.Instruments) CheckView(() => instrument.Regions);
+        foreach (var preset in font.Presets) CheckView(() => preset.Regions);
+    }
+    private static void CheckView<T>(Func<IReadOnlyList<T>> get) where T : class
+    {
+        var view = get();
+        if (view is T[] || view is IList<T> || view is ICollection<T> || view is IList || view is ICollection || !ReferenceEquals(view, get()))
+            throw new InvalidDataException("Prepared collection exposes mutable storage or an unstable view.");
+        var index = 0;
+        foreach (var item in view)
+            if (!ReferenceEquals(item, view[index++])) throw new InvalidDataException("Prepared collection identity/order changed.");
+        if (index != view.Count) throw new InvalidDataException("Prepared collection count changed.");
+    }
+
     private static Synthesizer Synth(string assets, bool effects) => new(new SoundFont(Path.Combine(assets, "Original.sf2")),
         new SynthesizerSettings(32000) { BlockSize = 64, MaximumPolyphony = 8, EnableReverbAndChorus = effects }) { MasterVolume = .5F };
     private static (float[] Left, float[] Right) Render(string assets, bool effects, bool fragmented)

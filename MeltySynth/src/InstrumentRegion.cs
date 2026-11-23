@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 
@@ -95,6 +95,7 @@ namespace MeltySynth
 
         private void SetParameter(Generator generator)
         {
+            NumericDomain.Generator(generator, false);
             var index = (int)generator.Type;
 
             // Unknown generators should be ignored.

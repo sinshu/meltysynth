@@ -107,7 +107,7 @@ def main():
             assert not list(fresh.rglob('*.dll')) and not list(fresh.rglob('*.dylib'))
             assert (fresh / 'LICENSE.txt').read_bytes() == (ROOT / 'LICENSE.txt').read_bytes()
             run([str(fresh / 'AotSmoke'), str(directory / 'run-result')], directory / 'run.json')
-            native = json.loads((directory / 'run.json').read_text()); assert native['accepted'] and not native['dynamicCodeSupported'] and native['architecture'] == 'Arm64'
+            native = json.loads((directory / 'run.json').read_text()); assert native['accepted'] and native['assetCollectionsReadOnly'] and not native['dynamicCodeSupported'] and native['architecture'] == 'Arm64'
             comparisons = []
             for scenario in native['scenarios']:
                 filename = 'effects-on.f32' if scenario['effects'] else 'effects-off.f32'

@@ -1,5 +1,29 @@
 # Unreleased
 
+- Protect all five prepared SoundFont/instrument/preset collection surfaces with
+  cached read-only-only views. Close raw-array/mutable-interface casts and the
+  demonstrated Array.AsReadOnly SyncRoot escape without copying asset elements.
+  Retain internal arrays, ordering and allocation-free getter/note paths; verify
+  independent synth owners sharing a prepared bank and native view enumeration.
+
+- Preserve fractional sequencer time with a cached exact integer clock, including
+  speed changes, pauses, Play reset and loop rewinds. Eliminate the reproduced
+  44.1/48 kHz cumulative tick loss without floating arithmetic/division per block.
+  Review intentional earlier event delivery/changed 44.1 kHz scene PCM against an
+  independent rational scheduler; retain frozen 32 kHz audio and all tolerances.
+
+- Define sequencer hook reentrancy: reject Play/Stop/nested Render while rendering,
+  allow MIDI forwarding/modification, speed and next-event hook replacement, and
+  consume each delivery attempt once when a callback throws. Release the render
+  guard in finally; retain pending events and support owner-side Stop/Play recovery.
+  Add exact-audio, replacement, exception, partial-output and loop-mode regressions.
+
+- Reject unsafe SoundFont generator values and unrepresentable resolved pitch before
+  asset promotion/preflight. Validate live MIDI bytes and pitch-control updates before
+  mutation, preserving audio/controller state on rejection. Prepared MIDI bypasses
+  repeated byte checks; oscillator/sample loops and frozen numerical output remain
+  unchanged. Add generator extrema, sentinels, relative-preset and atomicity coverage.
+
 - Record modernization closeout with a clean pinned-SDK root build, all sixteen
   reference-example builds, both complete core test modes and actual WebGPU SDL3/
   Web Audio signal checks. Preserve unavailable fixtures, backend warnings and

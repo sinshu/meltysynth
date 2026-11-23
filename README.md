@@ -366,11 +366,57 @@ aggregate region expansion are bounded before region construction. Structural or
 budget violations throw `InvalidDataException`; physical sample EOF throws
 `EndOfStreamException`. Unsupported formats throw `NotSupportedException`.
 
+### Numeric asset and MIDI command boundaries
+
+SoundFont loading (including packaging preflight) validates generator numeric domains
+and the effective preset/instrument pitch envelope before publishing a usable asset.
+Prepared pitch limits cover the supported output sample rates, key ranges, LFO/envelope
+pitch modulation and maximum modulation-wheel depth. Unrepresentable configurations
+are rejected; tuning is never silently clamped to conceal invalid input.
+
+Live `ProcessMidiMessage` accepts channels 0..15, command nibbles 0x80..0xE0
+(with channel supplied separately), and data arguments 0..127. Direct `NoteOn` and
+`NoteOff` apply the same channel/key/velocity bounds. Invalid values throw
+`ArgumentOutOfRangeException` before mutation. Pitch-wheel and RPN tuning changes
+must also fit the loaded bank's prepared pitch domain; a legal MIDI byte combination
+can therefore be rejected for an unusually constrained bank. Existing playback and
+controller state remain unchanged on rejection. Prepared MIDI dispatch reuses the
+load-time byte validation, while still checking state-dependent pitch changes.
+See [NumericBoundaries.md](docs/NumericBoundaries.md) for supported sentinels,
+representability limits and regression commands. No per-sample validation was added.
+
+### Prepared asset collection ownership
+
+`SoundFont.SampleHeaders`, `Instruments`, `Presets`, and instrument/preset `Regions`
+return stable read-only views prepared once. Indexing, counts, enumeration order and
+object identity remain unchanged; raw-array and mutable-interface casts are no longer
+supported. The views expose no `ICollection.SyncRoot` route to their backing arrays.
+
+Synthesis retains its internal array paths, without per-getter/per-note wrappers or
+copies. Repeated getter/index access and the warmed note/render path are allocation-
+free in the focused checks. Separate synth owners can share one prepared SoundFont;
+voice/controller/effects state still belongs to each synth and calls on one synth
+must remain serialized. See [PreparedAssetCollections.md](docs/PreparedAssetCollections.md)
+for the mutation regressions, sharing checks and source-delivery details.
+
+### Sequencer clock precision
+
+The sequencer retains sub-tick time instead of truncating every audio block. Its
+cached integer quotient/remainder is exact for supported binary32 speed values,
+including speed changes and zero-speed pauses. Clock work stays at block boundaries;
+`Position` reports the whole-tick end of the most recently started block.
+`Play` resets the fraction; loop rewinds retain it with the existing restart policy.
+
+Corrected 44.1/48 kHz scheduling can move events to an earlier, correct audio block
+and intentionally change rendered PCM. The frozen 32 kHz synthesis baseline and
+all tolerances remain unchanged. See [SequencerClock.md](docs/SequencerClock.md)
+for the rational reference, lifecycle semantics and reviewed scene-audio comparison.
+
 ### Reproducible full regression baseline
 
 Run `python3 tools/regression_baseline.py` from a fresh checkout. It verifies the
 checked-in reference corpus and runs the complete suite in normal and .NET 10/C# 14
-source-integration modes. The baseline has **343 self-contained passes** per mode;
+source-integration modes. The baseline has **704 self-contained passes** per mode;
 **48 external comparisons** are explicitly unavailable without their real assets.
 See [RegressionBaselines.md](docs/RegressionBaselines.md) for fixture paths,
 provenance/hash pinning, numerical tolerances, strict external acceptance and
@@ -516,6 +562,18 @@ var right = new float[(int)(sampleRate * midiFile.Length.TotalSeconds)];
 // Render the waveform.
 sequencer.Render(left, right);
 ```
+
+Hooks run synchronously inside `Render` on its single owner. They may modify/forward
+MIDI, set `Speed`, or replace `OnSendMessage` for the next event. Calling sequencer
+`Play`, `Stop`, or nested `Render` from a hook throws `InvalidOperationException`
+before changing playback. Request those operations through your owner and apply them
+after `Render` returns. Invalid `Play` arguments still fail their argument checks first.
+
+A hook exception propagates unchanged and consumes that delivery attempt once;
+already-forwarded MIDI is not retried or rolled back. The render guard is released,
+and later events remain pending. Discard the failed call's output buffers because
+a prefix may already have rendered. See [CallbackReentrancy.md](docs/CallbackReentrancy.md)
+for recovery semantics, tests and an owner-side playback-change example.
 
 To change the instruments used in the MIDI file:
 

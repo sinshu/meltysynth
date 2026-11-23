@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -18,11 +18,13 @@ namespace MeltySynth
         private readonly int genre;
         private readonly int morphology;
         private readonly PresetRegion[] regions;
+        private readonly ReadOnlyAssetList<PresetRegion> regionView;
 
         private Preset()
         {
             name = "Default";
             regions = Array.Empty<PresetRegion>();
+            regionView = new ReadOnlyAssetList<PresetRegion>(regions);
         }
 
         private Preset(PresetInfo info, Zone[] zones, Instrument[] instruments)
@@ -43,6 +45,7 @@ namespace MeltySynth
             var zoneSpan = zones.AsSpan(info.ZoneStartIndex, zoneCount);
 
             regions = PresetRegion.Create(this, zoneSpan, instruments);
+            regionView = new ReadOnlyAssetList<PresetRegion>(regions);
         }
 
         internal static Preset[] Create(PresetInfo[] infos, Zone[] zones, Instrument[] instruments)
@@ -92,7 +95,8 @@ namespace MeltySynth
         /// <summary>
         /// The regions of the preset.
         /// </summary>
-        public IReadOnlyList<PresetRegion> Regions => regions;
+        /// <remarks>Stable read-only view prepared once; mutable collection/array casts are unsupported.</remarks>
+        public IReadOnlyList<PresetRegion> Regions => regionView;
 
         // Internally exposes the raw array for fast enumeration.
         internal PresetRegion[] RegionArray => regions;

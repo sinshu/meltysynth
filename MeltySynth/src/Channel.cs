@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace MeltySynth
 {
@@ -173,14 +173,17 @@ namespace MeltySynth
             switch (rpn)
             {
                 case 0:
+                    ValidatePitch(coarseTune, fineTune, (short)((pitchBendRange & 0x7F) | (value << 7)), pitchBend);
                     pitchBendRange = (short)((pitchBendRange & 0x7F) | (value << 7));
                     break;
 
                 case 1:
+                    ValidatePitch(coarseTune, (short)((fineTune & 0x7F) | (value << 7)), pitchBendRange, pitchBend);
                     fineTune = (short)((fineTune & 0x7F) | (value << 7));
                     break;
 
                 case 2:
+                    ValidatePitch((short)(value - 64), fineTune, pitchBendRange, pitchBend);
                     coarseTune = (short)(value - 64);
                     break;
             }
@@ -196,10 +199,12 @@ namespace MeltySynth
             switch (rpn)
             {
                 case 0:
+                    ValidatePitch(coarseTune, fineTune, (short)((pitchBendRange & 0xFF80) | value), pitchBend);
                     pitchBendRange = (short)((pitchBendRange & 0xFF80) | value);
                     break;
 
                 case 1:
+                    ValidatePitch(coarseTune, (short)((fineTune & 0xFF80) | value), pitchBendRange, pitchBend);
                     fineTune = (short)((fineTune & 0xFF80) | value);
                     break;
             }
@@ -207,8 +212,14 @@ namespace MeltySynth
 
         public void SetPitchBend(int value1, int value2)
         {
-            pitchBend = (1F / 8192F) * ((value1 | (value2 << 7)) - 8192);
+            var next = (1F / 8192F) * ((value1 | (value2 << 7)) - 8192);
+            ValidatePitch(coarseTune, fineTune, pitchBendRange, next);
+            pitchBend = next;
         }
+
+        private void ValidatePitch(int coarse, int fine, int range, float wheel)
+            => synthesizer.SoundFont.ValidatePitchShift(coarse + (1F / 8192F) * (fine - 8192),
+                ((range >> 7) + .01F * (range & 127)) * wheel);
 
         public bool IsPercussionChannel => isPercussionChannel;
 

@@ -268,3 +268,34 @@ warnings as errors and unchanged frozen hashes/tolerances. All sixteen basic
 example builds and separately scoped actual native/browser audio checks are in
 [ModernizationCloseout.md](ModernizationCloseout.md). Browser analyser thresholds
 are signal-observation criteria only; exact core PCM silence remains unchanged.
+
+## Callback-boundary follow-up
+
+Item 12 adds 26 sequencer callback cases and raises the self-contained discovery
+floor to 462. Both complete Release/C# 14 lanes pass 462 cases with 48 external
+comparisons unavailable and no failures (510 discovered each). Frozen numerical
+values, exact comparisons and corpus identities are unchanged. See
+[CallbackReentrancy.md](CallbackReentrancy.md) for supported hook operations,
+exception recovery, the original reproduction and commands. The earlier item-11
+numeric capture remains separately recorded at 436 passes per lane.
+
+## Fractional-clock follow-up
+
+Item 13 adds 226 independently referenced clock cases and raises the discovery
+floor to 688. Both Release/C# 14 compilation modes pass 688 self-contained cases,
+48 unavailable external comparisons and zero failures (736 discovered each).
+The 32 kHz frozen source/PCM data and tolerances remain unchanged. The corrected
+44.1 kHz scene output intentionally differs from the earlier audit: its event
+frames and PCM match an independent rational scheduler, while the old-clock model
+reproduces the prior hashes. See [SequencerClock.md](SequencerClock.md) for the
+explicit timing-impact review, block/loop semantics and commands.
+
+## Prepared collection ownership follow-up
+
+Item 14 adds 16 collection/ownership cases and raises the discovery floor to 704.
+Both complete Release/C# 14 modes pass 704 self-contained cases, 48 unavailable
+external comparisons and zero failures (752 discovered each). Frozen hashes,
+values and tolerances are unchanged. See
+[PreparedAssetCollections.md](PreparedAssetCollections.md) for the SyncRoot escape,
+read-only-only adapter, measured zero-allocation access, shared-owner isolation
+and the added native enumeration checks.

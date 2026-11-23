@@ -167,23 +167,26 @@ namespace MeltySynth
         /// <param name="command">The type of the message.</param>
         /// <param name="data1">The first data part of the message.</param>
         /// <param name="data2">The second data part of the message.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Invalid MIDI channel, command/data bytes, or an unrepresentable pitch-control update. State is unchanged.</exception>
         public void ProcessMidiMessage(int channel, int command, int data1, int data2)
         {
-            if (!(0 <= channel && channel < channels.Length))
-            {
-                return;
-            }
+            NumericDomain.Midi(channel, command, data1, data2);
+            ProcessMidiMessageValidated(channel, command, data1, data2);
+        }
 
+        // MidiFile established the byte/channel invariant once during loading.
+        internal void ProcessMidiMessageValidated(int channel, int command, int data1, int data2)
+        {
             var channelInfo = channels[channel];
 
             switch (command)
             {
                 case 0x80: // Note Off
-                    NoteOff(channel, data1);
+                    NoteOffValidated(channel, data1);
                     break;
 
                 case 0x90: // Note On
-                    NoteOn(channel, data1, data2);
+                    NoteOnValidated(channel, data1, data2);
                     break;
 
                 case 0xB0: // Controller
@@ -292,11 +295,12 @@ namespace MeltySynth
         /// <param name="key">The key of the note.</param>
         public void NoteOff(int channel, int key)
         {
-            if (!(0 <= channel && channel < channels.Length))
-            {
-                return;
-            }
+            NumericDomain.Midi(channel, 0x80, key, 0);
+            NoteOffValidated(channel, key);
+        }
 
+        private void NoteOffValidated(int channel, int key)
+        {
             foreach (var voice in voices)
             {
                 if (voice.Channel == channel && voice.Key == key)
@@ -314,14 +318,15 @@ namespace MeltySynth
         /// <param name="velocity">The velocity of the note.</param>
         public void NoteOn(int channel, int key, int velocity)
         {
+            NumericDomain.Midi(channel, 0x90, key, velocity);
+            NoteOnValidated(channel, key, velocity);
+        }
+
+        private void NoteOnValidated(int channel, int key, int velocity)
+        {
             if (velocity == 0)
             {
-                NoteOff(channel, key);
-                return;
-            }
-
-            if (!(0 <= channel && channel < channels.Length))
-            {
+                NoteOffValidated(channel, key);
                 return;
             }
 

@@ -9,6 +9,7 @@ namespace MeltySynthTest
     public class AssetPreflightTest
     {
         [TestCase("valid")]
+        [TestCase("numeric-generator")]
         [TestCase("budget")]
         [TestCase("truncated")]
         [TestCase("unknown-profile-field")]
@@ -18,7 +19,7 @@ namespace MeltySynthTest
         {
             var assets = Path.Combine(AppContext.BaseDirectory, "preflight-" + Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(assets);
-            var font = MidiLoopTestAssets.SoundFontBytes(); var midi = SynthesisBaselineScenario.MidiBytes();
+            var font = scenario == "numeric-generator" ? NumericAssetBoundaryTest.Font(51, 32767) : MidiLoopTestAssets.SoundFontBytes(); var midi = SynthesisBaselineScenario.MidiBytes();
             File.WriteAllBytes(Path.Combine(assets, "Original.sf2"), font);
             File.WriteAllBytes(Path.Combine(assets, "Original.mid"), scenario == "truncated" ? midi[..^1] : midi);
             var profile = Path.Combine(assets, "profile.json");
