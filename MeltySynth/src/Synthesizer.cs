@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -487,9 +487,19 @@ namespace MeltySynth
             }
         }
 
+#if MELTYSYNTH_AUDIO_AUDIT
+        internal AudioAuditCounters? AuditCounters { get; set; }
+#endif
+
         private void RenderBlock()
         {
+#if MELTYSYNTH_AUDIO_AUDIT
+            var auditStart = System.Diagnostics.Stopwatch.GetTimestamp();
+#endif
             voices.Process();
+#if MELTYSYNTH_AUDIO_AUDIT
+            var voiceEnd = System.Diagnostics.Stopwatch.GetTimestamp();
+#endif
 
             Array.Clear(blockLeft, 0, blockLeft.Length);
             Array.Clear(blockRight, 0, blockRight.Length);
@@ -503,6 +513,10 @@ namespace MeltySynth
                 WriteBlock(previousGainRight, currentGainRight, voice.Block, blockRight);
             }
 
+#if MELTYSYNTH_AUDIO_AUDIT
+            var dryEnd = System.Diagnostics.Stopwatch.GetTimestamp();
+            var chorusEnd = dryEnd;
+#endif
             if (enableReverbAndChorus)
             {
                 Array.Clear(chorusInputLeft!, 0, chorusInputLeft!.Length);
@@ -519,7 +533,9 @@ namespace MeltySynth
                 chorus!.Process(chorusInputLeft, chorusInputRight, chorusOutputLeft!, chorusOutputRight!);
                 ArrayMath.MultiplyAdd(masterVolume, chorusOutputLeft!, blockLeft);
                 ArrayMath.MultiplyAdd(masterVolume, chorusOutputRight!, blockRight);
-
+#if MELTYSYNTH_AUDIO_AUDIT
+                chorusEnd = System.Diagnostics.Stopwatch.GetTimestamp();
+#endif
                 Array.Clear(reverbInput!, 0, reverbInput!.Length);
                 foreach (var voice in voices)
                 {
@@ -531,6 +547,15 @@ namespace MeltySynth
                 ArrayMath.MultiplyAdd(masterVolume, reverbOutputLeft!, blockLeft);
                 ArrayMath.MultiplyAdd(masterVolume, reverbOutputRight!, blockRight);
             }
+#if MELTYSYNTH_AUDIO_AUDIT
+            if (AuditCounters is { } counters)
+            {
+                counters.Voices = voiceEnd - auditStart;
+                counters.DryMix = dryEnd - voiceEnd;
+                counters.Chorus = chorusEnd - dryEnd;
+                counters.Reverb = enableReverbAndChorus ? System.Diagnostics.Stopwatch.GetTimestamp() - chorusEnd : 0;
+            }
+#endif
         }
 
         private void WriteBlock(float previousGain, float currentGain, float[] source, float[] destination)
@@ -593,12 +618,23 @@ namespace MeltySynth
         public int ActiveVoiceCount => voices.ActiveVoiceCount;
 
         /// <summary>
-        /// Gets or sets the master volume.
+        /// Gets or sets finite linear master gain from 0 (mute) through 1; default 0.5.
         /// </summary>
+        /// <remarks>
+        /// Gain is not a limiter; mixed audio can still clip. Muting does not stop
+        /// voices or effects. Changes affect newly synthesized blocks; already
+        /// buffered samples are unchanged. Serialize control changes with rendering.
+        /// </remarks>
+        /// <exception cref="ArgumentOutOfRangeException">The value is nonfinite or outside [0, 1].</exception>
         public float MasterVolume
         {
             get => masterVolume;
-            set => masterVolume = value;
+            set
+            {
+                if (!float.IsFinite(value) || value < 0 || value > 1)
+                    throw new ArgumentOutOfRangeException(nameof(value), value, "Master volume must be finite and between 0 and 1.");
+                masterVolume = value;
+            }
         }
 
         internal int MinimumVoiceDuration => minimumVoiceDuration;

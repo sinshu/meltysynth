@@ -1,0 +1,12 @@
+{
+  "maxFileBytes": 33554432,
+  "maxDecodedSampleBytes": 16777216,
+  "maxMidiTrackBytes": 1048576,
+  "maxMidiTracks": 32,
+  "maxMidiEvents": 100000,
+  "maxSoundFontRecords": 65536,
+  "maxSoundFontRegions": 16384,
+  "maxMetadataBytes": 65536,
+  "maxMidiDuration": "00:10:00",
+  "allowMidiEndOfTrackPadding": false
+}

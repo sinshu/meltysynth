@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace MeltySynth
 {
@@ -204,27 +204,28 @@ namespace MeltySynth
             }
         }
 
-        /// <summary>
-        /// Gets or sets the playback speed.
-        /// </summary>
+        /// <summary>Minimum positive playback multiplier (1/128).</summary>
+        public const float MinimumSpeed = 1F / 128;
+
+        /// <summary>Maximum playback multiplier (16).</summary>
+        public const float MaximumSpeed = 16F;
+
+        /// <summary>Gets or sets the finite playback multiplier; default 1.</summary>
         /// <remarks>
-        /// The default value is 1.
-        /// The tempo will be multiplied by this value.
+        /// Accepts zero or MinimumSpeed through MaximumSpeed inclusive. Zero freezes
+        /// MIDI event time; voices/effects still render, so this is not mute or an
+        /// audio pause. Changes apply at the next sequencer block boundary.
+        /// The caller must serialize control changes with rendering.
         /// </remarks>
+        /// <exception cref="ArgumentOutOfRangeException">The value is nonfinite or outside the supported range.</exception>
         public float Speed
         {
             get => speed;
-
             set
             {
-                if (value >= 0)
-                {
-                    speed = value;
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException("The playback speed must be a non-negative value.");
-                }
+                if (!float.IsFinite(value) || (value != 0 && (value < MinimumSpeed || value > MaximumSpeed)))
+                    throw new ArgumentOutOfRangeException(nameof(value), value, "Speed must be zero or between 1/128 and 16, and finite.");
+                speed = value;
             }
         }
 

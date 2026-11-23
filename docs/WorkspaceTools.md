@@ -79,3 +79,40 @@ A direct compiled CLI run from `bin/validation/net10-tooling/non-root` also rend
 run folder. See local `bin/validation/net10-tooling/summary.json` and regression
 logs/TRX. The 48 unavailable external comparisons are not reported as passing;
 external-bank and hardware playback acceptance remain separate.
+
+## Asset packaging preflight
+
+```sh
+./bin/dotnet/dotnet run --project Workspace/Workspace.csproj -c Release -- validate --assets /path/to/scene-audio --soundfont Scene.sf2 --midi Scene.mid --profile Workspace/asset-profile.example.json --run scene-audio-v1
+```
+
+`--profile` is required. The example is an illustrative small-scene budget, not a
+universal device limit; choose the actual application profile before packaging.
+JSON names are case-insensitive; unknown fields and invalid budgets fail, profiles
+are bounded to 16 KiB, omitted fields inherit `AssetLoadLimits.Default`. The receipt
+records **all resolved limits**, both SHA-256 hashes, file lengths, decoded PCM bytes,
+preset/instrument counts and MIDI duration. The same core loaders are used at
+packaging and runtime. Hashing rereads the owned source streams at packaging time;
+there is no additional PCM copy or repeated validation in the audio frame path.
+
+A fresh named run publishes `assets.validated.json` by same-directory rename only
+after the entire pair is validated. Failures publish no ready marker; writers and
+source streams are closed on success/failure. Existing ready receipts are never
+overwritten: use a new run/version and require successful exit. The packaging owner
+must package those exact hashed bytes and the resolved profile; changed bytes or a
+different target profile require revalidation. A receipt alone must not authorize
+unrelated replacement bytes. Runtime still performs its structural/profile checks
+once per load; it does not continuously rehash or rescan samples during rendering.
+This repository has no scene packager to wire automatically: call this gate for each
+pair in the consuming packaging pipeline. No readiness state, parallel audio owner
+or synchronization layer is introduced in the core.
+
+Item-7 acceptance (2026-11-23): both compilation modes pass **336 self-contained /
+48 external unavailable / 0 failed**, warnings as errors; 28 new boundary cases
+cover invalid controls with unchanged subsequent audio, gain/mute/zero-speed/resume,
+positive speed extrema at 192 kHz with eight-sample blocks, preflight identity,
+budgets, truncated input, malformed/oversized profiles and atomic no-overwrite
+promotion. The compiled CLI also passed from a non-root directory using the example
+profile. Frozen synthesis values/tolerances are unchanged. These are structural and
+correctness results, not hardware playback or asset-licensing acceptance.
+Local receipts: `bin/validation/asset-control-boundaries/`.

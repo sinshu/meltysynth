@@ -223,3 +223,28 @@ this is a correctness rerun, not new timing or hardware playback acceptance.
 ```
 
 Local logs/TRX/summary: `bin/validation/audio-loop-reacceptance/`.
+
+## Asset and control boundary acceptance
+
+Item 7 (2026-11-23) adds 28 control/preflight cases: **336 self-contained passed /
+48 external unavailable / 0 failed**, 384 discovered per compilation mode, with
+warnings as errors. Master gain accepts finite [0,1]; sequencer speed accepts zero
+or [1/128,16]. Rejection preserves state and exact subsequent rendered samples;
+accepted zero/boundary values, linear gain and resumed event time are checked.
+Preflight uses target-profile constructors, validates the complete pair before
+publishing an atomic byte-hash/profile receipt, and releases owned files on failure
+and success. It rejects budget/truncation/profile violations without readiness.
+No frozen numerical baseline or tolerance changed. See
+[WorkspaceTools.md](WorkspaceTools.md#asset-packaging-preflight) and ignored
+`bin/validation/asset-control-boundaries/summary.json`.
+
+## Audio ownership audit acceptance
+
+Item 8 adds seven bounded PCM integration cases. Both full compilation modes now
+report **343 self-contained / 48 unavailable / 0 failed**, 391 discovered, with
+warnings as errors. Exact FIFO audio agrees with sequential synthesis for effects
+off/on; saturation, cancellation, callback failures, endpoint ownership and repeated
+shutdown release leases. Frozen numerical baselines remain unchanged. Separate
+Release cost captures, instrumentation isolation and exact cross-build PCM checks
+are documented in [AudioCostAudit.md](AudioCostAudit.md). Performance observations
+are not unit-test timing thresholds or hardware playback acceptance.

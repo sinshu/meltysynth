@@ -361,12 +361,40 @@ budget violations throw `InvalidDataException`; physical sample EOF throws
 
 Run `python3 tools/regression_baseline.py` from a fresh checkout. It verifies the
 checked-in reference corpus and runs the complete suite in normal and .NET 10/C# 14
-source-integration modes. The baseline has **308 self-contained passes** per mode;
+source-integration modes. The baseline has **343 self-contained passes** per mode;
 **48 external comparisons** are explicitly unavailable without their real assets.
 See [RegressionBaselines.md](docs/RegressionBaselines.md) for fixture paths,
 provenance/hash pinning, numerical tolerances, strict external acceptance and
 silence/loop/stream-ownership contracts. No downloaded bank or game project is
 needed for the self-contained baseline.
+
+### Audio cost and ownership audit
+
+Run `python3 tools/audio_audit.py` for the dependency-free plain/profiled Release
+audit. Optional `--font FILE --midi FILE` measures scene audio without importing game
+projects. See [AudioCostAudit.md](docs/AudioCostAudit.md) for measured stage times,
+allocations, bounded-queue ownership, reproduction commands and hardware limits.
+The 256-voice effects case measured 0.171 ms median / 0.200 ms p99 per 64-frame block
+on the M1 Pro; these offline results are not an audio-device deadline guarantee.
+
+### Runtime control contract
+
+`Synthesizer.MasterVolume` is finite linear gain in **[0, 1]**, default 0.5.
+Zero mutes newly synthesized audio while voices/effects continue; unity gain is
+not a clipping limiter. `MidiFileSequencer.Speed` accepts **zero or [1/128, 16]**,
+default 1. Zero freezes MIDI event time while audio voices continue rendering;
+it is not a silent pause. Positive speeds always advance by at least one clock
+tick at every supported sample rate/block size. Changes take effect at block
+boundaries; already buffered samples are unchanged. Nonfinite/out-of-range values
+throw before mutation instead of being clamped or retained for compatibility.
+
+One owner must serialize render, note/event commands and property changes; the
+core is not thread-safe. Load a complete asset before publishing it. Scene packaging
+must validate every asset using its target `AssetLoadLimits`, record exact byte
+identities, and retain that same profile for runtime load-time structural checks.
+The `Workspace validate` command provides an offline gate and atomic hash/profile
+receipt for one SoundFont/MIDI pair; it is not an automatic game-packager integration.
+See [WorkspaceTools.md](docs/WorkspaceTools.md#asset-packaging-preflight).
 
 ### Portable Workspace commands
 

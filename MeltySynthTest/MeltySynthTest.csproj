@@ -18,6 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="../Workspace/BoundedAudioPipe.cs" Link="WorkspaceSource/BoundedAudioPipe.cs" />
+    <Compile Include="../Workspace/AssetPreflight.cs" Link="WorkspaceSource/AssetPreflight.cs" />
     <Compile Include="../Workspace/ToolPaths.cs" Link="WorkspaceSource/ToolPaths.cs" />
     <Compile Include="../Workspace/Examples.cs" Link="WorkspaceSource/Examples.cs" />
     <Compile Include="../Workspace/Benchmark.cs" Link="WorkspaceSource/Benchmark.cs" />

@@ -1,5 +1,20 @@
 # Unreleased
 
+- Add a dependency-free Release audio audit with plain/profiled source builds,
+  separated loading, synthesis/effects and conversion observations, raw timing data,
+  allocations, deadline/asset/queue metrics and exact PCM comparisons. Stage hooks
+  are compiled out of normal builds; no DSP algorithm or per-voice task changed.
+- Add a preallocated single-producer/single-consumer PCM integration ring in
+  Workspace, replacing measured allocating collection bookkeeping. Cover bounded
+  backpressure, FIFO audio identity, cancellation, lease cleanup and shutdown.
+
+- Reject nonfinite/out-of-range master gain and sequencer speed before changing
+  playback state. Define gain [0,1], speed zero or [1/128,16], block-boundary changes,
+  mute/zero-speed semantics and single-owner command/rendering requirements.
+- Add offline target-profile SoundFont/MIDI preflight with exact SHA-256 identities
+  and an atomic, non-overwriting validation receipt. Keep structural checks at load
+  and control validation in setters, with no extra per-sample validation/copies.
+
 - Complete nullable flow in external-bank comparison helpers and enable nullable
   checks in both test modes and Workspace. Require initialized region ranges and
   explicitly fail missing numerical matches instead of suppressing warnings.
