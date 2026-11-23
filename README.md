@@ -491,6 +491,16 @@ sequencer.Render(left, right);
 
 
 
+## Fork modernization scope
+
+The synthesis core and its tests/tooling are the .NET 10/C# 14 modernization
+focus. All sixteen standalone examples have received a basic .NET 10/C# 14
+retarget, with their backend dependencies unchanged. They remain reference-only
+for WebGPU integration; their builds do not establish live playback support or
+exercise the local fork while they reference NuGet MeltySynth 2.4.1.
+See the [project, dependency and asset inventory](docs/ModernizationInventory.md)
+for the frozen scope, build results, ownership review and reproducible receipts.
+
 ## License
 
 MeltySynth is available under [the MIT license](LICENSE.txt).

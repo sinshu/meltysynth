@@ -121,3 +121,183 @@ receipt also records resolved package versions/SHA-512 and available transitive
 license metadata from each project's `project.assets.json` and local NuSpec cache.
 No dependency versions were upgraded in this task.
 
+| Package | Version | License evidence |
+| --- | --- | --- |
+| [CSCore](https://api.nuget.org/v3-flatcontainer/cscore/1.2.1.2/cscore.nuspec) | 1.2.1.2 | License URL only; text not present in package; unresolved |
+| [DotFeather](https://api.nuget.org/v3-flatcontainer/dotfeather/3.2.0/dotfeather.nuspec) | 3.2.0 | MIT |
+| [DrippyAL](https://api.nuget.org/v3-flatcontainer/drippyal/2.1.3/drippyal.nuspec) | 2.1.3 | MIT |
+| [FNA.NET](https://api.nuget.org/v3-flatcontainer/fna.net/1.0.15.2403/fna.net.nuspec) | 1.0.15.2403 | MS-PL (packaged LICENSE) |
+| [MathNet.Numerics](https://api.nuget.org/v3-flatcontainer/mathnet.numerics/5.0.0/mathnet.numerics.nuspec) | 5.0.0 | MIT |
+| [MeltySynth](https://api.nuget.org/v3-flatcontainer/meltysynth/2.4.1/meltysynth.nuspec) | 2.4.1 | MIT (packaged LICENSE.txt) |
+| [Microsoft.NET.Test.Sdk](https://api.nuget.org/v3-flatcontainer/microsoft.net.test.sdk/18.3.0/microsoft.net.test.sdk.nuspec) | 18.3.0 | MIT |
+| [MonoGame.Framework.DesktopGL](https://api.nuget.org/v3-flatcontainer/monogame.framework.desktopgl/3.8.2.1105/monogame.framework.desktopgl.nuspec) | 3.8.2.1105 | MS-PL |
+| [NAudio](https://api.nuget.org/v3-flatcontainer/naudio/2.2.1/naudio.nuspec) | 2.2.1 | MIT (packaged license.txt) |
+| [NAudio.Core](https://api.nuget.org/v3-flatcontainer/naudio.core/2.3.0/naudio.core.nuspec) | 2.3.0 | MIT |
+| [NUnit](https://api.nuget.org/v3-flatcontainer/nunit/4.5.1/nunit.nuspec) | 4.5.1 | MIT |
+| [NUnit3TestAdapter](https://api.nuget.org/v3-flatcontainer/nunit3testadapter/6.1.0/nunit3testadapter.nuspec) | 6.1.0 | MIT |
+| [OpenTK](https://api.nuget.org/v3-flatcontainer/opentk/4.8.2/opentk.nuspec) | 4.8.2 | MIT |
+| [Raylib-CsLo](https://api.nuget.org/v3-flatcontainer/raylib-cslo/4.2.0.9/raylib-cslo.nuspec) | 4.2.0.9 | MPL-2.0 |
+| [Raylib-cs](https://api.nuget.org/v3-flatcontainer/raylib-cs/6.1.1/raylib-cs.nuspec) | 6.1.1 | Zlib |
+| [SFML.Net](https://api.nuget.org/v3-flatcontainer/sfml.net/2.6.0/sfml.net.nuspec) | 2.6.0 | Zlib |
+| [Silk.NET.OpenAL](https://api.nuget.org/v3-flatcontainer/silk.net.openal/2.21.0/silk.net.openal.nuspec) | 2.21.0 | MIT |
+| [Silk.NET.OpenAL.Soft.Native](https://api.nuget.org/v3-flatcontainer/silk.net.openal.soft.native/1.23.1/silk.net.openal.soft.native.nuspec) | 1.23.1 | LGPL-2.0-or-later |
+| [Silk.NET.SDL](https://api.nuget.org/v3-flatcontainer/silk.net.sdl/2.21.0/silk.net.sdl.nuspec) | 2.21.0 | MIT |
+| [SoundFlow](https://api.nuget.org/v3-flatcontainer/soundflow/1.0.3/soundflow.nuspec) | 1.0.3 | MIT (packaged LICENSE.md) |
+| [TinyAudio](https://api.nuget.org/v3-flatcontainer/tinyaudio/0.3.1/tinyaudio.nuspec) | 0.3.1 | MIT |
+| [ppy.SDL2-CS](https://api.nuget.org/v3-flatcontainer/ppy.sdl2-cs/1.0.82/ppy.sdl2-cs.nuspec) | 1.0.82 | No license metadata or packaged text; unresolved |
+| [sokol_csharp.unofficial](https://api.nuget.org/v3-flatcontainer/sokol_csharp.unofficial/0.0.1/sokol_csharp.unofficial.nuspec) | 0.0.1 | Zlib |
+
+Two often-hidden dependencies matter to the scope: DotFeather's manifest pulls
+Silk.NET 2.15.0/OpenAL Soft 1.21.1.1; DrippyAL 2.1.3 pulls Silk.NET.OpenAL 2.21.0 /
+OpenAL Soft 1.23.1. The latter native package declares LGPL-2.0-or-later. These
+examples stay outside the WebGPU platform. Missing license evidence for CSCore or
+ppy.SDL2-CS is recorded rather than guessed; neither needs adoption to upgrade the
+core. Future redistribution of a retained backend requires its own exact native/
+transitive notices, not an assumption that this direct-package table is sufficient.
+
+### Basic example build results
+
+All 16 Release builds completed under SDK 10.0.203. NAudio was cross-built with
+`-p:EnableWindowsTargeting=true`; no Windows/device execution occurred. Three
+independent builds ran at most concurrently. Initially 14 passed; only FNA.NET and
+MonoGame required the already described mutable-span corrections, and their
+focused rebuilds passed. No package warnings were suppressed:
+
+- CSCore: NU1701, the old package restores .NET Framework assets rather than a
+  matching net10 target. Compiling does not establish runtime compatibility.
+- DotFeather: NU1902/NU1903 for resolved SixLabors.ImageSharp 1.0.2. This dependency
+  is not part of the WebGPU synthesis path; repairing it is outside basic retargeting.
+- SFML.Net: NETSDK1206 for CSFML's version-specific `fedora-x64` RID. Native loading
+  on that target remains untested.
+
+The other 13 final build logs contain none of those warning codes. Receipts are in
+`bin/validation/pre-upgrade-inventory/example-builds.json` and per-example logs.
+To repeat an individual basic build:
+
+```sh
+dotnet build Examples/Raylib_cs/Raylib_csExample.csproj -c Release
+dotnet build Examples/NAudio/NAudioExample.csproj -c Release -p:EnableWindowsTargeting=true
+```
+
+### Package refresh rule for difficult examples
+
+Per the user's follow-up, check current maintained NuGet options **before** doing
+custom repairs to a complicated example. A package need not explicitly target
+net10.0 to be consumable by a .NET 10 application: compatible .NET Standard/net8/
+net9 libraries may suffice, subject to API/native runtime acceptance. Conversely,
+a successful compile or a newer version does not prove native-device support.
+
+The following exact latest-stable versions were checked against official NuGet
+version indices/manifests on 2026-11-23. None of the inspected latest manifests
+advertises a dedicated net10.0 group; several advertise compatible older targets.
+These are evaluated candidates, **not package changes applied to the examples**.
+Already successful basic builds remain the acceptance baseline. Do not label a
+project dead solely because its NuGet version has not changed.
+
+| Package | Current example dependency | Latest stable checked | Decision |
+| --- | --- | --- | --- |
+| [CSCore](https://api.nuget.org/v3-flatcontainer/cscore/1.2.1.2/cscore.nuspec) | 1.2.1.2 | 1.2.1.2 | No newer stable package found; existing .NET Framework asset warning remains. Do not rebuild the backend for an unused example. |
+| [DotFeather](https://api.nuget.org/v3-flatcontainer/dotfeather/3.2.0/dotfeather.nuspec) | 3.2.0 | 3.2.0 | No newer stable parent package found. Do not force a major ImageSharp/Drawing upgrade into its old binary dependency graph. |
+| [SFML.Net](https://api.nuget.org/v3-flatcontainer/sfml.net/3.0.0/sfml.net.nuspec) | 2.6.0 | 3.0.0 | 3.x candidate exists (.NET Standard 2.0 metadata); native/API migration is separate, not needed for the successful basic build. |
+| [CSFML](https://api.nuget.org/v3-flatcontainer/csfml/3.0.0/csfml.nuspec) | 2.6.0 | 3.0.0 | 3.x native package candidate accompanies SFML 3; validate native RIDs if this backend is ever needed. |
+| [SixLabors.ImageSharp](https://api.nuget.org/v3-flatcontainer/sixlabors.imagesharp/4.1.3/sixlabors.imagesharp.nuspec) | 1.0.2 (resolved) | 4.1.3 | Latest metadata targets net8.0; usable target family for net10 consumers, not a proven binary-compatible fix for DotFeather 3.2.0. |
+| [SixLabors.ImageSharp.Drawing](https://api.nuget.org/v3-flatcontainer/sixlabors.imagesharp.drawing/3.1.3/sixlabors.imagesharp.drawing.nuspec) | 1.0.0-beta11 (declared) | 3.1.3 | Latest metadata targets net8.0 and ImageSharp 4.1.3. Major-version API and packaged license need review if adopted. |
+| [FNA.NET](https://api.nuget.org/v3-flatcontainer/fna.net/2.2.11.2602/fna.net.nuspec) | 1.0.15.2403 | 2.2.11.2602 | Latest includes net9.0/.NET Standard 2.0 groups and newer native assets. Candidate only; current example already builds after one span fix. |
+| [MonoGame.Framework.DesktopGL](https://api.nuget.org/v3-flatcontainer/monogame.framework.desktopgl/3.8.6.1/monogame.framework.desktopgl.nuspec) | 3.8.2.1105 | 3.8.6.1 | Latest targets net8.0 and newer SDL/OpenAL packages. No replacement needed for current basic build. |
+| [OpenTK](https://api.nuget.org/v3-flatcontainer/opentk/4.9.4/opentk.nuspec) | 4.8.2 | 4.9.4 | Newer meta-package available; inspect its OpenAL component and runtime dependencies if a future platform needs it. |
+| [SoundFlow](https://api.nuget.org/v3-flatcontainer/soundflow/1.4.2/soundflow.nuspec) | 1.0.3 | 1.4.2 | Newer net8.0 package available. Do not migrate its engine API without a real WebGPU consumer. |
+
+For CSCore/DotFeather, no newer stable parent package removes the recorded issues.
+For SFML, a newer major version exists, but migrating an unused backend is outside
+the basic upgrade. Leave all three as reference-only rather than expanding this
+core modernization. The same rule applies to FNA, MonoGame, OpenTK or SoundFlow if
+they later become actual platform requirements. Retain required backend/version/
+license evidence before selecting an upgrade; do not pin new transitive versions
+just to hide restore warnings. Raw check results are in
+`bin/validation/pre-upgrade-inventory/package-refresh-review.json`.
+
+## Asset identities and availability
+
+The receipt hashes all 2,258 reference data files plus the root demo MIDI
+(**2,259 assets total**). Aggregate asset-manifest SHA-256:
+`ed2e5e495a7e2059c2069d7f8db4351a59b67e81f6287291722dae99ec9b93b7`.
+
+| Reference group | Files | Total bytes |
+| --- | --- | --- |
+| Freeverb | 5 | 194,446 |
+| Polyphone | 2,083 | 2,056,151 |
+| TinySoundFont | 170 | 9,108,874 |
+| Root `demo_song_for_arachno_soundfont.mid` | 1 | 17,438 |
+
+The demo MIDI SHA-256 is
+`bf6277150062d73e0d4bc4b98b1c6df30553192a439de13b4a394f6fa09afa24`.
+The Freeverb impulse WAV SHA-256 is
+`25b502afc5d113a7099f7957044b33d9d202bc0d84e026274a2f25f43ca5b33a`.
+All 2,258 `None Update` copy items resolve after proper **MSBuild percent-escape
+unescaping**; 53 escaped filenames only look missing if interpreted literally.
+
+Required external fixtures absent from this checkout: `TimGM6mb.sf2`,
+`Arachno SoundFont - Version 1.0.sf2`, `GeneralUser GS MuseScore v1.442.sf2`,
+`SGM-V2.01.sf2`, `MuseScore_General.sf3`, and `flourish.mid`, `onestop.mid`, `town.mid`.
+TestSettings loads banks in static fixture data; their absence and Windows-style
+runtime reference paths prevent claiming full upstream-suite acceptance. Reference
+CSV/TSV availability is not the same as having the originating banks. The root MIT
+code license does not establish redistribution permission for external banks;
+obtain their provenance before including them in an asset pack. No banks were
+copied or downloaded in this task. Original focused in-memory MIDI/SoundFont
+fixtures are identified by their versioned test-source hashes.
+
+The separate WebGPU audio set is also hashed when `--webgpu-root` is supplied:
+`neon-mile.sf2` is 200,876 bytes, SHA-256
+`d22b7c814aaf45bb16b01a2b378475229082aa3dc6a043058996fa3059028770`;
+`neon-mile.mid` is 1,549 bytes, SHA-256
+`d34fbb9e2518cb2482be7f41812916dc746fb33f3624cc98025fe647f4c4f969`.
+The receipt also includes its rendered music WAV and five cue WAV identities.
+These remain external game assets, not newly bundled library fixtures. Existing
+40-second offline smoke evidence is recorded in the prior audit receipts; it is
+not a new device-playback result from this inventory.
+
+## Packaging, scripts and IDE assumptions
+
+- Package-on-build is enabled in the core; version remains 2.4.1. The generated
+  local NuGet package includes LICENSE.txt, netstandard2.1 DLL and XML docs and
+  contains no backend/native runtime dependency. Package/project/release-note URLs
+  still identify upstream. Choose fork package/version/repository metadata before
+  distributing the modified library; no modified fork package was published or
+  installed over the cached upstream package.
+- The SDK reports a missing package README. Review package README wiring in the
+  packaging step; it does not block this inventory or the sixteen basic builds.
+- Root `clean.bat` removes only core/test/Workspace bin/obj. `Examples/clean.bat`
+  lists all 16 example bin/obj pairs. Both are Windows-only, working-directory-
+  dependent, unconditional recursive deletion plus pause. They were inspected,
+  **not executed**. They do not remove root `bin/validation` receipts. Use the
+  intended solution/Examples working directory; portable cleanup can be addressed
+  later without changing backend code.
+- `Examples/build_all.bat` lists all 16 projects but assumes Examples is CWD,
+  copies an unprovided local TimGM bank and an OpenTK `openal32.dll`, hardcodes
+  output paths and lacks fail-fast checks. Only its framework output paths were
+  updated to net10.0/net10.0-windows. It is not the acceptance harness used here.
+- .gitignore already excludes bin/obj/packages/test results; codex is locally
+  ignored. `.idea` configuration and `.DS_Store` files were left untouched. Rider
+  metadata maps this project to Git; UTF-8/BOM policy and console working directory
+  assumptions exist, but no shared launch profile supplies the missing assets.
+  No IDE metadata was added as a build requirement.
+
+## Reproduce and remaining work
+
+From the solution root, this read-only tool validates solution links, inventories
+project references/entry points, hashes source and reference assets, and records
+available resolved dependency metadata. It does not restore packages or open audio:
+
+```sh
+python3 tools/pre_upgrade_inventory.py
+# Optional: also identify the game assets in a separate checkout.
+python3 tools/pre_upgrade_inventory.py --webgpu-root /path/to/KilnGod.BlazorWebGPU
+```
+
+Default output is ignored `bin/validation/pre-upgrade-inventory/inventory.json`.
+NuGet manifest/license inspection receipts and raw build logs remain local. The
+full source/asset manifest makes the shorter hashes here reproducible. Core/test/
+Workspace migration, SDK pinning, fork package integration and applicable AOT/
+playback acceptance remain their own steps. Nonessential example backend repair,
+new loaders and missing-asset acquisition do not block core modernization.
