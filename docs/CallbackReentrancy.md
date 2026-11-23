@@ -1,3 +1,10 @@
+<!--
+SPDX-License-Identifier: MIT
+Copyright (C) 2026 James Carpenter
+Contributed by KilnGod (James Carpenter).
+See LICENSE.txt for the full MIT license and inherited notices.
+-->
+
 # Sequencer callback reentrancy
 
 Implemented for outline item 12 on 2026-11-23, .NET 10/C# 14, macOS ARM64.

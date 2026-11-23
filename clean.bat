@@ -1,3 +1,6 @@
+@REM SPDX-License-Identifier: MIT
+@REM Copyright and inherited upstream notices: see LICENSE.txt.
+
 rmdir /s /q "MeltySynth\bin"
 rmdir /s /q "MeltySynth\obj"
 rmdir /s /q "MeltySynthTest\bin"

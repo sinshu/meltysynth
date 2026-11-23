@@ -1,4 +1,9 @@
-﻿using System;
+﻿// SPDX-License-Identifier: MIT
+// Copyright and inherited upstream notices: see LICENSE.txt.
+// Copyright (C) 2026 James Carpenter
+// Contributed by KilnGod (James Carpenter).
+
+using System;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;

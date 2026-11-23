@@ -1,3 +1,6 @@
+@REM SPDX-License-Identifier: MIT
+@REM Copyright and inherited upstream notices: see LICENSE.txt.
+
 rmdir /s /q "CSCore\bin"
 rmdir /s /q "CSCore\obj"
 rmdir /s /q "DotFeather\bin"

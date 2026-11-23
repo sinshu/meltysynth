@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
+# Copyright (C) 2026 James Carpenter
+# Contributed by KilnGod (James Carpenter).
+# See LICENSE.txt for the full MIT license and inherited notices.
+
 """Build plain/profiled source-inclusive audio audits and compare exact PCM output."""
 import argparse
 import hashlib

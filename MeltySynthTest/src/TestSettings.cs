@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: MIT
+// Copyright and inherited upstream notices: see LICENSE.txt.
+// Copyright (C) 2026 James Carpenter
+// Contributed by KilnGod (James Carpenter).
+
 using System;
 using System.Collections.Generic;
 using System.IO;

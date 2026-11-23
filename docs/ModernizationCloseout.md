@@ -1,3 +1,10 @@
+<!--
+SPDX-License-Identifier: MIT
+Copyright (C) 2026 James Carpenter
+Contributed by KilnGod (James Carpenter).
+See LICENSE.txt for the full MIT license and inherited notices.
+-->
+
 # .NET 10 modernization closeout
 
 Local implementation and evidence are ready for review, 2026-11-23. No commit,

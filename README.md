@@ -1,3 +1,8 @@
+<!--
+SPDX-License-Identifier: MIT
+Copyright and inherited upstream notices: see LICENSE.txt.
+-->
+
 # MeltySynth
 
 MeltySynth is a SoundFont synthesizer written in C#.

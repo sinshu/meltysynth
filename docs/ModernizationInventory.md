@@ -1,3 +1,10 @@
+<!--
+SPDX-License-Identifier: MIT
+Copyright (C) 2026 James Carpenter
+Contributed by KilnGod (James Carpenter).
+See LICENSE.txt for the full MIT license and inherited notices.
+-->
+
 # MeltySynth modernization inventory and frozen scope
 
 Current closeout: [ModernizationCloseout.md](ModernizationCloseout.md) records fresh

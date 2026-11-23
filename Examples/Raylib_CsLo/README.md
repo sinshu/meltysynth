@@ -1,3 +1,8 @@
+<!--
+SPDX-License-Identifier: MIT
+Copyright and inherited upstream notices: see LICENSE.txt.
+-->
+
 ## Raylib-CsLo Example
 
 This is an example implementation of a MIDI player backed by Raylib-CsLo.

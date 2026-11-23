@@ -1,3 +1,8 @@
+<!--
+SPDX-License-Identifier: MIT
+Copyright and inherited upstream notices: see LICENSE.txt.
+-->
+
 ## SDL2#
 
 This is an example implementation of a MIDI player backed by SDL2#.

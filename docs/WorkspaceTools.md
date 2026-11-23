@@ -1,3 +1,10 @@
+<!--
+SPDX-License-Identifier: MIT
+Copyright (C) 2026 James Carpenter
+Contributed by KilnGod (James Carpenter).
+See LICENSE.txt for the full MIT license and inherited notices.
+-->
+
 # Portable .NET 10 Workspace tools
 
 Workspace is an offline developer executable. It uses the local library project

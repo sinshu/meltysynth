@@ -1,4 +1,7 @@
-﻿using System;
+﻿// SPDX-License-Identifier: MIT
+// Copyright and inherited upstream notices: see LICENSE.txt.
+
+using System;
 using SFML.Audio;
 using SFML.System;
 using MeltySynth;

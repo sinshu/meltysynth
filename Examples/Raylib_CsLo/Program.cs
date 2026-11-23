@@ -1,4 +1,7 @@
-﻿using System;
+﻿// SPDX-License-Identifier: MIT
+// Copyright and inherited upstream notices: see LICENSE.txt.
+
+using System;
 using Raylib_CsLo;
 using MeltySynth;
 

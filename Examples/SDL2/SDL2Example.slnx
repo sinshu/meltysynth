@@ -1,3 +1,8 @@
+<!--
+SPDX-License-Identifier: MIT
+Copyright and inherited upstream notices: see LICENSE.txt.
+-->
+
 <Solution>
   <Project Path="SDL2Example.csproj" />
 </Solution>

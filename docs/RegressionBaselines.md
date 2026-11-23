@@ -1,3 +1,10 @@
+<!--
+SPDX-License-Identifier: MIT
+Copyright (C) 2026 James Carpenter
+Contributed by KilnGod (James Carpenter).
+See LICENSE.txt for the full MIT license and inherited notices.
+-->
+
 # Reproducible regression and numerical baseline
 
 Frozen 2026-11-23 against production commit

@@ -1,4 +1,7 @@
-﻿// This reverb implementation is based on Freeverb, a public domain reverb
+﻿// SPDX-License-Identifier: MIT
+// Copyright and inherited upstream notices: see LICENSE.txt.
+
+// This reverb implementation is based on Freeverb, a public domain reverb
 // implementation by Jezar at Dreampoint.
 
 using System;

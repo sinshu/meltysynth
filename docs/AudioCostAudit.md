@@ -1,3 +1,10 @@
+<!--
+SPDX-License-Identifier: MIT
+Copyright (C) 2026 James Carpenter
+Contributed by KilnGod (James Carpenter).
+See LICENSE.txt for the full MIT license and inherited notices.
+-->
+
 # Audio cost and ownership audit
 
 Accepted 2026-11-23 on Apple M1 Pro (10 logical CPUs), macOS 27.2.1 ARM64,

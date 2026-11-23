@@ -1,3 +1,10 @@
+<!--
+SPDX-License-Identifier: MIT
+Copyright (C) 2026 James Carpenter
+Contributed by KilnGod (James Carpenter).
+See LICENSE.txt for the full MIT license and inherited notices.
+-->
+
 # NativeAOT, trimming and source delivery acceptance
 
 macOS ARM64 acceptance completed 2026-11-23 with pinned SDK 10.0.404, runtime/

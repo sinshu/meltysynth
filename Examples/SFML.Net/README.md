@@ -1,3 +1,8 @@
+<!--
+SPDX-License-Identifier: MIT
+Copyright and inherited upstream notices: see LICENSE.txt.
+-->
+
 ## SFML.Net Example
 
 This is an example implementation of a MIDI player backed by SFML.Net.

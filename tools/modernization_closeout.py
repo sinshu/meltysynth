@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
+# Copyright (C) 2026 James Carpenter
+# Contributed by KilnGod (James Carpenter).
+# See LICENSE.txt for the full MIT license and inherited notices.
+
 """Retain root/test/example closeout evidence without Git writes or backend migrations."""
 import concurrent.futures
 import hashlib

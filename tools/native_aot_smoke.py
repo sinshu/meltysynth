@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
+# Copyright (C) 2026 James Carpenter
+# Contributed by KilnGod (James Carpenter).
+# See LICENSE.txt for the full MIT license and inherited notices.
+
 """Validate local ARM64 NativeAOT, trimming evidence, NuGet and MIT source delivery."""
 import argparse
 import array

@@ -1,3 +1,10 @@
+<!--
+SPDX-License-Identifier: MIT
+Copyright (C) 2026 James Carpenter
+Contributed by KilnGod (James Carpenter).
+See LICENSE.txt for the full MIT license and inherited notices.
+-->
+
 # Numeric asset and live-command boundaries
 
 Implemented 2026-11-23 for outline item 11, .NET 10/C# 14 on macOS ARM64.

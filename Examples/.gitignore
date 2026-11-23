@@ -1,2 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright and inherited upstream notices: see LICENSE.txt.
+
 *.dll
 *.sf2

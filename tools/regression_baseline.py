@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
+# Copyright (C) 2026 James Carpenter
+# Contributed by KilnGod (James Carpenter).
+# See LICENSE.txt for the full MIT license and inherited notices.
+
 """Run the unfiltered portable numerical baseline; report optional external work separately."""
 import argparse
 import hashlib

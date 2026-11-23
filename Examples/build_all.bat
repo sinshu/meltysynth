@@ -1,3 +1,6 @@
+@REM SPDX-License-Identifier: MIT
+@REM Copyright and inherited upstream notices: see LICENSE.txt.
+
 cd CSCore
 dotnet build -c Release
 cd ..
