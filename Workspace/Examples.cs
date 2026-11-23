@@ -1,24 +1,25 @@
-﻿using System;
+using System;
 using System.Linq;
+using System.IO;
 using NAudio.Wave;
 using MeltySynth;
 
 public static class Examples
 {
-    public static void RunAll()
+    public static void RunAll(ToolPaths paths)
     {
-        SimpleChord();
-        Flourish();
-        ChangePlaybackSpeed();
-        MuteDrumTrack();
-        OverrideInstrument();
+        SimpleChord(paths);
+        Flourish(paths);
+        ChangePlaybackSpeed(paths);
+        MuteDrumTrack(paths);
+        OverrideInstrument(paths);
     }
 
-    public static void SimpleChord()
+    public static void SimpleChord(ToolPaths paths)
     {
         // Create the synthesizer.
         var sampleRate = 44100;
-        var synthesizer = new Synthesizer("TimGM6mb.sf2", sampleRate);
+        var synthesizer = new Synthesizer(paths.Asset(paths.SoundFontName), sampleRate);
 
         // Play some notes (middle C, E, G).
         synthesizer.NoteOn(0, 60, 100);
@@ -32,38 +33,38 @@ public static class Examples
         // Render the waveform.
         synthesizer.Render(left, right);
 
-        WriteWaveFile(left, right, sampleRate, "SimpleChord.wav");
+        WriteWaveFile(left, right, sampleRate, paths.Output("SimpleChord.wav"));
     }
 
-    public static void Flourish()
+    public static void Flourish(ToolPaths paths)
     {
         // Create the synthesizer.
         var sampleRate = 44100;
-        var synthesizer = new Synthesizer("TimGM6mb.sf2", sampleRate);
+        var synthesizer = new Synthesizer(paths.Asset(paths.SoundFontName), sampleRate);
 
         // Read the MIDI file.
-        var midiFile = new MidiFile(@"C:\Windows\Media\flourish.mid");
+        var midiFile = new MidiFile(paths.Asset(paths.MidiName));
         var sequencer = new MidiFileSequencer(synthesizer);
         sequencer.Play(midiFile, false);
 
         // The output buffer.
-        var left = new float[(int)(sampleRate * midiFile.Length.TotalSeconds)];
-        var right = new float[(int)(sampleRate * midiFile.Length.TotalSeconds)];
+        var left = new float[(int)(sampleRate * BoundedDuration(midiFile))];
+        var right = new float[(int)(sampleRate * BoundedDuration(midiFile))];
 
         // Render the waveform.
         sequencer.Render(left, right);
 
-        WriteWaveFile(left, right, sampleRate, "Flourish.wav");
+        WriteWaveFile(left, right, sampleRate, paths.Output("Flourish.wav"));
     }
 
-    public static void ChangePlaybackSpeed()
+    public static void ChangePlaybackSpeed(ToolPaths paths)
     {
         // Create the synthesizer.
         var sampleRate = 44100;
-        var synthesizer = new Synthesizer("TimGM6mb.sf2", sampleRate);
+        var synthesizer = new Synthesizer(paths.Asset(paths.SoundFontName), sampleRate);
 
         // Read the MIDI file.
-        var midiFile = new MidiFile(@"C:\Windows\Media\flourish.mid");
+        var midiFile = new MidiFile(paths.Asset(paths.MidiName));
         var sequencer = new MidiFileSequencer(synthesizer);
 
         // Play the MIDI file.
@@ -73,23 +74,23 @@ public static class Examples
         sequencer.Speed = 1.5F;
 
         // The output buffer.
-        var left = new float[(int)(sampleRate * midiFile.Length.TotalSeconds / sequencer.Speed)];
-        var right = new float[(int)(sampleRate * midiFile.Length.TotalSeconds / sequencer.Speed)];
+        var left = new float[(int)(sampleRate * BoundedDuration(midiFile) / sequencer.Speed)];
+        var right = new float[(int)(sampleRate * BoundedDuration(midiFile) / sequencer.Speed)];
 
         // Render the waveform.
         sequencer.Render(left, right);
 
-        WriteWaveFile(left, right, sampleRate, "ChangePlaybackSpeed.wav");
+        WriteWaveFile(left, right, sampleRate, paths.Output("ChangePlaybackSpeed.wav"));
     }
 
-    public static void MuteDrumTrack()
+    public static void MuteDrumTrack(ToolPaths paths)
     {
         // Create the synthesizer.
         var sampleRate = 44100;
-        var synthesizer = new Synthesizer("TimGM6mb.sf2", sampleRate);
+        var synthesizer = new Synthesizer(paths.Asset(paths.SoundFontName), sampleRate);
 
         // Read the MIDI file.
-        var midiFile = new MidiFile(@"C:\Windows\Media\flourish.mid");
+        var midiFile = new MidiFile(paths.Asset(paths.MidiName));
         var sequencer = new MidiFileSequencer(synthesizer);
 
         // Discard MIDI messages if its channel is the percussion channel.
@@ -107,23 +108,23 @@ public static class Examples
         sequencer.Play(midiFile, false);
 
         // The output buffer.
-        var left = new float[(int)(sampleRate * midiFile.Length.TotalSeconds)];
-        var right = new float[(int)(sampleRate * midiFile.Length.TotalSeconds)];
+        var left = new float[(int)(sampleRate * BoundedDuration(midiFile))];
+        var right = new float[(int)(sampleRate * BoundedDuration(midiFile))];
 
         // Render the waveform.
         sequencer.Render(left, right);
 
-        WriteWaveFile(left, right, sampleRate, "MuteDrumTrack.wav");
+        WriteWaveFile(left, right, sampleRate, paths.Output("MuteDrumTrack.wav"));
     }
 
-    public static void OverrideInstrument()
+    public static void OverrideInstrument(ToolPaths paths)
     {
         // Create the synthesizer.
         var sampleRate = 44100;
-        var synthesizer = new Synthesizer("TimGM6mb.sf2", sampleRate);
+        var synthesizer = new Synthesizer(paths.Asset(paths.SoundFontName), sampleRate);
 
         // Read the MIDI file.
-        var midiFile = new MidiFile(@"C:\Windows\Media\flourish.mid");
+        var midiFile = new MidiFile(paths.Asset(paths.MidiName));
         var sequencer = new MidiFileSequencer(synthesizer);
 
         // Turn all the instruments into electric guitars.
@@ -141,20 +142,28 @@ public static class Examples
         sequencer.Play(midiFile, false);
 
         // The output buffer.
-        var left = new float[(int)(sampleRate * midiFile.Length.TotalSeconds)];
-        var right = new float[(int)(sampleRate * midiFile.Length.TotalSeconds)];
+        var left = new float[(int)(sampleRate * BoundedDuration(midiFile))];
+        var right = new float[(int)(sampleRate * BoundedDuration(midiFile))];
 
         // Render the waveform.
         sequencer.Render(left, right);
 
-        WriteWaveFile(left, right, sampleRate, "OverrideInstrument.wav");
+        WriteWaveFile(left, right, sampleRate, paths.Output("OverrideInstrument.wav"));
     }
 
-    private static void WriteWaveFile(float[] left, float[] right, int sampleRate, string path)
+    private static double BoundedDuration(MidiFile file)
     {
-        var leftMax = left.Max(x => Math.Abs(x));
-        var rightMax = right.Max(x => Math.Abs(x));
-        var a = 0.99F / Math.Max(leftMax, rightMax);
+        if (file.Length.TotalSeconds > 300)
+            throw new InvalidDataException("Offline examples accept at most 300 seconds of MIDI; use bounded streaming for longer assets.");
+        return file.Length.TotalSeconds;
+    }
+
+    internal static void WriteWaveFile(float[] left, float[] right, int sampleRate, string path)
+    {
+        var leftMax = left.Length == 0 ? 0 : left.Max(x => Math.Abs(x));
+        var rightMax = right.Length == 0 ? 0 : right.Max(x => Math.Abs(x));
+        var peak = Math.Max(leftMax, rightMax);
+        var a = peak > 0 ? 0.99F / peak : 1F;
 
         var format = new WaveFormat(sampleRate, 16, 2);
         using (var writer = new WaveFileWriter(path, format))

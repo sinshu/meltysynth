@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Numerics;
-using System.Runtime.InteropServices;
-using MathNet.Numerics;
-using MathNet.Numerics.IntegralTransforms;
-using NAudio.Wave;
-using MeltySynth;
+using System;
 
 public static class Program
 {
-    public static void Main(string[] args)
+    public static int Main(string[] args)
     {
+        try { return WorkspaceCommand.Run(args, Console.Out); }
+        catch (Exception error) when (error is ArgumentException or System.IO.IOException or NotSupportedException)
+        {
+            Console.Error.WriteLine(error.Message);
+            return 1;
+        }
     }
 }

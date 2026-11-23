@@ -20,7 +20,7 @@ def main():
     rid = system + '-' + arch
     destination = ROOT / 'bin/dotnet'
     host = destination / ('dotnet.exe' if os.name == 'nt' else 'dotnet')
-    if host.is_file() and subprocess.check_output([str(host), '--version'], cwd=ROOT, text=True).strip() == version:
+    if host.is_file() and any(line.startswith(version + ' ') for line in subprocess.check_output([str(host), '--list-sdks'], cwd=ROOT, text=True).splitlines()):
         print(f'SDK {version} already installed: {host}')
         return
     channel = '.'.join(version.split('.')[:2])

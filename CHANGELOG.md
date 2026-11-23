@@ -1,5 +1,10 @@
 # Unreleased
 
+- Target the dependency-free core, tests and Workspace at .NET 10 with explicit
+  C# 14. Pin stable SDK 10.0.404 and provide an optional SHA-512-verified local SDK
+  installer. Resolve preset lookup nullable flow without suppression, added copies
+  or changed fallback behavior; cover exact, GM and default fallback paths.
+
 - Reject non-progressing MIDI loops before playback to prevent a zero-duration loop
   extension from hanging audio rendering. A rejected Play request leaves the
   current playback unchanged; non-looped playback still ignores loop markers.
@@ -10,7 +15,7 @@
 
 - Make writable SIMD and SoundFont sample-loading spans explicit for .NET 10/C# 14
   source integration. Add an opt-in source-inclusive test configuration and exact
-  PCM-loading coverage while retaining the existing library target.
+  PCM-loading coverage; the library target is now upgraded as described above.
 
 - Fill PCM sample buffers across short reads and fail explicitly on incomplete
   data. Validate sample LIST/RIFF boundaries, 16-bit alignment and RIFF padding;

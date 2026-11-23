@@ -1,10 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <LangVersion>14.0</LangVersion>
 
     <IsPackable>false</IsPackable>
+    <Nullable>enable</Nullable>
+    <VSTestResultsDirectory>$(MSBuildProjectDirectory)/bin/TestResults</VSTestResultsDirectory>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,14 +18,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="../Workspace/ToolPaths.cs" Link="WorkspaceSource/ToolPaths.cs" />
+    <Compile Include="../Workspace/Examples.cs" Link="WorkspaceSource/Examples.cs" />
+    <Compile Include="../Workspace/Benchmark.cs" Link="WorkspaceSource/Benchmark.cs" />
+    <Compile Include="../Workspace/WorkspaceCommand.cs" Link="WorkspaceSource/WorkspaceCommand.cs" />
     <None Update="Baselines/*.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <!-- Compile the actual library sources against .NET 10/C# 14 for source consumers. -->
-  <PropertyGroup Condition="'$(SourceIntegration)' == 'true'">
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-
   <ItemGroup Condition="'$(SourceIntegration)' != 'true'">
     <ProjectReference Include="..\MeltySynth\MeltySynth.csproj" />
   </ItemGroup>

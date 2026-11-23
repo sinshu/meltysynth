@@ -3,9 +3,10 @@
 Frozen 2026-11-23 against production commit
 `2af12ffb4588a89ddf74fce8e1fde7d9da0c4b55`, SDK 10.0.203 / .NET 10.0.7 ARM64.
 No production-library code, dependency versions, or target frameworks were changed
-by this baseline work. The primary tests remain net8.0 against netstandard2.1;
-the source-integration configuration explicitly compiles the actual core under
-net10.0/C# 14. Both modes execute the same assertions.
+by this baseline work. That capture used net8.0 against netstandard2.1 and net10.0/C# 14 source inclusion.
+The subsequent framework upgrade targets both configurations at net10.0/C# 14;
+they retain distinct project-reference and source-inclusive compilation paths and
+execute the same assertions. The original numerical golden data stays unchanged.
 
 ## Run from a fresh checkout
 
@@ -13,7 +14,9 @@ net10.0/C# 14. Both modes execute the same assertions.
 python3 tools/regression_baseline.py
 ```
 
-Requires the normal test NuGets and a .NET 10 SDK plus the existing net8 runtime.
+Requires the normal test NuGets and the SDK pinned in `global.json` (10.0.404).
+Run `python3 tools/install_dotnet_sdk.py` for a local SDK/runtime under `bin/dotnet`;
+the runner prefers that host. No .NET 8 runtime is required by the upgraded suite.
 No game project, downloaded SoundFont, audio device, native playback library or
 secret workstation path is required. The runner resolves the repository from its
 own location and runs both configurations sequentially because they share restore
@@ -161,3 +164,31 @@ assembly-relative copied data. Its receipt is under `non-root/non-root.trx`.
 No full external-bank acceptance, hardware playback, allocation/latency benchmark,
 AOT platform acceptance or core framework retarget is claimed here. Existing
 nullable warnings remain separate upgrade work.
+
+## .NET 10 / C# 14 migration acceptance
+
+Completed 2026-11-23 on macOS ARM64, pinned SDK **10.0.404**, runtime **10.0.15**.
+Both full configurations report **299 passed / 48 external unavailable / 0 failed**
+(**347 discovered** each). The four added preset-selection cases cover exact hits,
+GM fallback, default fallback and missing percussion requests. Frozen fixture and
+synthesis identities, sample tolerances, loop/silence and ownership assertions are
+unchanged; the upgrade does not regenerate expected audio.
+
+`Synthesizer.NoteOn` now infers the nullable out variable at the first dictionary
+lookup. Successful lookups or assignment of the synthesizer-owned `defaultPreset`
+prove a nonnull value before use. No null-forgiving operator, warning suppression,
+additional dictionary lookup or allocation was added. The core builds with warnings
+as errors. The root Release solution build has zero warnings/errors. Source-inclusive
+nullable checking still reports six pre-existing external-bank helper warnings
+(CS8604/CS8618); these are not core warnings or hidden migration failures.
+
+The generated package contains only `lib/net10.0` assembly/documentation plus normal
+NuGet metadata and the preserved MIT license, with no package dependencies or native
+playback modules. Local package metadata/version are unchanged; no package was
+published. Broader Workspace path cleanup and platform/AOT playback remain separate.
+Receipts: `bin/validation/net10-upgrade/summary.json` and `regression/summary.json`.
+
+```sh
+./bin/dotnet/dotnet build MeltySynth/MeltySynth.csproj -c Release -warnaserror
+python3 tools/regression_baseline.py --output-dir bin/validation/net10-upgrade/regression
+```

@@ -74,7 +74,7 @@ def main():
             # The two modes share restore state, so run them sequentially.
             trx = output / (mode + ".trx")
             if trx.exists(): trx.unlink()
-            command = [dotnet, "test", "MeltySynthTest/MeltySynthTest.csproj", "-c", "Release",
+            command = [dotnet, "test", "MeltySynthTest/MeltySynthTest.csproj", "-c", "Release", "-warnaserror",
                        "--logger", "trx;LogFileName=" + trx.name, "--results-directory", str(output)]
             if mode == "source-integration": command.append("-p:SourceIntegration=true")
             with (output / (mode + ".log")).open("w") as log:

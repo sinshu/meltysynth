@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "minimumSelfContainedCases": 299,
+  "minimumSelfContainedCases": 308,
   "referenceGroups": [
     {
       "folder": "Freeverb",

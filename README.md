@@ -55,11 +55,35 @@ sequencer.Render(left, right);
 
 * Suitable for both real-time and offline synthesis.
 * Support for standard MIDI files with additional functionalities like dynamic tempo change.
-* No dependencies other than .NET Standard 2.1.
+* Targets .NET 10 / C# 14, with no package or native-library dependencies.
 
 
+
+## Building this fork
+
+The library, tests and Workspace target `net10.0` with explicit C# 14.
+`global.json` pins stable SDK **10.0.404** without version roll-forward.
+Install that SDK normally or use the optional local installer (Python 3.12+):
+
+```sh
+python3 tools/install_dotnet_sdk.py
+./bin/dotnet/dotnet build MeltySynth.slnx -c Release
+python3 tools/regression_baseline.py
+```
+
+On Windows the local host is `bin\dotnet\dotnet.exe`. Downloads, SDK and receipts
+stay in ignored `bin/`. The installer verifies Microsoft's published SHA-512;
+normal `dotnet` commands also resolve the local SDK through `global.json`.
+For Rider, select this SDK and, when using the local install, its `dotnet` executable
+under **Settings → Build, Execution, Deployment → Toolset and Build**.
+The regression runner prefers the local host so tests use its matching runtime.
+This framework upgrade changes the fork's required runtime; it retains no legacy
+targets. Source inclusion remains available without a binary project reference.
 
 ## Installation
+
+The upstream package below is a separate published artifact; building this fork
+creates a local .NET 10 package and does not publish it or update any consumer.
 
 [The NuGet package](https://www.nuget.org/packages/MeltySynth/) is available:
 
@@ -337,7 +361,7 @@ budget violations throw `InvalidDataException`; physical sample EOF throws
 
 Run `python3 tools/regression_baseline.py` from a fresh checkout. It verifies the
 checked-in reference corpus and runs the complete suite in normal and .NET 10/C# 14
-source-integration modes. The baseline has **295 self-contained passes** per mode;
+source-integration modes. The baseline has **299 self-contained passes** per mode;
 **48 external comparisons** are explicitly unavailable without their real assets.
 See [RegressionBaselines.md](docs/RegressionBaselines.md) for fixture paths,
 provenance/hash pinning, numerical tolerances, strict external acceptance and
@@ -346,10 +370,10 @@ needed for the self-contained baseline.
 
 ### .NET 10 / C# 14 source integration
 
-The compatibility configuration compiles the actual library sources into the test
+The source-integration configuration compiles the actual library sources into the test
 assembly with `net10.0`, explicit `LangVersion=14.0` and nullable checking. It uses
-no library project reference and does not change the packaged library target.
-Run with a .NET 10 SDK:
+no library project reference; the packaged library now also targets .NET 10/C# 14.
+Run with the pinned SDK:
 
 ```sh
 dotnet test MeltySynthTest/MeltySynthTest.csproj -c Release -p:SourceIntegration=true --filter "FullyQualifiedName~AssetParsingLimitsTest|FullyQualifiedName~ArrayMathTest|FullyQualifiedName~SoundFontSampleLoadingTest|FullyQualifiedName~OscillatorLoopRegressionTest|FullyQualifiedName~SampleLoopValidationTest|FullyQualifiedName~MidiFileSequencerLoopTest"
@@ -360,8 +384,9 @@ exact loaded PCM, sample-loop validation and MIDI-loop playback without external
 Omit `-p:SourceIntegration=true` to test the existing project-reference path.
 The two write boundaries use explicit mutable spans to avoid C# 14 selecting
 read-only array-to-span overloads. `.AsSpan()` creates a view without copying data.
-Existing nullable warnings and the full framework/sample upgrade remain separate
-work; the upstream tests requiring external SoundFonts are not included here.
+Core nullable warnings are resolved using flow-aware preset lookup. Six existing
+nullable warnings in external-bank test helpers remain separate cleanup work;
+the upstream tests requiring external SoundFonts are not included in this filter.
 
 ### Handling MIDI file sequencer
 

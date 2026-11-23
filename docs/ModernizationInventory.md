@@ -4,8 +4,13 @@ Reviewed 2026-11-23. This inventory closes implementation-sequence item 1. It
 records the checkout and review decisions; it does not establish device playback,
 AOT acceptance or completion of the core framework upgrade.
 Subsequent fixture/path baseline work is recorded in
-[RegressionBaselines.md](RegressionBaselines.md): the core suite now has 295
+[RegressionBaselines.md](RegressionBaselines.md): the frozen pre-upgrade suite had 295
 self-contained passes, with named external-bank comparisons reported separately.
+
+Subsequent upgrade acceptance: the core, tests and Workspace now target .NET 10 /
+C# 14 with SDK 10.0.404 pinned. Both compilation paths pass 299 self-contained cases;
+the historical inventory below records the original toolchain and target state.
+See the migration acceptance in RegressionBaselines.md.
 
 ## Scope and source baseline
 

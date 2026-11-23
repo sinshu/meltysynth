@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -64,7 +64,8 @@ namespace MeltySynthTest
 
             foreach (var polyphoneRegion in polyphoneRegions)
             {
-                var meltyRegion = meltyRegions.MinBy(x => GetError(polyphoneRegion, x));
+                var meltyRegion = meltyRegions.MinBy(x => GetError(polyphoneRegion, x))
+                    ?? throw new AssertionException("No matching region in " + referenceTsvPath);
                 AreEqual(polyphoneRegion, meltyRegion);
             }
         }
@@ -172,8 +173,8 @@ namespace MeltySynthTest
 
         private class PolyphoneRegion
         {
-            public string KeyRange;
-            public string VelocityRange;
+            public required string KeyRange;
+            public required string VelocityRange;
             public double Attenuation;
             public double Pan;
             public double LoopPlayback;
@@ -233,10 +234,11 @@ namespace MeltySynthTest
 
                     var localValues = tsv.Select(row => row[col]).ToArray();
 
-                    var region = new PolyphoneRegion();
-
-                    region.KeyRange = GetRange(localValues[0], globalValues[0]);
-                    region.VelocityRange = GetRange(localValues[1], globalValues[1]);
+                    var region = new PolyphoneRegion
+                    {
+                        KeyRange = GetRange(localValues[0], globalValues[0]),
+                        VelocityRange = GetRange(localValues[1], globalValues[1])
+                    };
                     region.Attenuation = GetValue(localValues[2], globalValues[2], InstrumentRegion.Default.InitialAttenuation);
                     region.Pan = GetValue(localValues[3], globalValues[3], InstrumentRegion.Default.Pan);
                     region.LoopPlayback = GetValue(localValues[4], globalValues[4], (int)InstrumentRegion.Default.SampleModes);
