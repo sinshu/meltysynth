@@ -246,7 +246,127 @@ for (var t = 0; t < blockCount; t++)
 }
 ```
 
+### Sample-loop validation
+
+SoundFont loading rejects empty or reversed sample extents. Active sample loops
+must have positive length inside the generator-adjusted sample range; unused loop
+markers on non-looping regions need not define a positive loop. Playback wraps
+multi-loop pitch advances and interpolates across the loop seam. Loop-until-note-off
+playback normalizes its pending phase before continuing into the sample tail.
+
+The self-contained oscillator tests compare PCM against an independent phase and
+interpolation reference, including MIDI note 127 on a 32-sample loop:
+
+```sh
+dotnet test MeltySynthTest/MeltySynthTest.csproj -c Release --filter "FullyQualifiedName~OscillatorLoopRegressionTest|FullyQualifiedName~SampleLoopValidationTest|FullyQualifiedName~MidiFileSequencerLoopTest"
+```
+
+### SoundFont sample loading
+
+On seekable streams, PCM loading fills its single destination buffer across short
+reads and throws `EndOfStreamException` on premature EOF. Sample chunk payloads
+and RIFF padding must fit inside `sdta`, and `sdta` must fit inside the declared
+RIFF range and available stream. Empty, odd-length, oversized and duplicate `smpl`
+chunks are rejected with `InvalidDataException` before promotion. Ignored `sm24`
+data is skipped within validated bounds, including its padding.
+
+`SoundFont(Stream)` leaves the caller's stream open on success and failure;
+`SoundFont(string)` owns and closes its file. Application-specific budgets and the remaining metadata/MIDI boundaries are described below.
+
+### Asset packaging and loading budgets
+
+Validate game assets thoroughly before packaging. Use the same loading policy in
+packaging tools so an asset accepted there also fits its target runtime profile.
+Loading retains one pass of structural range/budget checks to catch truncation,
+corruption or mismatched cached files. These checks run at asset load, never per
+sample or per audio render. No extra whole-file copy or validation stream is added.
+
+Existing constructors use immutable `AssetLoadLimits.Default`. Every file/stream
+constructor also has an overload with a final `AssetLoadLimits` argument:
+
+```cs
+var limits = new AssetLoadLimits(
+    maxFileBytes: 64L * 1024 * 1024,
+    maxDecodedSampleBytes: 32 * 1024 * 1024,
+    maxMidiEvents: 100000);
+var soundFont = new SoundFont(soundFontStream, limits);
+var midi = new MidiFile(midiStream, MidiFileLoopType.None, limits);
+```
+
+| Budget | Default |
+| --- | --- |
+| Remaining asset stream bytes | 512 MiB |
+| Decoded 16-bit PCM bytes | 256 MiB |
+| One MIDI track | 16 MiB |
+| MIDI tracks | 256 |
+| Parsed MIDI events across tracks, including ignored events | 1,000,000 |
+| Aggregate SoundFont table records, including terminators/modulators | 262,144 |
+| Aggregate referenced instrument/preset zones, including global zones | 65,536 |
+| SoundFont INFO payload after its four-byte type | 1 MiB |
+| MIDI playback duration | 24 hours |
+
+Budgets must be positive; choose a profile that fits the game's packaged content.
+They bound source/decoded bytes and element counts, not exact total managed heap
+usage (objects and temporary/final event arrays also consume memory). Streams must
+be readable and seekable. Stream constructors leave the caller's stream open;
+path constructors own their file. Byte budgets apply from the current position to
+the stream's end, so supply one bounded asset stream per packaged entry.
+
+MIDI event fields, variable-length quantities and skips must stay inside their
+`MTrk`; reaching the boundary without EOT is invalid. Positive PPQN/tempo, channel
+data/status, supported loop options and tick/duration ranges are checked. Running
+status applies to channel events and is cleared by meta/SysEx events. SMPTE timing
+and format 2 remain unsupported. Empty tracks require a valid EOT; zero-track
+headers are rejected. A zero-duration track cannot loop. Non-progressing loop
+markers may load for non-looped playback but are rejected by `Play(..., true)`.
+
+The default policy requires **EOT at the exact declared track end**. No events or
+opaque bytes after EOT are accepted. An explicit `allowMidiEndOfTrackPadding: true`
+allows only zero-byte padding inside that track; it still rejects trailing events
+and never borrows bytes from the next track. Bytes after all declared MIDI tracks
+are rejected. SoundFont bytes beyond the declared RIFF are also rejected.
+This is a strict asset contract.
+
+SoundFont INFO/pdta child lengths, padding, record alignment and duplicate chunks
+are validated before field allocation or skipping. Zone/generator references and
+aggregate region expansion are bounded before region construction. Structural or
+budget violations throw `InvalidDataException`; physical sample EOF throws
+`EndOfStreamException`. Unsupported formats throw `NotSupportedException`.
+
+### .NET 10 / C# 14 source integration
+
+The compatibility configuration compiles the actual library sources into the test
+assembly with `net10.0`, explicit `LangVersion=14.0` and nullable checking. It uses
+no library project reference and does not change the packaged library target.
+Run with a .NET 10 SDK:
+
+```sh
+dotnet test MeltySynthTest/MeltySynthTest.csproj -c Release -p:SourceIntegration=true --filter "FullyQualifiedName~AssetParsingLimitsTest|FullyQualifiedName~ArrayMathTest|FullyQualifiedName~SoundFontSampleLoadingTest|FullyQualifiedName~OscillatorLoopRegressionTest|FullyQualifiedName~SampleLoopValidationTest|FullyQualifiedName~MidiFileSequencerLoopTest"
+```
+
+These self-contained cases cover parser budgets and malformed chunks, SIMD writes,
+exact loaded PCM, sample-loop validation and MIDI-loop playback without external reference banks.
+Omit `-p:SourceIntegration=true` to test the existing project-reference path.
+The two write boundaries use explicit mutable spans to avoid C# 14 selecting
+read-only array-to-span overloads. `.AsSpan()` creates a view without copying data.
+Existing nullable warnings and the full framework/sample upgrade remain separate
+work; the upstream tests requiring external SoundFonts are not included here.
+
 ### Handling MIDI file sequencer
+
+Loop playback requires an effective loop with positive duration. `Play(midiFile,
+true)` throws `ArgumentException` before changing the current playback if the first
+reachable loop end, or the end of the sequence, does not advance beyond its loop
+start. Loop validity is prepared when the MIDI file is loaded; it adds no per-block
+validation. With looping disabled, loop markers remain ignored.
+
+The self-contained loop regression fixture uses original in-memory MIDI/SoundFont
+data and does not require the external reference SoundFonts:
+
+```sh
+dotnet test MeltySynthTest/MeltySynthTest.csproj -c Release --filter "FullyQualifiedName~MidiFileSequencerLoopTest"
+```
+
 
 To change the playback speed:
 

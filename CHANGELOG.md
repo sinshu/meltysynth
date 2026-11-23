@@ -1,3 +1,28 @@
+# Unreleased
+
+- Reject non-progressing MIDI loops before playback to prevent a zero-duration loop
+  extension from hanging audio rendering. A rejected Play request leaves the
+  current playback unchanged; non-looped playback still ignores loop markers.
+
+- Correct sample-loop wrapping when a playback step crosses multiple loop lengths,
+  including loop-until-note-off release transitions. Reject empty/reversed sample
+  extents and active loops outside their effective sample range at SoundFont load.
+
+- Make writable SIMD and SoundFont sample-loading spans explicit for .NET 10/C# 14
+  source integration. Add an opt-in source-inclusive test configuration and exact
+  PCM-loading coverage while retaining the existing library target.
+
+- Fill PCM sample buffers across short reads and fail explicitly on incomplete
+  data. Validate sample LIST/RIFF boundaries, 16-bit alignment and RIFF padding;
+  reject duplicate sample chunks and retain caller-owned stream lifetime.
+
+- Add immutable, application-configurable `AssetLoadLimits` to MIDI/SoundFont
+  constructors. Enforce source/PCM/metadata/record/region and MIDI track/event/time
+  budgets during loading; validate INFO/pdta ranges and MIDI fields before use.
+  Require EOT at the track end by default; an explicit option permits only bounded
+  zero-byte padding. Trailing events/arbitrary bytes are rejected. Existing
+  constructors use documented default limits; playback has no new checks.
+
 # v2.4.1
 
 - Fixed potential issue where loading a file could fail.

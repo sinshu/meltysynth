@@ -56,25 +56,5 @@ namespace MeltySynth
             return (b1 << 24) | (b2 << 16) | (b3 << 8) | b4;
         }
 
-        public static int ReadIntVariableLength(this BinaryReader reader)
-        {
-            var acc = 0;
-            var count = 0;
-            while (true)
-            {
-                var value = reader.ReadByte();
-                acc = (acc << 7) | (value & 127);
-                if ((value & 128) == 0)
-                {
-                    break;
-                }
-                count++;
-                if (count == 4)
-                {
-                    throw new InvalidDataException("The length of the value must be equal to or less than 4.");
-                }
-            }
-            return acc;
-        }
     }
 }

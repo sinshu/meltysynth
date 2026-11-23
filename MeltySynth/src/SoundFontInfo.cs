@@ -20,28 +20,20 @@ namespace MeltySynth
         private readonly string comments = string.Empty;
         private readonly string tools = string.Empty;
 
-        internal SoundFontInfo(BinaryReader reader)
+        internal SoundFontInfo(BinaryReader reader, long containerEnd, AssetLoadLimits limits)
         {
-            var chunkId = reader.ReadFourCC();
-            if (chunkId != "LIST")
-            {
-                throw new InvalidDataException("The LIST chunk was not found.");
-            }
-
-            var end = (long)reader.ReadInt32();
-            end += reader.BaseStream.Position;
-
-            var listType = reader.ReadFourCC();
-            if (listType != "INFO")
-            {
-                throw new InvalidDataException($"The type of the LIST chunk must be 'INFO', but was '{listType}'.");
-            }
-
+            var end = AssetReader.List(reader, containerEnd, "INFO");
+            if (end - reader.BaseStream.Position > limits.MaxMetadataBytes)
+                throw new InvalidDataException("SoundFont INFO exceeds the metadata byte budget.");
+            var seen = new System.Collections.Generic.HashSet<string>();
             while (reader.BaseStream.Position < end)
             {
-                var id = reader.ReadFourCC();
-                var size = reader.ReadInt32();
-
+                var chunk = AssetReader.Chunk(reader, end);
+                var id = chunk.Id;
+                var size = chunk.Size;
+                if (!seen.Add(id)) throw new InvalidDataException("Duplicate SoundFont INFO chunk: " + id);
+                if ((id == "ifil" || id == "iver") && size != 4)
+                    throw new InvalidDataException("SoundFont version chunks must contain four bytes.");
                 switch (id)
                 {
                     case "ifil":
@@ -80,6 +72,9 @@ namespace MeltySynth
                     default:
                         throw new InvalidDataException($"The INFO list contains an unknown ID '{id}'.");
                 }
+                if (reader.BaseStream.Position != chunk.End)
+                    throw new InvalidDataException("The INFO chunk was not consumed exactly.");
+                if ((size & 1) != 0) reader.ReadByte();
             }
         }
 

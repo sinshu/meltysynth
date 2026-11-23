@@ -16,7 +16,7 @@ namespace MeltySynth
             */
 
             var vx = MemoryMarshal.Cast<float, Vector<float>>(x);
-            var vd = MemoryMarshal.Cast<float, Vector<float>>(destination);
+            var vd = MemoryMarshal.Cast<float, Vector<float>>(destination.AsSpan());
 
             var count = 0;
 

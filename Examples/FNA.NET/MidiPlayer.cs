@@ -53,7 +53,7 @@ public class MidiPlayer : IDisposable
 
     private void SubmitBuffer()
     {
-        sequencer.RenderInterleavedInt16(MemoryMarshal.Cast<byte, short>(buffer));
+        sequencer.RenderInterleavedInt16(MemoryMarshal.Cast<byte, short>(buffer.AsSpan()));
         dynamicSound!.SubmitBuffer(buffer, 0, buffer.Length);
     }
 

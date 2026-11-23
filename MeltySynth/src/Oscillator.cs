@@ -66,8 +66,14 @@ namespace MeltySynth
 
         public void Release()
         {
-            if (loopMode == LoopMode.LoopUntilNoteOff)
+            if (loopMode == LoopMode.LoopUntilNoteOff && looping)
             {
+                // The last block may have advanced past the loop before note-off.
+                var endLoop_fp = (long)endLoop << fracBits;
+                if (position_fp >= endLoop_fp)
+                {
+                    WrapPosition(endLoop_fp, (long)(endLoop - startLoop) << fracBits);
+                }
                 looping = false;
             }
         }
@@ -123,6 +129,17 @@ namespace MeltySynth
             return true;
         }
 
+        // SoundFont loading validates positive loop length and effective sample bounds.
+        // Keep the common single-wrap path free of division.
+        private void WrapPosition(long endLoop_fp, long loopLength_fp)
+        {
+            position_fp -= loopLength_fp;
+            if (position_fp >= endLoop_fp)
+            {
+                position_fp = endLoop_fp - loopLength_fp + (position_fp - endLoop_fp) % loopLength_fp;
+            }
+        }
+
         private bool FillBlock_Continuous(float[] block, long pitchRatio_fp)
         {
             var endLoop_fp = (long)endLoop << fracBits;
@@ -134,7 +151,7 @@ namespace MeltySynth
             {
                 if (position_fp >= endLoop_fp)
                 {
-                    position_fp -= loopLength_fp;
+                    WrapPosition(endLoop_fp, loopLength_fp);
                 }
 
                 var index1 = position_fp >> fracBits;

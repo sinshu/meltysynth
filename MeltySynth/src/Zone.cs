@@ -29,6 +29,10 @@ namespace MeltySynth
 
             for (var i = 0; i < zones.Length; i++)
             {
+                if (infos[i].GeneratorIndex < 0 || infos[i].GeneratorCount < 0 ||
+                    infos[i].GeneratorIndex > generators.Length - infos[i].GeneratorCount ||
+                    infos[i].ModulatorCount < 0)
+                    throw new InvalidDataException("SoundFont zone indices are invalid.");
                 zones[i] = new Zone(infos[i], generators);
             }
 

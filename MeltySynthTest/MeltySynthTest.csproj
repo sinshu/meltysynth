@@ -14,8 +14,19 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.3.0" />
   </ItemGroup>
 
-  <ItemGroup>
+  <!-- Compile the actual library sources against .NET 10/C# 14 for source consumers. -->
+  <PropertyGroup Condition="'$(SourceIntegration)' == 'true'">
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>14.0</LangVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(SourceIntegration)' != 'true'">
     <ProjectReference Include="..\MeltySynth\MeltySynth.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(SourceIntegration)' == 'true'">
+    <Compile Include="..\MeltySynth\src\*.cs" Link="LibrarySource\%(Filename)%(Extension)" />
   </ItemGroup>
 
   <ItemGroup>

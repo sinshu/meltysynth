@@ -48,11 +48,19 @@ namespace MeltySynth
         /// </summary>
         /// <param name="midiFile">The MIDI file to be played.</param>
         /// <param name="loop">If <c>true</c>, the MIDI file loops after reaching the end.</param>
+        /// <exception cref="ArgumentException">
+        /// Loop playback was requested, but the effective loop does not advance time.
+        /// </exception>
         public void Play(MidiFile midiFile, bool loop)
         {
             if (midiFile == null)
             {
                 throw new ArgumentNullException(nameof(midiFile));
+            }
+
+            if (loop && !midiFile.CanLoop)
+            {
+                throw new ArgumentException("The MIDI loop must advance playback time.", nameof(midiFile));
             }
 
             this.midiFile = midiFile;
