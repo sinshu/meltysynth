@@ -170,3 +170,10 @@ as errors. Frozen synthesis values/tolerances remain unchanged.
 
 This completes the library/tool audit on this Mac. NativeAOT, other CPU/OS targets
 and actual SDL3/browser/Apple audio-device playback remain separate acceptance.
+
+
+Subsequent closeout integration now directly references this project from the
+WebGPU native host and verifies its actual SDL3 adapter. The earlier timing capture
+above did not change that consumer. See
+[ModernizationCloseout.md](ModernizationCloseout.md) for current dependency and
+playback status; importing the source itself is deferred.

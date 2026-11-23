@@ -1,5 +1,18 @@
 # Unreleased
 
+- Record modernization closeout with a clean pinned-SDK root build, all sixteen
+  reference-example builds, both complete core test modes and actual WebGPU SDL3/
+  Web Audio signal checks. Preserve unavailable fixtures, backend warnings and
+  platform deferrals explicitly; add reproducible local receipt tools.
+- WebGPU now consumes this fork by direct sibling project reference and ships the
+  unchanged MIT notice. Source import is deferred; no package/Git release performed.
+
+- Enable AOT/trimming compatibility analyzers and validate a minimal macOS ARM64
+  NativeAOT consumer through project references, an exact local NuGet archive and
+  extracted MIT-attributed source. Verify frozen output, fragmentation/reset and
+  fresh native distributions; record executable, asset and debug sizes separately.
+  Compiler maps confirm runtime-disabled effects still retain their native code.
+
 - Add a dependency-free Release audio audit with plain/profiled source builds,
   separated loading, synthesis/effects and conversion observations, raw timing data,
   allocations, deadline/asset/queue metrics and exact PCM comparisons. Stage hooks

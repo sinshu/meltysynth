@@ -10,13 +10,14 @@
     <DefineConstants Condition="'$(PrepareFixtures)' == 'true'">$(DefineConstants);PREPARE_FIXTURES</DefineConstants>
     <DefineConstants Condition="'$(FixedEffectsOff)' == 'true'">$(DefineConstants);FIXED_EFFECTS_OFF</DefineConstants>
     <AssetDirectory Condition="'$(AssetDirectory)' == ''">$(MSBuildProjectDirectory)/../../bin/validation/native-aot/assets</AssetDirectory>
+    <LocalPackageVersion Condition="'$(LocalPackageVersion)' == ''">2.4.1</LocalPackageVersion>
     <CoreSourceDirectory Condition="'$(CoreSourceDirectory)' == ''">$(MSBuildProjectDirectory)/../../MeltySynth/src</CoreSourceDirectory>
   </PropertyGroup>
   <ItemGroup Condition="'$(SourceIntegration)' != 'true' and '$(UseLocalPackage)' != 'true'">
     <ProjectReference Include="../../MeltySynth/MeltySynth.csproj" />
   </ItemGroup>
   <ItemGroup Condition="'$(UseLocalPackage)' == 'true'">
-    <PackageReference Include="MeltySynth" Version="2.4.1" />
+    <PackageReference Include="MeltySynth" Version="$(LocalPackageVersion)" />
   </ItemGroup>
   <ItemGroup Condition="'$(SourceIntegration)' == 'true'">
     <Compile Include="$(CoreSourceDirectory)/*.cs" Link="MeltySynth/%(Filename)%(Extension)" />

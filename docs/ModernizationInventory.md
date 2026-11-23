@@ -1,5 +1,10 @@
 # MeltySynth modernization inventory and frozen scope
 
+Current closeout: [ModernizationCloseout.md](ModernizationCloseout.md) records fresh
+SDK 10.0.404 builds, 343 self-contained passes per mode and direct WebGPU project
+integration. The detailed initial inventory below remains a historical freeze;
+its original target/path observations are not current acceptance claims.
+
 Reviewed 2026-11-23. This inventory closes implementation-sequence item 1. It
 records the checkout and review decisions; it does not establish device playback,
 AOT acceptance or completion of the core framework upgrade.

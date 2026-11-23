@@ -1,0 +1,79 @@
+<!doctype html><meta charset="utf-8"><title>Motel Web Audio closeout probe</title>
+<div id="audio"><input type="range" data-music-volume value="55"><input type="range" data-effects-volume value="75"><output data-audio-status></output></div>
+<pre id="result">Running</pre>
+<script type="module">
+import { MotelAudio } from '/engine/motel-audio.js';
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+const waitFor = async (predicate, ms = 10000) => {
+  const until = performance.now() + ms;
+  while (!predicate()) { if (performance.now() > until) throw new Error('Audio readiness timed out'); await sleep(25); }
+};
+const controller = new AbortController();
+const diagnostics = {};
+try {
+  const audio = new MotelAudio(document.querySelector('#audio'), controller.signal);
+  audio.unlock();
+  await waitFor(() => audio.context?.state === 'running' && audio.score && audio.effects.size === 5);
+  const music = audio.context.createAnalyser(), effects = audio.context.createAnalyser();
+  music.fftSize = effects.fftSize = 2048;
+  // Insert pass-through meters in the live render path, rather than dangling taps.
+  audio.musicGain.disconnect(audio.context.destination); audio.effectsGain.disconnect(audio.context.destination);
+  audio.musicGain.connect(music); music.connect(audio.context.destination);
+  audio.effectsGain.connect(effects); effects.connect(audio.context.destination);
+  const settle = async () => { const target = audio.context.currentTime + .15; await waitFor(() => audio.context.currentTime >= target, 3000); };
+  const data = new Float32Array(2048);
+  let lastMeasurement;
+  const measure = async (node, milliseconds = 400) => {
+    let energy = 0, peak = 0, samples = 0;
+    const until = performance.now() + milliseconds;
+    do {
+      node.getFloatTimeDomainData(data);
+      for (const sample of data) { if (!Number.isFinite(sample)) throw new Error('Nonfinite browser sample'); energy += sample * sample; peak = Math.max(peak, Math.abs(sample)); samples++; }
+      await sleep(15);
+    } while (performance.now() < until);
+    lastMeasurement = { energy, peak, samples, rms: Math.sqrt(energy / samples) };
+    return energy;
+  };
+  const volumes = (m, e) => {
+    for (const [control, value] of [[audio.musicControl, m], [audio.effectsControl, e]]) {
+      control.value = String(value); control.dispatchEvent(new Event('input'));
+    }
+  };
+  audio.setPlaying(true);
+  const start = audio.context.currentTime;
+  await sleep((audio.score.duration + .25) * 1000);
+  const elapsed = audio.context.currentTime - start;
+  const postLoopMusic = await measure(music);
+  if (!audio.musicSource?.loop || elapsed < audio.score.duration || postLoopMusic <= 0) throw new Error('Music loop did not continue');
+  if (audio.score.numberOfChannels !== 2) throw new Error('Expected stereo score');
+  let stereoDifference = 0;
+  const left = audio.score.getChannelData(0), right = audio.score.getChannelData(1);
+  for (let i = 0; i < left.length; i++) stereoDifference += Math.abs(left[i] - right[i]);
+  if (stereoDifference <= 0) throw new Error('Identical score channels');
+  volumes(0, 75); await settle();
+  const mutedMusic = await measure(music, 100), mutedMusicMeasurement = { ...lastMeasurement }, cueEnergy = {};
+  for (const cue of ['jump', 'setback', 'cash', 'arrival', 'finish']) {
+    audio.play(cue); cueEnergy[cue] = await measure(effects);
+    if (cueEnergy[cue] <= 0) throw new Error('No cue output: ' + cue);
+    await sleep(Math.max(100, audio.effects.get(cue).duration * 1000 - 300));
+  }
+  volumes(55, 0); await settle(); audio.play('setback');
+  const mutedEffects = await measure(effects), mutedEffectsMeasurement = { ...lastMeasurement };
+  const enabledMusic = await measure(music, 1200);
+  Object.assign(diagnostics, { mutedMusic, mutedEffects, mutedMusicMeasurement, mutedEffectsMeasurement, enabledMusic, cueEnergy, musicGain: audio.musicGain.gain.value, effectsGain: audio.effectsGain.gain.value, state: audio.context.state, currentTime: audio.context.currentTime });
+  // The real assets are 16-bit PCM. This meter checks gain zero plus residual
+  // peak below one input LSB and RMS below -140 dBFS; it is not a PCM bit-equality oracle.
+  const belowMuteFloor = m => m.peak <= 1 / 32768 && m.rms <= 1e-7;
+  if (!belowMuteFloor(mutedMusicMeasurement) || !belowMuteFloor(mutedEffectsMeasurement) || audio.effectsGain.gain.value !== 0 || enabledMusic <= 0) throw new Error('Independent volume test failed');
+  controller.abort(); await waitFor(() => audio.context.state === 'closed', 2000);
+  const result = { accepted: true, userAgent: navigator.userAgent, sampleRate: audio.context.sampleRate,
+    scoreDuration: audio.score.duration, elapsed, postLoopMusic, stereoDifference, cueEnergy,
+    mutedMusic, mutedEffects, mutedMusicMeasurement, mutedEffectsMeasurement, mutePeakLimit: 1 / 32768, muteRmsLimit: 1e-7, enabledMusic, closed: audio.context.state === 'closed',
+    scope: 'Actual module in headless Edge with autoplay enabled for the probe; no game UI/click-policy or acoustic recording claim.' };
+  document.querySelector('#result').textContent = JSON.stringify(result);
+  await fetch('/result', { method: 'POST', body: JSON.stringify(result) });
+} catch (error) {
+  controller.abort();
+  await fetch('/result', { method: 'POST', body: JSON.stringify({ accepted: false, error: String(error), stack: error.stack, diagnostics }) });
+}
+</script>

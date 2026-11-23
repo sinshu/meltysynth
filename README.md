@@ -1,7 +1,7 @@
 # MeltySynth
 
 MeltySynth is a SoundFont synthesizer written in C#.
-The purpose of this project is to provide a MIDI music playback functionality for any .NET applications without complicated dependencies.
+The purpose of this project is to provide a MIDI music playback functionality for .NET 10 applications without complicated dependencies.
 The codebase is lightweight and can be applied to any audio drivers which support streaming audio, such as [SFML.Net](https://github.com/SFML/SFML.Net), [Silk.NET](https://github.com/dotnet/Silk.NET), [OpenTK](https://github.com/opentk/opentk), and [NAudio](https://github.com/naudio/NAudio).
 
 The entire code is heavily inspired by the following projects:
@@ -58,6 +58,15 @@ sequencer.Render(left, right);
 * Targets .NET 10 / C# 14, with no package or native-library dependencies.
 
 
+
+## Modernization and WebGPU integration
+
+The .NET 10/C# 14 implementation has fresh root/test/example and WebGPU audio
+receipts. WebGPU currently references this sibling project directly; moving the
+source into WebGPU is deferred for discussion. See
+[ModernizationCloseout.md](docs/ModernizationCloseout.md) for the current dependency
+matrix, playback evidence, source/notice requirements, remaining acceptance and
+Rider review sequence. No separate package release or Git push is implied.
 
 ## Building this fork
 
@@ -367,6 +376,15 @@ See [RegressionBaselines.md](docs/RegressionBaselines.md) for fixture paths,
 provenance/hash pinning, numerical tolerances, strict external acceptance and
 silence/loop/stream-ownership contracts. No downloaded bank or game project is
 needed for the self-contained baseline.
+
+### NativeAOT and source delivery
+
+Run `python3 tools/native_aot_smoke.py` on macOS ARM64 to verify managed/native
+numerics, project-reference and local NuGet consumption, extracted source and MIT
+notices. See [NativeAotAcceptance.md](docs/NativeAotAcceptance.md) for sizes,
+compiler-map trimming evidence and the separate Windows/Linux/iOS/tvOS checks.
+Runtime-disabled effects remain in the native code; the flag is not a code-removal
+promise. Source integration and native distribution must retain LICENSE.txt.
 
 ### Audio cost and ownership audit
 

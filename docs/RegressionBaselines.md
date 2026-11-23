@@ -248,3 +248,23 @@ shutdown release leases. Frozen numerical baselines remain unchanged. Separate
 Release cost captures, instrumentation isolation and exact cross-build PCM checks
 are documented in [AudioCostAudit.md](AudioCostAudit.md). Performance observations
 are not unit-test timing thresholds or hardware playback acceptance.
+
+## macOS ARM64 NativeAOT and delivery
+
+Item 9's desktop acceptance adds a separate minimal AOT executable rather than test
+framework/backend dependencies. Four native delivery variants execute six scenarios
+from fresh package extractions; all 65,536 compared float samples per scenario match
+managed output exactly, with the frozen checks, fragmentation and reset silence
+unchanged. Root and native builds have no compiler/AOT/trimming warnings. Existing
+full suite remains 343 self-contained passes per compilation mode, 48 unavailable
+external cases, no failures. [NativeAotAcceptance.md](NativeAotAcceptance.md) records
+source/NuGet/license checks, compiler-map evidence and separate platform deferrals.
+
+## Closeout rerun
+
+The closeout reran both complete configurations under SDK 10.0.404: 343 passed,
+48 explicitly unavailable external cases and zero failures in each mode, with
+warnings as errors and unchanged frozen hashes/tolerances. All sixteen basic
+example builds and separately scoped actual native/browser audio checks are in
+[ModernizationCloseout.md](ModernizationCloseout.md). Browser analyser thresholds
+are signal-observation criteria only; exact core PCM silence remains unchanged.
