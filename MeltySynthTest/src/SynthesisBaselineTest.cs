@@ -58,6 +58,10 @@ namespace MeltySynthTest
             Assert.That(root.GetProperty("soundFontSha256").GetString(), Is.EqualTo(Hash(MidiLoopTestAssets.SoundFontBytes())));
             Assert.That(root.GetProperty("midiSha256").GetString(), Is.EqualTo(Hash(SynthesisBaselineScenario.MidiBytes())));
             Assert.That(root.GetProperty("frames").GetInt32(), Is.EqualTo(SynthesisBaselineScenario.Frames));
+            Assert.That(root.GetProperty("sampleRate").GetInt32(), Is.EqualTo(SynthesisBaselineScenario.SampleRate));
+            Assert.That(root.GetProperty("blockSize").GetInt32(), Is.EqualTo(SynthesisBaselineScenario.BlockSize));
+            Assert.That(root.GetProperty("polyphony").GetInt32(), Is.EqualTo(SynthesisBaselineScenario.Polyphony));
+            Assert.That(root.GetProperty("masterVolume").GetDouble(), Is.EqualTo(SynthesisBaselineScenario.MasterVolume));
             var expected = root.GetProperty("scenarios")[effects ? 1 : 0];
             Assert.That(expected.GetProperty("effects").GetBoolean(), Is.EqualTo(effects));
             var output = SynthesisBaselineScenario.Render(effects, false);

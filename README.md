@@ -333,6 +333,17 @@ aggregate region expansion are bounded before region construction. Structural or
 budget violations throw `InvalidDataException`; physical sample EOF throws
 `EndOfStreamException`. Unsupported formats throw `NotSupportedException`.
 
+### Reproducible full regression baseline
+
+Run `python3 tools/regression_baseline.py` from a fresh checkout. It verifies the
+checked-in reference corpus and runs the complete suite in normal and .NET 10/C# 14
+source-integration modes. The baseline has **295 self-contained passes** per mode;
+**48 external comparisons** are explicitly unavailable without their real assets.
+See [RegressionBaselines.md](docs/RegressionBaselines.md) for fixture paths,
+provenance/hash pinning, numerical tolerances, strict external acceptance and
+silence/loop/stream-ownership contracts. No downloaded bank or game project is
+needed for the self-contained baseline.
+
 ### .NET 10 / C# 14 source integration
 
 The compatibility configuration compiles the actual library sources into the test

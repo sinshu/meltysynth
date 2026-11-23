@@ -23,6 +23,12 @@
   zero-byte padding. Trailing events/arbitrary bytes are rejected. Existing
   constructors use documented default limits; playback has no new checks.
 
+- Establish a portable, identity-checked regression baseline with original MIDI/
+  SoundFont synthesis fixtures, frozen stereo metrics and independent reader/timing
+  checks. Separate unavailable external-bank comparisons from self-contained DSP
+  tests, use configurable assembly-relative paths and invariant numeric parsing,
+  and validate complete interleaved conversion output.
+
 # v2.4.1
 
 - Fixed potential issue where loading a file could fail.

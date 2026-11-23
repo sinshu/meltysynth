@@ -1,0 +1,15 @@
+{
+  "sdk": {
+    "version": "10.0.404",
+    "rollForward": "disable",
+    "allowPrerelease": false,
+    "paths": [
+      "bin/dotnet",
+      "$host$"
+    ],
+    "errorMessage": "Install .NET SDK 10.0.404, or run python3 tools/install_dotnet_sdk.py for a local installation."
+  },
+  "test": {
+    "runner": "VSTest"
+  }
+}

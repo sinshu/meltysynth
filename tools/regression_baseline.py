@@ -32,6 +32,8 @@ def main():
     parser.add_argument("--require-external", action="store_true")
     parser.add_argument("--output-dir", default="bin/validation/regression-baseline")
     args = parser.parse_args()
+    local_dotnet = ROOT / "bin/dotnet" / ("dotnet.exe" if os.name == "nt" else "dotnet")
+    dotnet = str(local_dotnet) if local_dotnet.is_file() else "dotnet"
     output = ROOT / args.output_dir
     output.mkdir(parents=True, exist_ok=True)
     manifest = json.loads((ROOT / "MeltySynthTest/Baselines/fixtures.json").read_text())
@@ -64,7 +66,7 @@ def main():
         env["MELTYSYNTH_TEST_ASSETS"] = str(assets)
         if args.references: env["MELTYSYNTH_REFERENCE_DATA"] = str(references)
         result["head"] = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
-        result["sdk"] = subprocess.check_output(["dotnet", "--version"], cwd=ROOT, text=True).strip()
+        result["sdk"] = subprocess.check_output([dotnet, "--version"], cwd=ROOT, text=True).strip()
         sources = [{"path": p.relative_to(ROOT).as_posix(), "sha256": sha(p)} for p in sorted((ROOT / "MeltySynth/src").glob("*.cs"))]
         result["productionSourceManifestSha256"] = digest(sources)
         result["synthesisBaselineSha256"] = sha(ROOT / "MeltySynthTest/Baselines/synthesis.json")
@@ -72,7 +74,7 @@ def main():
             # The two modes share restore state, so run them sequentially.
             trx = output / (mode + ".trx")
             if trx.exists(): trx.unlink()
-            command = ["dotnet", "test", "MeltySynthTest/MeltySynthTest.csproj", "-c", "Release",
+            command = [dotnet, "test", "MeltySynthTest/MeltySynthTest.csproj", "-c", "Release",
                        "--logger", "trx;LogFileName=" + trx.name, "--results-directory", str(output)]
             if mode == "source-integration": command.append("-p:SourceIntegration=true")
             with (output / (mode + ".log")).open("w") as log:

@@ -329,8 +329,7 @@ namespace MeltySynth
 
             var presetId = (channelInfo.BankNumber << 16) | channelInfo.PatchNumber;
 
-            Preset preset;
-            if (!presetLookup.TryGetValue(presetId, out preset))
+            if (!presetLookup.TryGetValue(presetId, out var preset))
             {
                 // Try fallback to the GM sound set.
                 // Normally, the given patch number + the bank number 0 will work.

@@ -7,14 +7,15 @@ namespace MeltySynthTest
     // Original test content. No game, downloaded bank, audio device or external path.
     internal static class SynthesisBaselineScenario
     {
-        internal const int Frames = 32768;
+        internal const int SampleRate = 32000, BlockSize = 64, Polyphony = 8, Frames = 32768;
+        internal const float MasterVolume = .5F;
         internal static readonly int[] Checkpoints = { 0, 1, 63, 64, 511, 1023, 4095, 8191, 16383, 32767 };
         internal static byte[] MidiBytes() => MidiLoopTestAssets.MidiBytes(MidiLoopTestAssets.Track(
             (0, new byte[] { 0xB0, 10, 40 }), (0, new byte[] { 0x90, 60, 100 }),
             (24, new byte[] { 0xB0, 10, 88 }), (0, new byte[] { 0x90, 67, 80 }),
             (48, new byte[] { 0xB0, 123, 0 }), (24, new byte[] { 0xFF, 0x2F, 0 })));
         internal static Synthesizer Synth(bool effects) => new Synthesizer(MidiLoopTestAssets.SoundFont(),
-            new SynthesizerSettings(32000) { BlockSize = 64, MaximumPolyphony = 8, EnableReverbAndChorus = effects }) { MasterVolume = .5F };
+            new SynthesizerSettings(SampleRate) { BlockSize = BlockSize, MaximumPolyphony = Polyphony, EnableReverbAndChorus = effects }) { MasterVolume = MasterVolume };
         internal static (float[] Left, float[] Right) Render(bool effects, bool fragmented)
         {
             var sequence = new MidiFileSequencer(Synth(effects));

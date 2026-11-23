@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>14.0</LangVersion>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
@@ -20,8 +21,6 @@
 
   <!-- Compile the actual library sources against .NET 10/C# 14 for source consumers. -->
   <PropertyGroup Condition="'$(SourceIntegration)' == 'true'">
-    <TargetFramework>net10.0</TargetFramework>
-    <LangVersion>14.0</LangVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 

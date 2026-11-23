@@ -3,6 +3,9 @@
 Reviewed 2026-11-23. This inventory closes implementation-sequence item 1. It
 records the checkout and review decisions; it does not establish device playback,
 AOT acceptance or completion of the core framework upgrade.
+Subsequent fixture/path baseline work is recorded in
+[RegressionBaselines.md](RegressionBaselines.md): the core suite now has 295
+self-contained passes, with named external-bank comparisons reported separately.
 
 ## Scope and source baseline
 

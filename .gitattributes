@@ -1,0 +1,6 @@
+
+# Preserve reference/baseline identities across Windows and Unix checkouts.
+MeltySynthTest/ReferenceData/**/*.csv text eol=lf
+MeltySynthTest/ReferenceData/**/*.tsv text eol=lf
+MeltySynthTest/ReferenceData/**/*.wav -text
+MeltySynthTest/Baselines/*.json text eol=lf
